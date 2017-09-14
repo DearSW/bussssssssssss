@@ -111,7 +111,7 @@ var floatObj = function() {
 
 app
     /* 城市选择控制器 %%%%%%%% */
-    .controller('City_select', function($rootScope, $scope, $state, $timeout, $myLocationService, $myHttpService, $ionicSlideBoxDelegate, $ionicActionSheet, $selectCity, $filter) {
+    .controller('City_select', function($rootScope, $scope, $state, $timeout, $interval, $myLocationService, $myHttpService, $ionicSlideBoxDelegate, $ionicActionSheet, $selectCity, $filter) {
         
         // 确保推荐在未关闭页面之前只请求一次 优化
         if(sessionStorage.getItem("recommendImgCount") == null) {
@@ -142,17 +142,10 @@ app
                 } else {
                     $scope.showDefaultImg = false;
                     $ionicSlideBoxDelegate.update();
-                    // $rootScope.recommendProducts2.updateLoop();
-                    // $ionicSlideBoxDelegate.loop(true);
-                    
-                    // $timeout(function() {
-                    //     $ionicSlideBoxDelegate.loop(true);
-                    //     $ionicSlideBoxDelegate.next();
-                    // }, 500);
-                    // if($rootScope.recommendProducts2.length > 1) {               
-                    //     $ionicSlideBoxDelegate.loop(true); // 防止 $ionicSlideBoxDelegate.loop(true); 有时会失效的情况
-                    //     $ionicSlideBoxDelegate.next();
-                    // }
+                    $ionicSlideBoxDelegate.update();
+                    $timeout(function() {
+                        $ionicSlideBoxDelegate.next();
+                    }, 1000);
                 }
             }, errorFn);
         } else {
@@ -161,6 +154,7 @@ app
             }
         }
         
+        var slideImageTimer = null;
         $rootScope.recommendProducts2Index = 0;
         function slideImage() {
             if($rootScope.recommendProducts2 && $rootScope.recommendProducts2.length > 0) {
@@ -174,9 +168,17 @@ app
                     $ionicSlideBoxDelegate.$getByHandle("adBanner").slide($rootScope.recommendProducts2Index); //只有首页的banner轮播
                 }
             }
-            $timeout(slideImage, 3000);
         }
-        slideImage();
+
+        slideImageTimer = $interval(function() {
+            slideImage();
+        }, 3000);
+
+        //当DOM元素从页面中被移除时，AngularJS将会在scope中触发$destory事件。这让我们可以有机会来cancel任何潜在的定时器
+        $scope.$on('$ionicView.beforeLeave', function(event, data) {
+            alert("我执行了");
+            clearTimeout(slideImageTimer);
+        });
 
         // 推荐路线数据详情，点击图片进行跳转到tabs页面
         $scope.recommendProductsDetail = function(item, i) {
