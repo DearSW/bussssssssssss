@@ -1,0 +1,206 @@
+<ui-view ng-controller="order_confirm_pay">
+
+    <div class="jqztc-order-confirm">
+
+        <ion-content>
+
+                    <!-- 1  -->
+                    <ion-list>
+                        <ion-item ng-switch="ticketInfo.productType">
+
+                            <div ng-switch-when="0">
+                                    <div class="row info " style="padding-left: 8px;">
+                                        <div class="col col-35 ">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">{{ticketInfo.departtime}}</span>
+                                        </div>
+                                        <div class="col col-15" style="text-align: center">
+                                            <div class="btnfont green">单程</div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约{{ticketInfo.drivetime}}分钟
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            {{ticketInfo.departName}}
+                                        </div>
+                                    </div>
+                                    <div class="row endposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            {{ticketInfo.arriveName}}
+                                        </div>
+                                    </div>
+                                    <div class="row purchase">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px" >出发日期: {{ticketInfo.departdate | date:'yyyy-MM-dd' }} {{ticketInfo.departtime}}</div>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+
+                            <div ng-switch-when="1">
+                                    <div class="row info " style="padding-left: 8px;">
+                                        <div class="col col-35 ">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">{{ticketInfo.departtime}} - {{ticketInfo.backDeparttime}}</span>
+                                        </div>
+                                        <div class="col col-15" style="text-align: center">
+                                            <div class="btnfont">往返</div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约{{ticketInfo.drivetime}}分钟
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            {{ticketInfo.departName}}
+                                        </div>
+                                    </div>
+                                    <div class="row endposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            {{ticketInfo.arriveName}}
+                                        </div>
+                                    </div>
+                                    <div class="row purchase">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px" >出发日期: {{ticketInfo.departdate | date:'yyyy-MM-dd' }} {{ticketInfo.departtime}}</div>
+                                            <div style="margin: 0 0 8px 11px" >返程日期: {{ticketInfo.departdate | date:'yyyy-MM-dd' }} {{ticketInfo.backDeparttime}}</div>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+                            
+                        </ion-item>
+                    </ion-list>
+
+                    <!-- 2  -->
+
+                    <div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="list list-inset">
+                                    <label class="item item-input" style="border-radius: 5px;">
+                                        <input type="tel" placeholder="请输入手机号" required ng-model="dataContainer.phone" ng-change="checkPhone()">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-60">
+                                <div class="list list-inset">
+                                    <label class="item item-input" style="border-radius: 5px;">
+                                        <input type="tel" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col col-40">
+                                <i class="button" ng-click="countdown()" ng-disabled="verificationCodeBtnDisabled" ng-class="{true: 'unselected', false: 'selected'}[verificationCodeBtnDisabled]"  style="width: 100%;">
+                                    <span ng-if="!countdownTxtShow">获取验证码</span><span  ng-if="countdownTxtShow">{{countdownTime}}s</span>
+                                </i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 3 notice  -->
+                    <div class="notice" ng-if="ticketInfo.productType == 0">
+                            <p>【特别说明】</p>
+                            <p>1.因车辆为一人一座，婴儿、儿童也须购买全价车位，严禁超员，敬请谅解、配合，如不按规定购票造成的损失需自行承担。</p>
+                            <p>2.未购买返程票提示（您所购买仅为单程，热门线路避免返程满座，建议购买往返套票）。</p>
+                            <p>3.为保证乘车顺利，预定时请务必填写真实姓名及手机号码等信息。</p>
+                            <p>4.如需咨询、投诉或与满座需解决等情况，请拨打客服电话（工作时间：08：30-20：00）{{customerPhone}}</p>
+                    </div>
+                    <div class="notice" ng-if="ticketInfo.productType == 1">
+                            <p>【特别说明】</p>
+                            <p>1.因车辆为一人一座，婴儿、儿童也须购买全价车位，严禁超员，敬请谅解、配合，如不按规定购票造成的损失需自行承担。</p>
+                            <p>2.为保证乘车顺利，预定时请务必填写真实姓名及手机号码等信息。</p>
+                            <p>3.如需咨询、投诉或与满座需解决等情况，请拨打客服电话（工作时间：08：30-20：00）{{customerPhone}}</p>
+                    </div>
+                    <!-- 4   -->
+                    <div>
+
+                        <div class="row" style="padding-top: 10px;padding-bottom: 0;">
+                            <div class="col" style="padding-bottom: 0;">
+                                <div>
+                                    <span style="color:#848383;">全票 ￥{{ price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+
+                            <div class="col col-66">
+                                <button class="button  btnfoot6" ng-click="decr()">-</button>
+                                <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
+                                <button class="button  btnfont8" ng-click="incr()">+</button>
+                                <!-- <sub style="bottom: -2.5em;color: #FF9800;">费用说明</sub> -->
+                            </div>
+
+                            <div class="col col-33 col-bottom">
+
+                                <div ng-if="useCoupon" style="text-align: center;">
+                                    <div ng-if="sumPrice - newTicketPrice >= 0">
+                                        <span class="btnfont9">{{ sumPrice - newTicketPrice | currency: '￥' }}</span>                                    
+                                    </div>
+                                    <div ng-if="sumPrice - newTicketPrice < 0">
+                                        <span class="btnfont9">{{ 0 | currency: '￥' }}</span>                              
+                                    </div>
+                                </div>
+
+                                <div ng-if="!useCoupon" style="text-align: center;">
+                                        <span class="btnfont9">{{ sumPrice | currency: '￥' }}</span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="background: white;">
+                            <div class="col col-66">
+                                <div style="line-height: 30px;">
+                                    <div ng-if="!useCoupon">
+                                        优惠券
+                                    </div>
+                                    <div ng-if="useCoupon">
+                                        优惠券
+                                        <span style="color: #9E9E9E;margin-left: 5px;" ng-if="couponTxTShow">(无可用优惠券)</span>
+                                        <span style="color: #9E9E9E;margin-left: 5px;" ng-if="!couponTxTShow">(可用优惠券金额 {{newTicketPrice  | currency: '￥' }})</span>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col col-33">
+                                <div style="position: relative;">
+                                    <div ng-click="checkCoupon($event)"  style="position: absolute; background: transparent; width: 100%; height: 35px; z-index: 999; cursor: pointer;"></div>
+                                    <ion-checkbox  ng-checked="couponBtnState" ng-model="dataContainer.coupon"></ion-checkbox>
+                                </div>
+                            </div>
+
+                        </div>
+
+                         <div class="row">
+                            <div class="col">
+                                <!-- <span class="btnfont10">用户须知</span> -->
+                            </div>
+                        </div> 
+
+                        <div class="row">
+                            <div class="col">
+                                <button ng-click="recharge()" ng-disabled="payBtnDisabled" class="button button-block button-balanced">确认支付</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+        </ion-content>
+
+    </div>
+
+
+</ui-view>

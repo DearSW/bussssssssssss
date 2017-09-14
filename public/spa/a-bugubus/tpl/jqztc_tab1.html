@@ -1,0 +1,192 @@
+<ui-view ng-controller="Tabs">
+
+    <style>
+            .spinner svg {
+                width: 38px;
+                height: 38px;
+                stroke: green;
+                fill: green;
+            }
+    </style>
+               
+    <div class="jqztc-tabs">
+
+        <ion-tabs class="tabs-icon-only  tab-striped tabs-top ">
+
+            <!-- 1  -->
+            <ion-tab title="路线" on-select="tab_road()">
+
+                <div class="placeholder"></div>
+                <ion-content class="has-header lx" has-tabs="true">
+
+                    <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-android-bus" on-refresh="doRefreshRoad()" spinner="dots" ></ion-refresher>
+
+                    <div class="notice" >
+                        <p><i class="icon ion-ios-information" style="color:crimson;font-size: 18px;"></i> 如行程有变，请于发车前1小时，申请退款，超时或验票后不能退款。</p>
+                    </div>
+
+                    <!-- 接口 车票显示  -->
+                     <ion-list>
+                        <ion-item ng-repeat="item in ticketsInfo track by $index" ng-switch="item.productType">
+
+                            <div ng-switch-when="0" ng-if="item.leftTickets > 0">
+                                    <div class="row info " style="padding-left: 8px;">
+                                        <div class="col col-35 ">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">{{item.departtime}}</span>
+                                        </div>
+                                        <div class="col col-15" style="text-align: center">
+                                            <div class="btnfont green">单程</div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约{{item.drivetime}}分钟 剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座</span>
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            {{item.departName}}
+                                        </div>
+                                    </div>
+                                    <div class="row endposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            {{item.arriveName}}
+                                        </div>
+                                    </div>
+                                    <div class="row purchase">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                        </div>
+                                        <div class="col">
+                                                <button class="button button-positive" ng-click="purchase(item, i)">
+                                                    购买
+                                                </button>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+
+                            <div ng-switch-when="1" ng-if="item.leftTickets > 0">
+                                    <div class="row info " style="padding-left: 8px;" >
+                                        <div class="col col-35">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">{{item.departtime}}-{{item.backDeparttime}}</span>
+                                        </div>
+                                        <div class="col col-15" style="text-align: center">
+                                            <div class="btnfont">往返</div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约{{item.drivetime}}分钟 剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座</span>
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            {{item.departName}}
+                                        </div>
+                                    </div>
+                                    <div class="row endposition ">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            {{item.arriveName}}
+                                        </div>
+                                    </div>
+                                    <div class="row purchase ">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >返程地点: {{item.arriveaddr}}</div>
+                                        </div>
+                                        <div class="col" style="text-align: center;white-space: normal;">
+                                                <button class="button button-positive" ng-click="purchase(item, i)">
+                                                    购买
+                                                </button>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+
+                        </ion-item>
+                    </ion-list> 
+
+                </ion-content>
+
+            </ion-tab>
+
+            <!-- 2  -->
+            <ion-tab title="点评" on-select="tab_comment()">
+
+                <div class="placeholder"></div>
+                <ion-content class="has-header" >
+
+                    <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-android-bus" on-refresh="doRefreshComment()" spinner="dots"></ion-refresher>
+
+                    <!-- 接口 评论显示  -->
+                     <ion-list>
+
+                        <ion-item ng-repeat="item in commentsInfo track by $index">
+                            <div class="row comment ">
+                                <div class="col ">{{item.orderhie}}</div>
+                            </div>
+                            <div class="row picture" >
+                                <div class="col col-33" ng-repeat="image in item.images track by $index">
+                                    <img ng-if="image != null" ng-src="{{image}}" enlarge-pic alt="$index" />
+                                </div>
+                            </div>
+                            <div class="row name">
+                                <div class="col">{{item.username}}</div>
+                            </div>
+                            <div class="row star">
+                                <div class="col">
+                                    <span star rating-value="item.orderScore" max="max" on-hover="onHover" on-leave="onLeave" readonly="{{readonly}}"></span>
+                                    {{item.orderScore}}.0分
+                                </div>
+                            </div>
+                        </ion-item>
+
+                        <div ng-if="isNoComment" style="text-align: center;margin: 8px;">
+                            <i class="icon ion-ios-information-outline" style="color:crimson;font-size: 20px;"></i>                                
+                            还没有评价
+                        </div>
+                        
+                    </ion-list> 
+
+                    <ion-infinite-scroll ng-if="hasmore" on-infinite="loadMoreComment()" distance="5%" icon="ion-loading-c"></ion-infinite-scroll>
+
+                </ion-content>
+            </ion-tab>
+
+            <!-- 3  -->
+            <ion-tab title="须知" on-select="tab_notice()">
+
+                <div class="placeholder"></div>
+                <ion-content class="has-header" scroll="false">
+
+                        <div class="xz" ng-bind-html="noticeInfo">
+                            
+                            <!-- <p>一 为避免高峰拥挤，请预定车票。</p>
+                            <p>二 上车后请出示车票条形码给司机验证，超时或验证后将不能退款。</p>
+                            <p>三 换票地点在XXXX。</p>
+                            <p>四 当天班次 7:00 到 19:00 每半小时发车一趟，请注意乘坐时间。</p>
+                            <p>五 多人购票请注意发班班次，如超过当前班次人数上限请联系400-1234-6789，我们的客服将为您提供其他解决方案。</p>
+                            <p>六 由于安全要求，本班次不设儿童座，有儿童同行的必须购买全票。</p> -->
+                        </div>
+
+                </ion-content>
+            </ion-tab>
+
+        </ion-tabs>
+    
+        <!-- 图片遮罩层  -->
+        <div class="mask" close-Pic>  
+            <div class="mask-box"></div>  
+            <div class="big-pic-wrap">  
+                <img src="" alt="" class="bigPic" />  
+                <span class="close-pic">
+                    <i class="icon ion-ios-close"></i>
+                </span>   
+            </div>  
+        </div>  
+    
+    </div>
+</ui-view>

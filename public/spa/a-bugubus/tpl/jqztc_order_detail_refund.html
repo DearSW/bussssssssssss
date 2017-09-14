@@ -1,0 +1,102 @@
+<ui-view ng-controller="order_detail_refund">
+
+    <div class="jqztc-order-detail">
+
+        <ion-content has-tabs="true">
+
+                    <div class="notice2" >
+                        <p>1、发车前1小时，可申请全额退款，超时或已验票后，无法退款。</p>
+                        <p>2、遇天气原因或其他不可抗拒因素而不能发车的，都申请全额退款。</p>
+                        <p>* 更多已购车票信息、退票等请在<span style="color:#47bd4c">我的行程</span>中查看。</p>
+                    </div>
+
+                    <ion-slide-box show-pager="false">
+
+                        <ion-slide ng-repeat="item in ticketsInfo track by $index">
+
+                            <ion-list>
+                                <ion-item style="padding: 0;">
+                                    <div class="detail">
+                                            <div class="row info " style="padding-left: 10px;">
+                                                <div class="col ">
+                                                    <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                                    <span class="btnfont4">{{item.departTime}}</span>
+                                                </div>
+                                                <div class="col" style="text-align: center">
+                                                    <div class="btnfont green">单程</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="btnfont">{{item.platenum}}</div>
+                                                </div>
+                                                <div class="col">
+                                                    <span class="btnfont5">单程约{{item.drivetime}}分钟</span>
+                                                </div>
+                                            </div>
+                                            <div class="row startposition">
+                                                <div class="col">
+                                                    <i class="icon ion-record btnfont3 green"></i>
+                                                    {{item.departName}}
+                                                </div>
+                                            </div>
+                                            <div class="row endposition">
+                                                <div class="col">
+                                                    <i class="icon ion-record btnfont3 red "></i>
+                                                    {{item.arriveName}}
+                                                </div>
+                                            </div>
+                                            <div class="row refund">
+                                                <div class="col col-75">
+                                                    <div style="margin: 0 0 8px 11px" >出发日期: {{item.departDate | date:'yyyy-MM-dd' }} {{item.departTime}}</div>
+                                                </div>
+                                                <!-- <div class="col">
+                                                        <button class="button button-stable" style="width: 100%;" >
+                                                            退款
+                                                        </button>
+                                                </div> -->
+                                            </div>
+                                            <div class="row" >
+                                                <div class="col col-33">
+                                                    <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
+                                                    <span ng-click="getBusPosition()">车辆位置</span>
+                                                </div>
+                                                <div class="col col-33">
+                                                    <i class="icon ion-headphone" style="color: #4CAF50;"></i>
+                                                    <span ng-click="contactCustomerService()">联系客户</span>
+                                                </div>
+                                                <div class="col col-33">
+                                                    <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
+                                                    <span ng-click="contactCustomerService()">{{$index + 1}} / {{ticketsInfoLength}} (张)</span>
+                                                </div>
+                                            </div>
+                                            
+                                    </div>
+                                    
+                                </ion-item>
+                            </ion-list>
+                        
+                            <div style="text-align: center;">
+                                <div class="row">
+                                    <div class="col">
+                                        <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
+                                        <span class="btnfont11 ">已付款待乘车</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="btnfont11">上车请出示条形码!</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <canvas ng-model="item.barcode" barcode></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ion-slide> 
+
+                    </ion-slide-box>
+
+                </ion-content>
+    </div>
+</ui-view>

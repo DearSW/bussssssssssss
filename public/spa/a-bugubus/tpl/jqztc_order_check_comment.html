@@ -1,0 +1,126 @@
+<ui-view ng-controller="order_check_comment">
+
+    <div class="jqztc-order-check">
+        <ion-content has-tabs="true">
+                    <!-- 1  -->
+                    <div class="notice2" >
+                        <p>1、发车前1小时，可申请全额退款，超时或已验票后，无法退款。</p>
+                        <p>2、遇天气原因或其他不可抗拒因素而不能发车的，都申请全额退款。</p>
+                    </div>
+
+                    <!-- 2  -->
+                    <ion-list>
+                        <ion-item style="padding: 0;">
+                            <div class="detail">
+                                    <div class="row info " style="padding-left: 10px;">
+                                        <div class="col ">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">{{ticketInfo.departTime}}</span>
+                                        </div>
+                                        <div class="col" style="text-align: center">
+                                            <div class="btnfont green">单程</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="btnfont">{{ticketInfo.platenum}}</div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约{{ticketInfo.drivetime}}分钟</span>
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            {{ticketInfo.departName}}
+                                        </div>
+                                    </div>
+                                    <div class="row endposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            {{ticketInfo.arriveName}}
+                                        </div>
+                                    </div>
+                                    <div class="row refund">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px" >出发日期: {{ticketInfo.departDate | date:'yyyy-MM-dd' }} {{ticketInfo.departTime}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col col-33">
+                                            <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
+                                            <span>车辆位置</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-headphone" style="color: #4CAF50;"></i>
+                                            <span>联系客户</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-cash" style="color: gold"></i>
+                                            <span>票价 ￥{{ticketInfo.price}}</span>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+                            
+                        </ion-item>
+
+                    </ion-list>
+
+                    <!-- 3  -->
+                    <div style="text-align: center;">
+                        <div class="row">
+                            <div class="col">
+                                <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
+                                <span class="btnfont11 ">已上车验证</span>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col">
+                                <span class="btnfont11">上车请出示条形码!</span>
+                            </div>
+                        </div> -->
+                        <!-- <div class="row">
+                            <div class="col">
+                                <canvas ng-model="ticketInfo.barcode" barcode></canvas>
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <!-- 4  -->
+                    <div class="rated" ng-if="!isCommented">
+                        <div class="row" >
+                            <div class="col star" style="padding-left: 0;">
+                                <span star rating-value="ratingVal" max="max" on-hover="onHover" on-leave="onLeave"  readonly="{{readonly}}"></span>
+                                {{ratingVal}}.0分
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <textarea class="comment" cols="50" rows="10" maxlength="100" placeholder="请写下您的旅行体验" ng-model="dataContainer.text" ng-change="submitBtnCheck()"></textarea>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col">
+                                <button ng-disabled="submitBtnIsDiasbled" class="button button-block button-positive" ng-click="submitComment()">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 5  -->
+                    <div class="rated" ng-disabled="true" ng-if="isCommented">
+                        <div class="row" >
+                            <div class="col star" style="padding-left: 0;">
+                                <span star rating-value="isCommentedScore" max="max" on-hover="onHover" on-leave="onLeave"  readonly="{{readonly}}"></span>
+                                {{isCommentedScore}}.0分
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <textarea ng-disabled="true" class="comment" cols="50" rows="10" maxlength="100" ng-model="isCommentedText"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+        </ion-content>
+    </div>
+
+</ui-view>

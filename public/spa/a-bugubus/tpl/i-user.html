@@ -1,0 +1,116 @@
+<ui-view ng-controller="IUserController">
+
+    <!--我的界面-主页-->
+
+    <!-- 头部块 导航  -->
+    <div class="bar bar-header bar-light" style="background-color: #2196F3;height: 55px;">
+        <button ng-show="editCance" class="button button-clear" ng-click="cancel()" style="color: white;font-size: 14px;font-weight: normal;">取消</button>        
+        <h1 class="title" style="color: #ffffff;font-weight: normal;line-height: 55px;">用户信息</h1>
+        <button class="button button-clear" ng-click="edit()" ng-bind="editButtonText" style="color: white;font-size: 14px;font-weight: normal;">保存</button>
+    </div>
+
+    <!-- 基本信息 模块  -->
+    <ion-content class="b-gray padding-top has-header" style="top: 55px;">
+
+        <p class="padding-left gray" style="color: black;">基本信息</p>
+
+        <div style="padding: 0;color: black;" class="list b-white gray f14" ng-show="!editMode">
+
+            <!-- 编号  -->
+            <a style="border-color: #dcdcdc; border-style: solid none none none;" class="item" >
+                <div class="i-user">
+                    <div class="i-user">
+                    <div class="one">
+                        <i class="icon ion-android-bookmark" style="color: #2196F3;"></i>
+                    </div>
+                    <div class="two">
+                        用户编号
+                    </div>
+                </div>
+                    
+                </div>
+                <span class="item-note">{{user.userid}} </span>
+                
+            </a>
+
+            <div style="border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color:#dcdcdc;margin-left: 10px;margin-right: 10px;"></div>
+
+            <div style="border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color:#dcdcdc;margin-left: 10px;margin-right: 10px;"></div>
+
+            <!-- 姓名  -->
+            <a style="margin: 0;border-color: #dcdcdc; border-style: none none none none;"  class="item">
+                <div class="i-user">
+                    <div class="one">
+                        <i class="icon ion-ios-person" style="color: #E91E63;"></i>
+                    </div>
+                    <div class="two">
+                        姓名
+                    </div>
+                </div>
+                <span class="item-note">
+                    <span ng-show="user.username==undefined">待完善</span>
+                    <span ng-show="user.username!=undefined">{{user.username}}</span>
+                </span>
+            </a>
+
+            <div style="border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color:#dcdcdc;margin-left: 10px;margin-right: 10px;"></div>
+
+            <!-- 手机号  -->
+            <a style="margin: 0;border-color: #dcdcdc;border-style: none none none none;" class="item">
+                <div class="i-user">
+                    <div class="one">
+                        <i class="icon ion-ios-telephone" style="color: #2eb534;"></i>
+                    </div>
+                    <div class="two">
+                        手机号
+                    </div>
+                </div>
+                <span class="item-note">{{user.phone}}</span>
+            </a>
+
+            <div style="border-bottom-width: 1px;border-bottom-style: solid;border-bottom-color:#dcdcdc;margin-left: 10px;margin-right: 10px;"></div>
+
+            <!-- 性别  -->
+            <a style="margin: 0;border-color: #dcdcdc;border-style: none none solid none;" class="item" >
+                <div class="i-user">
+                    <div class="one">
+                        <i class="icon ion-transgender " style="color: #9C27B0;"></i>
+                    </div>
+                    <div class="two">性别</div>
+                </div>
+                <span class="item-note">
+                        <span ng-show="user.sex==undefined">待完善</span>
+                        <span ng-show="user.sex!=undefined">{{user.sex | transfer: "sex"}}</span>
+                </span>
+            </a>
+
+        </div>
+
+        <!-- 基本信息 编辑 模块 -->
+        <div ng-show="editMode">
+
+            <div class="list b-white">
+
+                <label class="item-input border-bottom">
+                    <span class="input-label f14 gray">姓名</span>
+                    <input type="text" ng-model="tempUser.username" placeholder="长度2-4个中文" max="5" name="mobile" ng-required="true">
+                </label>
+
+                <label class="item-input">
+                    <span class="input-label f14 gray">手机号</span>
+                    <input type="text" ng-disabled="true"  ng-model="tempUser.phone" placeholder="长度11个数字" name="mobile" ng-required="true" >
+                </label>
+
+            </div>
+
+            <p class="padding-left gray">性别</p>
+
+            <ion-list>
+                <ion-radio style="padding:10px 0 10px 16px;"  ng-model="tempUser.sex" ng-value="0">男</ion-radio>
+                <ion-radio style="padding:10px 0 10px 16px;"  ng-model="tempUser.sex" ng-value="1">女</ion-radio>
+            </ion-list>
+
+        </div>
+
+    </ion-content>
+</ui-view>

@@ -1,0 +1,469 @@
+<ui-view>
+<div ng-controller="test">
+
+    <div class="jqztc-order-detail">
+
+        <ion-content has-tabs="true">
+
+            <!-- 1  -->
+            <div class="notice2" >
+                <p>* 订单开始前12小时无法退订，退款将在15个工作日内到账，请谨慎操作。</p>
+                <p>* 更多已购信息请在<span style="color:#47bd4c">我的行程</span>中查看。</p>
+            </div>
+
+            <!-- 轮播块 -->
+            <ion-slide-box show-pager="false">
+
+
+                <!-- 接口  -->
+                 <!-- <ion-slide ng-repeat="item in recommendProducts track by $index">
+
+                    <ion-list>
+                        <ion-item style="padding: 0;">
+                            <div class="detail">
+                                    <div class="row info " style="padding-left: 10px;">
+                                        <div class="col ">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">8:00</span>
+                                        </div>
+                                        <div class="col" style="text-align: center">
+                                            <div class="btnfont green">单程</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="btnfont">贵A1234</div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约90分钟</span>
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            黔灵山公园
+                                        </div>
+                                    </div>
+                                    <div class="row endposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            贵阳高铁站
+                                        </div>
+                                    </div>
+                                    <div class="row refund">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px" >出发日期: 2018-09-09</div>
+                                        </div>
+                                        <div class="col">
+                                                <button class="button button-stable" style="width: 100%;" >
+                                                    退款
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col col-33">
+                                            <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
+                                            <span ng-click="getBusPosition()">车辆位置</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-headphone" style="color: #4CAF50;"></i>
+                                            <span ng-click="contactCustomerService()">联系客户</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
+                                            <span ng-click="contactCustomerService()">1 / 3 (张)</span>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+                            
+                        </ion-item>
+                    </ion-list>
+                    
+                    <div style="text-align: center;">
+                        <div class="row">
+                            <div class="col">
+                                <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
+                                <span class="btnfont11 ">已付款待乘车</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="btnfont11">上车请出示条形码!</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <canvas ng-model="1234567890" barcode></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </ion-slide>  -->
+
+                <ion-slide>
+                    <!-- 2  -->
+                    <ion-list>
+                        <ion-item style="padding: 0;">
+                            <div class="detail">
+                                    <div class="row info " style="padding-left: 10px;">
+                                        <div class="col ">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">8:00</span>
+                                        </div>
+                                        <div class="col" style="text-align: center">
+                                            <div class="btnfont green">单程</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="btnfont">贵A1234</div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约90分钟</span>
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            黔灵山公园
+                                        </div>
+                                    </div>
+                                    <div class="row endposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            贵阳高铁站
+                                        </div>
+                                    </div>
+                                    <div class="row refund">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px" >出发日期: 2018-09-09</div>
+                                        </div>
+                                        <div class="col">
+                                                <button class="button button-stable" style="width: 100%;" >
+                                                    退款
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col col-33">
+                                            <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
+                                            <span ng-click="getBusPosition()">车辆位置</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-headphone" style="color: #4CAF50;"></i>
+                                            <span ng-click="contactCustomerService()">联系客户</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
+                                            <span ng-click="contactCustomerService()">1 / 3 (张)</span>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+                            
+                        </ion-item>
+                    </ion-list>
+                    <!-- 3  -->
+                    <div style="text-align: center;">
+                        <div class="row">
+                            <div class="col">
+                                <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
+                                <span class="btnfont11 ">已付款待乘车</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="btnfont11">上车请出示条形码!</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <canvas ng-model="1234567890" barcode></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </ion-slide>
+
+                <ion-slide>
+                    <!-- 2  -->
+                    <ion-list>
+                        <ion-item style="padding: 0;">
+                            <div class="detail">
+                                    <div class="row info " style="padding-left: 10px;">
+                                        <div class="col ">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">8:00</span>
+                                        </div>
+                                        <div class="col" style="text-align: center">
+                                            <div class="btnfont green">单程</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="btnfont">贵A1234</div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约90分钟</span>
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            黔灵山公园
+                                        </div>
+                                    </div>
+                                    <div class="row endposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            贵阳高铁站
+                                        </div>
+                                    </div>
+                                    <div class="row refund">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px" >出发日期: 2018-09-09</div>
+                                        </div>
+                                        <div class="col">
+                                                <button class="button button-stable" style="width: 100%;" >
+                                                    退款
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col col-33">
+                                            <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
+                                            <span ng-click="getBusPosition()">车辆位置</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-headphone" style="color: #4CAF50;"></i>
+                                            <span ng-click="contactCustomerService()">联系客户</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
+                                            <span ng-click="contactCustomerService()">2 / 3 (张)</span>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+                            
+                        </ion-item>
+
+                    </ion-list>
+                    <!-- 3  -->
+                    <div style="text-align: center;">
+                        <div class="row">
+                            <div class="col">
+                                <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
+                                <span class="btnfont11 ">已付款待乘车</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="btnfont11">上车请出示条形码!</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <canvas ng-model="1234567890" barcode></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </ion-slide>
+
+                <ion-slide>
+                    <!-- 2  -->
+                    <ion-list>
+                        <ion-item style="padding: 0;">
+                            <div class="detail">
+                                    <div class="row info " style="padding-left: 10px;">
+                                        <div class="col ">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">8:00</span>
+                                        </div>
+                                        <div class="col" style="text-align: center">
+                                            <div class="btnfont green">单程</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="btnfont">贵A1234</div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约90分钟</span>
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            黔灵山公园
+                                        </div>
+                                    </div>
+                                    <div class="row endposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            贵阳高铁站
+                                        </div>
+                                    </div>
+                                    <div class="row refund">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px" >出发日期: 2018-09-09</div>
+                                        </div>
+                                        <div class="col">
+                                                <button class="button button-stable" style="width: 100%;" >
+                                                    退款
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="row" >
+                                        <div class="col col-33">
+                                            <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
+                                            <span ng-click="getBusPosition()">车辆位置</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-headphone" style="color: #4CAF50;"></i>
+                                            <span ng-click="contactCustomerService()">联系客户</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
+                                            <span ng-click="contactCustomerService()">3 / 3 (张)</span>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+                            
+                        </ion-item>
+
+                    </ion-list>
+                    <!-- 3  -->
+                    <div style="text-align: center;">
+                        <div class="row">
+                            <div class="col">
+                                <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
+                                <span class="btnfont11 ">已付款待乘车</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="btnfont11">上车请出示条形码!</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <canvas ng-model="1234567890" barcode></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </ion-slide>
+
+            </ion-slide-box>
+
+            <button class="button button-balanced" ng-click="cccccccc()">
+                    cccccccc
+            </button>
+
+            <!-- <div class="padding">
+                <i class="button icon-left ion-chevron-left button-clear button-dark" ng-click="ssss()">
+                    <span>贵阳</span>
+                </i>
+
+                <i class="button icon-left ion-location button-clear button-dark" ng-click="show()">
+                    <span style="padding: 0 0 0 35px;" >{{cityssss}}</span>
+                </i>
+
+                
+
+                <a class="button icon-right ion-chevron-right button-calm">Learn More</a>
+            </div>
+
+            <div class="padding">
+                <div class="list padding-top gray f14">
+                    <div class="item" title="goDate.title" ion-datetime-picker date button-ok  only-valid="{'after': 'today', 'inclusive': true}"  ng-change="detectionDate()"  ng-model="goDate.time">
+                        出发时间
+                        <span class="item-note" > {{ goDate.time | date: "yyyy-MM-dd"}} <i class="icon ion-chevron-right padding-left"></i></span>
+                    </div>
+                </div>
+
+                <a class="button icon-right ion-chevron-right button-calm" ng-click="detectionDate()" >Learn More</a>
+
+            </div> -->
+
+            <!-- <div class="padding">
+                <select ng-model="mycity" ng-options="city.name as city.name group by city.group for city in Cities"></select>
+            </div> -->
+
+            <!-- <div class="padding">
+
+                    <div class="list list-inset">
+                            <label class="item item-input">
+                                <input type="text" ng-model="startLocation" placeholder="当前位置">
+                            </label>
+                </div>
+            </div>
+
+            <div class="padding">
+
+                    <div class="list list-inset">
+                            <label class="item item-input">
+                                <input type="text" ng-model="positionCity" placeholder="当前城市">
+                            </label>
+                    </div>
+            </div>
+
+            <div class="padding">
+
+                <div qrcode infostr="tzw" ></div>
+
+            </div> -->
+
+            <!-- <div class="padding">
+                <div star rating-value="ratingVal" max="max" on-hover="onHover" on-leave="onLeave" readonly="{{readonly}}"></div>
+            </div> -->
+                
+            <!-- <div class="padding">
+                <div ng-class="{true: 'selected1', false: 'unselected1'}[isSelected]"></div>
+            </div> -->
+
+            <!-- <div class="padding">
+
+                <ion-slide-box  class="jqztc" show-pager="false" active-slide="myActiveSlide" auto-play="true" does-continue="true">
+                    <ion-slide ng-repeat="item in imgArr track by $index" ng-click="showImg(item, $index)" >
+                        <img ng-src="{{item}}" alt="巴士" />
+                    </ion-slide>
+                </ion-slide-box>
+
+            </div> -->
+
+
+            <!-- <div class="padding">
+
+                <button class="button button-positive" ng-click="chooseImg($event)">选择图片</button>
+                
+                <div  ng-repeat="item in thumb" style="width: 45%; margin: 0 10px 10px 0; float:left;">
+                    <label>
+                        <img ng-src="{{item.imgSrc}}" width="100%" />
+                    </label>
+                </div>
+                
+            </div> -->
+
+            <!-- <div class="padding">
+
+                <ion-list>
+                    
+                    <ion-item ng-repeat="item in sumArr track by $index" ng-switch="item.type">
+
+                        <div ng-switch-when="single">
+                            <button class="button button-balanced">{{item.msg}}</button>
+                        </div>
+
+                        <div ng-switch-when="double">
+                            <button class="button button-positive">{{item.msg}}</button>
+                        </div>
+
+                    </ion-item> 
+                            
+                </ion-list>
+
+
+            </div> -->
+
+            
+
+        </ion-content>
+    </div>
+</div>
+    
+</ui-view>

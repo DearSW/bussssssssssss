@@ -1,0 +1,844 @@
+/* 加载动画 */
+ .base {
+    text-align: left;
+    height: 108px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    width: 108px;
+    margin-top: -54px;
+    margin-left: -54px;
+    transform: rotateX(45deg) rotateZ(45deg);
+    transform-style: preserve-3d;
+}
+.cube,
+.cube:after,
+.cube:before {
+    content: '';
+    float: left;
+    height: 36px;
+    position: absolute;
+    width: 36px;
+}
+.cube {
+    background-color: #05afd1;
+    position: relative;
+    transform: translateZ(36px);
+    transform-style: preserve-3d;
+    transition: .25s;
+    box-shadow: 156px 156px 18px rgba(0, 0, 0, 0.1);
+    animation: anim 1s infinite;
+}
+.cube:after {
+    background-color: #049dbc;
+    transform: rotateX(-90deg) translateY(36px);
+    transform-origin: 100% 100%;
+}
+.cube:before {
+    background-color: #048ca7;
+    transform: rotateY(90deg) translateX(36px);
+    transform-origin: 100% 0;
+}
+.cube:nth-child(1) {
+    animation-delay: 0.05s;
+}
+.cube:nth-child(2) {
+    animation-delay: 0.1s;
+}
+.cube:nth-child(3) {
+    animation-delay: 0.15s;
+}
+.cube:nth-child(4) {
+    animation-delay: 0.2s;
+}
+.cube:nth-child(5) {
+    animation-delay: 0.25s;
+}
+.cube:nth-child(6) {
+    animation-delay: 0.3s;
+}
+.cube:nth-child(7) {
+    animation-delay: 0.35s;
+}
+.cube:nth-child(8) {
+    animation-delay: 0.4s;
+}
+.cube:nth-child(9) {
+    animation-delay: 0.45s;
+}
+@keyframes anim {
+    50% {
+        transform: translateZ(6px);
+    }
+}
+
+/*
+*  layer 弹出层
+*/
+.layui-layer-demo{
+    background-color: #eee;
+    width: 350px;
+    top: 398px;
+}
+
+/*
+*  景区直通车 页面1
+*/
+
+.jqztc {
+    height: 205px;
+}
+.jqztc ion-slide {
+    color: #000; 
+    background-color: #F6F6F6; 
+    text-align: center; 
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;    
+}
+/* 图片自适应  */
+.jqztc img {
+    width: 100%;
+    height: 200px;
+}
+
+.blur {
+
+}
+.jqztc .content {
+    border-radius: 8px;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+	overflow: hidden;
+	z-index: 2;
+    box-sizing: border-box;
+    -webkit-filter: blur(20px);
+	-moz-filter: blur(20px);
+	-ms-filter: blur(20px);
+	-o-filter: blur(20px);
+	filter: blur(20px);
+}
+
+.jqztc .slider-pager {
+    bottom: 7px;
+}
+
+.jqztc .slider-pager .slider-pager-page {
+    color: #ffffff;
+}
+
+.jqztc .imgTitle {
+    position: absolute;
+    top: 78%;
+    left: 0;
+    display: block;
+    background: rgba(22, 23, 23, 0.6);
+    width: 100%;
+    height: 40px;
+    line-height: 2;
+    font-size: 16px;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 999;
+}
+
+/* 定制 日期的 UI */
+.popup-container.active .popup {
+    border-radius: 5px;
+}
+
+.jqztc-city-select .item {
+    padding: 10px 15px;
+    border-color: #ddd;
+    background-color: #fff;
+    color: #444;
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    margin: -1px;
+    padding: 16px;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 16px;
+}
+
+.jqztc-city-select .item-icon-left {
+    padding-left: 54px;
+}
+
+.jqztc-city-select .item-note {
+
+    float: right;
+    color: #aaa;
+    font-size: 14px;
+
+}
+/* 定制城市选择UI  */
+.action-sheet {
+    margin-left: 0; 
+    margin-right: 0; 
+    border-radius: 4px 4px 0 0;
+}
+.action-sheet-wrapper {
+    max-height: 300px;
+    overflow: scroll;
+}
+.action-sheet-open .action-sheet-backdrop {
+    pointer-events: auto;
+}
+.action-sheet-cancel {
+    display: none;
+}
+.action-sheet-group {
+    margin-bottom: 0;
+}
+.platform-android .action-sheet .action-sheet-title {
+    padding: 16px;
+    color: #8f8f8f;
+    text-align: center;
+    font-size: 13px;
+}
+.platform-android .action-sheet .action-sheet-title, .platform-android .action-sheet .button {
+    border-width: 1px 0px 0px 0px;
+    border-color: #d1d3d6;
+    text-align: center;
+}
+.platform-android .action-sheet .button {
+    color: #007aff;
+}
+
+/*
+*  景区直通车 页面2
+*/
+
+.jqztc-tabs  .tabs {
+    border-color: white;
+    background-color: white;
+    color: #9E9E9E;
+    position: fixed;
+}
+
+.placeholder {
+
+}
+
+.has-tabs-top {
+    top: 46px;
+}
+
+.jqztc-tabs .list {
+     padding-top: 0; 
+    padding-bottom: 0;
+}
+
+.jqztc-tabs .scroll-content {
+     margin-top: 1px; 
+     padding-top: 0; 
+     margin-bottom: 0;
+}
+
+.jqztc-tabs .pane {
+    /* top: 43px; */
+    margin: 0;
+    margin-top: 3px;
+    padding: 0;
+}
+
+.jqztc-tabs .tab-item {
+    border-bottom: solid;
+    border-width: 3px !important;
+    border-color: #9E9E9E;
+    border-radius: 5px 5px 0 0;
+}
+
+.jqztc-tabs .tabs-top.tabs-striped .tab-item.tab-item-active, 
+.jqztc-tabs .tabs-top.tabs-striped .tab-item.active, 
+.jqztc-tabs .tabs-top.tabs-striped .tab-item.activated {
+    margin-top: 1px;
+    border-width: 0px 0px 3px 0px !important;
+    border-style: solid;
+}
+
+.jqztc-tabs .tab-item.tab-item-active, 
+.jqztc-tabs .tab-item.active, 
+.jqztc-tabs .tab-item.activated {
+    border-bottom: 3px solid #FB9626 !important;
+    border-color: #FB9626 !important;
+}
+
+.jqztc-tabs .picture img {
+    width: 100%;
+}
+
+.jqztc-tabs .xz {
+    padding: 20px;
+    color: #4c4848;
+    font-size: 16px;
+    font-weight: 500;
+}
+.jqztc-tabs .comment {
+    padding: 0;
+}
+.jqztc-tabs .name {
+    padding: 0;
+    padding-top: 20px;
+    color: #9E9E9E;
+}
+.jqztc-tabs .star {
+    padding: 0;
+    color: #9E9E9E;
+    font-size: 10px;
+}
+.jqztc-tabs .notice {
+    background: #FBEAD3;
+    padding-left: 5px;
+    color: #e86702;
+    font-size: 12px;
+    line-height: 26px;
+}
+.jqztc-tabs .notice p {
+    margin: 0;
+}
+.jqztc-tabs .lx {
+    background: #E4E4E4;
+}
+.jqztc-tabs .lx ion-item {
+    margin-bottom: 15px;
+    padding: 0;
+    border: 0;
+}
+.jqztc-tabs .lx .row {
+    padding: 3px;
+}
+.btnfont {
+    color: #FF9800;
+    border: 1px solid;
+    border-radius: 3px;
+    margin-top: -1px;
+    padding: 0 2px;
+    display: inline-block;
+}
+.btnfont.green {
+    color: #4CAF50;
+}
+.btnfont2 {
+    color: #de6301;
+}
+.btnfont3 {
+    font-size: 10px;
+    vertical-align: middle;
+}
+.btnfont3.green {
+    color: #4CAF50;
+}
+.btnfont3.red {
+    color: #F44336;
+}
+.btnfont3.blue {
+    color: #2196F3;
+}
+.btnfont4 {
+    font-size: 16px;
+    font-weight: 700;
+}
+.btnfont5 {
+    color: #9E9E9E;
+    font-size: 13px;
+}
+.btnfoot6 {
+    background-color: #afafaf;
+    border-radius: 3px 0 0 3px;
+    padding: 0;
+    border-width: 1px 0 1px 1px;
+    margin-right: -3px;
+}
+.btnfont7 {
+    background-color: white;
+    color: black;
+    padding: 0;
+    border-color: #afafaf;
+    border-width: 1px 0;
+    border-radius: 0;
+    margin: 0 -5px;
+}
+.btnfont8 {
+    background-color: #afafaf;
+    border-radius: 0 3px 3px 0;
+    padding: 0;
+    border-width: 1px 1px 1px 0;
+    margin-left: -3px;
+}
+.btnfont9 {
+    color: #FF9800;
+    font-size: 25px;
+}
+.btnfont10 {
+    color: #03A9F4;
+}
+
+.btnfont11 {
+    color: #020202;
+    font-size: 18px;
+}
+
+.lx .purchase button {
+    width: 95%;
+}
+
+.jqztc-tabs ion-item:last-child {
+    margin-bottom: 50px !important;
+}
+
+/* 定制星星UI  */
+.rating {  
+  color: #a9a9a9;  
+  margin: 0;  
+  padding: 0;  
+}  
+ul.rating {  
+  display: inline-block;  
+}  
+.rating li {  
+  list-style-type: none;  
+  display: inline-block;  
+  padding: 1px;  
+  text-align: center;  
+  font-weight: bold;  
+  cursor: pointer;  
+}  
+.rating .filled {  
+  color: #FF9800;  
+}
+
+/*
+*  景区直通车 页面3
+*/
+
+.jqztc-order-confirm {
+
+}
+
+.jqztc-order-confirm ion-item {
+    margin-bottom: 5px;
+    padding: 0;
+    border: 0;
+}
+.jqztc-order-confirm .row {
+    padding: 3px;
+}
+.jqztc-order-confirm .notice {
+    padding: 2px;
+    padding-left: 15px;
+    color: #9E9E9E;
+    font-size: 12px;
+}
+.jqztc-order-confirm .notice p {
+    margin: 0;   
+}
+
+.jqztc-order-confirm .item-checkshowDefaultImg {
+    background-color: white;
+    border-style: none;
+    width: 50%;
+    margin-left: 60px;
+}
+.jqztc-order-confirm .unselected {
+    border-color: transparent;
+    background-color: #afafaf;
+    color: #444;
+    line-height: 45px;
+}
+.jqztc-order-confirm .selected {
+    border-color: transparent;
+    background-color: #33cd5f;
+    color: #fff;
+    line-height: 45px;
+}
+
+input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.cloned-text-input), textarea[readonly]:not(.cloned-text-input), select[readonly] {
+    background-color: white;
+    opacity: .4;
+}
+
+.jqztc-order-confirm .item-checkbox {
+    background-color: #ffffff;
+    text-align: -webkit-right;
+}
+
+/*
+*  景区直通车 页面4
+*/
+
+.jqztc-order-detail {
+
+}
+
+.notice2 {
+    background: #FBEAD3;
+    padding: 2px;
+    padding-left: 13px;;
+    color: #e86702;
+    font-size: 12px;
+}
+.notice2 p {
+    margin: 0;
+}
+
+.jqztc-order-detail .detail .row {
+    padding: 0 5px;
+}
+/*
+*  景区直通车 页面5
+*/
+
+.jqztc-order-check {
+
+}
+
+.jqztc-order-check  .detail .row {
+    padding: 0 5px;
+}
+
+.jqztc-order-check .comment {
+    resize: none;
+    margin: 0 auto;
+    width: 100%;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: #dad9d9;
+}
+
+.jqztc-order-check .rated .row {
+    padding: 0 5px;
+}
+.jqztc-order-check .rated .row .col {
+    padding: 0 5px;
+}
+.jqztc-order-check .rated .star {
+    margin: 0 5px;
+    background: white;
+    border-width: 1px 1px 0 1px;
+    border-color: #dad9d9;
+    border-style: solid;
+}
+
+.loading-container .loading {
+    background-color: transparent;
+}
+.spinner svg {
+    width: 50px;
+    height: 50px;
+}
+
+/*
+*  景区直通车 myplan
+*/
+
+.myplan {
+
+}
+.myplan ion-item {
+    padding: 3px;
+    margin-bottom: 15px;
+}
+.myplan .detail .row {
+    padding: 0 5px;
+}
+
+/*图片放大遮罩层*/  
+.mask {  
+     display: none;  
+}  
+.mask-showDefaultImg {  
+     position: fixed;  
+     top: 0;  
+     left: 0;  
+     width: 100%;  
+     height: 100%;  
+     z-index: 80;  
+     opacity: 0.5;  
+     background: #000;  
+}  
+.big-pic-wrap {  
+    position: fixed;  
+    top: 50%;  
+    left: 50%;  
+    margin-left: -50%;  
+    margin-top: -25%;  
+    width: 100%;
+    padding: 10px;  
+    z-index: 90;  
+    background:#fff;  
+}  
+.bigPic {  
+     width: 100%;
+ }  
+/*关闭大图按钮*/  
+.close-pic {  
+    position: absolute;
+    top: -27px;
+    right: 0px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50% !important;
+    background: transparent;
+    text-align: center;
+    line-height: 30px;
+}  
+.close-pic > i:hover {  
+    color: #FFEB3B;  
+}  
+.close-pic > i {  
+   font-size: 30px;  
+   color:#fff;  
+}  
+
+/* 所有的车票第一行信息 统一样式 */
+.info .col {
+    padding: 5px 0;
+}
+
+.button.button-stable {
+    background-color: #9E9E9E;
+    color: white;
+}
+
+.detail .refund .ctlbtn {
+    text-align: center;
+}
+.detail .refund .ctlbtn button{
+    width: 90%;
+}
+
+.i-user {
+    display: inline-block;
+}
+
+.i-user .one {
+    display: inline-block;
+    width: 22px;
+    margin-left: 10px;
+    font-size: 19px;
+}
+
+.i-user .two {
+    display: inline-block;
+}
+
+.myplan .ticketFilter {
+    background: white;
+    height: 60px;
+}
+
+.myplan .ticketFilter .item-radio .item-content {
+     padding: 12px 5px;
+}
+
+.myplan .ticketFilter .item-radio .radio-icon {
+    padding: 5px 10px;
+}
+
+.myplan .ticketFilter .item-radio input:checked + .radio-content .item-content {
+    background-color: #fff;
+}
+
+ .myplan .ticketFilter .item {
+    
+    border-left-color: #4CAF50;
+} 
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+    transition: all linear 0.5s;
+}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+    opacity:0;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+    opacity:1;
+}
+
+.showDefaultImg {
+    transition: all linear 2s;
+    position: absolute;
+    /* background: linear-gradient(steelblue, #f8fafb); */
+    background: #a9a9a9;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    text-align: center;
+    height: 205px;
+    width: 100%;
+}
+
+.showDefaultImg.ng-enter {
+    transition: 2s linear all;
+    opacity: 0;
+}
+.showDefaultImg.ng-enter-active {
+    opacity: 1;
+}
+.showDefaultImg.ng-leave { 
+    transition: 2s linear all;
+    -webkit-filter: blur(20px);
+	-moz-filter: blur(20px);
+	-ms-filter: blur(20px);
+	-o-filter: blur(20px);
+	filter: blur(20px);
+    opacity: 1;
+}
+.showDefaultImg.ng-leave-active { 
+    -webkit-filter: blur(0px);
+	-moz-filter: blur(0px);
+	-ms-filter: blur(0px);
+	-o-filter: blur(0px);
+	filter: blur(0px);
+    opacity: 0; 
+}
+
+.showDefaultImg2.ng-enter {
+    transition: 2s linear all;
+    opacity: 0;
+    
+}
+.showDefaultImg2.ng-enter-active {
+    opacity: 1;
+}
+
+.platform-android .checkbox-platform input:before, 
+.platform-android .checkbox-platform .checkbox-icon:before, 
+.checkbox-square input:before, 
+.checkbox-square .checkbox-icon:before {
+    margin-top: 0;
+    margin-left: 0;
+    width: 100%;
+    height: 100%;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 28px;
+    background: #fff;
+    transition: background-color 20ms ease-in-out;
+}
+
+#loader {
+    position: absolute;
+    top:50%; left:50%;
+    height:200px; width:100px;
+    margin-top:-100px; margin-left:-50px;
+}
+
+#glass {
+    position: relative;
+    height: 100%;
+    background: rgba(255,255,255,.1);
+    border-radius: 0 0 17px 17px;
+    border: 3px solid;
+    border-top: 0;
+    border-bottom: 20px solid;
+    border-color: rgba(255,255,255,.7);
+    overflow: hidden;
+}
+#drink {
+    position: absolute;
+    top:100%; right:0; bottom:0; left:0;
+    background: linear-gradient(to bottom, orange, orangered);
+    box-shadow: inset 0 2px 1px rgba(255,69,0,.2);
+    opacity: .7;
+}
+#counter {
+    position: relative;
+    line-height: 200px;
+    font-size: 22px;
+    color: rgba(255,255,255,1);
+}
+#lemon {
+    position: absolute;
+    top:0; right:0;
+    height:79px; width:79px;
+    margin-top:-38px; margin-right:-38px;
+    background: radial-gradient(#f7f3b6 10%, #d7d26c);
+    border-radius: 50%;
+    border: 4px solid #47582e;
+    box-shadow: inset 0 0 0 2px #f7f3b6;
+}
+#straw {
+    position: absolute;
+    bottom:20px; right:30%;
+    height:220px; width:6px;
+    background: steelblue;
+    border-radius: 0 6px 0 0;
+    transform: rotate(-18.5deg);
+    transform-origin: left bottom;
+    -webkit-transform: rotate(-18.5deg);
+    -webkit-transform-origin: left bottom;
+}
+#straw:after {
+    content: '';
+    position: absolute;
+    top:0; right:0;
+    height:6px; width:80px;
+    background: inherit;
+    border-radius: 0 6px 0 0;
+}
+#cubes {
+    position: absolute;
+    top:0; right:0; bottom:0; left:0;
+}
+#cubes div {
+    position: absolute;
+    width:50px; height:50px;
+    /* background: rgba(255,255,255,.3); */
+    /* background: #E91E63; */
+    background: #f0f3f0;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(255,255,255,.6);
+}
+#cubes div:nth-child(1) {
+    bottom:0;
+}
+#cubes div:nth-child(2) {
+    bottom:45px; left:25px;
+    transform: rotate(32deg);
+    transform-origin: center bottom;
+    -webkit-transform: rotate(32deg);
+    -webkit-transform-origin: center bottom;
+}
+#cubes div:nth-child(3) {
+    bottom:90px; left:20px;
+    transform: rotate(-34deg);
+    transform-origin: center bottom;
+    -webkit-transform: rotate(-34deg);
+    -webkit-transform-origin: center bottom;
+}
+#coaster {
+    width: 130%; 
+    height: 2px;
+    margin-left: -15%;
+    background: steelblue;
+    border-radius: 2px;
+}
+#counter2 {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    background: rgba(76, 175, 80, 0);
+    width: 100%;
+    height: 41px;
+    line-height: 2;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 9;
+}

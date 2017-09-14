@@ -1,0 +1,156 @@
+<ui-view ng-controller="City_select">
+
+    <!-- <style>
+            .base {
+                text-align: left;
+                height: 108px;
+                left: 50%;
+                position: absolute;
+                top: 50%;
+                width: 108px;
+                margin-top: -54px;
+                margin-left: -54px;
+                transform: rotateX(45deg) rotateZ(45deg);
+                transform-style: preserve-3d;
+            }
+            .cube,
+            .cube:after,
+            .cube:before {
+                content: '';
+                float: left;
+                height: 36px;
+                position: absolute;
+                width: 36px;
+            }
+            .cube {
+                background-color: #05afd1;
+                position: relative;
+                transform: translateZ(36px);
+                transform-style: preserve-3d;
+                transition: .25s;
+                box-shadow: 156px 156px 18px rgba(0, 0, 0, 0.1);
+                animation: anim 1s infinite;
+            }
+            .cube:after {
+                background-color: #049dbc;
+                transform: rotateX(-90deg) translateY(36px);
+                transform-origin: 100% 100%;
+            }
+            .cube:before {
+                background-color: #048ca7;
+                transform: rotateY(90deg) translateX(36px);
+                transform-origin: 100% 0;
+            }
+            .cube:nth-child(1) {
+                animation-delay: 0.05s;
+            }
+            .cube:nth-child(2) {
+                animation-delay: 0.1s;
+            }
+            .cube:nth-child(3) {
+                animation-delay: 0.15s;
+            }
+            .cube:nth-child(4) {
+                animation-delay: 0.2s;
+            }
+            .cube:nth-child(5) {
+                animation-delay: 0.25s;
+            }
+            .cube:nth-child(6) {
+                animation-delay: 0.3s;
+            }
+            .cube:nth-child(7) {
+                animation-delay: 0.35s;
+            }
+            .cube:nth-child(8) {
+                animation-delay: 0.4s;
+            }
+            .cube:nth-child(9) {
+                animation-delay: 0.45s;
+            }
+            @keyframes anim {
+                50% {
+                    transform: translateZ(6px);
+                }
+            }
+    </style> -->
+
+    <ion-content scroll="false">
+
+        <!-- 动画加载 -->
+        <div class="showDefaultImg" ng-if="showDefaultImg" style="z-index: 999;">
+                <div class='base'>
+                    <div class='cube'></div>
+                    <div class='cube'></div>
+                    <div class='cube'></div>
+                    <div class='cube'></div>
+                    <div class='cube'></div>
+                    <div class='cube'></div>
+                    <div class='cube'></div>
+                    <div class='cube'></div>
+                    <div class='cube'></div>
+                </div>
+                <div id="counter2">
+                     <span style="color: whitesmoke;">努力加载中...</span>
+                </div>
+        </div>
+
+        <!-- 轮播块  -->
+        <ion-slide-box  class="jqztc" show-pager="true" auto-play="true" does-continue="true" delegate-handle="adBanner">
+
+            <ion-slide  class="showDefaultImg2" ng-repeat="item in recommendProducts2 track by $index" ng-click="recommendProductsDetail(item, $index)">
+                <div class="showDefaultImg2">
+                        <img ng-if="item.photoPath" ng-src="{{item.photoPath}}" alt="贵旅直通车为您服务" err-src="images/month-bus.png" />
+                        <div class="imgTitle">
+                            <span style="color: whitesmoke;">{{item.titleName}}</span>
+                        </div>
+                </div>
+            </ion-slide>
+
+        </ion-slide-box>
+
+        <!-- 输入块 -->
+        <form style="padding: 5px" >
+
+            <div class="row">
+                <!-- 城市  -->
+                <div class="col col-33">
+                    <i class="button icon-left ion-ios-location button-clear button-dark" ng-click="show()" style="cursor: default;width: 100%;color: #4CAF50;">
+                        <span style="color: #444;;">{{cityssss}}</span>
+                    </i>
+                </div>
+                <!-- 目的地  -->
+                <div class="col col-66">
+                    <div class="list list-inset">
+                        <label class="item item-input" style="border-radius: 5px;">
+                            <input type="text" ng-model="dataContainer.input" ng-change="btnCheck()" placeholder="目的地/主题/路线">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!--日期选择  -->
+            <div class="row">
+                <div class="col">
+                    <div class="list padding-top gray f14">
+                        <div style="border-radius: 5px;" class="item" title="goDate.title" ion-datetime-picker date button-ok  only-valid="{'after': 'today', 'inclusive': true}"  ng-change="detectionDate()"  ng-model="goDate.time">
+                            出发日期
+                            <span class="item-note" > 
+                                {{ goDate.time | date: "yyyy-MM-dd"}} 
+                                <i class="icon ion-chevron-right padding-left"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- 搜索按钮 -->
+        <div style="padding: 10px 15px;">
+            <button style="transition: all linear 1s;" ng-disabled="dataContainer.btnDisabled" class="button button-block button-positive" ng-click="goTabs()">搜索</button>
+        </div>
+
+    </ion-content>
+
+</ui-view>
