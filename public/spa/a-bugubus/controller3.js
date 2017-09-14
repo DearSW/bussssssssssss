@@ -127,9 +127,7 @@ app
             btnDisabled: true // 控制搜索按钮状态
         }
         
-        
         if(recommendImgCount == 1) {
-            alert("xxxxxx");
             sessionStorage.setItem("recommendImgCount", 2);
             // 请求获取推荐路线数据
             $myHttpService.postNoLoad('api/product/queryRecommendProductList', {}, function(data) {
