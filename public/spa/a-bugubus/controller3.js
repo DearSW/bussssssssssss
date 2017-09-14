@@ -175,6 +175,9 @@ app
             slideImage();
         }, 3000);
 
+        $scope.$on("$destroy", function() {
+            $interval.cancel(slideImageTimer);
+        });
         //当DOM元素从页面中被移除时，AngularJS将会在scope中触发$destory事件。这让我们可以有机会来cancel任何潜在的定时器
         $scope.$on('$ionicView.beforeLeave', function(event, data) {
             clearTimeout(slideImageTimer);
