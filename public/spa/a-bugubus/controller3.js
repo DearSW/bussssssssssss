@@ -117,6 +117,7 @@ app
         if(sessionStorage.getItem("recommendImgCount") == null) {
             var recommendImgCount = 1;
             $rootScope.recommendProducts2 = [];
+            var slideImageTimer = null;
         } else {
             var recommendImgCount = sessionStorage.getItem("recommendImgCount");
         }
@@ -149,12 +150,12 @@ app
                 }
             }, errorFn);
         } else {
+            clearTimeout(slideImageTimer);
             if($rootScope.recommendProducts2.length > 0) {
                 $scope.showDefaultImg = false;
             }
         }
         
-        var slideImageTimer = null;
         $rootScope.recommendProducts2Index = 0;
         function slideImage() {
             if($rootScope.recommendProducts2 && $rootScope.recommendProducts2.length > 0) {
@@ -176,7 +177,6 @@ app
 
         //当DOM元素从页面中被移除时，AngularJS将会在scope中触发$destory事件。这让我们可以有机会来cancel任何潜在的定时器
         $scope.$on('$ionicView.beforeLeave', function(event, data) {
-            alert("我执行了");
             clearTimeout(slideImageTimer);
         });
 
