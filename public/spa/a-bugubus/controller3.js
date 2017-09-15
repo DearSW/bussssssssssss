@@ -1194,6 +1194,10 @@ app
         if(myplanCount == 1) {
             $rootScope.ticketsInfo = []; // 车票数组
             sessionStorage.setItem("myplanCount", 2);
+            $rootScope.hasmore2 = true;
+            $scope.pageCount = 1; // 保存的记录页面参数，用于上拉加载分页的记录
+            $scope.hasmore = true;
+            var run = false;
         }
         
         $scope.ticketsInfoIsEmpty = false; // 当没有任何票信息时显现
@@ -1219,38 +1223,40 @@ app
         }
         
         // 上拉加载更多票信息
-        $scope.pageCount = 1; // 保存的记录页面参数，用于上拉加载分页的记录
-        $scope.hasmore = true;
-        var run = false;
-        $scope.loadMoreTicket = function() {
-            var offset = ($scope.pageCount - 1) * 10;
-            var requestData = {
-                userid: $rootScope.session.user.userInfo.userid,
-                offset: offset,
-                pagesize: 10,
-            };
-            if(!run) {
-                run = true;
-                $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
-                if (data.userViewList.length < 10) { 
-                    $scope.hasmore = false; // 这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
-                }
-                    $scope.pageCount++; // 计数
-                    run = false;
-                    $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); // 报错
-                    console.log($rootScope.ticketsInfo);
-                    $rootScope.ticketsInfo.sort(compare('departDate'));
-                    $scope.ticketsInfoIsEmpty2 = true;
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
-                    // alert($rootScope.ticketsInfo.length); // 0
-                    if($rootScope.ticketsInfo.length == 0 ) { // 无票
-                        $scope.ticketsInfoIsEmpty = true;
+        
+        if($rootScope.hasmore2) {
+            $scope.loadMoreTicket = function() {
+                var offset = ($scope.pageCount - 1) * 10;
+                var requestData = {
+                    userid: $rootScope.session.user.userInfo.userid,
+                    offset: offset,
+                    pagesize: 10,
+                };
+                if(!run) {
+                    run = true;
+                    $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+                    if (data.userViewList.length < 10) { 
+                        $scope.hasmore = false; // 这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
+                        $rootScope.hasmore2 = false;
                     }
-                }, function() {
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
-                });
+                        $scope.pageCount++; // 计数
+                        run = false;
+                        $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); // 报错
+                        console.log($rootScope.ticketsInfo);
+                        $rootScope.ticketsInfo.sort(compare('departDate'));
+                        $scope.ticketsInfoIsEmpty2 = true;
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                        // alert($rootScope.ticketsInfo.length); // 0
+                        if($rootScope.ticketsInfo.length == 0 ) { // 无票
+                            $scope.ticketsInfoIsEmpty = true;
+                        }
+                    }, function() {
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    });
+                }
             }
         }
+        
 
         // 车票下拉刷新函数
         $scope.doRefreshTicket = function() {
