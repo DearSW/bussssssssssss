@@ -65,105 +65,50 @@
 
                             <!-- 2 未使用  -->
                             <div class="detail" ng-switch-when="2">
-                                <!-- 未过期 -->
-                                <div ng-if="item.isUseable">
-                                        <div class="row info " style="padding-left: 10px;" >
-                                                <div class="col">
-                                                    <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
-                                                    <span class="btnfont4">{{item.departTime}}</span>
-                                                </div>
-                                                <div class="col" style="text-align: center">
-                                                    <div class="btnfont green">单程</div>
-                                                </div>
-                                                <div class="col" style="text-align: center">
-                                                    <div class="btnfont">{{item.platenum}}</div>
-                                                </div>
-                                                <div class="col" style="text-align: center">
-                                                    <span class="btnfont5">单程约{{item.drivetime}}分钟</span>
-                                                </div>
-                                            </div>
-                                            <div class="row startposition">
-                                                <div class="col">
-                                                    <i class="icon ion-record btnfont3 green"></i>
-                                                    {{item.departName}}
-                                                </div>
-                                            </div>
-                                            <div class="row endposition">
-                                                <div class="col">
-                                                    <i class="icon ion-record btnfont3 red "></i>
-                                                    {{item.arriveName}}
-                                                </div>
-                                            </div>
-                                            <div class="row refund">
-                                                <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
-                                                </div>
-                                                <div class="col ctlbtn">
-                                                        <button class="button button-balanced" ng-click="unusedTicketToDetail(item, i)">
-                                                            详情 <i class="icon ion-ios-redo-outline"></i>
-                                                        </button>
-                                                </div>
-                                             </div>
-                                             <div class="row" >
-                                                <div class="col col-33">
-                                                    <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
-                                                    未使用(支付完成)
-                                                </div>
-                                            </div> 
-
+                                <div class="row info " style="padding-left: 10px;" >
+                                    <div class="col">
+                                        <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                        <span class="btnfont4">{{item.departTime}}</span>
+                                    </div>
+                                    <div class="col" style="text-align: center">
+                                        <div class="btnfont green">单程</div>
+                                    </div>
+                                    <div class="col" style="text-align: center">
+                                        <div class="btnfont">{{item.platenum}}</div>
+                                    </div>
+                                    <div class="col" style="text-align: center">
+                                        <span class="btnfont5">单程约{{item.drivetime}}分钟</span>
+                                    </div>
                                 </div>
-                                <!-- 已过期 -->
-                                <div ng-if="!item.isUseable">
-                                        <div class="row info " style="padding-left: 10px;" >
-                                                <div class="col">
-                                                    <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
-                                                    <span class="btnfont4">{{item.departTime}}</span>
-                                                </div>
-                                                <div class="col" style="text-align: center">
-                                                    <div class="btnfont green">单程</div>
-                                                </div>
-                                                <div class="col" style="text-align: center">
-                                                    <div class="btnfont">{{item.platenum}}</div>
-                                                </div>
-                                                <div class="col" style="text-align: center">
-                                                    <span class="btnfont5">单程约{{item.drivetime}}分钟</span>
-                                                </div>
-                                            </div>
-                                            <div class="row startposition">
-                                                <div class="col">
-                                                    <i class="icon ion-record btnfont3 green"></i>
-                                                    {{item.departName}}
-                                                </div>
-                                            </div>
-                                            <div class="row endposition">
-                                                <div class="col">
-                                                    <i class="icon ion-record btnfont3 red "></i>
-                                                    {{item.arriveName}}
-                                                </div>
-                                            </div>
-                                            <div class="row refund">
-                                                <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
-                                                </div>
-                                                <!-- <div class="col ctlbtn">
-                                                        <button class="button button-balanced" ng-click="unusedTicketToDetail(item, i)">
-                                                            详情 <i class="icon ion-ios-redo-outline"></i>
-                                                        </button>
-                                                </div> -->
-                                            </div>
-                                            <div class="row" >
-                                                <div class="col col-33">
-                                                    <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
-                                                    未使用(已过期)
-                                                </div>
-                                                <div class="col col-33">
-                                                        <i class="icon ion-cash" style="color: #009688"></i>
-                                                        <span>支付价格 ￥{{item.payPrice}}</span>
-                                                </div>
-                                            </div>
+                                <div class="row startposition">
+                                    <div class="col">
+                                        <i class="icon ion-record btnfont3 green"></i>
+                                        {{item.departName}}
+                                    </div>
                                 </div>
+                                <div class="row endposition">
+                                    <div class="col">
+                                        <i class="icon ion-record btnfont3 red "></i>
+                                        {{item.arriveName}}
+                                    </div>
+                                </div>
+                                <div class="row refund">
+                                        <div class="col col-70">
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
+                                        </div>
+                                        <div class="col ctlbtn">
+                                                <button class="button button-balanced" ng-click="unusedTicketToDetail(item, i)">
+                                                    详情 <i class="icon ion-ios-redo-outline"></i>
+                                                </button>
+                                        </div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col col-33">
+                                        <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
+                                        未使用(支付完成)
+                                    </div>
+                                </div> 
                             </div>
 
                             <!-- 3 已使用-->
