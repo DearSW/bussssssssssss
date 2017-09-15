@@ -28,7 +28,7 @@ router.get('/spa/index', function(req, res, next) {
         console.log("召维：获取Code发生重定向（/spa/index）");    
         //如果没有用户信息，那么重定向来获取用户信息
         var wechatUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6294d62f6cb34553&redirect_uri=MyUrl&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
-        var url = encodeURIComponent("http://bashi.happyev.com/spa/getUserInfoByCode?return="+req.query.return); // 授权后，重定向的地址：redirect_uri/?code=CODE&state=STATE
+        var url = encodeURIComponent("http://gzzhlx.com/spa/getUserInfoByCode?return="+req.query.return); // 授权后，重定向的地址：redirect_uri/?code=CODE&state=STATE
         res.redirect(wechatUrl.replace('MyUrl',url));
     }
     // 渲染视图，并把参数传给index.ejs
