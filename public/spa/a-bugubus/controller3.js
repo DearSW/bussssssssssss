@@ -679,7 +679,7 @@ app
                 count: 1
             };
 
-            $scope.customerPhone = "12345"; // 手动输入客服电话
+            $rootScope.customerPhone = "18302505304"; // 客服电话
 
             var paramsData = JSON.parse($state.params.data);
             $scope.ticketInfo = paramsData;
@@ -1257,7 +1257,6 @@ app
             }
         }
         
-
         // 车票下拉刷新函数
         $scope.doRefreshTicket = function() {
             var requestData = {
@@ -1574,26 +1573,66 @@ app
         // 退款函数
         $scope.refund = function() {
             console.log($scope.refundData);
-            layer.open({
-                content: '您确定要退款吗？',
-                btn: ['退款', '不要'],
-                shadeClose: false,
-                yes: function(index) {
-                    $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
-                        $scope.refundBtnState = true;
-                        layer.open({
-                            content: '申请退款成功，正在处理，退款将原路返回到支付账户上，请耐心等待',
-                            btn: '确定',
-                            shadeClose: false,
-                            yes: function(index) {
-                                $state.go('myplan', {}, {location: 'replace'});
-                                layer.close(index);
+            if($scope.ticketInfo.counponUse) {
+                layer.open({
+                    content: '您确定要退款吗？',
+                    btn: ['退款', '不要'],
+                    shadeClose: false,
+                    yes: function(index) {
+                        $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
+                            alert(data.data.couponRefund);
+                            if(data.data.couponRefund) {
+                                $scope.refundBtnState = true;
+                                layer.open({
+                                    content: '退款成功',
+                                    btn: '确定',
+                                    shadeClose: false,
+                                    yes: function(index) {
+                                        $state.go('myplan', {}, {location: 'replace'});
+                                        layer.close(index);
+                                    }
+                                });
+                            } else {
+                                $scope.refundBtnState = false;
+                                layer.open({
+                                    content: '申请退款成功失败，请重新退款',
+                                    btn: '确定',
+                                    shadeClose: false,
+                                    yes: function(index) {
+                                        // $state.go('myplan', {}, {location: 'replace'});
+                                        // layer.close(index);
+                                    }
+                                });
                             }
-                        });
-                    }, errorFn);
-                    layer.close(index);
-                }
-            });
+                        }, errorFn);
+                        layer.close(index);
+                    }
+                });
+
+            } else {
+
+                layer.open({
+                    content: '您确定要退款吗？',
+                    btn: ['退款', '不要'],
+                    shadeClose: false,
+                    yes: function(index) {
+                        $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
+                            $scope.refundBtnState = true;
+                            layer.open({
+                                content: '申请退款成功，正在处理，退款将原路返回到支付账户上，请耐心等待',
+                                btn: '确定',
+                                shadeClose: false,
+                                yes: function(index) {
+                                    $state.go('myplan', {}, {location: 'replace'});
+                                    layer.close(index);
+                                }
+                            });
+                        }, errorFn);
+                        layer.close(index);
+                    }
+                });
+                
+            }
         };
 
         // 车辆位置函数
