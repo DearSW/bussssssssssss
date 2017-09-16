@@ -141,10 +141,10 @@ app
                         $ionicSlideBoxDelegate.update();
                     }, 500);
                 } else {
-                    $scope.showDefaultImg = false;
-                    $ionicSlideBoxDelegate.update();
-                    $ionicSlideBoxDelegate.update();
+                    $ionicSlideBoxDelegate.update();                                            
                     $timeout(function() {
+                        $scope.showDefaultImg = false;
+                        $ionicSlideBoxDelegate.update();                                                                
                         $ionicSlideBoxDelegate.next();
                     }, 1000);
                 }
