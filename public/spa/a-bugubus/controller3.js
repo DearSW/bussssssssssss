@@ -1580,7 +1580,6 @@ app
                     shadeClose: false,
                     yes: function(index) {
                         $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
-                            alert(data.data.couponRefund);
                             if(data.data.couponRefund) {
                                 $scope.refundBtnState = true;
                                 layer.open({
@@ -1631,7 +1630,7 @@ app
                         layer.close(index);
                     }
                 });
-                
+
             }
         };
 
