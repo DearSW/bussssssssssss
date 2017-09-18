@@ -940,7 +940,6 @@ app
                             'getBrandWCPayRequest',
                             wxData,
                             function(res) {
-                                alert(res.err_msg);
                                 if(res.err_msg == "get_brand_wcpay_request:ok") {
                                     //重新查询一次服务器
                                     $myHttpService.post("api/recharge/verifyWxorderStatus", {
@@ -952,7 +951,7 @@ app
                                         $state.go('order_detail_refund', {data: JSON.stringify(data2)}, {reload: true});
                                     }, function(data) {
                                         layer.open({
-                                            content: '支付失败，请联系客服处理1。',
+                                            content: '支付失败，请联系客服处理。',
                                             btn: '确定'
                                         });
                                     });
@@ -963,7 +962,7 @@ app
                                     });
                                 } else {
                                     layer.open({
-                                            content: '支付失败，请联系客服处理2。',
+                                            content: '支付失败，请联系客服处理。',
                                             btn: '确定'
                                     });
                                 }
@@ -1560,6 +1559,7 @@ app
                 // 倒计时处理
                 $scope.timeShow = true;
                 var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy-MM-dd') + " " + $scope.ticketInfo.departTime;
+                alert("temp: " + temp);
                 var endTime = (new Date(temp)).getTime();
                 alert("endTime: " + endTime);
                 stopTime = $interval(function() {
