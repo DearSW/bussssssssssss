@@ -1493,7 +1493,7 @@ app
     .controller('ticket_detail', function($rootScope, $scope, $filter, $interval, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
 
         $scope.timeShow = false;
-        $scope.timeShow2 = false;
+        // $scope.timeShow2 = false;
         $scope.timeText = "距离发车时间还剩";
         // 倒计时间处理函数
         var stopCountDown = null;
@@ -1509,6 +1509,7 @@ app
 			} else {
                 clearInterval(stopCountDown);
                 $scope.timeText = "";
+                $scope.timeShow = false;
 			}
 		}
 
@@ -1560,12 +1561,17 @@ app
                 $scope.timeShow = true;
                 var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy-MM-dd') + " " + $scope.ticketInfo.departTime;
                 var endTime = (new Date(temp)).getTime();
+                alert("endTime: " + endTime);
                 stopTime = $interval(function() {
                     ShowCountDown(endTime);
                 }, 1000);
 
             }, errorFn);
         }
+
+        $scope.$on("$destroy", function() {
+            $interval.cancel(stopTime);
+        });
 
         $scope.refundBtnState = false;
         var flag = true;
@@ -1643,10 +1649,6 @@ app
             $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
         }
 
-        // 联系客服
-        $scope.contactCustomerService = function() {
-
-        }
     })
 
     /* 我的账户 个人信息保存 编辑  %% */
