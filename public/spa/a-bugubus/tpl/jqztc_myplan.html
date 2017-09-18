@@ -256,26 +256,16 @@
                                     </div> 
                             </div>
 
-                             <!-- 没有任何票据信息 -->
-                            <div class="detail" ng-if="ticketsInfoIsEmpty">
-                                    <div class="row" style="text-align: center;font-size: 18px;">
-                                        <div class="col">
-                                            <i class="icon ion-ios-information" style="color:crimson;font-size: 18px;"></i>
-                                            <span style="font-size: 12px;">您还没有购买任何车票</span>
-                                        </div>
-                                    </div> 
-                            </div>
-
                         </ion-item>
+
                         <!-- 无相关票提醒 -->
-                        <ion-item class="animate-repeat" ng-if="results.length === 0 && ticketsInfoIsEmpty2">
+                        <ion-item class="animate-repeat" ng-if="results.length === 0">
                             
                             <!-- 没有相关票据信息 -->
                             <div class="detail">
                                 <div class="row" style="text-align: center;font-size: 18px;">
                                     <div class="col">
                                         <i class="icon ion-ios-information-outline" style="color:crimson;font-size: 18px;"></i>
-                                        
                                         <span style="font-size: 12px;">没有相关车票信息</span>
                                     </div>
                                 </div> 

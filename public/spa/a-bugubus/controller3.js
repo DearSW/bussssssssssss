@@ -1200,7 +1200,6 @@ app
         }
         
         $scope.ticketsInfoIsEmpty = false; // 当没有任何票信息时显现
-        $scope.ticketsInfoIsEmpty2 = false;
 
         // 比较函数，对票进行排序，从大到小
         var compare = function (prop) {
@@ -1243,7 +1242,6 @@ app
                         $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); // 报错
                         console.log($rootScope.ticketsInfo);
                         $rootScope.ticketsInfo.sort(compare('departDate'));
-                        $scope.ticketsInfoIsEmpty2 = true;
                         $scope.$broadcast('scroll.infiniteScrollComplete');
                         // alert($rootScope.ticketsInfo.length); // 0
                         if($rootScope.ticketsInfo.length == 0 ) { // 无票
