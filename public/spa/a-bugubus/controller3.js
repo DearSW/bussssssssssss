@@ -382,13 +382,13 @@ app
                 sessionStorage.setItem('tabsParamsDataDate', paramsData.date);
                 sessionStorage.setItem('tabsParamsDataCity', paramsData.city);
 
-                console.log("2222");
                 var requestData = {
                     keyword: paramsData.input,
                     departDate: paramsData.date,
                     region: paramsData.city
                 };
-                console.log(requestData);
+
+                alert(requestData.region);
 
                 $myHttpService.post('api/product/queryProductList', requestData, function(data){
                     console.log(data);
@@ -1486,7 +1486,7 @@ app
         }
     })
 
-    /* 车票详情  %%%% */
+    /* 车票详情  %%%%% */
     .controller('ticket_detail', function($rootScope, $scope, $filter, $interval, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
 
         $scope.timeShow = false;
@@ -1527,7 +1527,7 @@ app
 
                 // 倒计时处理
                 $scope.timeShow = true;
-                var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy-MM-dd') + " " + $scope.ticketInfo.departTime;
+                var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy/MM/dd') + " " + $scope.ticketInfo.departTime;
                 var endTime = (new Date(temp)).getTime();
                 stopTime = $interval(function() {
                     ShowCountDown(endTime);
@@ -1595,7 +1595,7 @@ app
                             } else {
                                 $scope.refundBtnState = false;
                                 layer.open({
-                                    content: '申请退款成功失败，请重新退款',
+                                    content: '申请退款失败，请重试',
                                     btn: '确定',
                                     shadeClose: false,
                                     yes: function(index) {
@@ -1619,7 +1619,7 @@ app
                         $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
                             $scope.refundBtnState = true;
                             layer.open({
-                                content: '申请退款成功，正在处理，退款将原路返回到支付账户上，请耐心等待',
+                                content: '申请退款成功，退款将按原路返回到支付账户，预计到账时间为0-3个工作日',
                                 btn: '确定',
                                 shadeClose: false,
                                 yes: function(index) {
