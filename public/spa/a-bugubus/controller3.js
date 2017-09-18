@@ -951,7 +951,7 @@ app
                                         $state.go('order_detail_refund', {data: JSON.stringify(data2)}, {reload: true});
                                     }, function(data) {
                                         layer.open({
-                                            content: '支付失败，请联系客服处理。',
+                                            content: '支付失败，请联系客服处理1。',
                                             btn: '确定'
                                         });
                                     });
@@ -962,7 +962,7 @@ app
                                     });
                                 } else {
                                     layer.open({
-                                            content: '支付失败，请联系客服处理。',
+                                            content: '支付失败，请联系客服处理2。',
                                             btn: '确定'
                                     });
                                 }
