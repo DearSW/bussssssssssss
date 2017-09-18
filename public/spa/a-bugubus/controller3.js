@@ -404,7 +404,6 @@ app
             }
         } else {
 
-            console.log(sessionStorage.getItem('questUrlType'));
             if(sessionStorage.getItem('questUrlType') == '0') {
                 var requestData = {
                     productid: sessionStorage.getItem('tabsParamsDataProductid')
@@ -421,7 +420,6 @@ app
                         });
                     }                 
                 }, errorFn);
-
             } else if(sessionStorage.getItem('questUrlType') == '1') {
                 var requestData = {
                     keyword: sessionStorage.getItem('tabsParamsDataInput'),
@@ -483,9 +481,8 @@ app
         // 路线信息下拉刷新
         $scope.doRefreshRoad = function() {
             if(paramsData != null) {
-                if(paramsData.hasOwnProperty('productid')) {
 
-                    sessionStorage.setItem('tabsParamsDataProductid', paramsData.productid);
+                if(sessionStorage.getItem('questUrlType') == '0') {
 
                     console.log("1111");
                     var requestData = {
@@ -503,14 +500,9 @@ app
                     }, function() {
                         $scope.$broadcast('scroll.refreshComplete');                        
                     });
-                    
-                } else {
-                    
-                    sessionStorage.setItem('tabsParamsDataInput', paramsData.input);
-                    sessionStorage.setItem('tabsParamsDataDate', paramsData.date);
-                    sessionStorage.setItem('tabsParamsDataCity', paramsData.city);
 
-                    console.log("2222");
+                } else if(sessionStorage.getItem('questUrlType') == '1') {
+                    
                     var requestData = {
                         keyword: paramsData.input,
                         departDate: paramsData.date,
@@ -530,13 +522,12 @@ app
                     }, function() {
                         $scope.$broadcast('scroll.refreshComplete');                        
                     });
-
                 }
+
             } else {
 
-                if(sessionStorage.getItem('tabsParamsDataProductid') != null) {
-                    
-                    console.log("sessionStorage-1111");       
+                if(sessionStorage.getItem('questUrlType') == '0') {
+                         
                     var requestData = {
                         productid: sessionStorage.getItem('tabsParamsDataProductid')
                     };
@@ -552,10 +543,9 @@ app
                     }, function() {
                         $scope.$broadcast('scroll.refreshComplete');                        
                     });
+                                        
+                } else if(sessionStorage.getItem('questUrlType') == '1') {
 
-                } else {
-                    
-                    console.log("sessionStorage-2222");
                     var requestData = {
                         keyword: sessionStorage.getItem('tabsParamsDataInput'),
                         departDate: sessionStorage.getItem('tabsParamsDataDate'),
@@ -575,7 +565,6 @@ app
                     }, function() {
                         $scope.$broadcast('scroll.refreshComplete');                        
                     });
-
                 }
             }
         };
