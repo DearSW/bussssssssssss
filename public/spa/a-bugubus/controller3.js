@@ -388,8 +388,6 @@ app
                     region: paramsData.city
                 };
 
-                alert(requestData.region);
-
                 $myHttpService.post('api/product/queryProductList', requestData, function(data){
                     console.log(data);
                     $scope.ticketsInfo = data.products;
