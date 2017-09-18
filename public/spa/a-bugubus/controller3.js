@@ -1561,7 +1561,6 @@ app
                 var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy-MM-dd') + " " + $scope.ticketInfo.departTime;
                 alert("temp: " + temp);
                 var endTime = (new Date(temp)).getTime();
-                alert("endTime: " + endTime);
                 stopTime = $interval(function() {
                     ShowCountDown(endTime);
                 }, 1000);
