@@ -1492,7 +1492,6 @@ app
     .controller('ticket_detail', function($rootScope, $scope, $filter, $interval, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
 
         $scope.timeShow = false;
-        // $scope.timeShow2 = false;
         $scope.timeText = "距离发车时间还剩";
         // 倒计时间处理函数
         var stopCountDown = null;
@@ -1560,9 +1559,6 @@ app
                 $scope.timeShow = true;
                 var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy/MM/dd') + " " + $scope.ticketInfo.departTime;
                 var endTime = (new Date(temp)).getTime();
-                alert(new Date(temp));
-                // alert(new Date("2017-09-18 16:00"));
-                // alert(new Date("2017/09/18 16:00"));
                 stopTime = $interval(function() {
                     ShowCountDown(endTime);
                 }, 1000);
