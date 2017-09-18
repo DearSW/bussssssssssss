@@ -143,7 +143,6 @@ app
                 } else {
                     $scope.showDefaultImg = false;
                     $ionicSlideBoxDelegate.update();
-                    $ionicSlideBoxDelegate.update();
                     $timeout(function() {
                         $ionicSlideBoxDelegate.next();
                     }, 1000);
