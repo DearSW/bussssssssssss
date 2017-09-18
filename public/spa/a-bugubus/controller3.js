@@ -940,6 +940,7 @@ app
                             'getBrandWCPayRequest',
                             wxData,
                             function(res) {
+                                alert(res.err_msg);
                                 if(res.err_msg == "get_brand_wcpay_request:ok") {
                                     //重新查询一次服务器
                                     $myHttpService.post("api/recharge/verifyWxorderStatus", {
