@@ -1558,10 +1558,11 @@ app
 
                 // 倒计时处理
                 $scope.timeShow = true;
-                var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy-MM-dd') + " " + $scope.ticketInfo.departTime;
+                var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy/MM/dd') + " " + $scope.ticketInfo.departTime;
                 var endTime = (new Date(temp)).getTime();
-                alert(new Date("2017-09-18 16:00"));
-                alert(new Date("2017/09/18 16:00"));
+                alert(new Date(temp));
+                // alert(new Date("2017-09-18 16:00"));
+                // alert(new Date("2017/09/18 16:00"));
                 stopTime = $interval(function() {
                     ShowCountDown(endTime);
                 }, 1000);
