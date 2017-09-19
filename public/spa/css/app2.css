@@ -670,8 +670,8 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
 .showDefaultImg {
     transition: all linear 2s;
     position: absolute;
-    /* background: linear-gradient(steelblue, #f8fafb); */
-    background: #a9a9a9;
+    background: linear-gradient(steelblue, #f8fafb);
+    /* background: #a9a9a9; */
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     text-align: center;
