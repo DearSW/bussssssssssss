@@ -1644,6 +1644,10 @@ app
         }, function(data) {
             if(data.flag) {
                 $scope.user = data.user;
+                if($scope.user.userid.length > 0) {
+                    $scope.userOther = $scope.user.userid.substring($scope.user.userid.length-6); 
+                    $scope.userOther += "*****";              
+                }
                 tempUser2 = angular.copy($scope.user);
             } else {
                 $state.go('auth.login');
