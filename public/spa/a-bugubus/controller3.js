@@ -1431,7 +1431,7 @@ app
                 icon: "http://webapi.amap.com/images/car.png",
                 content: '<i class="icon ion-ios-location" style="color: #f71909;font-size:30px"></i>',
                 offset: new AMap.Pixel(-26, -13),
-                animation: "AMAP_ANIMATION_BOUNCE"
+                animation: "AMAP_ANIMATION_DROP"
             });
             $timeout(function() {
                 layer.open({
@@ -1467,7 +1467,7 @@ app
                     position: [lineArr[0], lineArr[1]],
                     content: '<i class="icon ion-ios-location" style="color: #f71909;font-size:30px"></i>',
                     offset: new AMap.Pixel(-26, -13),
-                    animation: "AMAP_ANIMATION_BOUNCE"
+                    animation: "AMAP_ANIMATION_DROP"
                 });
             }, errorFn);
         }
