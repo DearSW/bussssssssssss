@@ -17,7 +17,8 @@
 
         <ion-refresher class="gray"
                        on-refresh="refresh()"
-                       pulling-text="下拉刷新……"
+                       pulling-icon="ion-ios-arrow-thin-down"
+                       pulling-text="下拉刷新"
                        spinner="lines">
         </ion-refresher>
         
@@ -86,7 +87,7 @@
 
                     <div class="col-33">
                         <div class="text-right lh30" >
-                            <button style="width: 100%;" ng-click="bus_service_all(item)" class="caseStatus-{{item.caseStatus}} status-button" >{{queryuserstaus[item.caseStatus]}}</button>
+                            <button style="width: 100%;" ng-click="bus_service_all(item)" class="caseStatus-{{item.caseStatus}} button status-button" >{{queryuserstaus[item.caseStatus]}}</button>
                         </div>
                     </div>
                 </div>
