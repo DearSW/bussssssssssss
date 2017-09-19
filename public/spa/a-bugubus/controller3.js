@@ -1435,7 +1435,7 @@ app
             });
             $timeout(function() {
                 layer.open({
-                    content: '抱歉，请求车辆位置出错，请重试',
+                    content: '请求车辆位置出错，请重试',
                     btn: '确定',
                     shadeClose: false,
                     yes: function(index) {
