@@ -132,8 +132,6 @@ app
             sessionStorage.setItem("recommendImgCount", 2);
             // 请求获取推荐路线数据
             $myHttpService.postNoLoad('api/product/queryRecommendProductList', {}, function(data) {
-                console.log("获取推荐数据打印：");
-                console.log(data);
                 $rootScope.recommendProducts2 = data.products;
                 if($rootScope.recommendProducts2.length == 0) {
                     $timeout(function() {
@@ -159,7 +157,6 @@ app
         function slideImage() {
             if($rootScope.recommendProducts2 && $rootScope.recommendProducts2.length > 0) {
                 $rootScope.recommendProducts2Index = $rootScope.recommendProducts2Index === $rootScope.recommendProducts2.length - 1 ? 0 : $rootScope.recommendProducts2Index + 1;
-                // $ionicSlideBoxDelegate.slide($rootScope.recommendProducts2Index);
                 $rootScope.slideNumber = $ionicSlideBoxDelegate.$getByHandle("adBanner").currentIndex();
                 if ($rootScope.slideNumber + 1 != $rootScope.recommendProducts2Index && $rootScope.recommendProducts2Index != 0) {
                     $rootScope.recommendProducts2Index = $rootScope.slideNumber; //手动滑动后和自动轮播保持一致
@@ -187,8 +184,6 @@ app
             var data = {
                 productid: item.productid
             };
-            console.log("点击图片跳转请求参数打印：");
-            console.log(data);
             $state.go('tabs', {data: JSON.stringify(data)}, {reload: true});
         };
 
@@ -305,7 +300,7 @@ app
             var selectTime = $scope.goDate.time.getTime();
             if(selectTime > compareTime) {
                 layer.open({
-                    content: '不在销售范围内，预售期为60天，请重新选择',
+                    content: '不在预售范围内，预售期仅为60天，请重新选择',
                     btn: '确定'
                 });
                 $scope.goDate.time = new Date();
@@ -334,8 +329,6 @@ app
             sessionStorage.setItem('search_city', $scope.cityssss);
             sessionStorage.setItem('search_input', $scope.dataContainer.input.trim());
 
-            console.log("跳转tabs请求参数打印：");
-            console.log(data);
             $state.go('tabs', {data: JSON.stringify(data)}, {reload: true});
         }
     })
@@ -349,8 +342,6 @@ app
 
         // 接收jqztc_search.html页面传递过来的参数，并解析
         var paramsData = JSON.parse($state.params.data);
-        console.log("jqztc_search页面传递过来的参数打印：");
-        console.log(paramsData);
 
         if(paramsData != null) {
             if(paramsData.hasOwnProperty('productid')) {
@@ -369,7 +360,7 @@ app
                         $scope.noticeInfo = data.products[0].productinfo;                        
                     } else {
                         layer.open({
-                            content: '当前班次，今日已售完，请选择往后日期',
+                            content: '当前选择的推荐主题路线，今日已售完',
                             btn: '确定'
                         });
                     }
@@ -415,7 +406,7 @@ app
                         $scope.noticeInfo = data.products[0].productinfo;                    
                     } else {
                         layer.open({
-                            content: '当前班次，今日已售完，请选择往后日期',
+                            content: '当前选择的推荐主题路线，今日已售完',
                             btn: '确定'
                         });
                     }                 
