@@ -599,7 +599,6 @@ app
                     });
                 }
             });
-
         };
 
         // 评论上拉加载更多
@@ -1644,9 +1643,10 @@ app
         }, function(data) {
             if(data.flag) {
                 $scope.user = data.user;
-                if($scope.user.userid.length > 0) {
-                    $scope.userOther = $scope.user.userid.substring($scope.user.userid.length-6); 
-                    $scope.userOther += "*****";              
+                if($scope.user.userid.length > 4) {
+                    $scope.userOther = $scope.user.userid.substring(0, 6) + "***" + $scope.user.userid.substring($scope.user.userid.length-4);
+                } else {
+                    $scope.userOther = $scope.user.userid.substring(0, 6) + "***";                    
                 }
                 tempUser2 = angular.copy($scope.user);
             } else {
