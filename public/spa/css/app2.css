@@ -652,7 +652,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter,
 .animate-repeat.ng-leave {
-    transition: all linear 0.5s;
+    transition: all linear 0.3s;
 }
 
 .animate-repeat.ng-leave.ng-leave-active,

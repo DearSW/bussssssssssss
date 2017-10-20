@@ -10,19 +10,19 @@ router.get('/spa', function(req, res, next) {
     res.redirect('/spa/index?');
 });
 router.get('/spa/index', function(req, res, next) {
-    // req.session.user = {
-    //     "userInfo":{
-    //         "userid":"2017062210241666105334",
-    //         "phone":"13016487540",
-    //         "sex":"0",
-    //         "userStatus":1,
-    //         "balance":0.0,
-    //         "openid":"osvsPw4_JbCNjxGZyZ4lj-0rhK2c",
-    //         "talSpendind":0.0,
-    //         "tripCount":0,
-    //         "type":0
-    //     }
-    // };
+    req.session.user = {
+        "userInfo":{
+            "userid":"2017062210241666105334",
+            "phone":"13016487540",
+            "sex":"0",
+            "userStatus":1,
+            "balance":0.0,
+            "openid":"osvsPw4_JbCNjxGZyZ4lj-0rhK2c",
+            "talSpendind":0.0,
+            "tripCount":0,
+            "type":0
+        }
+    };
     console.log("召维：获取Code（/spa/index）");    
     if(req.session.user == undefined) {
         console.log("召维：获取Code发生重定向（/spa/index）");    
