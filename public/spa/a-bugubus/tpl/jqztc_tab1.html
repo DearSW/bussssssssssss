@@ -27,6 +27,98 @@
 
                     <!-- 接口 车票显示  -->
                      <ion-list>
+
+                        <!-- Mock 数据 -->
+                        <ion-item ng-repeat="item in ticketsInfoMock track by $index" ng-switch="item.productType">
+                            <div ng-switch-when="0" ng-if="item.leftTickets > 0">
+                                    <div class="row info " style="padding-left: 8px;">
+                                        <div class="col col-35 ">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">{{item.departTime}}</span>
+                                        </div>
+                                        <div class="col col-15" style="text-align: center">
+                                            <div ng-if="item.haveTicket == 0">
+                                                    <div class="btnfont green">单程</div>
+                                            </div>
+                                            <div ng-if="item.haveTicket == 1">
+                                                    <div class="btnfont green">单程 + 门票</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约{{item.driveTime}}分钟 剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座</span>
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            {{item.departName}}
+                                        </div>
+                                    </div>
+                                    <div class="row endposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            {{item.arriveName}}
+                                        </div>
+                                    </div>
+                                    <div class="row purchase">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departAddr}}</div>
+                                        </div>
+                                        <div class="col">
+                                                <button class="button button-positive" ng-click="">
+                                                    购买
+                                                </button>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+
+                            <div ng-switch-when="1" ng-if="item.leftTickets > 0">
+                                    <div class="row info " style="padding-left: 8px;" >
+                                        <div class="col col-35">
+                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
+                                            <span class="btnfont4">{{item.departTime}}-{{item.backDepartTime}}</span>
+                                        </div>
+                                        <div class="col col-15" style="text-align: center">
+                                                <div ng-if="item.haveTicket == 0">
+                                                        <div class="btnfont green">往返</div>
+                                                </div>
+                                                <div ng-if="item.haveTicket == 1">
+                                                        <div class="btnfont green">往返 + 门票</div>
+                                                </div>
+                                        </div>
+                                        <div class="col">
+                                            <span class="btnfont5">单程约{{item.driveTime}}分钟 剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座</span>
+                                        </div>
+                                    </div>
+                                    <div class="row startposition">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 green"></i>
+                                            {{item.departName}}
+                                        </div>
+                                    </div>
+                                    <div class="row endposition ">
+                                        <div class="col">
+                                            <i class="icon ion-record btnfont3 red "></i>
+                                            {{item.arriveName}}
+                                        </div>
+                                    </div>
+                                    <div class="row purchase ">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departAddr}}</div>
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >返程地点: {{item.arriveAddr}}</div>
+                                        </div>
+                                        <div class="col" style="text-align: center;white-space: normal;">
+                                                <button class="button button-positive" ng-click="">
+                                                    购买
+                                                </button>
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+                        </ion-item>
+
+                        <!-- 接口 数据 -->
                         <ion-item ng-repeat="item in ticketsInfo track by $index" ng-switch="item.productType">
 
                             <div ng-switch-when="0" ng-if="item.leftTickets > 0">
@@ -107,6 +199,7 @@
                             </div>
 
                         </ion-item>
+
                     </ion-list> 
 
                 </ion-content>

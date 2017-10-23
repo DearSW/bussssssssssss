@@ -340,6 +340,81 @@ app
         $scope.commentsInfo = []; // 评论数据
         $scope.noticeInfo = ''; // 须知数据
 
+        // Mock数据 接口 api/product/queryProductList
+        $scope.ticketsInfoMock = [
+            {
+                "viewName": "黔灵山公园",
+                "productid": "1234567890",
+                "productType": 0,
+                "viewid": "4396",
+                "haveTicket": 1,
+                "departTime": "8:00",
+                "backDepartTime": "8:00",
+                "driverTime": 30,
+                "leftTickets": 30,
+                "totalTickets": 60,
+                "departAddr": "贵州饭店北京路66号",
+                "arriveAddr": "黔灵山东门客车站",
+                "departName": "贵州饭店",
+                "arriveName": "黔灵山公园",
+                "viewPrices": [
+                    {
+                        "viewPriceId": "43962",
+                        "viewCoupon": 8.8,
+                        "viewPrice": 5.0,
+                        "viewPriceType": "儿童票",
+                        "couponPrice": 4.4,
+                    },
+                    {
+                        "viewPriceId": "43963",
+                        "viewCoupon": 8.8,
+                        "viewPrice": 10.0,
+                        "viewPriceType": "成人票",
+                        "couponPrice": 8.8,
+                    }
+                ],
+                "gobdid": "4396",
+                "departDate": "2017-10-30",
+                "productPrice": 29.5,
+            },
+            {
+                "viewName": "黔灵山公园",
+                "productid": "1234567890",
+                "productType": 0,
+                "viewid": "4396",
+                "haveTicket": 1,
+                "departTime": "8:00",
+                "backDepartTime": "8:00",
+                "driverTime": 30,
+                "leftTickets": 30,
+                "totalTickets": 60,
+                "departAddr": "贵州饭店北京路66号",
+                "arriveAddr": "黔灵山东门客车站",
+                "departName": "贵州饭店",
+                "arriveName": "黔灵山公园",
+                "viewPrices": [
+                    {
+                        "viewPriceId": "43962",
+                        "viewCoupon": 8.8,
+                        "viewPrice": 5.0,
+                        "viewPriceType": "儿童票",
+                        "couponPrice": 4.4,
+                    },
+                    {
+                        "viewPriceId": "43963",
+                        "viewCoupon": 8.8,
+                        "viewPrice": 10.0,
+                        "viewPriceType": "成人票",
+                        "couponPrice": 8.8,
+                    }
+                ],
+                "gobdid": "4396",
+                "backbdid": "43961",
+                "departDate": "2017-10-30",
+                "productPrice": 29.5,
+            }
+        ];
+
         // 接收jqztc_search.html页面传递过来的参数，并解析
         var paramsData = JSON.parse($state.params.data);
 
