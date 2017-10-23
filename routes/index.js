@@ -23,16 +23,16 @@ router.get('/spa/index', function(req, res, next) {
     //         "type":0
     //     }
     // };
-    console.log("ZW：Get the Code（/spa/index）");    
+    console.log("ZW:Get the Code(/spa/index)");    
     if(req.session.user == undefined) {
-        console.log("ZW：Get Code, start to redirect（/spa/index）");    
+        console.log("ZW:Get Code, start to redirect (/spa/index)");    
         //如果没有用户信息，那么重定向来获取用户信息
         var wechatUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx6294d62f6cb34553&redirect_uri=MyUrl&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
         var url = encodeURIComponent("http://gzzhlx.com/spa/getUserInfoByCode?return="+req.query.return); // 授权后，重定向的地址：redirect_uri/?code=CODE&state=STATE
         res.redirect(wechatUrl.replace('MyUrl',url));
     }
     // 渲染视图，并把参数传给index.ejs
-    console.log("ZW：Get Code, finished redirection（/spa/index）");
+    console.log("ZW:Get Code, finished redirection (/spa/index)");
     res.render('index', {
         "user": req.session.user,
         "version": "201611062153"
@@ -41,7 +41,7 @@ router.get('/spa/index', function(req, res, next) {
 
 router.get('/spa/getUserInfoByCode', function(req, res, next) {
 
-    console.log("ZW：Get User Information start（/getUserInfoByCode）");    
+    console.log("ZW:Get User Information start (/getUserInfoByCode)");    
     // 进行代理
     httpProxy("/user/getUserOpenid", {code: req.query.code}, function(data) {
         var result = JSON.parse(data).data;
@@ -50,7 +50,7 @@ router.get('/spa/getUserInfoByCode', function(req, res, next) {
             openId: result.openid,
             userInfo: result.user
         };
-        console.log("ZW：Get User Information finished（/getUserInfoByCode）"); 
+        console.log("ZW:Get User Information finished (/getUserInfoByCode)"); 
 
         //拿到用户信息后重定向到主页，之所以带上return，是为了在服务器session丢失的时候，重新刷新页面可以重定向到当前页
         res.redirect('/spa/index?return='+req.query.return+'#/'+req.query.return);

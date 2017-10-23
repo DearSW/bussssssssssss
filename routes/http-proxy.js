@@ -16,17 +16,17 @@ var httpProxy = function(url, data, success, error) {
         'Content-Type': 'application/x-www-form-urlencoded'
     };
 
-    console.log("Start a request:\r\n" + host);
+    console.log("Start a request:  " + host);
     
-    console.log("Request's prama:\r\n" + JSON.stringify(data)); // 将参数data变成json类型的字符串
+    console.log("Request's prama:  " + JSON.stringify(data)); // 将参数data变成json类型的字符串
 
     var startTime = new Date().getTime(); // 先保存一个时间点
 
     ng.post(host, function(data, status, hearders) {
 
-            console.log("Request Timeline:" + (new Date().getTime() - startTime) + "ms");
+            console.log("Request Timeline:  " + (new Date().getTime() - startTime) + " ms");
             //logger.info("请求耗时:"+(new Date().getTime()-startTime)+"ms");
-            console.log("Return data:\r\n" + data);
+            console.log("Return data:  " + data);
             if(status == 200) {
                 success(data); // success为httpProxy对象的回调函数参数
             } else if(status == 404) {
