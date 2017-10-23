@@ -5,7 +5,7 @@ var router = express.Router();
 /* GET home page. */
 router.post('/login', function(req, res, next) {
 
-	console.log("ZW：Login（/login）");
+	console.log("ZW: Login (/login)");
 	//设置权限检查禁止浏览器缓存数据
 	res.header("Cache-Control",  "no-cache, no-store, must-revalidate");
 	res.header("Pragma",  "no-cache");
@@ -33,7 +33,7 @@ router.post('/login', function(req, res, next) {
 	}
 	//进行登录
 	httpProxy("/user/userLogin", req.body, function(data) {
-		console.log("ZW：Proxy Login（/userLogin）");	
+		console.log("ZW: Proxy Login (/userLogin)");	
 
 		if(req.session.user == undefined) {
 			req.session.user = {};
@@ -45,7 +45,7 @@ router.post('/login', function(req, res, next) {
 		var currentSesstionID = req.sessionID;
 
 		var xxxx = checkRepeatLogin(currentSesstion, currentSesstionID, originSession);
-		console.log("ZW：Detect the value who is repeated");
+		console.log("ZW: Detect the value who is repeated");
 		console.log(xxxx);
 		res.send(data);
 		res.end();
