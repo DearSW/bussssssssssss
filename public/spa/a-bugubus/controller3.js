@@ -374,7 +374,7 @@ app
                     }
                 ],
                 "gobdid": "4396",
-                "departDate": "2017-10-30",
+                "departdate": "2017-10-30",
                 "productPrice": 29.5,
             },
             {
@@ -384,7 +384,7 @@ app
                 "viewid": "4396",
                 "haveTicket": 1,
                 "departtime": "8:00",
-                "backDeparttime": "8:00",
+                "backDeparttime": "16:00",
                 "drivertime": 30,
                 "leftTickets": 30,
                 "totalTickets": 60,
@@ -410,7 +410,7 @@ app
                 ],
                 "gobdid": "4396",
                 "backbdid": "43961",
-                "departDate": "2017-10-30",
+                "departdate": "2017-10-30",
                 "productPrice": 29.5,
             }
         ];
