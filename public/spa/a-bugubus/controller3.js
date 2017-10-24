@@ -350,7 +350,7 @@ app
                 "haveTicket": 1,
                 "departtime": "8:00",
                 "backDeparttime": "8:00",
-                "drivertime": 30,
+                "drivetime": 30,
                 "leftTickets": 30,
                 "totalTickets": 60,
                 "departaddr": "贵州饭店北京路66号",
@@ -375,7 +375,7 @@ app
                 ],
                 "gobdid": "4396",
                 "departdate": "2017-10-30",
-                "productPrice": 29.5,
+                "productPrice": 29.50,
             },
             {
                 "viewName": "黔灵山公园",
@@ -385,7 +385,7 @@ app
                 "haveTicket": 1,
                 "departtime": "8:00",
                 "backDeparttime": "16:00",
-                "drivertime": 30,
+                "drivetime": 30,
                 "leftTickets": 30,
                 "totalTickets": 60,
                 "departaddr": "贵州饭店北京路66号",
@@ -411,7 +411,7 @@ app
                 "gobdid": "4396",
                 "backbdid": "43961",
                 "departdate": "2017-10-30",
-                "productPrice": 29.5,
+                "productPrice": 29.50,
             }
         ];
 
