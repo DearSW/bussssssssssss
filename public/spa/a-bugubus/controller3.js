@@ -348,13 +348,13 @@ app
                 "productType": 0,
                 "viewid": "4396",
                 "haveTicket": 1,
-                "departTime": "8:00",
-                "backDepartTime": "8:00",
-                "driverTime": 30,
+                "departtime": "8:00",
+                "backDeparttime": "8:00",
+                "drivertime": 30,
                 "leftTickets": 30,
                 "totalTickets": 60,
-                "departAddr": "贵州饭店北京路66号",
-                "arriveAddr": "黔灵山东门客车站",
+                "departaddr": "贵州饭店北京路66号",
+                "arriveaddr": "黔灵山东门客车站",
                 "departName": "贵州饭店",
                 "arriveName": "黔灵山公园",
                 "viewPrices": [
@@ -380,16 +380,16 @@ app
             {
                 "viewName": "黔灵山公园",
                 "productid": "1234567890",
-                "productType": 0,
+                "productType": 1,
                 "viewid": "4396",
                 "haveTicket": 1,
-                "departTime": "8:00",
-                "backDepartTime": "8:00",
-                "driverTime": 30,
+                "departtime": "8:00",
+                "backDeparttime": "8:00",
+                "drivertime": 30,
                 "leftTickets": 30,
                 "totalTickets": 60,
-                "departAddr": "贵州饭店北京路66号",
-                "arriveAddr": "黔灵山东门客车站",
+                "departaddr": "贵州饭店北京路66号",
+                "arriveaddr": "黔灵山东门客车站",
                 "departName": "贵州饭店",
                 "arriveName": "黔灵山公园",
                 "viewPrices": [
@@ -414,6 +414,7 @@ app
                 "productPrice": 29.5,
             }
         ];
+
 
         // 接收jqztc_search.html页面传递过来的参数，并解析
         var paramsData = JSON.parse($state.params.data);
