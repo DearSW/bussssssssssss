@@ -713,7 +713,7 @@ app
     })
 
     /* 车票订单 确认、支付 %%%%%%% */
-    .controller('order_confirm_pay', function($rootScope, $filter, $scope, $state, $myHttpService, $interval) {
+    .controller('order_confirm_pay', function($rootScope, $filter, $scope, $state, $myHttpService, $interval, $ionicModal) {
 
         // 访问此页面时，如果没有传递过来参数那么将直接返回tabs页。
         if(JSON.parse($state.params.data) == null) {
@@ -1039,7 +1039,44 @@ app
         }
 
         // 门票函数
-        
+        $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
+        '	  '+
+        '        <ion-header-bar class="bar bar-header bar-positive">'+
+        '		'+
+        '		  <button class="button button-clear button-light" ng-click="modal.hide()">取消</button>'+
+        '          <h1 class="title">选择门票</h1>'+
+        '          <button class="button button-clear button-balanced" ng-click="chooseScenicSpotTicket()">确定</button>'+
+        '		  '+
+        '        </ion-header-bar>'+
+        '		'+
+        '        <ion-content class="padding">'+
+        '			'+
+        '			<ion-radio ng-repeat="item in scenicSpotTicketArr"'+
+        '               ng-value="item.viewPriceType"'+
+        '               ng-model="scenicSpotTicket.type">'+
+        '      			{{ item.viewPriceType + item.viewPrice }}'+
+        '    		</ion-radio>'+
+        '			'+
+        '        </ion-content>'+
+        '		'+
+        '      </ion-modal-view>', {
+                scope: $scope,
+                animation: 'slide-in-up'
+        });
+          
+        $scope.scenicSpotTicketArr = $scope.ticketInfo.viewPrices; // 门票数组
+
+		$scope.scenicSpotTicket = {
+			type: '成人票' // 默认为成人票
+		};
+		
+		$scope.chooseScenicSpotTicket = function() {
+			$scope.modal.hide();
+        }
+
+        $scope.$on('$destroy', function() {
+            $scope.modal.remove();
+        });
         
     })
 
