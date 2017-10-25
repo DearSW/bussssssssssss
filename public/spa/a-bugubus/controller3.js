@@ -1100,7 +1100,7 @@ app
         '	  '+
         '        <ion-header-bar class="bar bar-header bar-light">'+
         '		'+
-        '		  <button class="button  button-balanced" ng-click="modal.hide()">取消</button>'+
+        // '		  <button class="button  button-balanced" ng-click="modal.hide()">取消</button>'+
         '          <h1 class="title"> </h1>'+
         '          <button class="button button-balanced" ng-click="chooseScenicSpotTicket()">确定</button>'+
         '		  '+
