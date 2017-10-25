@@ -344,7 +344,7 @@ app
         $scope.noticeInfo = ''; // 须知数据
 
         // Mock数据 接口 api/product/queryProductList
-        $scope.ticketsInfoMock = [
+        /* $scope.ticketsInfoMock = [
             {
                 "viewName": "黔灵山公园",
                 "productid": "1234567890",
@@ -416,8 +416,7 @@ app
                 "departdate": "2017-10-30",
                 "productPrice": 29.50,
             }
-        ];
-
+        ]; */
 
         // 接收jqztc_search.html页面传递过来的参数，并解析
         var paramsData = JSON.parse($state.params.data);
@@ -518,7 +517,7 @@ app
 
         // 购买按钮函数 传递参数
         $scope.purchase = function(item, i) {
-            console.log("购买按钮传递的参数打印：");
+            console.log("购买按钮传递的参数：");
             console.log(item);
             $state.go('order_confirm_pay', {data: JSON.stringify(item)});
         };
