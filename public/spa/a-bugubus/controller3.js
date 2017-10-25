@@ -1081,54 +1081,57 @@ app
         }
 
         // 门票处理 函数
-        $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
-        '	  '+
-        '        <ion-header-bar class="bar bar-header bar-light">'+
-        '		'+
-        // '		  <button class="button  button-balanced" ng-click="modal.hide()">取消</button>'+
-        '          <h1 class="title"> </h1>'+
-        '          <button class="button button-balanced" ng-click="chooseScenicSpotTicket()">确定</button>'+
-        '		  '+
-        '        </ion-header-bar>'+
-        '		'+
-        '        <ion-content class="padding">'+
-        '		    <p style="text-align:center;font-size: 18px;"><span>{{ticketInfo.viewName}}</span></p>	'+
-        '			<ion-radio style="padding: 15px 10px;border: none;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #ddd;border-top-width: 1px;border-top-color: #ddd;border-top-style: solid;" ng-repeat="item in scenicSpotTicketArr"'+
-        '               ng-value="item.viewPriceType"'+
-        '               ng-model="scenicSpotTicket.type">'+
-        '      			{{ item.viewPriceType }} <span style="margin-left: 5px;" >{{ item.viewPrice }} 元</span> '+
-        '    		</ion-radio>'+
-        '			'+
-        '        </ion-content>'+
-        '		'+
-        '      </ion-modal-view>', {
+        if($scope.ticketInfo.haveTicket == 1) { // 有门票时
+
+            $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
+                '	  '+
+                '        <ion-header-bar class="bar bar-header bar-light">'+
+                '		'+
+                // '		  <button class="button  button-balanced" ng-click="modal.hide()">取消</button>'+
+                '          <h1 class="title"> </h1>'+
+                '          <button class="button button-balanced" ng-click="chooseScenicSpotTicket()">确定</button>'+
+                '		  '+
+                '        </ion-header-bar>'+
+                '		'+
+                '        <ion-content class="padding">'+
+                '		    <p style="text-align:center;font-size: 18px;"><span>{{ticketInfo.viewName}}</span></p>	'+
+                '			<ion-radio style="padding: 15px 10px;border: none;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #ddd;border-top-width: 1px;border-top-color: #ddd;border-top-style: solid;" ng-repeat="item in scenicSpotTicketArr"'+
+                '               ng-value="item.viewPriceType"'+
+                '               ng-model="scenicSpotTicket.type">'+
+                '      			{{ item.viewPriceType }} <span style="margin-left: 5px;" >{{ item.viewPrice }} 元</span> '+
+                '    		</ion-radio>'+
+                '			'+
+                '        </ion-content>'+
+                '		'+
+                '      </ion-modal-view>', {
                 scope: $scope,
                 animation: 'slide-in-up'
-        });
+            });
           
-        $scope.scenicSpotTicketArr = $scope.ticketInfo.viewPrices; // 门票数组
+            $scope.scenicSpotTicketArr = $scope.ticketInfo.viewPrices; // 门票数组
 
-		$scope.scenicSpotTicket = {
-			type: $scope.ticketInfo.viewPrices[0].viewPriceType // 指定门票数组的第一个为 默认门票类型
-		};
+            $scope.scenicSpotTicket = {
+                type: $scope.ticketInfo.viewPrices[0].viewPriceType // 指定门票数组的第一个为 默认门票类型
+            };
 		
-		$scope.chooseScenicSpotTicket = function() {
-            for(var item in $scope.ticketInfo.viewPrices) {
-                var objTemp = $scope.ticketInfo.viewPrices[item];
-                if(objTemp.viewPriceType == $scope.scenicSpotTicket.type) {
-                    $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出用户选择的相应类型的门票价格
-                    $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时更新用户选择的门票的ID
+            $scope.chooseScenicSpotTicket = function() {
+                for(var item in $scope.ticketInfo.viewPrices) {
+                    var objTemp = $scope.ticketInfo.viewPrices[item];
+                    if(objTemp.viewPriceType == $scope.scenicSpotTicket.type) {
+                        $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出用户选择的相应类型的门票价格
+                        $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时更新用户选择的门票的ID
+                    }
                 }
+                $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 新的全票 票价
+                $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
+                $scope.modal.hide();
+                console.log($scope.scenicSpotTicketPriceID);
             }
-            $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 新的全票 票价
-            $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
-            $scope.modal.hide();
-            console.log($scope.scenicSpotTicketPriceID);
-        }
 
-        $scope.$on('$destroy', function() {
-            $scope.modal.remove();
-        });
+            $scope.$on('$destroy', function() {
+                $scope.modal.remove();
+            });
+        }
         
     })
 
