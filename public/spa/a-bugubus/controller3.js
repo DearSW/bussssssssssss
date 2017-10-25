@@ -828,11 +828,25 @@ app
                 });
             }
         };
-
+        
         // 票价计算
         $scope.floatObj = floatObj;
-        $scope.price  = $scope.ticketInfo.productPrice; // 票价
-        $scope.sumPrice = $scope.price;
+        
+
+        if($scope.ticketInfo.haveTicket == 1) { // 有门票
+            
+            for(var item in $scope.ticketInfo.viewPrices) {
+                if(item.viewPriceType == '成人票') {
+                    $scope.scenicSpotTicketPrice = item.viewPrice; // 找出默认门票价
+                }
+            }
+            $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 全票价票价
+            $scope.sumPrice = $scope.price;
+        } else { // 没有门票
+            $scope.sumPrice = $scope.price;
+            // $scope.sumPrice = $scope.price;
+        }
+
         $scope.incr = function() {
             if( this.dataContainer.count < $scope.leftTickets ) {
                  this.dataContainer.count += 1;
@@ -938,8 +952,11 @@ app
 
             var departDate = $filter('date')($scope.ticketInfo.departdate, 'yyyy-MM-dd');
 
-            if($scope.ticketInfo.productType == '1') {
-                    var data2 = {
+            if($scope.ticketInfo.productType == '1') { // 往返类型
+
+                if($scope.ticketInfo.haveTicket == 0) { // 没有门票
+
+                    var data2 = { 
                         userid: $rootScope.session.user.userInfo.userid,
                         openid: $rootScope.session.user.userInfo.openid,
                         gobdid: $scope.ticketInfo.gobdid,
@@ -949,7 +966,26 @@ app
                         authcode: $scope.dataContainer.verificationCode,
                         backbdid: $scope.ticketInfo.backbdid
                     };
-            } else {
+
+                } else { // 有门票
+
+                    var data2 = { 
+                        userid: $rootScope.session.user.userInfo.userid,
+                        openid: $rootScope.session.user.userInfo.openid,
+                        gobdid: $scope.ticketInfo.gobdid,
+                        couponuse: $scope.couponBtnState,
+                        departDate: departDate,
+                        count: $scope.dataContainer.count,
+                        authcode: $scope.dataContainer.verificationCode,
+                        backbdid: $scope.ticketInfo.backbdid,
+                        viewPriceId: $scope.ticketInfo.viewid
+                    };
+
+                }
+                    
+            } else { // 单程类型
+                if($scope.ticketInfo.haveTicket == 0) { // 没有门票
+
                     var data2 = {
                         userid: $rootScope.session.user.userInfo.userid,
                         openid: $rootScope.session.user.userInfo.openid,
@@ -959,10 +995,24 @@ app
                         count: $scope.dataContainer.count,
                         authcode: $scope.dataContainer.verificationCode
                     };
+
+                } else { // 有门票
+                    var data2 = {
+                        userid: $rootScope.session.user.userInfo.userid,
+                        openid: $rootScope.session.user.userInfo.openid,
+                        gobdid: $scope.ticketInfo.gobdid,
+                        couponuse: $scope.couponBtnState,
+                        departDate: departDate,
+                        count: $scope.dataContainer.count,
+                        authcode: $scope.dataContainer.verificationCode,
+                        viewPriceId: $scope.ticketInfo.viewid
+                    };
+                }
+                    
             }
 
             console.log("打印传递到order_detail_refund的参数");
-            console.log(data2);
+            console.log(data2); // 即是 api/product/buyProductTicket 接口的参数，也是传递到 order_detail_refund 的参数
             $myHttpService.post("api/product/buyProductTicket", data2, function(data) {
 
                 console.log(data);
@@ -1069,10 +1119,18 @@ app
         $scope.scenicSpotTicketArr = $scope.ticketInfo.viewPrices; // 门票数组
 
 		$scope.scenicSpotTicket = {
-			type: '成人票' // 默认为成人票
+			type: '成人票' // 默门票类型 为 成人票
 		};
 		
 		$scope.chooseScenicSpotTicket = function() {
+            for(var item in $scope.ticketInfo.viewPrices) {
+                if(item.viewPriceType == $scope.scenicSpotTicket.type) {
+                    $scope.scenicSpotTicketPrice = item.viewPrice; // 找出用户选择的相应类型的门票价
+                }
+            }
+            $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 新的全票价票价
+            // $scope.sumPrice = $scope.price;
+            $scope.sumPrice =  floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
 			$scope.modal.hide();
         }
 
