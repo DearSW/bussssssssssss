@@ -1124,7 +1124,7 @@ app
         $scope.scenicSpotTicketArr = $scope.ticketInfo.viewPrices; // 门票数组
 
 		$scope.scenicSpotTicket = {
-			type: '成人票' // 默门票类型 为 成人票
+			type: $scope.ticketInfo.viewPrices[0].viewPriceType // 指定门票数组的第一个为默门票类型
 		};
 		
 		$scope.chooseScenicSpotTicket = function() {
