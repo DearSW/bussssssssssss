@@ -1045,18 +1045,18 @@ app
         '	  '+
         '        <ion-header-bar class="bar bar-header bar-light">'+
         '		'+
-        '		  <button class="button button-clear button-light" ng-click="modal.hide()">取消</button>'+
+        '		  <button class="button  button-balanced" ng-click="modal.hide()">取消</button>'+
         '          <h1 class="title"> </h1>'+
         '          <button class="button button-balanced" ng-click="chooseScenicSpotTicket()">确定</button>'+
         '		  '+
         '        </ion-header-bar>'+
         '		'+
         '        <ion-content class="padding">'+
-        '		    <p style="text-align:center;"><span>{{ticketInfo.viewName}}</span></p>	'+
-        '			<ion-radio style="padding: 10px" ng-repeat="item in scenicSpotTicketArr"'+
+        '		    <p style="text-align:center;font-size: 18px;"><span>{{ticketInfo.viewName}}</span></p>	'+
+        '			<ion-radio style="padding: 15px 10px;border: none;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #ddd;border-top-width: 1px;border-top-color: #ddd;border-top-style: solid;" ng-repeat="item in scenicSpotTicketArr"'+
         '               ng-value="item.viewPriceType"'+
         '               ng-model="scenicSpotTicket.type">'+
-        '      			{{ item.viewPriceType + item.viewPrice }}'+
+        '      			{{ item.viewPriceType }} <span style="margin-left: 5px;" >{{ item.viewPrice }} 元</span> '+
         '    		</ion-radio>'+
         '			'+
         '        </ion-content>'+
