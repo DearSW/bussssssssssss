@@ -832,17 +832,22 @@ app
         // 票价计算
         $scope.floatObj = floatObj;
         
-
         if($scope.ticketInfo.haveTicket == 1) { // 有门票
             
             for(var item in $scope.ticketInfo.viewPrices) {
                 if(item.viewPriceType == '成人票') {
                     $scope.scenicSpotTicketPrice = item.viewPrice; // 找出默认门票价
+                    console.log("门票价格");
+                    console.log($scope.scenicSpotTicketPrice);
                 }
             }
             $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 全票价票价
+            console.log("全票价格");
+            console.log($scope.price);
             $scope.sumPrice = $scope.price;
         } else { // 没有门票
+
+            $scope.price  = $scope.ticketInfo.productPrice;
             $scope.sumPrice = $scope.price;
             // $scope.sumPrice = $scope.price;
         }
@@ -850,7 +855,7 @@ app
         $scope.incr = function() {
             if( this.dataContainer.count < $scope.leftTickets ) {
                  this.dataContainer.count += 1;
-                 $scope.sumPrice =  floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
+                 $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
             } else {
                 layer.open({
                     content: '当前班次余票为: ' + $scope.leftTickets,
@@ -861,7 +866,7 @@ app
         $scope.decr = function() {
             if(this.dataContainer.count > 1) { //只有当数量大于一的时候才减
                 this.dataContainer.count -= 1;
-                $scope.sumPrice =  floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
+                $scope.sumPrice = $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
             }
         }
 
@@ -1130,7 +1135,7 @@ app
             }
             $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 新的全票价票价
             // $scope.sumPrice = $scope.price;
-            $scope.sumPrice =  floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
+            $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
 			$scope.modal.hide();
         }
 
