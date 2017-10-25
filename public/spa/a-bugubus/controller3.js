@@ -833,24 +833,19 @@ app
         $scope.floatObj = floatObj;
         
         if($scope.ticketInfo.haveTicket == 1) { // 有门票
-            
             for(var item in $scope.ticketInfo.viewPrices) {
                 var objTemp = $scope.ticketInfo.viewPrices[item];
                 if(objTemp.viewPriceType == '成人票') {
                     $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出默认门票价
-                    console.log("门票价格");
-                    console.log($scope.scenicSpotTicketPrice);
+                    $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时找出相应的默认门票的ID
                 }
             }
-            $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 全票价票价
-            console.log("全票价格");
-            console.log($scope.price);
+            console.log($scope.scenicSpotTicketPriceID);            
+            $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 全票价格
             $scope.sumPrice = $scope.price;
         } else { // 没有门票
-
             $scope.price  = $scope.ticketInfo.productPrice;
             $scope.sumPrice = $scope.price;
-            // $scope.sumPrice = $scope.price;
         }
 
         $scope.incr = function() {
@@ -984,7 +979,7 @@ app
                         count: $scope.dataContainer.count,
                         authcode: $scope.dataContainer.verificationCode,
                         backbdid: $scope.ticketInfo.backbdid,
-                        viewPriceId: $scope.ticketInfo.viewid
+                        viewPriceId: $scope.scenicSpotTicketPriceID
                     };
 
                 }
@@ -1011,7 +1006,7 @@ app
                         departDate: departDate,
                         count: $scope.dataContainer.count,
                         authcode: $scope.dataContainer.verificationCode,
-                        viewPriceId: $scope.ticketInfo.viewid
+                        viewPriceId: $scope.scenicSpotTicketPriceID
                     };
                 }
                     
@@ -1132,13 +1127,14 @@ app
             for(var item in $scope.ticketInfo.viewPrices) {
                 var objTemp = $scope.ticketInfo.viewPrices[item];
                 if(objTemp.viewPriceType == $scope.scenicSpotTicket.type) {
-                    $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出用户选择的相应类型的门票价
+                    $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出用户选择的相应类型的门票价格
+                    $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时更新用户选择的门票的ID
                 }
             }
             $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 新的全票价票价
-            // $scope.sumPrice = $scope.price;
             $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
-			$scope.modal.hide();
+            $scope.modal.hide();
+            console.log($scope.scenicSpotTicketPriceID);
         }
 
         $scope.$on('$destroy', function() {
@@ -1202,8 +1198,8 @@ app
             sessionStorage.setItem('order_detail_refund_gobdid', paramsData.gobdid);
             sessionStorage.setItem('order_detail_refund_count', paramsData.count);
 
-            if(paramsData.backbdid == null) {
-                var requestData = {
+            if(paramsData.backbdid == null) { // 单程票
+                var requestData = { 
                     userid: paramsData.userid,
                     departDate: paramsData.departDate,
                     gobdid: paramsData.gobdid,
@@ -1212,7 +1208,7 @@ app
                 if(sessionStorage.getItem('order_detail_refund_backbdid') != null) {
                     sessionStorage.removeItem('order_detail_refund_backbdid)');
                 }
-            } else {
+            } else { // 往返票
                 var requestData = {
                     userid: paramsData.userid,
                     departDate: paramsData.departDate,
@@ -1226,15 +1222,13 @@ app
             // 获取用户刚刚购买的票
             $myHttpService.post('api/product/queryProductOrderByBdid', requestData, function(data) {
                 console.log(data);
-                if(data.backViewOrders == null) {
+                if(data.backViewOrders == null) { // 单程票
                     $scope.ticketsInfo = data.viewOrders;
                     $scope.ticketsInfoLength = data.viewOrders.length;
-                } else {
-
+                } else { // 往返票
                     $scope.ticketsInfo = data.viewOrders.concat(data.backViewOrders);
                     $scope.ticketsInfoLength = $scope.ticketsInfo.length;              
                 }
-                
                 $ionicSlideBoxDelegate.update();
             }, errorFn);
 
