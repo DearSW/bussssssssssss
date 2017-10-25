@@ -835,11 +835,9 @@ app
         if($scope.ticketInfo.haveTicket == 1) { // 有门票
             
             for(var item in $scope.ticketInfo.viewPrices) {
-                console.log("检测门票类型步骤执行了");
-                console.log(item.viewPriceType);
-                console.log(item);
-                if(item.viewPriceType == '成人票') {
-                    $scope.scenicSpotTicketPrice = item.viewPrice; // 找出默认门票价
+                var objTemp = $scope.ticketInfo.viewPrices[item];
+                if(objTemp.viewPriceType == '成人票') {
+                    $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出默认门票价
                     console.log("门票价格");
                     console.log($scope.scenicSpotTicketPrice);
                 }
@@ -1132,8 +1130,9 @@ app
 		
 		$scope.chooseScenicSpotTicket = function() {
             for(var item in $scope.ticketInfo.viewPrices) {
-                if(item.viewPriceType == $scope.scenicSpotTicket.type) {
-                    $scope.scenicSpotTicketPrice = item.viewPrice; // 找出用户选择的相应类型的门票价
+                var objTemp = $scope.ticketInfo.viewPrices[item];
+                if(objTemp.viewPriceType == $scope.scenicSpotTicket.type) {
+                    $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出用户选择的相应类型的门票价
                 }
             }
             $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 新的全票价票价
