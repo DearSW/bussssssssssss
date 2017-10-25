@@ -837,6 +837,7 @@ app
             for(var item in $scope.ticketInfo.viewPrices) {
                 console.log("检测门票类型步骤执行了");
                 console.log(item.viewPriceType);
+                console.log(item);
                 if(item.viewPriceType == '成人票') {
                     $scope.scenicSpotTicketPrice = item.viewPrice; // 找出默认门票价
                     console.log("门票价格");
