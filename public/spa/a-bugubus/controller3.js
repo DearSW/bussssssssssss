@@ -148,8 +148,10 @@ app
             }, errorFn);
         } else {
             clearTimeout(slideImageTimer);
-            if($rootScope.recommendProducts2.length > 0) {
-                $scope.showDefaultImg = false;
+            if($rootScope.recommendProducts2 instanceof Array) { // 加个判断，在调试时容易出错，请求不到数据，导致length属性不存在
+                if($rootScope.recommendProducts2.length > 0) {
+                    $scope.showDefaultImg = false;
+                }
             }
         }
         
