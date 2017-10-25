@@ -246,9 +246,10 @@ app
         }
         
         if(recommendImgCount == 1) {
+            $rootScope.tempsz = []; // 区域数组变量            
             $myHttpService.postNoLoad('api/product/queryBuslineRegion', {}, function(data) {
                 $scope.citysz  = unique2(data.regions, 'regionName');
-                $rootScope.tempsz = []; // 临时数组变量
+                // $rootScope.tempsz = []; // 区域数组变量
                 for (var i = 0, len = $scope.citysz.length; i < len; i++) {
                     var obj = {
                         text: $scope.citysz[i]
