@@ -91,12 +91,10 @@
                                         <canvas ng-model="item.barcode" barcode></canvas>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" ng-if="item.ticketCode">
                                     <div class="col" style="text-align: left;">
                                         <span>景区门票校验码 {{ item.ticketCode }}</span>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col" style="text-align: left;">
                                         <span>有效时间 {{ item.departDate }}</span>
                                     </div>
