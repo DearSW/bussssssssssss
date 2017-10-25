@@ -833,13 +833,17 @@ app
         $scope.floatObj = floatObj;
         
         if($scope.ticketInfo.haveTicket == 1) { // 有门票
-            for(var item in $scope.ticketInfo.viewPrices) {
-                var objTemp = $scope.ticketInfo.viewPrices[item];
-                if(objTemp.viewPriceType == '成人票') {
-                    $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出默认门票价
-                    $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时找出相应的默认门票的ID
-                }
-            }
+
+            $scope.scenicSpotTicketPrice = $scope.ticketInfo.viewPrices[0].viewPrice; // 指定门票数组的第一个为默认门票价
+            $scope.scenicSpotTicketPriceID = $scope.ticketInfo.viewPrices[0].viewPriceId; // 同时找出相应的默认门票的ID
+
+            // for(var item in $scope.ticketInfo.viewPrices) {
+            //     var objTemp = $scope.ticketInfo.viewPrices[item];
+            //     if(objTemp.viewPriceType == '成人票') {
+            //         $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出默认门票价
+            //         $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时找出相应的默认门票的ID
+            //     }
+            // }
             console.log($scope.scenicSpotTicketPriceID);            
             $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 全票价格
             $scope.sumPrice = $scope.price;
