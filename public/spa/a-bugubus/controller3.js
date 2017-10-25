@@ -715,17 +715,13 @@ app
 
     })
 
-    /* 车票订单 确认、支付 %%%%%%% */
+    /* 车票订单 确认、支付 */
     .controller('order_confirm_pay', function($rootScope, $filter, $scope, $state, $myHttpService, $interval, $ionicModal) {
 
-        // 访问此页面时，如果没有传递过来参数那么将直接返回tabs页。
-        if(JSON.parse($state.params.data) == null) {
-                // $state.go('search', {}, {location: 'replace'});
-                // window.history.go(-3);
-                // $location.path('/search').replace();
-                window.history.go(-2);
+        if(JSON.parse($state.params.data) == null) { // 访问此页面时，如果没有传递过来参数那么将直接倒退2个页面
+                window.history.go(-2); // 倒退到第一个页面，此动作不可逆
                 return;
-        } else {
+        } else { // 访问此页面时，有参数的情况，正常流程
 
             $scope.dataContainer = { // 数据容器
                 phone: "",
@@ -736,13 +732,12 @@ app
 
             $rootScope.customerPhone = "18302505304"; // 客服电话
 
-            var paramsData = JSON.parse($state.params.data);
-            $scope.ticketInfo = paramsData;
-            console.log("传递到order_confirm_pay页面的车票信息参数打印：");
+            var paramsData = JSON.parse($state.params.data); // 解析传递过来的参数
+            $scope.ticketInfo = paramsData; // 全部车票信息
+            console.log("ZW：传递到 order_confirm_pay 页面的全部车票信息");
             console.log($scope.ticketInfo);
 
-            // 余票，用户可购票数不能超过余票
-            $scope.leftTickets = $scope.ticketInfo.leftTickets;
+            $scope.leftTickets = $scope.ticketInfo.leftTickets; // 余票，用户可购票数不能超过余票
 
             $scope.checkPhoneState = false; // 检测电话号码是否正确
             $scope.verificationCodeBtnDisabled = true; // 控制获取验证码按钮的状态
@@ -753,12 +748,12 @@ app
             $scope.couponBtnState = false; // 控制优惠券的状态
             $scope.couponTxTShow = false; // 控制优惠券文本的状态
 
-            // 验证手机号码
+            // 函数 验证手机号码
             $scope.checkPhone = function() {
                 if($scope.dataContainer.phone !=  undefined) {
                     if($scope.dataContainer.phone.length == 11) {
                         var phone = $scope.dataContainer.phone.toString();
-                        if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))) { 
+                        if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))) { // 正则检测
                             layer.msg("输入的手机号码有误"); 
                             $scope.verificationCodeBtnDisabled = true; // 禁用获取验证码按钮
                             $scope.payBtnDisabled = true; // 禁用确认支付按钮
@@ -775,8 +770,8 @@ app
                 }
             }
 
-            // 验证码倒计时
-            var defaultCountdown = 60;
+            // 验证码倒计时 处理流程
+            var defaultCountdown = 60; // 默认60秒的倒计时时间
             $scope.countdownTime = defaultCountdown;
             var stopCountdownTime;
             $scope.fight = function() {
@@ -807,7 +802,6 @@ app
             $scope.$on('$destroy', function() {
                 $scope.stopFight(); // Make sure that the interval is destroyed too
             });
-
             $scope.countdown = function() {
                 $scope.verificationCodeBtnDisabled = true;
                 console.log("电话号码：" + $scope.dataContainer.phone);
@@ -831,28 +825,18 @@ app
         };
         
         // 票价计算
-        $scope.floatObj = floatObj;
-        
-        if($scope.ticketInfo.haveTicket == 1) { // 有门票
-
+        $scope.floatObj = floatObj; // 票价处理的运算对象
+        if($scope.ticketInfo.haveTicket == 1) { // 有门票时
             $scope.scenicSpotTicketPrice = $scope.ticketInfo.viewPrices[0].viewPrice; // 指定门票数组的第一个为默认门票价
             $scope.scenicSpotTicketPriceID = $scope.ticketInfo.viewPrices[0].viewPriceId; // 同时找出相应的默认门票的ID
-
-            // for(var item in $scope.ticketInfo.viewPrices) {
-            //     var objTemp = $scope.ticketInfo.viewPrices[item];
-            //     if(objTemp.viewPriceType == '成人票') {
-            //         $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出默认门票价
-            //         $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时找出相应的默认门票的ID
-            //     }
-            // }
-            console.log($scope.scenicSpotTicketPriceID);            
-            $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 全票价格
-            $scope.sumPrice = $scope.price;
-        } else { // 没有门票
-            $scope.price  = $scope.ticketInfo.productPrice;
-            $scope.sumPrice = $scope.price;
+            console.log($scope.scenicSpotTicketPriceID);
+            $scope.price = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 全票价格，车票 + 门票
+            $scope.sumPrice = $scope.price; // 总价
+        } else { // 没有门票时
+            $scope.price  = $scope.ticketInfo.productPrice; // 全票价格，车票
+            $scope.sumPrice = $scope.price; // 总价
         }
-
+        // 票数增加 函数
         $scope.incr = function() {
             if( this.dataContainer.count < $scope.leftTickets ) {
                  this.dataContainer.count += 1;
@@ -864,6 +848,7 @@ app
                 });
             }
         }
+        // 票数减少 函数
         $scope.decr = function() {
             if(this.dataContainer.count > 1) { //只有当数量大于一的时候才减
                 this.dataContainer.count -= 1;
@@ -871,7 +856,7 @@ app
             }
         }
 
-        // 优惠券的检测函数
+        // 优惠券的检测 函数
         $scope.oldTicketPriceShow = true;
         $scope.newTicketPriceShow = false;
         $scope.useCoupon = false;
@@ -924,7 +909,7 @@ app
             couponCount++;
         };
 
-        // 确认支付按钮的状态监控函数
+        // 确认支付按钮的状态监控 函数
         $scope.payBtnCheck = function() {
             if($scope.dataContainer.phone !=  undefined) {
                 if($scope.dataContainer.phone.length == 11) {
@@ -953,14 +938,15 @@ app
             }
         }
 
-        // 车票支付函数
+        // 车票支付 函数
         $scope.recharge = function() {
 
             var departDate = $filter('date')($scope.ticketInfo.departdate, 'yyyy-MM-dd');
 
+            // 参数处理 api/product/buyProductTicket 接口
             if($scope.ticketInfo.productType == '1') { // 往返类型
 
-                if($scope.ticketInfo.haveTicket == 0) { // 没有门票
+                if($scope.ticketInfo.haveTicket == 0) { // 没有门票时
 
                     var data2 = { 
                         userid: $rootScope.session.user.userInfo.userid,
@@ -973,7 +959,7 @@ app
                         backbdid: $scope.ticketInfo.backbdid
                     };
 
-                } else { // 有门票
+                } else { // 有门票时
 
                     var data2 = { 
                         userid: $rootScope.session.user.userInfo.userid,
@@ -990,7 +976,7 @@ app
                 }
                     
             } else { // 单程类型
-                if($scope.ticketInfo.haveTicket == 0) { // 没有门票
+                if($scope.ticketInfo.haveTicket == 0) { // 没有门票时
 
                     var data2 = {
                         userid: $rootScope.session.user.userInfo.userid,
@@ -1002,7 +988,7 @@ app
                         authcode: $scope.dataContainer.verificationCode
                     };
 
-                } else { // 有门票
+                } else { // 有门票时
                     var data2 = {
                         userid: $rootScope.session.user.userInfo.userid,
                         openid: $rootScope.session.user.userInfo.openid,
@@ -1016,8 +1002,7 @@ app
                 }
                     
             }
-
-            console.log("打印传递到order_detail_refund的参数");
+            console.log("ZW：传递到order_detail_refund的参数");
             console.log(data2); // 即是 api/product/buyProductTicket 接口的参数，也是传递到 order_detail_refund 的参数
             $myHttpService.post("api/product/buyProductTicket", data2, function(data) {
 
@@ -1096,7 +1081,7 @@ app
             });
         }
 
-        // 门票函数
+        // 门票处理 函数
         $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
         '	  '+
         '        <ion-header-bar class="bar bar-header bar-light">'+
@@ -1125,7 +1110,7 @@ app
         $scope.scenicSpotTicketArr = $scope.ticketInfo.viewPrices; // 门票数组
 
 		$scope.scenicSpotTicket = {
-			type: $scope.ticketInfo.viewPrices[0].viewPriceType // 指定门票数组的第一个为默门票类型
+			type: $scope.ticketInfo.viewPrices[0].viewPriceType // 指定门票数组的第一个为 默认门票类型
 		};
 		
 		$scope.chooseScenicSpotTicket = function() {
@@ -1136,7 +1121,7 @@ app
                     $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时更新用户选择的门票的ID
                 }
             }
-            $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 新的全票价票价
+            $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 新的全票 票价
             $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
             $scope.modal.hide();
             console.log($scope.scenicSpotTicketPriceID);
@@ -1148,12 +1133,10 @@ app
         
     })
 
-    /* 车票购买成功 跳转 详情、退款 */
+    /* 车票购买成功 跳转 */
     .controller('order_detail_refund', function($rootScope, $scope, $filter, $state, $myHttpService, $ionicSlideBoxDelegate) {
 
-        
-        // 访问此页面时，如果没有传递过来参数
-        if(JSON.parse($state.params.data) == null) {
+        if(JSON.parse($state.params.data) == null) { // 访问此页面时，如果没有传递过来参数
 
             if(sessionStorage.getItem('order_detail_refund_backbdid') == null) {
 
@@ -1191,11 +1174,10 @@ app
                 $ionicSlideBoxDelegate.update();
             }, errorFn);
 
-        } else {
+        } else { // 访问此页面时，如果有参数传递过来
             
-            // $scope.paramsData = JSON.parse($state.params.data);
             var paramsData = JSON.parse($state.params.data);
-            console.log("支付成功后，传递过来的参数打印");
+            console.log("支付成功后，传递过来的参数");
             console.log(paramsData);
 
             sessionStorage.setItem('order_detail_refund_userid', paramsData.userid);
@@ -1238,23 +1220,15 @@ app
             }, errorFn);
 
         }
-        
-        // 车辆位置函数
+
+        // 车辆位置 函数
         $scope.getBusPosition = function() {
 
             var data = {
                 carid: $scope.ticketsInfo[0].carid
             };
-            console.log(data);
             $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: false});
-        }
-
-        // 联系客服
-        $scope.contactCustomerService = function() {
-
-
-        }
-        
+        }        
     })
 
     /* 车票 评价 */
@@ -1328,7 +1302,7 @@ app
         }
     })
 
-    /* 正在退款 % */
+    /* 正在退款中 */
     .controller('order_refunding', function($rootScope, $scope, $state, $myLocationService) {
 
         if(JSON.parse($state.params.data) == null) {
@@ -1340,7 +1314,7 @@ app
         }
     })
 
-    /* 我的行程 %%%%%% */
+    /* 我的行程 */
     .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state) {
 
         if(sessionStorage.getItem("myplanCount") == null) {
@@ -1380,7 +1354,6 @@ app
         }
         
         // 上拉加载更多票信息
-        
         if($rootScope.hasmore2) {
             $scope.loadMoreTicket = function() {
                 var offset = ($scope.pageCount - 1) * 10;
@@ -1402,7 +1375,6 @@ app
                         console.log($rootScope.ticketsInfo);
                         $rootScope.ticketsInfo.sort(compare('departDate'));
                         $scope.$broadcast('scroll.infiniteScrollComplete');
-                        // alert($rootScope.ticketsInfo.length); // 0
                         if($rootScope.ticketsInfo.length == 0 ) { // 无票
                             $scope.ticketsInfoIsEmpty = true;
                         }
@@ -1583,7 +1555,7 @@ app
         }
     })
 
-    /* 车辆位置 % */
+    /* 车辆位置 */
     .controller('BusPositionController', function($scope, $myHttpService, $timeout, $state) {
 
         if(JSON.parse($state.params.data) == null) {
@@ -1645,7 +1617,7 @@ app
         }
     })
 
-    /* 车票详情  %%%%% */
+    /* 车票详情 */
     .controller('ticket_detail', function($rootScope, $scope, $filter, $interval, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
 
         $scope.timeShow = false;
@@ -1805,7 +1777,7 @@ app
 
     })
 
-    /* 我的账户 个人信息保存 编辑  %% */
+    /* 我的账户 个人信息保存 编辑 */
     .controller('IUserController', function($rootScope, $scope, $location, $state, $myHttpService) {
         
         $scope.tempUser = {};
