@@ -1162,7 +1162,7 @@ app
                 $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价
                 console.log("车票总价");
                 console.log($scope.sumPrice2); 
-                
+
                 $scope.price3 = $scope.scenicSpotTicketPrice; // 门票
                 $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
                 console.log("门票总价");
@@ -1857,8 +1857,8 @@ app
                 $scope.editButtonText = "保存";
             } else {
                 // 加个判断，当用户输入长度有误时进行提醒
-                if( $scope.tempUser.username.length < 2 || $scope.tempUser.username.length > 4 || !(/[\u4e00-\u9fa5]{2,4}/.test($scope.tempUser.username)) || $scope.tempUser.phone.length != 11 || !(/^1(3|4|5|7|8)\d{9}$/.test($scope.tempUser.phone)) ) {
-                    if($scope.tempUser.username.length > 4 || $scope.tempUser.username.length < 2 || !(/[\u4e00-\u9fa5]{2,4}/.test($scope.tempUser.username))) {
+                if( $scope.tempUser.username.length < 2 || $scope.tempUser.username.length > 4 || !(/^[\u4e00-\u9fa5]{2,4}$/.test($scope.tempUser.username)) || $scope.tempUser.phone.length != 11 || !(/^1(3|4|5|7|8)\d{9}$/.test($scope.tempUser.phone)) ) {
+                    if($scope.tempUser.username.length > 4 || $scope.tempUser.username.length < 2 || !(/^[\u4e00-\u9fa5]{2,4}$/.test($scope.tempUser.username))) {
                         layer.open({
                             content: '输入的姓名格式有误，长度为2-4个中文',
                             btn: '确定'
