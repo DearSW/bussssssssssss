@@ -826,7 +826,7 @@ app
         // 票价计算
         $scope.floatObj = floatObj; // 票价处理的运算对象
         if($scope.ticketInfo.haveTicket == 1) { // 有门票时
-            $scope.scenicSpotTicketPrice = $scope.ticketInfo.viewPrices[0].viewPrice; // 指定门票数组的第一个为默认门票价
+            $scope.scenicSpotTicketPrice = $scope.ticketInfo.viewPrices[0].couponPrice; // 指定门票数组的第一个为默认门票价
             $scope.scenicSpotTicketPriceID = $scope.ticketInfo.viewPrices[0].viewPriceId; // 同时找出相应的默认门票的ID
             console.log($scope.scenicSpotTicketPriceID);
             // $scope.price = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice;
@@ -1100,7 +1100,7 @@ app
                 '			<ion-radio style="padding: 15px 10px;border: none;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #ddd;border-top-width: 1px;border-top-color: #ddd;border-top-style: solid;" ng-repeat="item in scenicSpotTicketArr"'+
                 '               ng-value="item.viewPriceType"'+
                 '               ng-model="scenicSpotTicket.type">'+
-                '      			{{ item.viewPriceType }} <span style="margin-left: 5px;" >{{ item.viewPrice }} 元</span> '+
+                '      			{{ item.viewPriceType }} <span style="margin-left: 5px;" >{{ item.couponPrice }} 元</span> '+
                 '    		</ion-radio>'+
                 '			'+
                 '        </ion-content>'+
@@ -1120,7 +1120,7 @@ app
                 for(var item in $scope.ticketInfo.viewPrices) {
                     var objTemp = $scope.ticketInfo.viewPrices[item];
                     if(objTemp.viewPriceType == $scope.scenicSpotTicket.type) {
-                        $scope.scenicSpotTicketPrice = objTemp.viewPrice; // 找出用户选择的相应类型的门票价格
+                        $scope.scenicSpotTicketPrice = objTemp.couponPrice; // 找出用户选择的相应类型的门票价格
                         $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时更新用户选择的门票的ID
                     }
                 }
