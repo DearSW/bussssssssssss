@@ -1124,7 +1124,7 @@ app
                         $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时更新用户选择的门票的ID
                     }
                 }
-                $scope.price  = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 新的全票 票价
+                $scope.price = $scope.floatObj.add($scope.ticketInfo.productPrice, $scope.scenicSpotTicketPrice, 2);
                 $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
                 $scope.modal.hide();
                 console.log($scope.scenicSpotTicketPriceID);
