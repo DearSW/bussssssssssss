@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="col col-33" ng-if="item.haveTicket == 1">
                                         <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
-                                        内含门票
+                                        含门票
                                     </div>
                                 </div> 
                             </div>
@@ -160,6 +160,10 @@
                                         <div class="col col-33">
                                             <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
                                             已使用<span ng-if="item.orderhie == null">(未评价)</span><span ng-if="item.orderhie != null">(已评价)</span>
+                                        </div>
+                                        <div class="col col-33" ng-if="item.haveTicket == 1">
+                                            <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
+                                            含门票
                                         </div>
                                     </div> 
                             </div>
@@ -211,7 +215,7 @@
                                         </div>
                                         <div class="col col-33" ng-if="item.haveTicket == 1">
                                             <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
-                                            内含门票
+                                            含门票
                                         </div>
                                     </div> 
                             </div>
@@ -260,6 +264,10 @@
                                         <div class="col col-33">
                                             <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
                                             已退款 ￥{{item.payPrice}}
+                                        </div>
+                                        <div class="col col-33" ng-if="item.haveTicket == 1">
+                                            <i class="icon ion-android-notifications-none" style="color:deeppink"></i>
+                                            含门票
                                         </div>
                                     </div> 
                             </div>

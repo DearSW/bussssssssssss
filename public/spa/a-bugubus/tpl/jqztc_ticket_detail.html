@@ -20,7 +20,12 @@
                                             <span class="btnfont4">{{ticketInfo.departTime}}</span>
                                         </div>
                                         <div class="col" style="text-align: center">
-                                            <div class="btnfont green">单程</div>
+                                            <div ng-if="ticketInfo.haveTicket == 0">
+                                                    <div class="btnfont green">单程</div>
+                                            </div>
+                                            <div ng-if="ticketInfo.haveTicket == 1">
+                                                    <div class="btnfont green">单程 + 门票</div>
+                                            </div>
                                         </div>
                                         <div class="col">
                                             <div class="btnfont">{{ticketInfo.platenum}}</div>
@@ -88,12 +93,14 @@
                                 <canvas ng-model="ticketInfo.barcode" barcode></canvas>
                             </div>
                         </div>
-                        <div class="row" ng-if="ticketInfo.ticketCode">
-                            <div class="col" style="text-align: left;">
+                        <div class="row" ng-if="ticketInfo.haveTicket == 1">
+                            <div class="col">
                                 <span>景区门票校验码 {{ ticketInfo.ticketCode }}</span>
                             </div>
-                            <div class="col" style="text-align: left;">
-                                <span>有效时间 {{ ticketInfo.departDate }}</span>
+                        </div>
+                        <div class="row" ng-if="ticketInfo.haveTicket == 1">
+                            <div class="col">
+                                <span>有效时间 {{ ticketInfo.departDate  | date:'yyyy-MM-dd' }}</span>
                             </div>
                         </div>
                     </div>
