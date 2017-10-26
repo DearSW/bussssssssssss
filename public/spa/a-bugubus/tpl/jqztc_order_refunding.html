@@ -19,7 +19,12 @@
                                             <span class="btnfont4">{{ticketInfo.departTime}}</span>
                                         </div>
                                         <div class="col" style="text-align: center">
-                                            <div class="btnfont green">单程</div>
+                                            <div ng-if="ticketInfo.haveTicket == 0">
+                                                    <div class="btnfont green">单程</div>
+                                            </div>
+                                            <div ng-if="ticketInfo.haveTicket == 1">
+                                                    <div class="btnfont green">单程 + 门票</div>
+                                            </div>
                                         </div>
                                         <div class="col">
                                             <div class="btnfont">{{ticketInfo.platenum}}</div>
