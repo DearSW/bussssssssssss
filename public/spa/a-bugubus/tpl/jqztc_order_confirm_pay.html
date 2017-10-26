@@ -154,19 +154,36 @@
                             </div>
 
                             <div class="col col-33 col-bottom">
-
-                                <div ng-if="useCoupon" style="text-align: center;">
-                                    <div ng-if="sumPrice - newTicketPrice >= 0">
-                                        <span class="btnfont9">{{ sumPrice - newTicketPrice | currency: '￥' }}</span>                                    
-                                    </div>
-                                    <div ng-if="sumPrice - newTicketPrice < 0">
-                                        <span class="btnfont9">{{ 0 | currency: '￥' }}</span>                              
-                                    </div>
+                                <!-- 有门票时 -->
+                                <div ng-if="ticketInfo.haveTicket == 1">
+                                        <div ng-if="useCoupon" style="text-align: center;">
+                                            <div ng-if="sumPrice2 - newTicketPrice >= 0">
+                                                <span class="btnfont9">{{ sumPrice2 - newTicketPrice + sumPrice3 | currency: '￥' }}</span>                                    
+                                            </div>
+                                            <div ng-if="sumPrice2 - newTicketPrice < 0">
+                                                <span class="btnfont9">{{ 0 + sumPrice3 | currency: '￥' }}</span>                              
+                                            </div>
+                                        </div>
+                                        <div ng-if="!useCoupon" style="text-align: center;">
+                                            <span class="btnfont9">{{ sumPrice | currency: '￥' }}</span>
+                                        </div>
+                                </div>
+                                <!-- 没有门票时 -->
+                                <div ng-if="ticketInfo.haveTicket == 0">
+                                        <div ng-if="useCoupon" style="text-align: center;">
+                                            <div ng-if="sumPrice - newTicketPrice >= 0">
+                                                <span class="btnfont9">{{ sumPrice - newTicketPrice | currency: '￥' }}</span>                                    
+                                            </div>
+                                            <div ng-if="sumPrice - newTicketPrice < 0">
+                                                <span class="btnfont9">{{ 0 | currency: '￥' }}</span>                              
+                                            </div>
+                                        </div>
+                                        <div ng-if="!useCoupon" style="text-align: center;">
+                                            <span class="btnfont9">{{ sumPrice | currency: '￥' }}</span>
+                                        </div>
                                 </div>
 
-                                <div ng-if="!useCoupon" style="text-align: center;">
-                                        <span class="btnfont9">{{ sumPrice | currency: '￥' }}</span>
-                                </div>
+                                
 
                             </div>
 

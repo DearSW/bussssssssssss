@@ -826,22 +826,40 @@ app
         // 票价计算
         $scope.floatObj = floatObj; // 票价处理的运算对象
         if($scope.ticketInfo.haveTicket == 1) { // 有门票时
+            console.log("有车票时");
             $scope.scenicSpotTicketPrice = $scope.ticketInfo.viewPrices[0].couponPrice; // 指定门票数组的第一个为默认门票价
             $scope.scenicSpotTicketPriceID = $scope.ticketInfo.viewPrices[0].viewPriceId; // 同时找出相应的默认门票的ID
             console.log($scope.scenicSpotTicketPriceID);
             // $scope.price = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice;
             // 只要是涉及小数的运算，都必须使用 floatObj运算对象来保证正确的计算结果！
             $scope.price = $scope.floatObj.add($scope.ticketInfo.productPrice, $scope.scenicSpotTicketPrice, 2); // 全票价格，车票 + 门票
-            $scope.sumPrice = $scope.price; // 总价
+            $scope.price2 = $scope.ticketInfo.productPrice; // 车票
+            $scope.price3 = $scope.scenicSpotTicketPrice; // 门票
+            $scope.sumPrice = $scope.price; // 全票总价 车票 + 门票
+            console.log("全票总价");
+            console.log($scope.sumPrice);
+            $scope.sumPrice2 = $scope.price2; // 车票总价
+            console.log("车票总价");
+            console.log($scope.sumPrice2);            
+            $scope.sumPrice3 = $scope.price3; // 门票总价
+            console.log("门票总价");
+            console.log($scope.sumPrice3);
         } else { // 没有门票时
+            console.log("无车票时");
             $scope.price  = $scope.ticketInfo.productPrice; // 全票价格，车票
-            $scope.sumPrice = $scope.price; // 总价
+            $scope.sumPrice = $scope.price; // 全票总价，车票
+            console.log("全票总价");
+            console.log($scope.sumPrice);
         }
         // 票数增加 函数
         $scope.incr = function() {
             if( this.dataContainer.count < $scope.leftTickets ) {
-                 this.dataContainer.count += 1;
-                 $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
+                this.dataContainer.count += 1;
+                $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
+                if($scope.ticketInfo.haveTicket == 1) {
+                    $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                                    
+                    $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
+                }
             } else {
                 layer.open({
                     content: '当前班次余票为: ' + $scope.leftTickets,
@@ -853,7 +871,11 @@ app
         $scope.decr = function() {
             if(this.dataContainer.count > 1) { //只有当数量大于一的时候才减
                 this.dataContainer.count -= 1;
-                $scope.sumPrice = $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
+                $scope.sumPrice = $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
+                if($scope.ticketInfo.haveTicket == 1) {
+                    $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                    
+                    $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
+                }
             }
         }
 
@@ -892,7 +914,7 @@ app
                         // 有优惠券
                         $scope.couponBtnState = true;
                         $scope.couponTxTShow = false;
-                        $scope.newTicketPrice = data.showPrice;
+                        $scope.newTicketPrice = data.showPrice; // 优惠金额
                     } else {
                         // 没有优惠券
                         $scope.couponBtnState = false;
@@ -1125,7 +1147,9 @@ app
                     }
                 }
                 $scope.price = $scope.floatObj.add($scope.ticketInfo.productPrice, $scope.scenicSpotTicketPrice, 2);
-                $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2);
+                $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
+                $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价
+                $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
                 $scope.modal.hide();
                 console.log($scope.scenicSpotTicketPriceID);
             }
