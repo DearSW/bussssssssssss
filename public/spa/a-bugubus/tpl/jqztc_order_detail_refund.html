@@ -7,7 +7,7 @@
                     <div class="notice2" >
                         <p>1、发车前1小时以上，可申请全额退款，超时或已验票后，无法退款。</p>
                         <p>2、遇天气原因或其他不可抗拒因素而不能发车的，都可申请全额退款。</p>
-                        <p>3、更多车票信息、退票操作等请在<span style="color:#47bd4c">我的行程</span>中查看。</p>
+                        <p>3、更多车票信息、退票操作等请在公众号<span style="color:#47bd4c">我的行程</span>菜单中查看。</p>
                     </div>
 
                     <ion-slide-box show-pager="false">
@@ -96,12 +96,12 @@
                                         <canvas ng-model="item.barcode" barcode></canvas>
                                     </div>
                                 </div>
-                                <div class="row" ng-if="ticketInfo.haveTicket == 1">
+                                <div class="row" ng-if="ticketInfo.ticketCode">
                                     <div class="col">
                                         <span>景区门票校验码 {{ ticketInfo.ticketCode }}</span>
                                     </div>
                                 </div>
-                                <div class="row" ng-if="ticketInfo.haveTicket == 1">
+                                <div class="row" ng-if="ticketInfo.ticketCode">
                                     <div class="col">
                                         <span>有效时间 {{ ticketInfo.departDate  | date:'yyyy-MM-dd' }}</span>
                                     </div>

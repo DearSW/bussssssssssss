@@ -93,12 +93,12 @@
                                 <canvas ng-model="ticketInfo.barcode" barcode></canvas>
                             </div>
                         </div>
-                        <div class="row" ng-if="ticketInfo.ticketCode">
+                        <div class="row" ng-if="ticketInfo.haveTicket == 1">
                             <div class="col">
                                 <span>景区门票校验码 {{ ticketInfo.ticketCode }}</span>
                             </div>
                         </div>
-                        <div class="row" ng-if="ticketInfo.ticketCode">
+                        <div class="row" ng-if="ticketInfo.haveTicket == 1">
                             <div class="col">
                                 <span>有效时间 {{ ticketInfo.departDate  | date:'yyyy-MM-dd' }}</span>
                             </div>
