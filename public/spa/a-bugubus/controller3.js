@@ -829,7 +829,9 @@ app
             $scope.scenicSpotTicketPrice = $scope.ticketInfo.viewPrices[0].viewPrice; // 指定门票数组的第一个为默认门票价
             $scope.scenicSpotTicketPriceID = $scope.ticketInfo.viewPrices[0].viewPriceId; // 同时找出相应的默认门票的ID
             console.log($scope.scenicSpotTicketPriceID);
-            $scope.price = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice; // 全票价格，车票 + 门票
+            // $scope.price = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice;
+            // 只要是涉及小数的运算，都必须使用 floatObj运算对象来保证正确的计算结果！
+            $scope.price = $scope.floatObj.add($scope.ticketInfo.productPrice, $scope.scenicSpotTicketPrice, 2); // 全票价格，车票 + 门票
             $scope.sumPrice = $scope.price; // 总价
         } else { // 没有门票时
             $scope.price  = $scope.ticketInfo.productPrice; // 全票价格，车票
