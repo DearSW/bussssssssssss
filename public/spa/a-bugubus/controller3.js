@@ -835,22 +835,29 @@ app
             $scope.price = $scope.floatObj.add($scope.ticketInfo.productPrice, $scope.scenicSpotTicketPrice, 2); // 全票价格，车票 + 门票
             $scope.price2 = $scope.ticketInfo.productPrice; // 车票
             $scope.price3 = $scope.scenicSpotTicketPrice; // 门票
+
             $scope.sumPrice = $scope.price; // 全票总价 车票 + 门票
             console.log("全票总价");
             console.log($scope.sumPrice);
+
             $scope.sumPrice2 = $scope.price2; // 车票总价
             console.log("车票总价");
-            console.log($scope.sumPrice2);            
+            console.log($scope.sumPrice2);        
+
             $scope.sumPrice3 = $scope.price3; // 门票总价
             console.log("门票总价");
             console.log($scope.sumPrice3);
+
         } else { // 没有门票时
             console.log("无车票时");
+
             $scope.price  = $scope.ticketInfo.productPrice; // 全票价格，车票
             $scope.sumPrice = $scope.price; // 全票总价，车票
             console.log("全票总价");
             console.log($scope.sumPrice);
+
         }
+        
         // 票数增加 函数
         $scope.incr = function() {
             if( this.dataContainer.count < $scope.leftTickets ) {
@@ -1147,9 +1154,20 @@ app
                     }
                 }
                 $scope.price = $scope.floatObj.add($scope.ticketInfo.productPrice, $scope.scenicSpotTicketPrice, 2);
+
                 $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
+                console.log("全票总价");
+                console.log($scope.sumPrice);
+
                 $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价
+                console.log("车票总价");
+                console.log($scope.sumPrice2); 
+                
+                $scope.price3 = $scope.scenicSpotTicketPrice; // 门票
                 $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
+                console.log("门票总价");
+                console.log($scope.sumPrice3);
+
                 $scope.modal.hide();
                 console.log($scope.scenicSpotTicketPriceID);
             }
