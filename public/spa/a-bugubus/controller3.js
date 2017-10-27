@@ -1401,6 +1401,7 @@ app
         
         // 上拉加载更多票信息
         if($rootScope.hasmore2) {
+            console.log("执行了");
             $scope.loadMoreTicket = function() {
                 var offset = ($scope.pageCount - 1) * 10;
                 var requestData = {
@@ -1414,11 +1415,13 @@ app
                         if (data.userViewList.length < 10) { 
                             $scope.hasmore = false; // 这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
                             $rootScope.hasmore2 = false;
+                        } else {
+                            $scope.pageCount++; // 计数
                         }
-                        $scope.pageCount++; // 计数
                         run = false;
                         $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); // 报错
                         console.log($rootScope.ticketsInfo);
+                        console.log($rootScope.hasmore2);
                         $rootScope.ticketsInfo.sort(compare('departDate'));
                         $scope.$broadcast('scroll.infiniteScrollComplete');
                         if($rootScope.ticketsInfo.length == 0 ) { // 无票
@@ -1440,6 +1443,7 @@ app
             };
             $scope.pageCount = 2;
             $rootScope.hasmore2 = true;
+            console.log($rootScope.hasmore2);
             $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
                 $rootScope.ticketsInfo = data.userViewList;
                 $rootScope.ticketsTotal = data.totalnum;
