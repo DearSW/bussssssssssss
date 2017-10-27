@@ -6,9 +6,12 @@
                 stroke: green;
                 fill: green;
             }
+            .myplan .item {
+                border: none;
+            }
     </style>
     <div class="myplan">
-        <ion-content>
+        <ion-content style="background-color: #E7E7E7;">
 
                     <!-- 下拉刷新 -->
                     <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" on-refresh="doRefreshTicket()" spinner="lines"></ion-refresher>
@@ -60,6 +63,9 @@
 
                     <!-- 有票 -->
                     <ion-list ng-if="!ticketsInfoIsEmpty">
+                        <div class="myplan-placeholder2">
+
+                        </div>
                         <!-- 分类 -->
                         <ion-item class="animate-repeat" ng-repeat="item in ticketsInfo  | filter: {viewOrderStatus:q} as results" ng-switch="item.viewOrderStatus">
 
@@ -288,8 +294,8 @@
                             </div>
                         </ion-item>
 
-                        <div class="myplan-placeholder">
-
+                        <div class="myplan-placeholder" style=" width: 100%; height: 45px; text-align: center; padding: 5px;" >
+                            <span ng-if="!hasmore2" style="line-height: 2; color: #a2a2a2;">我是有底线的</span>
                         </div>
 
                     </ion-list>
