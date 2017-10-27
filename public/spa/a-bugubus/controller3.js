@@ -1401,8 +1401,8 @@ app
         
         // 上拉加载更多票信息
         if($rootScope.hasmore2) {
-            console.log("执行了");
             $scope.loadMoreTicket = function() {
+                console.log("loadMoreTicket执行了");
                 var offset = ($scope.pageCount - 1) * 10;
                 var requestData = {
                     userid: $rootScope.session.user.userInfo.userid,
