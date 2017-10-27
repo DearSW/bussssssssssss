@@ -1439,6 +1439,7 @@ app
                 pagesize: 10,
             };
             $scope.pageCount = 2;
+            $rootScope.hasmore2 = true;
             $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
                 $rootScope.ticketsInfo = data.userViewList;
                 $rootScope.ticketsTotal = data.totalnum;
