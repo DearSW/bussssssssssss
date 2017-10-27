@@ -1375,9 +1375,9 @@ app
             $rootScope.hasmore2 = true;
             $scope.pageCount = 1; // 保存的记录页面参数，用于上拉加载分页的记录
             $scope.hasmore = true;
-            var run = false;
+            
         }
-        
+        var run = false;
         $scope.ticketsInfoIsEmpty = false; // 当没有任何票信息时显现
 
         // 比较函数，对票进行排序，从大到小
@@ -1411,10 +1411,10 @@ app
                 if(!run) {
                     run = true;
                     $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
-                    if (data.userViewList.length < 10) { 
-                        $scope.hasmore = false; // 这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
-                        $rootScope.hasmore2 = false;
-                    }
+                        if (data.userViewList.length < 10) { 
+                            $scope.hasmore = false; // 这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
+                            $rootScope.hasmore2 = false;
+                        }
                         $scope.pageCount++; // 计数
                         run = false;
                         $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); // 报错
@@ -1438,7 +1438,7 @@ app
                 offset: 0,
                 pagesize: 10,
             };
-            $scope.pageCount = 1;
+            $scope.pageCount = 2;
             $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
                 $rootScope.ticketsInfo = data.userViewList;
                 $rootScope.ticketsTotal = data.totalnum;
@@ -1452,6 +1452,7 @@ app
                         time: 1
                     });
                 }
+                $scope.$broadcast('scroll.refreshComplete');
             }, function() {
                 $scope.$broadcast('scroll.refreshComplete');                
             });
