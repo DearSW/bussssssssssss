@@ -1421,7 +1421,6 @@ app
                         run = false;
                         $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); // 报错
                         console.log($rootScope.ticketsInfo);
-                        console.log($rootScope.hasmore2);
                         $rootScope.ticketsInfo.sort(compare('departDate'));
                         $scope.$broadcast('scroll.infiniteScrollComplete');
                         if($rootScope.ticketsInfo.length == 0 ) { // 无票
@@ -1441,9 +1440,8 @@ app
                 offset: 0,
                 pagesize: 10,
             };
-            $scope.pageCount = 2;
+            $scope.pageCount = 2; // 车票下拉刷新后，重置上拉加载更多函数的基本配置
             $rootScope.hasmore2 = true;
-            console.log($rootScope.hasmore2);
             $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
                 $rootScope.ticketsInfo = data.userViewList;
                 $rootScope.ticketsTotal = data.totalnum;
