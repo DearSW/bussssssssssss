@@ -629,7 +629,8 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
 
 .myplan .ticketFilter {
     background: white;
-    height: 60px;
+    height: 55px;
+    margin-bottom: 5px;
 }
 
 .myplan .ticketFilter .item-radio .item-content {

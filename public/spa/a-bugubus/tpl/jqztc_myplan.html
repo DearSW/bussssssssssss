@@ -63,9 +63,6 @@
 
                     <!-- 有票 -->
                     <ion-list ng-if="!ticketsInfoIsEmpty">
-                        <div class="myplan-placeholder2">
-
-                        </div>
                         <!-- 分类 -->
                         <ion-item class="animate-repeat" ng-repeat="item in ticketsInfo  | filter: {viewOrderStatus:q} as results" ng-switch="item.viewOrderStatus">
 
