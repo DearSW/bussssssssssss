@@ -1283,7 +1283,7 @@ app
         $scope.submitBtnIsDiasbled = true; // 控制提交按钮的状态
 
         if(JSON.parse($state.params.data) == null) {
-                
+            $state.go('myplan', {}, {location: 'replace'});
         } else {
 
             // 接受参数
@@ -1345,6 +1345,15 @@ app
                     });
                 }, errorFn);
             };
+
+            // 车辆位置函数
+            $scope.getBusPosition = function() {
+                var data = {
+                    carid: $scope.ticketInfo.carid
+                };
+                console.log(data);
+                $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
+            }
         }
     })
 
