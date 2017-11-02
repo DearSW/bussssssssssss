@@ -1651,10 +1651,13 @@ app
         } else {
 
             var paramsData = JSON.parse($state.params.data);
+            console.log("传到定位地图页面的参数");
+            console.log(paramsData);
             $scope.positionArr = {};
             $myHttpService.post('api/product/queryCarLocation', {
                 carid: paramsData.carid
             }, function(data) {        
+                console.log(data);
                 $scope.positionArr = data.car;
                 var lineArr = [
                     $scope.positionArr.currlon, // 经度
@@ -1663,14 +1666,39 @@ app
                 var map = new AMap.Map("J_map_canvas", {
                     resizeEnable: true,
                     center: [lineArr[0], lineArr[1]],
-                    zoom: 17
+                    zoom: 15
                 });
-                marker = new AMap.Marker({
+                var marker = new AMap.Marker({
                     map: map,
                     position: [lineArr[0], lineArr[1]],
                     content: '<i class="icon ion-ios-location" style="color: #f71909;font-size:30px"></i>',
                     offset: new AMap.Pixel(-26, -13),
                     animation: "AMAP_ANIMATION_DROP"
+                });
+                var circle = new AMap.Circle({
+                    map: map,
+                    center: [lineArr[0], lineArr[1]],
+                    redius: 100,
+                    fillOpacity: 0.1,
+                    fillColor: '#09f',
+                    strokeColor: '#09f',
+                    strokeWeight: 1
+                });
+                AMap.plugin('AMap.Geocoder', function() {
+                    var str = "加载中>>>";
+                    var geocoder = new AMap.Geocoder({});
+                    geocoder.getAddress([lineArr[0], lineArr[1]], function(status, result) {
+                        if(status == 'complete') {
+                           str = result.regeocode.formattedAddress
+                           var info = new AMap.InfoWindow({
+                                content: '<div class="title_bus_position">高德地图</div><div class="content_bus_position">'+
+                                                str + '<br/></div>',
+                                offset: new AMap.Pixel(0,-28),
+                                size: new AMap.Size(200,0)
+                            });
+                            info.open(map,  [lineArr[0], lineArr[1]]);
+                        }
+                    });
                 });
             }, errorFn);
         }
