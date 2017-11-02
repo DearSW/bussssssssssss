@@ -1264,15 +1264,13 @@ app
                 }
                 $ionicSlideBoxDelegate.update();
             }, errorFn);
-
         }
 
         // 车辆位置 函数
-        $scope.getBusPosition = function() {
-
+        $scope.getBusPosition = function(i) {
             var data = {
-                carid: $scope.ticketsInfo[0].carid,
-                lineid: $scope.ticketsInfo[0].lineid
+                carid: $scope.ticketsInfo[i].carid,
+                lineid: $scope.ticketsInfo[i].lineid
             };
             $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: false});
         }        
@@ -1662,6 +1660,18 @@ app
             }, function(data) {        
                 console.log(data);
                 $scope.positionArr = data.car;
+                $scope.busline = data.busline;
+                // 起点 经纬度
+                var startPositionLonLat = [
+                    $scope.busline.departlon,
+                    $scope.busline.departlat
+                ];
+                // 终点 经纬度
+                var endPositionLonLat = [
+                    $scope.busline.arrivelon,
+                    $scope.busline.arrivelat
+                ];
+                // 当前车辆位置 经纬度
                 var lineArr = [
                     $scope.positionArr.currlon, // 经度
                     $scope.positionArr.currlat // 纬度
@@ -1687,6 +1697,7 @@ app
                     strokeColor: '#09f',
                     strokeWeight: 1
                 });
+                // 逆地理编码
                 AMap.plugin('AMap.Geocoder', function() {
                     var str = "加载中>>>";
                     var geocoder = new AMap.Geocoder({});
@@ -1694,7 +1705,7 @@ app
                         if(status == 'complete') {
                            str = result.regeocode.formattedAddress
                            var info = new AMap.InfoWindow({
-                                content: '<div class="title_bus_position">高德地图</div><div class="content_bus_position">'+
+                                content: '<div class="title_bus_position">当前车辆位置</div><div class="content_bus_position">'+
                                                 str + '<br/></div>',
                                 offset: new AMap.Pixel(0,-28),
                                 size: new AMap.Size(200,0)
@@ -1702,6 +1713,13 @@ app
                             info.open(map,  [lineArr[0], lineArr[1]]);
                         }
                     });
+                });
+                // 路径规划绘制
+                AMap.plugin('AMap.Driving', function() {
+                    var drving = new AMap.Driving({
+                        map: map
+                    })
+                    drving.search(startPositionLonLat, endPositionLonLat);
                 });
             }, errorFn);
         }
