@@ -1271,7 +1271,8 @@ app
         $scope.getBusPosition = function() {
 
             var data = {
-                carid: $scope.ticketsInfo[0].carid
+                carid: $scope.ticketsInfo[0].carid,
+                lineid: $scope.ticketsInfo[0].lineid
             };
             $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: false});
         }        
@@ -1349,7 +1350,8 @@ app
             // 车辆位置函数
             $scope.getBusPosition = function() {
                 var data = {
-                    carid: $scope.ticketInfo.carid
+                    carid: $scope.ticketInfo.carid,
+                    lineid: $scope.ticketInfo.lineid
                 };
                 console.log(data);
                 $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
@@ -1655,7 +1657,8 @@ app
             console.log(paramsData);
             $scope.positionArr = {};
             $myHttpService.post('api/product/queryCarLocation', {
-                carid: paramsData.carid
+                carid: paramsData.carid,
+                lineid: paramsData.lineid
             }, function(data) {        
                 console.log(data);
                 $scope.positionArr = data.car;
@@ -1856,7 +1859,8 @@ app
         // 车辆位置函数
         $scope.getBusPosition = function() {
             var data = {
-                carid: $scope.ticketInfo.carid
+                carid: $scope.ticketInfo.carid,
+                lineid: $scope.ticketInfo.lineid
             };
             console.log(data);
             $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
