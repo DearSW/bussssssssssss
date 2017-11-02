@@ -1661,59 +1661,29 @@ app
                 console.log(data);
                 $scope.positionArr = data.car;
                 $scope.busline = data.busline;
-                // 起点 经纬度
-                var startPositionLonLat = [
-                    $scope.busline.departlon,
-                    $scope.busline.departlat
-                ];
-                // 终点 经纬度
-                var endPositionLonLat = [
-                    $scope.busline.arrivelon,
-                    $scope.busline.arrivelat
-                ];
-                // 当前车辆位置 经纬度
+
+                // 当前车辆位置 和 地图中心点 经纬度
                 var lineArr = [
                     $scope.positionArr.currlon, // 经度
                     $scope.positionArr.currlat // 纬度
                 ];
+                // 高德地图绘制
                 var map = new AMap.Map("J_map_canvas", {
                     resizeEnable: true,
                     center: [lineArr[0], lineArr[1]],
-                    zoom: 15
+                    zoom: 11
                 });
-                var marker = new AMap.Marker({
-                    map: map,
-                    position: [lineArr[0], lineArr[1]],
-                    content: '<i class="icon ion-ios-location" style="color: #f71909;font-size:30px"></i>',
-                    offset: new AMap.Pixel(-26, -13),
-                    animation: "AMAP_ANIMATION_DROP"
-                });
-                var circle = new AMap.Circle({
-                    map: map,
-                    center: [lineArr[0], lineArr[1]],
-                    redius: 100,
-                    fillOpacity: 0.1,
-                    fillColor: '#09f',
-                    strokeColor: '#09f',
-                    strokeWeight: 1
-                });
-                // 逆地理编码
-                AMap.plugin('AMap.Geocoder', function() {
-                    var str = "加载中>>>";
-                    var geocoder = new AMap.Geocoder({});
-                    geocoder.getAddress([lineArr[0], lineArr[1]], function(status, result) {
-                        if(status == 'complete') {
-                           str = result.regeocode.formattedAddress
-                           var info = new AMap.InfoWindow({
-                                content: '<div class="title_bus_position">当前车辆位置</div><div class="content_bus_position">'+
-                                                str + '<br/></div>',
-                                offset: new AMap.Pixel(0,-28),
-                                size: new AMap.Size(200,0)
-                            });
-                            info.open(map,  [lineArr[0], lineArr[1]]);
-                        }
-                    });
-                });
+
+                // 起点站点 经纬度
+                var startPositionLonLat = [
+                    $scope.busline.departlon,
+                    $scope.busline.departlat
+                ];
+                // 终点站点 经纬度
+                var endPositionLonLat = [
+                    $scope.busline.arrivelon,
+                    $scope.busline.arrivelat
+                ];
                 // 路径规划绘制
                 AMap.plugin('AMap.Driving', function() {
                     var drving = new AMap.Driving({
@@ -1721,6 +1691,43 @@ app
                     })
                     drving.search(startPositionLonLat, endPositionLonLat);
                 });
+                
+                $timeout(function() {
+                    var marker = new AMap.Marker({
+                        map: map,
+                        position: [lineArr[0], lineArr[1]],
+                        content: '<i class="icon ion-ios-location" style="color: #f71909;font-size:30px"></i>',
+                        offset: new AMap.Pixel(-26, -13),
+                        animation: "AMAP_ANIMATION_DROP"
+                    });
+                    var circle = new AMap.Circle({
+                        map: map,
+                        center: [lineArr[0], lineArr[1]],
+                        redius: 100,
+                        fillOpacity: 0.1,
+                        fillColor: '#09f',
+                        strokeColor: '#09f',
+                        strokeWeight: 1
+                    });
+                    // 逆地理编码
+                    AMap.plugin('AMap.Geocoder', function() {
+                        var str = "加载中>>>";
+                        var geocoder = new AMap.Geocoder({});
+                        geocoder.getAddress([lineArr[0], lineArr[1]], function(status, result) {
+                            if(status == 'complete') {
+                               str = result.regeocode.formattedAddress
+                               var info = new AMap.InfoWindow({
+                                    content: '<div class="title_bus_position">当前车辆位置</div><div class="content_bus_position">'+
+                                                    str + '<br/></div>',
+                                    offset: new AMap.Pixel(0,-28),
+                                    size: new AMap.Size(200,0)
+                                });
+                                info.open(map,  [lineArr[0], lineArr[1]]);
+                            }
+                        });
+                    });
+                }, 1500);
+
             }, errorFn);
         }
     })
