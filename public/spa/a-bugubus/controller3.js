@@ -1760,7 +1760,7 @@ app
                         new AMap.Marker({
                             map: map,
                             position: item[0],
-                            content: '<i class="icon ion-flag"></i>',
+                            content: '<i class="icon ion-flag" style="font-size:22px"></i>',
                             label: {
                                 content: item[1],
                                 offset: new AMap.Pixel(27, 25)
