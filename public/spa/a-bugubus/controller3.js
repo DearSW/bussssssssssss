@@ -1763,7 +1763,7 @@ app
                             content: '<i class="icon ion-flag" style="font-size:22px"></i>',
                             label: {
                                 content: item[1],
-                                offset: new AMap.Pixel(27, 25)
+                                offset: new AMap.Pixel(11, 31) // (left, top)
                             }
                         });
 
