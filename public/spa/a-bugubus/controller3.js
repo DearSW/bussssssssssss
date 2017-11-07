@@ -1661,7 +1661,7 @@ app
                 console.log(data);
                 $scope.positionArr = data.car;
                 $scope.busline = data.busline;
-                
+                $scope.stations = data.stations;
                 // 当前车辆位置 和 地图中心点 经纬度
                 var lineArr = [
                     $scope.positionArr.currlon, // 经度
@@ -1680,7 +1680,23 @@ app
                 // 所有停靠点的经纬度数组
                 var stationType1 = [];
 
-                AMapUI.load(['ui/misc/PathSimplifier'], function(PathSimplifier) {
+                for(var index in $scope.stations) {
+                    var item = $scope.stations[index];
+                    var tempArr = [item.stalongitude, item.stalatitude];
+                    allLonLatArr.push(tempArr);
+                    if(item.stationType == 1) {
+                        var tempArr2 = [
+                            [
+                                item.stalongitude,
+                                item.stalatitude
+                            ],
+                            item.stationname
+                        ];
+                        stationType1.push(tempArr2);
+                    }
+                }
+
+                AMapUI.load(['ui/misc/PathSimplifier', 'ui/overlay/SimpleMarker'], function(PathSimplifier, SimpleMarker) {
                     
                     if (!PathSimplifier.supportCanvas) {
                         alert('当前环境不支持 Canvas！');
@@ -1731,33 +1747,45 @@ app
                     });
                     
                     window.pathSimplifierIns = pathSimplifierIns;
+
+                    var iconTheme = 'fresh';
+                    
+                    //内置的样式
+                    var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
                     
                     //设置数据
                     pathSimplifierIns.setData([{
                         name: '车辆运行路线',
-                        path: [
-                            [116.41, 39.90],
-                            [113.96, 40.55],
-                            [111.48, 41.14],
-                            [108.95, 41.67],
-                            [106.38, 42.15],
-                            [103.77, 42.57],
-                            [101.14, 42.93],
-                            [98.47, 33.23],
-                            [95.78, 43.47],
-                            [93.07, 43.64],
-                            [90.35, 43.75],
-                            [87.62, 43.79]
-                        ]
+                        path: allLonLatArr
                     }]);
+
+                    for(var index in stationType1) {
+                        var item = stationType1[index];
+
+                        new SimpleMarker({
+                            iconTheme: iconTheme,
+                            //使用内置的iconStyle
+                            iconStyle: iconStyles[index],
+                            //显示定位点
+                            showPositionPoint: true,
+                            map: map,
+                            position: item[0],
+                            //Marker的label
+                            label: {
+                                content: item[1],
+                                offset: new AMap.Pixel(27, 25)
+                            }
+                        });
+
+                    }
                     
                     //对第一条线路（即索引 0）创建一个巡航器
-                    // var navg1 = pathSimplifierIns.createPathNavigator(0, {
-                    //     loop: true, //循环播放
-                    //     speed: 1000000 //巡航速度，单位千米/小时
-                    // });
+                    var navg1 = pathSimplifierIns.createPathNavigator(0, {
+                        loop: true, //循环播放
+                        speed: 1000000 //巡航速度，单位千米/小时
+                    });
             
-                    //navg1.start();
+                    navg1.start();
                 });
                 
                 $timeout(function() {
