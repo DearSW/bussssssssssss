@@ -1748,7 +1748,7 @@ app
                     
                     window.pathSimplifierIns = pathSimplifierIns;
 
-                    var iconTheme = 'fresh';
+                    var iconTheme = 'numv1';
                     
                     //内置的样式
                     var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
@@ -1782,7 +1782,7 @@ app
                     //对第一条线路（即索引 0）创建一个巡航器
                     var navg1 = pathSimplifierIns.createPathNavigator(0, {
                         loop: true, //循环播放
-                        speed: 800 //巡航速度，单位千米/小时
+                        speed: 2000 //巡航速度，单位千米/小时
                     });
             
                     navg1.start();
