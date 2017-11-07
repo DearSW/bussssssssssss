@@ -1748,11 +1748,6 @@ app
                     
                     window.pathSimplifierIns = pathSimplifierIns;
 
-                    var iconTheme = 'fresh';
-                    
-                    //内置的样式
-                    var iconStyles = SimpleMarker.getBuiltInIconStyles(iconTheme);
-                    
                     //设置数据
                     pathSimplifierIns.setData([{
                         name: '车辆运行路线',
@@ -1762,15 +1757,10 @@ app
                     for(var index in stationType1) {
                         var item = stationType1[index];
 
-                        new SimpleMarker({
-                            iconTheme: iconTheme,
-                            //使用内置的iconStyle
-                            iconStyle: '<i class="icon ion-flag"></i>',
-                            //显示定位点
-                            // showPositionPoint: true,
+                        new AMap.Marker({
                             map: map,
                             position: item[0],
-                            //Marker的label
+                            content: '<i class="icon ion-flag"></i>',
                             label: {
                                 content: item[1],
                                 offset: new AMap.Pixel(27, 25)
@@ -1793,7 +1783,6 @@ app
                         map: map,
                         position: [lineArr[0], lineArr[1]],
                         content: '<i class="icon ion-ios-location" style="color: #f71909;font-size:30px"></i>',
-                        offset: new AMap.Pixel(-26, -13),
                         animation: "AMAP_ANIMATION_DROP"
                     });
                     var circle = new AMap.Circle({
