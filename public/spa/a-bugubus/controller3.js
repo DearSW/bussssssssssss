@@ -1646,7 +1646,7 @@ app
                         layer.close(index);
                     }
                 });
-            }, 2000);
+            }, 1500);
 
         } else {
 
@@ -1661,7 +1661,7 @@ app
                 console.log(data);
                 $scope.positionArr = data.car;
                 $scope.busline = data.busline;
-
+                
                 // 当前车辆位置 和 地图中心点 经纬度
                 var lineArr = [
                     $scope.positionArr.currlon, // 经度
@@ -1674,22 +1674,90 @@ app
                     zoom: 11
                 });
 
-                // 起点站点 经纬度
-                var startPositionLonLat = [
-                    $scope.busline.departlon,
-                    $scope.busline.departlat
-                ];
-                // 终点站点 经纬度
-                var endPositionLonLat = [
-                    $scope.busline.arrivelon,
-                    $scope.busline.arrivelat
-                ];
-                // 路径规划绘制
-                AMap.plugin('AMap.Driving', function() {
-                    var drving = new AMap.Driving({
-                        map: map
-                    })
-                    drving.search(startPositionLonLat, endPositionLonLat);
+                // 所有站点的经纬度数组
+                var allLonLatArr = [];
+
+                // 所有停靠点的经纬度数组
+                var stationType1 = [];
+
+                AMapUI.load(['ui/misc/PathSimplifier'], function(PathSimplifier) {
+                    
+                    if (!PathSimplifier.supportCanvas) {
+                        alert('当前环境不支持 Canvas！');
+                        // 起点站点 经纬度
+                        var startPositionLonLat = [
+                            $scope.busline.departlon,
+                            $scope.busline.departlat
+                        ];
+                        // 终点站点 经纬度
+                        var endPositionLonLat = [
+                            $scope.busline.arrivelon,
+                            $scope.busline.arrivelat
+                        ];
+                        // 路径规划绘制
+                        AMap.plugin('AMap.Driving', function() {
+                            var drving = new AMap.Driving({
+                                map: map
+                            })
+                            drving.search(startPositionLonLat, endPositionLonLat);
+                        });
+                        return;
+                    }
+                    
+                    var pathSimplifierIns = new PathSimplifier({
+                        zIndex: 100,
+                        //autoSetFitView:false,
+                        map: map, //所属的地图实例
+                        getPath: function(pathData, pathIndex) {
+                            return pathData.path;
+                        },
+                        getHoverTitle: function(pathData, pathIndex, pointIndex) {
+            
+                            if (pointIndex >= 0) {
+                                //point 
+                                return pathData.name + '，点：' + pointIndex + '/' + pathData.path.length;
+                            }
+                            return pathData.name + '，点数量' + pathData.path.length;
+                        },
+                        renderOptions: {
+                            renderAllPointsIfNumberBelow: 100, //绘制路线节点，如不需要可设置为-1
+                                //轨迹线的样式
+                            pathLineStyle: {
+                                strokeStyle: 'red',
+                                lineWidth: 6,
+                                dirArrowStyle: true
+                            }
+                        }
+                    });
+                    
+                    window.pathSimplifierIns = pathSimplifierIns;
+                    
+                    //设置数据
+                    pathSimplifierIns.setData([{
+                        name: '车辆运行路线',
+                        path: [
+                            [116.41, 39.90],
+                            [113.96, 40.55],
+                            [111.48, 41.14],
+                            [108.95, 41.67],
+                            [106.38, 42.15],
+                            [103.77, 42.57],
+                            [101.14, 42.93],
+                            [98.47, 33.23],
+                            [95.78, 43.47],
+                            [93.07, 43.64],
+                            [90.35, 43.75],
+                            [87.62, 43.79]
+                        ]
+                    }]);
+                    
+                    //对第一条线路（即索引 0）创建一个巡航器
+                    // var navg1 = pathSimplifierIns.createPathNavigator(0, {
+                    //     loop: true, //循环播放
+                    //     speed: 1000000 //巡航速度，单位千米/小时
+                    // });
+            
+                    //navg1.start();
                 });
                 
                 $timeout(function() {
