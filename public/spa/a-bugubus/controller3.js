@@ -1735,7 +1735,7 @@ app
                                         position: item[0],
                                         label: {
                                             content: item[1],
-                                            offset: new AMap.Pixel(11, 31) // (left, top)
+                                            offset: new AMap.Pixel(11, 43) // (left, top)
                                         }
                                     });
                                 } else if( index == stationType1.length-1) {
@@ -1753,7 +1753,7 @@ app
                                         position: item[0],
                                         label: {
                                             content: item[1],
-                                            offset: new AMap.Pixel(11, 31) // (left, top)
+                                            offset: new AMap.Pixel(11, 43) // (left, top)
                                         }
                                     });
                                 } else {
@@ -1771,7 +1771,7 @@ app
                                         position: item[0],
                                         label: {
                                             content: item[1],
-                                            offset: new AMap.Pixel(11, 31) // (left, top)
+                                            offset: new AMap.Pixel(11, 43) // (left, top)
                                         }
                                     });
                                 }
