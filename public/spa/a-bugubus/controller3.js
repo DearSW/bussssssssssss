@@ -1680,7 +1680,7 @@ app
                 // 所有停靠点的经纬度数组
                 var stationType1 = [];
 
-                for(var index in $scope.stations) {
+                for(var index in $scope.stations) { // 站点、停靠点提取操作
                     var item = $scope.stations[index];
                     var tempArr = [item.stalongitude, item.stalatitude];
                     allLonLatArr.push(tempArr);
@@ -1695,7 +1695,55 @@ app
                         stationType1.push(tempArr2);
                     }
                 }
+                // 起点站点 经纬度
+                var startPositionLonLat = [
+                    $scope.busline.departlon,
+                    $scope.busline.departlat
+                ];
+                // 终点站点 经纬度
+                var endPositionLonLat = [
+                    $scope.busline.arrivelon,
+                    $scope.busline.arrivelat
+                ];
+                // 中间站点、途径点
+                var allLonLatArr2 = allLonLatArr.slice(1, allLonLatArr.length-1); // 去掉首尾的经纬点
+                
+                // 路径规划绘制
+                AMap.plugin('AMap.Driving', function() {
+                    var drving = new AMap.Driving({
+                        map: map
+                    })
+                    drving.search(startPositionLonLat, endPositionLonLat, {waypoints: allLonLatArr2}, function(status, result) {
 
+                        for(var index in stationType1) {
+                            var item = stationType1[index];
+                            
+                            if(index == 0 || index == stationType1.length-1) {
+                                new AMap.Marker({
+                                    map: map,
+                                    position: item[0],
+                                    content: '<i class="icon ion-flag" style="display:none"></i>',
+                                    label: {
+                                        content: item[1],
+                                        offset: new AMap.Pixel(11, 31) // (left, top)
+                                    }
+                                });
+                            } else {
+                                new AMap.Marker({
+                                    map: map,
+                                    position: item[0],
+                                    content: '<i class="icon ion-flag" style="font-size:22px"></i>',
+                                    label: {
+                                        content: item[1],
+                                        offset: new AMap.Pixel(11, 31) // (left, top)
+                                    }
+                                });
+                            }
+                        }
+                    });
+                });
+
+            /* 
                 AMapUI.load(['ui/misc/PathSimplifier', 'ui/overlay/SimpleMarker'], function(PathSimplifier, SimpleMarker) {
                     
                     if (!PathSimplifier.supportCanvas) {
@@ -1777,6 +1825,8 @@ app
             
                     navg1.start();
                 });
+
+            */
                 
                 $timeout(function() {
                     var marker = new AMap.Marker({
