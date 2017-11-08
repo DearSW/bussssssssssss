@@ -1730,7 +1730,7 @@ app
                                                 marginTop: '2px'
                                             }
                                         },
-                                        iconStyle: 'blue',
+                                        iconStyle: 'green',
                                         map: map,
                                         position: item[0],
                                         label: {
@@ -1766,7 +1766,7 @@ app
                                                 marginTop: '2px'
                                             }
                                         },
-                                        iconStyle: 'green',
+                                        iconStyle: 'orange',
                                         map: map,
                                         position: item[0],
                                         label: {
@@ -1862,7 +1862,6 @@ app
             
                     navg1.start();
                 });
-
             */
                 
                 $timeout(function() {
