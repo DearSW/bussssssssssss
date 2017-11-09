@@ -132,6 +132,7 @@ app
             sessionStorage.setItem("recommendImgCount", 2);
             // 请求获取推荐路线数据
             $myHttpService.postNoLoad('api/product/queryRecommendProductList', {}, function(data) {
+                console.log(data);
                 $rootScope.recommendProducts2 = data.products;
                 if($rootScope.recommendProducts2.length == 0) {
                     $timeout(function() {
