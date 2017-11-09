@@ -438,8 +438,13 @@ app
                         $scope.noticeInfo = data.products[0].productinfo;                        
                     } else {
                         layer.open({
-                            content: '当前选择的推荐主题路线，今日已售完',
-                            btn: '确定'
+                            content: '当前选择的推荐主题路线，今日已售完，请返回进行主题线路搜索',
+                            btn: '确定',
+                            shadeClose: false,
+                            yes: function(index) {
+                                layer.closeAll();
+                                $state.go('search', {}, {location: 'replace'});
+                            }
                         });
                     }
                 }, errorFn);
@@ -457,7 +462,7 @@ app
                     region: paramsData.city
                 };
 
-                $myHttpService.post('api/product/queryProductList', requestData, function(data){
+                $myHttpService.post('api/product/queryProductList', requestData, function(data) {
                     console.log(data);
                     $scope.ticketsInfo = data.products;
                     if(data.products.length != 0) {
