@@ -444,7 +444,9 @@ app
                             shadeClose: false,
                             yes: function(index) {
                                 layer.closeAll();
-                                $state.go('search', {}, {location: 'replace'});
+                                // $state.go('search', {}, {location: 'replace'});
+                                window.history.back();
+                                return false;
                             }
                         });
                     }
@@ -725,7 +727,7 @@ app
 
         if(JSON.parse($state.params.data) == null) { // 访问此页面时，如果没有传递过来参数那么将直接倒退2个页面
                 window.history.go(-2); // 倒退到第一个页面，此动作不可逆
-                return;
+                return false;
         } else { // 访问此页面时，有参数的情况，正常流程
 
             $scope.dataContainer = { // 数据容器
