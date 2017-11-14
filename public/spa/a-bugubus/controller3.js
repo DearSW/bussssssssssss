@@ -439,14 +439,15 @@ app
                         $scope.noticeInfo = data.products[0].productinfo;                        
                     } else {
                         layer.open({
-                            content: '当前选择的推荐主题路线，今日已售完，请返回进行主题线路搜索',
+                            content: '万分抱歉，您当前选择的推荐主题路线，今日已售完，请返回进行主题线路搜索',
                             btn: '确定',
                             shadeClose: false,
                             yes: function(index) {
                                 layer.closeAll();
-                                // $state.go('search', {}, {location: 'replace'});
-                                window.history.back();
-                                return false;
+                                $timeout(function() {
+                                    window.history.back();
+                                    return false;
+                                }, 500)
                             }
                         });
                     }
@@ -1392,11 +1393,40 @@ app
             $rootScope.hasmore2 = false; // 首次进入页面时 不触发上拉加载函数
             $scope.pageCount = 1; // 保存的记录页面参数 用于上拉加载分页的记录
             $scope.hasmore = true;
+            // 车票首次加载函数
+            $scope.doRefreshTicket_first = function() {
+                console.log("doRefreshTicket_first执行了");            
+                var requestData = {
+                    userid: $rootScope.session.user.userInfo.userid,
+                    offset: 0,
+                    pagesize: 10,
+                };
+                $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+                    console.log(data);
+                    if(data.userViewList.length < 10) {
+                        $rootScope.hasmore2 = false;
+                    } else {
+                        $rootScope.hasmore2 = true;
+                        $scope.pageCount = 2;
+                    }
+                    $rootScope.ticketsInfo = data.userViewList;
+                    $rootScope.ticketsTotal = data.totalnum;
+                    
+                    $scope.$broadcast('scroll.refreshComplete');
+                    if($rootScope.ticketsInfo.length == 0) {
+                        $scope.ticketsInfoIsEmpty = true;                    
+                    }
+                    $scope.$broadcast('scroll.refreshComplete');
+                }, function() {
+                    $scope.$broadcast('scroll.refreshComplete');                
+                });
+            };
+            $scope.doRefreshTicket_first(); // 只在首次进去页面时 自动调用一次！！！
         }
 
         var run = false;
         $scope.ticketsInfoIsEmpty = false; // 当没有任何票信息时显现
-
+        
         // 车票下拉刷新函数
         $scope.doRefreshTicket = function() {
             console.log("doRefreshTicket执行了");            
@@ -1431,10 +1461,6 @@ app
                 $scope.$broadcast('scroll.refreshComplete');                
             });
         };
-
-        if(myplanCount == 1) {
-            $scope.doRefreshTicket(); // 只在首次进去页面时 自动调用一次！！！
-        }
 
         // 比较函数，对票进行排序，从大到小
         var compare = function (prop) {
