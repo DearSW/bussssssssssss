@@ -1392,7 +1392,6 @@ app
             $rootScope.hasmore2 = true;
             $scope.pageCount = 1; // 保存的记录页面参数，用于上拉加载分页的记录
             $scope.hasmore = true;
-            
         }
         var run = false;
         $scope.ticketsInfoIsEmpty = false; // 当没有任何票信息时显现
@@ -1417,7 +1416,7 @@ app
         }
         
         // 上拉加载更多票信息
-        if($rootScope.hasmore2) {
+        //if($rootScope.hasmore2) {
             $scope.loadMoreTicket = function() {
                 console.log("loadMoreTicket执行了");
                 var offset = ($scope.pageCount - 1) * 10;
@@ -1448,7 +1447,7 @@ app
                     });
                 }
             }
-        }
+        //}
         
         // 车票下拉刷新函数
         $scope.doRefreshTicket = function() {
@@ -1460,6 +1459,7 @@ app
             $scope.pageCount = 2; // 车票下拉刷新后，重置上拉加载更多函数的基本配置
             $rootScope.hasmore2 = true;
             $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+                console.log(data);
                 $rootScope.ticketsInfo = data.userViewList;
                 $rootScope.ticketsTotal = data.totalnum;
                 $scope.$broadcast('scroll.refreshComplete');
