@@ -447,7 +447,7 @@ app
                                 $timeout(function() {
                                     window.history.back();
                                     return false;
-                                }, 500)
+                                }, 300)
                             }
                         });
                     }
