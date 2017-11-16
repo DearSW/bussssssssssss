@@ -1548,14 +1548,63 @@ app
     })
 
      /* 测试 */
-    .controller('test', function($rootScope, $scope, $state, $timeout, $myLocationService, $myHttpService, $ionicLoading, $ionicScrollDelegate, $ionicActionSheet, $selectCity, $filter) {
+    .controller('test', function($rootScope, $scope, $state, $timeout, $myLocationService, $myHttpService, $ionicLoading, $ionicScrollDelegate, $ionicActionSheet, $selectCity, $filter, ionicDatePicker) {
 
-        // $scope.ssss = function() {
-        //     $ionicLoading.show({
-        //         template: '<ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>',
-        //         noBackdrop: true
-        //     });
-        // }
+        $scope.selectedDate1;
+        $scope.selectedDate2;
+    
+        $scope.openDatePickerOne = function (val) {
+          var ipObj1 = {
+            callback: function (val) {  //Mandatory
+              console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+              $scope.selectedDate1 = new Date(val);
+            },
+            disabledDates: [
+              new Date(2016, 2, 16),
+              new Date(2015, 3, 16),
+              new Date(2015, 4, 16),
+              new Date(2015, 5, 16),
+              new Date('Wednesday, August 12, 2015'),
+              new Date("08-16-2016"),
+              new Date(1439676000000)
+            ],
+            from: new Date(2012, 1, 1),
+            to: new Date(2018, 10, 30),
+            inputDate: new Date(),
+            mondayFirst: true,
+            disableWeekdays: [],
+            closeOnSelect: false,
+            templateType: 'popup'
+          };
+          ionicDatePicker.openDatePicker(ipObj1);
+        };
+    
+        $scope.openDatePickerTwo = function (val) {
+          var ipObj1 = {
+            callback: function (val) {  //Mandatory
+              console.log('Return value from the datepicker modal is : ' + val, new Date(val));
+              $scope.selectedDate2 = new Date(val);
+            },
+            disabledDates: [
+              new Date(1437719836326),
+              new Date(2016, 1, 25),
+              new Date(2015, 7, 10),
+              new Date('Wednesday, August 12, 2015'),
+              new Date("08-14-2015"),
+              new Date(1439676000000),
+              new Date(1456511400000)
+            ],
+            from: new Date(2012, 8, 2),
+            to: new Date(2018, 8, 25),
+            inputDate: new Date(),
+            mondayFirst: true,
+            disableWeekdays: [0, 6],
+            showTodayButton: false,
+            closeOnSelect: false,
+            templateType: 'modal'
+          };
+          ionicDatePicker.openDatePicker(ipObj1);
+        }
 
         
 
@@ -2169,11 +2218,5 @@ app
  * 
  *               写字楼里写字间，写字间里程序员；
  *               程序人员写程序，又拿程序换酒钱。
- *               酒醒只在网上坐，酒醉还来网下眠；
- *               酒醉酒醒日复日，网上网下年复年。
- *               但愿老死电脑间，不愿鞠躬老板前；
- *               奔驰宝马贵者趣，公交自行程序员。
- *               别人笑我忒疯癫，我笑自己命太贱；
- *               不见满街漂亮妹，哪个归得程序员？
 */
     

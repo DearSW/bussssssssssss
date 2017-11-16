@@ -3,7 +3,7 @@ angular
         'ionic',
         'ion-datetime-picker',
         'ngAnimate',
-        '720kb.datepicker'
+        'ionic-datepicker'
 ])
 // run  方法初始化全局的数据 , 只对全局作用域起作用  如 $rootScope，局部的$scope不管用
 .run(function($rootScope, $ionicPlatform, $ionicPickerI18n, $location, $state) {
@@ -55,7 +55,27 @@ angular
 
 })
 .config( // 配置
-    function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) { 
+    function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionicDatePickerProvider) { 
+
+        var datePickerObj = {
+            inputDate: new Date(),
+            titleLabel: 'Select a Date',
+            setLabel: 'Set',
+            todayLabel: 'Today',
+            closeLabel: 'Close',
+            mondayFirst: false,
+            weeksList: ["S", "M", "T", "W", "T", "F", "S"],
+            monthsList: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
+            templateType: 'popup',
+            from: new Date(2012, 8, 1),
+            to: new Date(2018, 8, 1),
+            showTodayButton: true,
+            dateFormat: 'dd MMMM yyyy',
+            closeOnSelect: false,
+            disableWeekdays: []
+        };
+        ionicDatePickerProvider.configDatePicker(datePickerObj);
+
         // 跨平台配置
         $ionicConfigProvider.platform.ios.tabs.style('standard'); 
         $ionicConfigProvider.platform.ios.tabs.position('top');
