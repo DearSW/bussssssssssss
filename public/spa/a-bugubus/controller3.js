@@ -1561,11 +1561,6 @@ app
 
         var picker = new LazyPicker('.date-picker', {
             theme: 'black',
-            onChange: function(data) {
-                console.log(data);
-                $scope.dateeeeee = data;
-                console.log($scope.dateeeeee);
-            },
             maxDate: 2020,
             initValue: "2017-11-17",
         });
