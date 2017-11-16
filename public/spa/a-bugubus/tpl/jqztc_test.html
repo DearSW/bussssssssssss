@@ -1,6 +1,13 @@
 <ui-view>
 <div ng-controller="test">
 
+    <style>
+        ._720kb-datepicker-calendar-day._720kb-datepicker-today {
+            background:red;
+            color:white;
+        }
+    </style>
+
     <div class="jqztc-order-detail">
 
         <ion-content has-tabs="true">
@@ -15,6 +22,10 @@
             </h1>
             <datepicker>
                     <input ng-model="date" type="text" placeholder="选择日期" />
+            </datepicker>
+
+            <datepicker button-prev="<i class="icon ion-ios-arrow-back"></i>" button-next="<i class="icon ion-ios-arrow-forward"></i>">
+                <input ng-model="date" type="text"/>
             </datepicker>
 
         </ion-content>
