@@ -1560,13 +1560,13 @@ app
               $scope.selectedDate1 = new Date(val);
             },
             from: new Date(2012, 1, 1),
-            to: new Date(2018, 10, 30),
+            to: new Date(2018, 9, 30),
             inputDate: new Date(),
             titleLabel: '选择日期',
             mondayFirst: false,
             disableWeekdays: [],
             dateFormat: 'yyyy-MM-dd', //可选
-            closeOnSelect: true, //可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
+            closeOnSelect: false, //可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
             templateType: 'popup'
           };
           ionicDatePicker.openDatePicker(ipObj1);
@@ -1580,11 +1580,11 @@ app
             },
             titleLabel: '选择日期',
             from: new Date(2012, 8, 2),
-            to: new Date(2018, 8, 25),
+            to: new Date(2018, 8, 25), // 8对应九月，差1
             dateFormat: 'yyyy-MM-dd', //可选
-            closeOnSelect: true, //可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
+            closeOnSelect: false, //可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
             inputDate: new Date(),
-            mondayFirst: true,
+            mondayFirst: false,
             showTodayButton: false,
             templateType: 'modal'
           };
@@ -1592,7 +1592,6 @@ app
         }
 
         
-
         // 微信上传图片
         var wxConfig = {};
         //获取微信签名
