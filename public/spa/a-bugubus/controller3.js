@@ -1559,8 +1559,8 @@ app
               console.log('Return value from the datepicker popup is : ' + val, new Date(val));
               $scope.selectedDate1 = new Date(val);
             },
-            from: new Date(2012, 1, 1),
-            to: new Date(2018, 9, 30),
+            from: new Date(1970, 0, 1),
+            to: new Date(2099, 11, 31),
             inputDate: new Date(),
             titleLabel: '选择日期',
             mondayFirst: false,
@@ -1579,8 +1579,8 @@ app
               $scope.selectedDate2 = new Date(val);
             },
             titleLabel: '选择日期',
-            from: new Date(2012, 8, 2),
-            to: new Date(2018, 8, 25), // 8对应九月，差1
+            from: new Date(1970, 0, 1),
+            to: new Date(2099, 11, 31),// 11对应十二月，差1
             dateFormat: 'yyyy-MM-dd', //可选
             closeOnSelect: false, //可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
             inputDate: new Date(),
