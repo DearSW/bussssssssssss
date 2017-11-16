@@ -20,11 +20,10 @@
             <h1>
                 Hello
             </h1>
-            <datepicker>
-                    <input ng-model="date" type="text" placeholder="选择日期" />
-            </datepicker>
+            
+            <input ng-model="date" type="text" placeholder="选择日期" />
 
-            <datepicker button-prev="<i class='icon ion-ios-arrow-back'></i>" button-next="<i class='icon ion-ios-arrow-forward'></i>">
+            <datepicker datepicker-mobile="false" date-format="yyyy-MM-dd" button-prev="<i class='icon ion-ios-arrow-back'></i>" button-next="<i class='icon ion-ios-arrow-forward'></i>">
                 <input ng-model="date" type="text"/>
             </datepicker>
 
