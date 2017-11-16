@@ -1554,7 +1554,7 @@ app
 
         $scope.dateeeeee = "";
 
-        new LazyPicker('.date-picker', {
+        var picker = new LazyPicker('.date-picker', {
             theme: 'black',
             onChange: function(data) {
                 console.log(data);
