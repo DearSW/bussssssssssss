@@ -1557,13 +1557,7 @@ app
         //     });
         // }
 
-        $scope.dateeeeee = "";
-
-        var picker = new LazyPicker('.date-picker', {
-            theme: 'black',
-            maxDate: 2020,
-            initValue: "2017-11-17",
-        });
+        
 
         // 微信上传图片
         var wxConfig = {};
