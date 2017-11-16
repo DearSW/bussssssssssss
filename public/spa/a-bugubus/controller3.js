@@ -447,7 +447,7 @@ app
                                 $timeout(function() {
                                     window.history.back();
                                     return false;
-                                }, 300)
+                                }, 250)
                             }
                         });
                     }
@@ -1552,6 +1552,19 @@ app
         //     });
         // }
 
+        $scope.dateeeeee = "";
+
+        new LazyPicker('.date-picker', {
+            theme: 'black',
+            onChange: function(data) {
+                console.log(data);
+                $scope.dateeeeee = data;
+                console.log($scope.dateeeeee);
+            },
+            maxDate: 2020,
+            initValue: "2017-11-17",
+        });
+
         // 微信上传图片
         var wxConfig = {};
         //获取微信签名
@@ -1589,7 +1602,6 @@ app
             }
             return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
         }
-
         $scope.chooseImg = function($event) {
 
             console.log($event);
@@ -1616,45 +1628,6 @@ app
 
         }
 
-
-        $scope.sumArr = [
-            {
-                type: 'single',
-                msg: '单程票，贵阳-武汉'
-            },
-            {
-                type: 'single',
-                msg: '单程票，贵阳-杭州'
-            },
-            {
-                type: 'single',
-                msg: '单程票，贵阳-北京'
-            },
-            {
-                type: 'double',
-                msg: '往返票，贵阳-拉萨'
-            },
-            {
-                type: 'double',
-                msg: '往返票，贵阳-新疆'
-            },
-            {
-                type: 'double',
-                msg: '往返票，贵阳-墨脱'
-            }
-        ];
-
-        $scope.cccccccc = function() {
-            layer.open({
-                content: '您确定要刷新一下本页面吗？',
-                btn: ['刷新', '不要'],
-                shadeClose: false,
-                yes: function(index){
-                    location.reload();
-                    layer.close(index);
-                }
-            });
-        }
     })
 
     /* 车辆位置 */

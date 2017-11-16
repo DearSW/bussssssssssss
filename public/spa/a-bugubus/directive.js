@@ -306,7 +306,7 @@ app.directive('my-ng-model', function() {
 //=====
 // 放大图片指令
 // enlargePic指令名称，写在需要用到的地方img中即可实现放大图片  
-// 使用方式 <div class="icon-arrow-title title-color-2" enlargePic />
+// 使用方式 <div class="icon-arrow-title title-color-2" enlarge-pic />
 app.directive('enlargePic', function() { 
     return {    
         restrict: "AE",    
