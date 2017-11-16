@@ -335,6 +335,11 @@ app
 
             $state.go('tabs', {data: JSON.stringify(data)}, {reload: true});
         }
+
+        $scope.goTest = function() {
+            $state.go('test');
+        }
+
     })
 
     /* 路线、点评、须知 */
