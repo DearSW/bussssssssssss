@@ -1559,7 +1559,7 @@ app
               console.log('Return value from the datepicker popup is : ' + val, new Date(val));
               $scope.selectedDate1 = new Date(val);
             },
-            from: new Date(1970, 0, 1),
+            from: new Date(),
             to: new Date(2099, 11, 31),
             inputDate: new Date(),
             titleLabel: '选择日期',
