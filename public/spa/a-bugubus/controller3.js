@@ -1130,7 +1130,7 @@ app
 
             $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
                 '	  '+
-                '        <ion-header-bar class="bar bar-header bar-light modal-one" >'+
+                '        <ion-header-bar class="bar bar-header modal-one" >'+
                 '		'+
                 '		   <button class="button  button-balanced" ng-click="chooseScenicSpotTicket()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
                 '          <h1 class="title"> </h1>'+
