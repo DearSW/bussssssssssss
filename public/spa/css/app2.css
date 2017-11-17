@@ -86,14 +86,14 @@
 */
 
 .jqztc {
-    height: 205px;
+    height: 219px;
 }
 .jqztc ion-slide {
     color: #000; 
     background-color: #F6F6F6; 
-    text-align: center; 
+    text-align: left; 
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    font-weight: 300;    
+    font-weight: 500;    
 }
 /* 图片自适应  */
 .jqztc img {
@@ -118,7 +118,7 @@
 }
 
 .jqztc .slider-pager {
-    bottom: 7px;
+    bottom: 4px;
 }
 
 .jqztc .slider-pager .slider-pager-page {
@@ -127,7 +127,7 @@
 
 .jqztc .imgTitle {
     position: absolute;
-    top: 78%;
+    top: 73%;
     left: 0;
     display: block;
     background: rgba(22, 23, 23, 0.6);
