@@ -1592,7 +1592,7 @@ app
         }
 
         $scope.$on('$destroy', function() {
-            $scope.modal.remove();
+           ionicDatePicker.closeIonicDatePickerModal();
         });
         
         // 微信上传图片
