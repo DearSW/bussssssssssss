@@ -1582,7 +1582,7 @@ app
             from: new Date(1970, 0, 1),
             to: new Date(2099, 11, 31),// 11对应十二月，差1
             dateFormat: 'yyyy-MM-dd', //可选
-            closeOnSelect: false, //可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
+            closeOnSelect: true, //可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
             inputDate: new Date(),
             mondayFirst: false,
             showTodayButton: false,
