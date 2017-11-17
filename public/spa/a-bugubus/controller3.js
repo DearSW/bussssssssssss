@@ -1563,6 +1563,9 @@ app
             to: new Date(2099, 11, 31),
             inputDate: new Date(),
             titleLabel: '选择日期',
+            setLabel: '选择',
+            todayLabel: '今天',
+            closeLabel: '返回',
             mondayFirst: false,
             disableWeekdays: [],
             dateFormat: 'yyyy-MM-dd', //可选
@@ -1585,8 +1588,6 @@ app
             dateFormat: 'yyyy-MM-dd', //可选
             closeOnSelect: true, //可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
             inputDate: new Date(),
-            mondayFirst: false,
-            showTodayButton: false,
             templateType: 'modal'
           };
           ionicDatePicker.openDatePicker(ipObj1);

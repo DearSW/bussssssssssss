@@ -63,16 +63,14 @@ angular
             titleLabel: '选择日期',
             setLabel: '选择',
             todayLabel: '今天',
-            closeLabel: '取消',
+            closeLabel: '返回',
             mondayFirst: false,
             weeksList: ["日", "一", "二", "三", "四", "五", "六"],
             monthsList: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
             templateType: 'popup',
-            from: new Date(2012, 8, 1),
-            to: new Date(2018, 8, 1),
-            showTodayButton: true,
+            showTodayButton: false,
             dateFormat: 'yyyy-MM-dd',
-            closeOnSelect: false,
+            closeOnSelect: true,
             disableWeekdays: []
         };
         ionicDatePickerProvider.configDatePicker(datePickerObj);
