@@ -1591,6 +1591,9 @@ app
           ionicDatePicker.openDatePicker(ipObj1);
         }
 
+        $scope.$on('$destroy', function() {
+            $scope.modal.remove();
+        });
         
         // 微信上传图片
         var wxConfig = {};
