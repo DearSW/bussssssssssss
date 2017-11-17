@@ -54,9 +54,10 @@ angular
     });
 
 })
-.config( // 配置
+.config( // 项目配置
     function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionicDatePickerProvider) { 
 
+        // ionic-datepicker 日期选择配置项
         var datePickerObj = {
             inputDate: new Date(),
             titleLabel: '选择日期',
@@ -65,12 +66,12 @@ angular
             closeLabel: '取消',
             mondayFirst: false,
             weeksList: ["日", "一", "二", "三", "四", "五", "六"],
-            monthsList: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            monthsList: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
             templateType: 'popup',
             from: new Date(2012, 8, 1),
             to: new Date(2018, 8, 1),
             showTodayButton: true,
-            dateFormat: 'dd MMMM yyyy',
+            dateFormat: 'yyyy-MM-dd',
             closeOnSelect: false,
             disableWeekdays: []
         };
@@ -88,7 +89,8 @@ angular
         $ionicConfigProvider.platform.ios.views.transition('ios'); 
         $ionicConfigProvider.platform.android.views.transition('android');
 
-        // 把$stateprovider和$urlrouterprovider路由引擎作为函数参数传入,为应用程序配置路由
+        // 把$stateprovider和$urlrouterprovider路由引擎作为函数参数传入
+        // 路由 配置
         var basePath = "a-bugubus/";
 
         $urlRouterProvider.otherwise('/search');

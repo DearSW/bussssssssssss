@@ -1130,17 +1130,17 @@ app
 
             $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
                 '	  '+
-                '        <ion-header-bar class="bar bar-header bar-light">'+
+                '        <ion-header-bar class="bar bar-header bar-light modal-one" >'+
                 '		'+
-                // '		  <button class="button  button-balanced" ng-click="modal.hide()">取消</button>'+
+                '		   <button class="button  button-balanced" ng-click="chooseScenicSpotTicket()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
                 '          <h1 class="title"> </h1>'+
-                '          <button class="button button-balanced" ng-click="chooseScenicSpotTicket()">确定</button>'+
+                '          <button class="button button-balanced" ng-click="chooseScenicSpotTicket()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">确定</button>'+
                 '		  '+
                 '        </ion-header-bar>'+
                 '		'+
-                '        <ion-content class="padding">'+
-                '		    <p style="text-align:center;font-size: 18px;"><span>{{ticketInfo.viewName}}</span></p>	'+
-                '			<ion-radio style="padding: 15px 10px;border: none;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #ddd;border-top-width: 1px;border-top-color: #ddd;border-top-style: solid;" ng-repeat="item in scenicSpotTicketArr"'+
+                '        <ion-content class="padding" style="background: #ffffff;margin-top: 300px;" >'+
+                '		    <p style="text-align:center;font-size: 20px;"><span>{{ticketInfo.viewName}}</span></p>	'+
+                '			<ion-radio style="padding: 15px 10px;border: none;font-size: 17px;" ng-repeat="item in scenicSpotTicketArr"'+
                 '               ng-value="item.viewPriceType"'+
                 '               ng-model="scenicSpotTicket.type">'+
                 '      			{{ item.viewPriceType }} <span style="margin-left: 5px;" >{{ item.couponPrice }} 元</span> '+
