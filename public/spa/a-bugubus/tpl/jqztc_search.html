@@ -10,16 +10,6 @@
             box-shadow: 0px -6px 9px 0px rgba(191, 188, 188, 0.85);
             border: none;
         }
-
-        .item-radio .radio-icon {
-            padding: 0px 11px;
-            margin-top: 10px;
-            color: #f8f8f8;
-            background: #387ef5;
-            height: 33px;
-            width: 40px;
-            scale: .8;
-        }
     </style>
 
     <ion-content style="background: #E3E4E5;">
@@ -76,13 +66,22 @@
                     </i>
                 </div> -->
                 <!-- 目的地  -->
-                <div class="col">
+                <!-- <div class="col">
                     <div class="list list-inset">
                         <label class="item item-input" style="border-radius: 5px;border: none;margin: 2px 0;">
                             <input type="text" ng-model="dataContainer.input" ng-click="modal.show()" ng-change="btnCheck()" placeholder="目的地/主题/路线">
                         </label>
                     </div>
+                </div> -->
+
+                <div class="col">
+                    <div class="list list-inset">
+                        <label class="item item-input" style="border-radius: 5px;border: none;margin: 2px 0;">
+                            <div ng-click="modal.show()"></div>
+                        </label>
+                    </div>
                 </div>
+
             </div>
 
             <!--日期选择  -->
