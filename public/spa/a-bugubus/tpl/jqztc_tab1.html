@@ -251,35 +251,37 @@
 
                     <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" on-refresh="doRefreshComment()" spinner="dots"></ion-refresher>
 
-                    <!-- 接口 评论显示  -->
-                     <ion-list>
-
-                        <ion-item ng-repeat="item in commentsInfo track by $index">
-                            <div class="row comment ">
-                                <div class="col ">{{item.orderhie}}</div>
-                            </div>
-                            <div class="row picture" >
-                                <div class="col col-33" ng-repeat="image in item.images track by $index">
-                                    <img ng-if="image != null" ng-src="{{image}}" enlarge-pic alt="$index" />
+                    <div class="pl">
+                        <!-- 接口 评论显示  -->
+                        <ion-list>
+                            
+                            <ion-item ng-repeat="item in commentsInfo track by $index">
+                                <div class="row comment ">
+                                    <div class="col ">{{item.orderhie}}</div>
                                 </div>
-                            </div>
-                            <div class="row name">
-                                <div class="col">{{item.username}}</div>
-                            </div>
-                            <div class="row star">
-                                <div class="col">
-                                    <span star rating-value="item.orderScore" max="max" on-hover="onHover" on-leave="onLeave" readonly="{{readonly}}"></span>
-                                    {{item.orderScore}}.0分
+                                <div class="row picture" >
+                                    <div class="col col-33" ng-repeat="image in item.images track by $index">
+                                        <img ng-if="image != null" ng-src="{{image}}" enlarge-pic alt="$index" />
+                                    </div>
                                 </div>
+                                <div class="row name">
+                                    <div class="col">{{item.username}}</div>
+                                </div>
+                                <div class="row star">
+                                    <div class="col">
+                                        <span star rating-value="item.orderScore" max="max" on-hover="onHover" on-leave="onLeave" readonly="{{readonly}}"></span>
+                                        {{item.orderScore}}.0分
+                                    </div>
+                                </div>
+                            </ion-item>
+    
+                            <div ng-if="isNoComment" style="text-align: center;margin: 8px;">
+                                <i class="icon ion-ios-information-outline" style="color:crimson;font-size: 20px;"></i>                                
+                                还没有评价
                             </div>
-                        </ion-item>
-
-                        <div ng-if="isNoComment" style="text-align: center;margin: 8px;">
-                            <i class="icon ion-ios-information-outline" style="color:crimson;font-size: 20px;"></i>                                
-                            还没有评价
-                        </div>
-                        
-                    </ion-list> 
+                            
+                        </ion-list> 
+                    </div>
 
                     <ion-infinite-scroll ng-if="hasmore" on-infinite="loadMoreComment()" distance="5%" icon="ion-loading-c"></ion-infinite-scroll>
 
