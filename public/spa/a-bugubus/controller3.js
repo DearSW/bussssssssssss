@@ -302,6 +302,7 @@ app
         };
 
         // 进行预售期60天的时间判断
+    /*
         $scope.detectionDate = function() { 
             var compareTime = new Date().getTime() + (60 * 86400000); // ms
             var selectTime = $scope.goDate.time.getTime();
@@ -313,8 +314,8 @@ app
                 $scope.goDate.time = new Date();
             }
         };
-
-        var compareTime = new Date().getTime() + (60 * 86400000); 
+    */
+        var compareTime = new Date().getTime() + (60 * 86400000); // 60天时间
 
         $scope.openDatePicker = function (val) {
             var ipObj1 = {
@@ -353,7 +354,7 @@ app
                 input: $scope.dataContainer.input.trim(), // 用户输入
                 date: $filter('date')($scope.goDate.time, 'yyyy-MM-dd') // 时间
             };
-
+            console.log(data);
             sessionStorage.setItem('jqztc_search_time', data.date);
             sessionStorage.setItem('search_city', $scope.cityssss);
             sessionStorage.setItem('search_input', $scope.dataContainer.input.trim());
