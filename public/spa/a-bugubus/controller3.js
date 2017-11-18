@@ -291,8 +291,6 @@ app
         }
     */
 
-        
-
         if(recommendImgCount == 1) {
             // 路线数据
             $rootScope.roadLineData = [
@@ -302,14 +300,14 @@ app
             ];
 
             $rootScope.isSelectedRoadLine = "";
-            $rootScope.isSelectedRoadLineBoolean = true;
+            $rootScope.isSelectedRoadLineBoolean = true; // 是否选择路线
+            $rootScope.isSearchBtnDisabled = true; // 是否开启搜索按钮
 
         } else {
 
         }
 
-        
-
+        // 选择路线的自定义的弹窗
         $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
             '	  '+
             '        <ion-header-bar class="bar bar-header modal-one" >'+
@@ -337,6 +335,7 @@ app
 
         $scope.selectedRoadLine = function(item) {
             $rootScope.isSelectedRoadLineBoolean = false;
+            $rootScope.isSearchBtnDisabled = false;
             console.log(item);
             $rootScope.isSelectedRoadLine = item;
             $scope.modal.hide();
