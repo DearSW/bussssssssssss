@@ -64,10 +64,24 @@
             </div>
 
             <!--日期选择  -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col">
                     <div class="list padding-top gray f14">
                         <div style="border-radius: 5px; border: none;" class="item" title="goDate.title" ion-datetime-picker date button-ok  only-valid="{'after': 'today', 'inclusive': true}"  ng-change="detectionDate()"  ng-model="goDate.time">
+                            出发日期
+                            <span class="item-note">
+                                {{ goDate.time | date: "yyyy-MM-dd"}} 
+                                <i class="icon ion-chevron-right padding-left"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- 新的日期选择 -->
+            <div class="row">
+                <div class="col">
+                    <div class="list padding-top gray f14">
+                        <div style="border-radius: 5px; border: none;" class="item" ng-click="openDatePicker()"  ng-change="detectionDate()"  ng-model="goDate.time">
                             出发日期
                             <span class="item-note">
                                 {{ goDate.time | date: "yyyy-MM-dd"}} 

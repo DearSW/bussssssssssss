@@ -110,8 +110,8 @@ var floatObj = function() {
 }();
 
 app
-    /* 城市选择控制器 %%%%%%%% */
-    .controller('City_select', function($rootScope, $scope, $state, $timeout, $interval, $myLocationService, $myHttpService, $ionicSlideBoxDelegate, $ionicActionSheet, $selectCity, $filter) {
+    /* 首页搜索 控制器 */
+    .controller('City_select', function($rootScope, $scope, $state, $timeout, $interval, $myLocationService, $myHttpService, $ionicSlideBoxDelegate, $ionicActionSheet, $selectCity, $filter, ionicDatePicker) {
         
         // 确保推荐在未关闭页面之前只请求一次 优化
         if(sessionStorage.getItem("recommendImgCount") == null) {
@@ -191,6 +191,7 @@ app
         };
 
         // 所在城市
+    /*
         if(recommendImgCount == 1) {
             $selectCity.getCity(function(data) {
                 $scope.positionCity = data;
@@ -227,7 +228,8 @@ app
                 $scope.dataContainer.btnDisabled = false;
             }
         }
-        
+    */
+
         // 查询城市区域
         // 对象数组去重函数
         function unique2(array, prop) {
@@ -246,6 +248,7 @@ app
             return r;
         }
         
+    /*
         if(recommendImgCount == 1) {
             $rootScope.tempsz = []; // 区域数组变量            
             $myHttpService.postNoLoad('api/product/queryBuslineRegion', {}, function(data) {
@@ -286,15 +289,15 @@ app
                 });
             };
         }
+    */
 
-        // 时间
+        // 时间操作
         if(sessionStorage.getItem('jqztc_search_time') != null) {
             var tempTime = sessionStorage.getItem('jqztc_search_time');
         } else {
             var tempTime = new Date();
         }
         $scope.goDate = {
-            title: '选择日期',
             time: tempTime
         };
 
@@ -310,6 +313,26 @@ app
                 $scope.goDate.time = new Date();
             }
         };
+
+        $scope.openDatePicker = function (val) {
+            var ipObj1 = {
+              callback: function (val) {  // 必选
+                var val2 = new Date(val);
+                var val3 = $filter('date')(val2, 'yyyy-MM-dd');
+                console.log('返回的时间为：' + val3);
+                $scope.goDate.time = new Date(val);
+              },
+              titleLabel: '选择日期',
+              closeLabel: '返回',
+              from: new Date(),
+              to: new Date(2099, 11, 31),// 11对应十二月，差1
+              dateFormat: 'yyyy-MM-dd', // 可选
+              closeOnSelect: true, // 可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
+              inputDate: new Date(),
+              templateType: 'modal'
+            };
+            ionicDatePicker.openDatePicker(ipObj1);
+          }
 
         // 当所有输入完成，开启搜索按钮
         $scope.btnCheck = function() {
