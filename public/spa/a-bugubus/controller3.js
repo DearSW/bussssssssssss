@@ -313,7 +313,7 @@ app
             '        <ion-header-bar class="bar bar-header modal-one" >'+
             '		'+
         //    '		   <button class="button  button-balanced" ng-click="chooseScenicSpotTicket()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
-            '          <h1 class="title"> 路线选择 </h1>'+
+            '          <h1 class="title"> 线路选择 </h1>'+
             '          <button class="button button-balanced" ng-click="modal.hide()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
             '		  '+
             '        </ion-header-bar>'+
