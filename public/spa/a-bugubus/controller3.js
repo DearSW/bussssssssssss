@@ -309,7 +309,7 @@ app
             '		'+
             '        <ion-content class="padding" style="background: #ffffff;margin-top: 300px;" >'+
         //    '		    <p style="text-align:center;font-size: 20px;"><span>{{ticketInfo.viewName}}</span></p>	'+
-            '			<button class="button button-outline button-dark" ng-repeat="item in roadLineData by $index" ng-click="selectedRoadLine(item)">{{item}}</button> '+
+            '			<button class="button button-outline button-dark" ng-repeat="item in roadLineData track by $index" ng-click="selectedRoadLine(item)">{{item}}</button> '+
             '			'+
             '        </ion-content>'+
             '		'+
