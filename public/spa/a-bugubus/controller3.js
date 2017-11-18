@@ -302,7 +302,7 @@ app
             ];
 
             $rootScope.isSelectedRoadLine = "";
-            $rootScope.isSelectedRoadLineBoolean = false;
+            $rootScope.isSelectedRoadLineBoolean = true;
 
         } else {
 
@@ -336,7 +336,7 @@ app
         }
 
         $scope.selectedRoadLine = function(item) {
-            $rootScope.isSelectedRoadLineBoolean = true;
+            $rootScope.isSelectedRoadLineBoolean = false;
             console.log(item);
             $rootScope.isSelectedRoadLine = item;
             $scope.modal.hide();
