@@ -215,7 +215,7 @@
 .jqztc-tabs  .tabs {
     border-color: white;
     background-color: white;
-    color: #9E9E9E;
+    /* color: #9E9E9E; */
     position: fixed;
     top: 32px;
 }
