@@ -314,6 +314,8 @@ app
             }
         };
 
+        var compareTime = new Date().getTime() + (60 * 86400000); 
+
         $scope.openDatePicker = function (val) {
             var ipObj1 = {
               callback: function (val) {  // 必选
@@ -325,7 +327,7 @@ app
               titleLabel: '选择日期',
               closeLabel: '返回',
               from: new Date(),
-              to: new Date(2099, 11, 31),// 11对应十二月，差1
+              to: new Date(compareTime), // 11对应十二月，差1
               dateFormat: 'yyyy-MM-dd', // 可选
               closeOnSelect: true, // 可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
               inputDate: new Date(),
