@@ -111,7 +111,7 @@ var floatObj = function() {
 
 app
     /* 首页搜索 控制器 */
-    .controller('City_select', function($rootScope, $scope, $state, $timeout, $interval, $myLocationService, $myHttpService, $ionicSlideBoxDelegate, $ionicActionSheet, $selectCity, $filter, ionicDatePicker) {
+    .controller('City_select', function($rootScope, $scope, $state, $timeout, $interval, $myLocationService, $myHttpService, $ionicSlideBoxDelegate, $ionicActionSheet, $selectCity, $filter, ionicDatePicker, $ionicModal) {
         
         // 确保推荐在未关闭页面之前只请求一次 优化
         if(sessionStorage.getItem("recommendImgCount") == null) {
