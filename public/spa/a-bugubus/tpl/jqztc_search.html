@@ -76,8 +76,11 @@
 
                 <div class="col">
                     <div class="list list-inset">
-                        <label class="item item-input" style="border-radius: 5px;border: none;margin: 2px 0;">
-                            <div ng-click="modal.show()"></div>
+                        <label ng-click="openRoadLine()" class="item item-input" style="border-radius: 5px;border: none;margin: 8px 0;">
+                            <div>
+                                <span ng-if="isSelectedRoadLineBoolean" style="color: #a2a2a2;">目的地/主题/路线</span>
+                                <span ng-if="!isSelectedRoadLineBoolean" style="color: #111;">{{isSelectedRoadLine}}</span>
+                            </div>
                         </label>
                     </div>
                 </div>

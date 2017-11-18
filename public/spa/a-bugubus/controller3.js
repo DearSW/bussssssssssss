@@ -291,11 +291,24 @@ app
         }
     */
 
-        // 路线数据
-        $rootScope.roadLineData = [
-            '青岩古镇',
-            '息烽温泉'
-        ];
+        
+
+        if(recommendImgCount == 1) {
+            // 路线数据
+            $rootScope.roadLineData = [
+                '青岩古镇',
+                '息烽温泉',
+                '黄果树瀑布'
+            ];
+
+            $rootScope.isSelectedRoadLine = "";
+            $rootScope.isSelectedRoadLineBoolean = false;
+
+        } else {
+
+        }
+
+        
 
         $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
             '	  '+
@@ -318,8 +331,15 @@ app
             animation: 'slide-in-up'
         });
 
+        $scope.openRoadLine = function() {
+            $scope.modal.show();
+        }
+
         $scope.selectedRoadLine = function(item) {
+            $rootScope.isSelectedRoadLineBoolean = true;
             console.log(item);
+            $rootScope.isSelectedRoadLine = item;
+            $scope.modal.hide();
         }
 
         // 时间操作
@@ -381,8 +401,8 @@ app
         $scope.goTabs = function() {
             // 封装参数
             var data = {
-                city: "贵阳", // 城市
-                input: $scope.dataContainer.input.trim(), // 用户输入
+                city: "贵阳", // 城市区域
+                input: $rootScope.isSelectedRoadLine, // 路线
                 date: $filter('date')($scope.goDate.time, 'yyyy-MM-dd') // 时间
             };
             console.log(data);
