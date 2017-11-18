@@ -291,6 +291,37 @@ app
         }
     */
 
+        // 路线数据
+        $rootScope.roadLineData = [
+            '青岩古镇',
+            '息烽温泉'
+        ];
+
+        $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
+            '	  '+
+            '        <ion-header-bar class="bar bar-header modal-one" >'+
+            '		'+
+        //    '		   <button class="button  button-balanced" ng-click="chooseScenicSpotTicket()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
+            '          <h1 class="title"> 路线选择 </h1>'+
+            '          <button class="button button-balanced" ng-click="modal.close()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
+            '		  '+
+            '        </ion-header-bar>'+
+            '		'+
+            '        <ion-content class="padding" style="background: #ffffff;margin-top: 300px;" >'+
+        //    '		    <p style="text-align:center;font-size: 20px;"><span>{{ticketInfo.viewName}}</span></p>	'+
+            '			<button class="button button-outline button-dark" ng-repeat="item in roadLineData by $index" ng-click="selectedRoadLine(item)">{{item}}</button> '+
+            '			'+
+            '        </ion-content>'+
+            '		'+
+            '      </ion-modal-view>', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+
+        $scope.selectedRoadLine = function(item) {
+            console.log(item);
+        }
+
         // 时间操作
         if(sessionStorage.getItem('jqztc_search_time') != null) {
             var tempTime = sessionStorage.getItem('jqztc_search_time');
@@ -350,7 +381,7 @@ app
         $scope.goTabs = function() {
             // 封装参数
             var data = {
-                city: $scope.cityssss, // 城市
+                city: "贵阳", // 城市
                 input: $scope.dataContainer.input.trim(), // 用户输入
                 date: $filter('date')($scope.goDate.time, 'yyyy-MM-dd') // 时间
             };
