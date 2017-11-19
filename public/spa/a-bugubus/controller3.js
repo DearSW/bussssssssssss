@@ -620,7 +620,7 @@ app
 
             var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
             var endTime = new Date().getTime() + (60 * 86400000);
-            if(nextDayTime < endTime) {
+            if(nextDayTime <= endTime) {
                 var temp = new Date(nextDayTime);
                 $rootScope.currentSelectedDate = $filter('date')(temp, 'yyyy-MM-dd');
                 sessionStorage.setItem('tabsParamsDataDate', $rootScope.currentSelectedDate);
@@ -660,7 +660,7 @@ app
             // var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
             // var endTime = new Date().getTime() + (60 * 86400000);
 
-            if(prevDayTime > startTime) {
+            if(prevDayTime >= startTime) {
                 var temp = new Date(prevDayTime);
                 $rootScope.currentSelectedDate = $filter('date')(temp, 'yyyy-MM-dd');
                 sessionStorage.setItem('tabsParamsDataDate', $rootScope.currentSelectedDate);
