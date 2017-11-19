@@ -619,7 +619,10 @@ app
         $scope.nextDay = function() {
 
             var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
-            var endTime = new Date().getTime() + (60 * 86400000);
+            var temp1 = new Date();
+            var temp2 = $filter('date')(temp1, 'yyyy-MM-dd');
+            var endTime = new Date(temp2).getTime() + (60 * 86400000);
+
             if(nextDayTime <= endTime) {
                 var temp = new Date(nextDayTime);
                 $rootScope.currentSelectedDate = $filter('date')(temp, 'yyyy-MM-dd');
@@ -654,8 +657,13 @@ app
 
         $scope.prevDay = function() {
 
+
             var prevDayTime = new Date($rootScope.currentSelectedDate).getTime() - (1 * 86400000); // ms
-            var startTime = new Date().getTime();
+
+            var temp3 = new Date();
+            var temp4 = $filter('date')(temp3, 'yyyy-MM-dd');
+
+            var startTime = new Date(temp4).getTime();
 
             // var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
             // var endTime = new Date().getTime() + (60 * 86400000);
@@ -720,9 +728,9 @@ app
                                 btn: '确定'
                             });
                         }
-                    }, errorFn);
-
-
+                    }, function() {
+                        $scope.ticketsInfo = [];
+                    });
                 },
                 titleLabel: '选择日期',
                 closeLabel: '返回',
