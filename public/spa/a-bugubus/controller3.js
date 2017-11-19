@@ -385,7 +385,7 @@ app
               templateType: 'modal'
             };
             ionicDatePicker.openDatePicker(ipObj1);
-          }
+        }
 
         // 当所有输入完成，开启搜索按钮
         $scope.btnCheck = function() {
@@ -424,6 +424,8 @@ app
         $scope.ticketsInfo = []; // 车票数据
         $scope.commentsInfo = []; // 评论数据
         $scope.noticeInfo = ''; // 须知数据
+
+        $rootScope.currentSelectedDate = null;
 
         // Mock数据 接口 api/product/queryProductList
         /* $scope.ticketsInfoMock = [
@@ -504,7 +506,7 @@ app
         var paramsData = JSON.parse($state.params.data);
 
         if(paramsData != null) {
-            if(paramsData.hasOwnProperty('productid')) {
+            if(paramsData.hasOwnProperty('productid')) { // 推荐类型的路线
 
                 sessionStorage.setItem('questUrlType', '0');
                 sessionStorage.setItem('tabsParamsDataProductid', paramsData.productid);
@@ -534,12 +536,16 @@ app
                     }
                 }, errorFn);
                 
-            } else {
+            } else { // 手动搜索类型的路线
 
                 sessionStorage.setItem('questUrlType', '1');
                 sessionStorage.setItem('tabsParamsDataInput', paramsData.input);
                 sessionStorage.setItem('tabsParamsDataDate', paramsData.date);
                 sessionStorage.setItem('tabsParamsDataCity', paramsData.city);
+
+                $rootScope.currentSelectedDate = paramsData.date;
+                $rootScope.currentSelectedRoadLine = paramsData.input;
+                $rootScope.currentSelectedCity = paramsData.city;
 
                 var requestData = {
                     keyword: paramsData.input,
@@ -587,6 +593,10 @@ app
                 };
                 console.log(requestData);
 
+                $rootScope.currentSelectedDate = sessionStorage.getItem('tabsParamsDataDate');
+                $rootScope.currentSelectedRoadLine = sessionStorage.getItem('tabsParamsDataInput');
+                $rootScope.currentSelectedCity = sessionStorage.getItem('tabsParamsDataCity');
+
                 $myHttpService.post('api/product/queryProductList', requestData, function(data){
                     console.log(data);
                     $scope.ticketsInfo = data.products;
@@ -603,6 +613,127 @@ app
             } else {
                 $state.go('search');
             }
+        }
+
+
+        $scope.nextDay = function() {
+
+            var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
+            var endTime = new Date().getTime() + (60 * 86400000);
+            if(nextDayTime < endTime) {
+                var temp = new Date(nextDayTime);
+                $rootScope.currentSelectedDate = $filter('date')(temp, 'yyyy-MM-dd');
+                sessionStorage.setItem('tabsParamsDataDate', $rootScope.currentSelectedDate);
+
+                var requestData = {
+                    keyword: $rootScope.currentSelectedRoadLine,
+                    departDate: $rootScope.currentSelectedDate,
+                    region: $rootScope.currentSelectedCity
+                };
+
+                $myHttpService.post('api/product/queryProductList', requestData, function(data) {
+                    console.log(data);
+                    $scope.ticketsInfo = data.products;
+                    if(data.products.length != 0) {
+                        $scope.noticeInfo = data.products[0].productinfo;                    
+                    } else {
+                        layer.open({
+                            content: '当前班次已售罄，请选择往后日期',
+                            btn: '确定'
+                        });
+                    }
+                }, errorFn);
+
+            } else {
+                layer.open({
+                    content: '不在预售范围内，预售期仅为60天，请重新选择！',
+                    btn: '确定'
+                });
+            }
+        }
+
+        $scope.prevDay = function() {
+
+            var prevDayTime = new Date($rootScope.currentSelectedDate).getTime() - (1 * 86400000); // ms
+            var startTime = new Date().getTime();
+
+            // var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
+            // var endTime = new Date().getTime() + (60 * 86400000);
+
+            if(prevDayTime > startTime) {
+                var temp = new Date(prevDayTime);
+                $rootScope.currentSelectedDate = $filter('date')(temp, 'yyyy-MM-dd');
+                sessionStorage.setItem('tabsParamsDataDate', $rootScope.currentSelectedDate);
+
+                var requestData = {
+                    keyword: $rootScope.currentSelectedRoadLine,
+                    departDate: $rootScope.currentSelectedDate,
+                    region: $rootScope.currentSelectedCity
+                };
+
+                $myHttpService.post('api/product/queryProductList', requestData, function(data) {
+                    console.log(data);
+                    $scope.ticketsInfo = data.products;
+                    if(data.products.length != 0) {
+                        $scope.noticeInfo = data.products[0].productinfo;                    
+                    } else {
+                        layer.open({
+                            content: '当前班次已售罄，请选择往后日期',
+                            btn: '确定'
+                        });
+                    }
+                }, errorFn);
+
+            } else {
+                var temp = new Date();
+                var temp2 = $filter('date')(temp, 'yyyy-MM-dd');
+                layer.open({
+                    content: '选择日期仅当从' + temp2 + '往后' ,
+                    btn: '确定'
+                });
+            }
+        }
+
+        var compareTime = new Date().getTime() + (60 * 86400000); // 60天时间
+
+        $scope.selectDay = function(val) {
+            var ipObj1 = {
+                callback: function (val) {  // 必选
+                    var val2 = new Date(val);
+                    $rootScope.currentSelectedDate = $filter('date')(val2, 'yyyy-MM-dd');
+                    sessionStorage.setItem('tabsParamsDataDate', $rootScope.currentSelectedDate);
+
+                    var requestData = {
+                        keyword: $rootScope.currentSelectedRoadLine,
+                        departDate: $rootScope.currentSelectedDate,
+                        region: $rootScope.currentSelectedCity
+                    };
+    
+                    $myHttpService.post('api/product/queryProductList', requestData, function(data) {
+                        console.log(data);
+                        $scope.ticketsInfo = data.products;
+                        if(data.products.length != 0) {
+                            $scope.noticeInfo = data.products[0].productinfo;                    
+                        } else {
+                            layer.open({
+                                content: '当前班次已售罄，请选择往后日期',
+                                btn: '确定'
+                            });
+                        }
+                    }, errorFn);
+
+
+                },
+                titleLabel: '选择日期',
+                closeLabel: '返回',
+                from: new Date(),
+                to: new Date(compareTime), // 11对应十二月，差1
+                dateFormat: 'yyyy-MM-dd', // 可选
+                closeOnSelect: true, // 可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
+                inputDate: new Date(),
+                templateType: 'modal'
+              };
+              ionicDatePicker.openDatePicker(ipObj1);
         }
 
         // 购买按钮函数 传递参数
@@ -798,7 +929,7 @@ app
         }
         // 评论的星星 调用了Star的指令，这里相关是配置的信息
         $scope.max = 5; // 星星数量
-        $scope.readonly = true; // 是否可读
+        $scope.readonly = true; // 是否可读，此处为可读
         $scope.onHover = function(val){};
         $scope.onLeave = function(){};
 

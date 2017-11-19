@@ -23,15 +23,15 @@
             
                 <div class="row">
                     <div class="col" style="text-align: left;">
-                        <span style="display: inline-block;">上一天</span>
+                        <span style="display: inline-block;" ng-click="prevDay()">上一天</span>
                     </div>
             
                     <div class="col">
-                        <span>2017-12-01</span>
+                        <span ng-click="selectDay()">{{currentSelectedDate}}</span>
                     </div>
             
                     <div class="col" style="text-align: right;">
-                        <span style="display: inline-block;">下一天</span>
+                        <span style="display: inline-block;" ng-click="nextDay()">下一天</span>
                     </div>
 
                 </div>
