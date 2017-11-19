@@ -808,9 +808,9 @@ app
                 } else if(sessionStorage.getItem('questUrlType') == '1') {
                     
                     var requestData = {
-                        keyword: paramsData.input,
-                        departDate: paramsData.date,
-                        region: paramsData.city
+                        keyword: $rootScope.currentSelectedRoadLine,
+                        departDate: $rootScope.currentSelectedDate,
+                        region: $rootScope.currentSelectedCity
                     };
                     console.log(requestData);
 
@@ -851,9 +851,9 @@ app
                 } else if(sessionStorage.getItem('questUrlType') == '1') {
 
                     var requestData = {
-                        keyword: sessionStorage.getItem('tabsParamsDataInput'),
-                        departDate: sessionStorage.getItem('tabsParamsDataDate'),
-                        region: sessionStorage.getItem('tabsParamsDataCity')
+                        keyword: $rootScope.currentSelectedRoadLine,
+                        departDate: $rootScope.currentSelectedDate,
+                        region: $rootScope.currentSelectedCity
                     };
                     console.log(requestData);
 
