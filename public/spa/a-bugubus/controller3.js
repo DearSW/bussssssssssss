@@ -419,7 +419,7 @@ app
     })
 
     /* 路线、点评、须知 */
-    .controller('Tabs', function($rootScope, $scope, $state, $timeout,  $myHttpService, $myLocationService) {
+    .controller('Tabs', function($rootScope, $scope, $state, $timeout,  $myHttpService, $myLocationService, $filter, ionicDatePicker, $ionicModal) {
 
         $scope.ticketsInfo = []; // 车票数据
         $scope.commentsInfo = []; // 评论数据
