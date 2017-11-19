@@ -706,7 +706,9 @@ app
             }
         }
 
-        var compareTime = new Date().getTime() + (60 * 86400000); // 60天时间
+        var compareTimeTemp1 = new Date();
+        var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
+        var compareTime = new Date(compareTimeTemp2).getTime() + (60 * 86400000); // 60天时间
 
         $scope.selectDay = function(val) {
             var ipObj1 = {
