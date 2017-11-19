@@ -645,7 +645,9 @@ app
                             btn: '确定'
                         });
                     }
-                }, errorFn);
+                }, function() {
+                    $scope.ticketsInfo = [];
+                });
 
             } else {
                 layer.open({
@@ -690,7 +692,9 @@ app
                             btn: '确定'
                         });
                     }
-                }, errorFn);
+                }, function() {
+                    $scope.ticketsInfo = [];
+                });
 
             } else {
                 var temp = new Date();
