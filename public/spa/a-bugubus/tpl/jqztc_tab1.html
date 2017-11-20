@@ -152,24 +152,31 @@
 
                                     <div class="row startposition">
                                             <div class="col">
-                                                <span>贵州饭店</span>
+                                                <span class="station-address">贵州饭店</span>
                                                 <span class="station-arrow"></span>
-                                                <span>青岩古镇</span>
+                                                <span class="station-address">青岩古镇</span>
                                             </div>
                                     </div>
 
                                     <div class="row info " style="padding-left: 8px;">
 
-                                        <div class="col" style="text-align: center">
+                                        <div class="col" style="margin-left: 10px;">
 
-                                            <div ng-if="item.haveTicket == 0">
+                                            <span ng-if="item.haveTicket == 0">
                                                 <div class="btnfont green">单程</div>
-                                            </div>
-                                            <div ng-if="item.haveTicket == 1">
+                                            </span>
+                                            <span ng-if="item.haveTicket == 1">
                                                     <div class="btnfont green">单程 + 门票</div>
-                                            </div>
+                                            </span>
                                             <span class="btnfont4">09:00</span>
-                                            <span class="btnfont5">单程约30分钟 剩<span class="btnfont2">10</span>座/13座</span>                                            
+                                            <span class="btnfont5">单程约30分钟 剩
+                                                    <span style="
+                                                    font-size: 20px;
+                                                    display: inline-block;
+                                                    margin: 0px 3px;
+                                                "> · </span>
+                                                <span class="btnfont2">10</span>座/13座
+                                            </span>                                            
 
                                         </div>
 
