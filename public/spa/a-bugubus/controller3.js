@@ -896,6 +896,7 @@ app
                 if($scope.commentsInfo.length == 0) {
                     $scope.isNoComment = true;
                 } else {
+                    $scope.isNoComment = false;
                     layer.open({
                         content: '刷新成功',
                         skin: 'msg',
