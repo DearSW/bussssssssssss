@@ -26,6 +26,40 @@
 
         <ion-content>
 
+                    <div style="
+                        display: block;
+                        z-index: 2;
+                        height: 40px;
+                        position: fixed;
+                        width: 100%;
+                        text-align: center;
+                        color: #7b7878;
+                    ">
+            
+                        <div class="row">
+
+                            <div class="col" style="text-align: left;">
+                                <span style="display: inline-block;" ng-click="prevDay()">上一天</span>
+                            </div>
+                    
+                            <div class="col">
+                                <span ng-click="selectDay()">2017-12-01</span>
+                            </div>
+                    
+                            <div class="col" style="text-align: right;">
+                                <span style="display: inline-block;" ng-click="nextDay()">下一天</span>
+                            </div>
+
+                        </div>
+                    
+                    </div>
+
+                    <div>
+                        <div>
+                                <i class="icon ion-ios-informaticon-outline"></i>用户须知
+                        </div>
+                    </div>
+
                     <!-- 1  -->
                     <ion-list>
                         <ion-item ng-switch="ticketInfo.productType">
