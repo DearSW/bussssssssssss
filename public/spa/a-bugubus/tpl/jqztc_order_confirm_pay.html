@@ -30,10 +30,9 @@
                         display: block;
                         z-index: 2;
                         height: 40px;
-                        position: fixed;
                         width: 100%;
                         text-align: center;
-                        color: #7b7878;
+                        color: #3D3E3F;
                     ">
             
                         <div class="row">
@@ -55,89 +54,102 @@
                     </div>
 
                     <div>
-                        <div>
-                                <i class="icon ion-ios-informaticon-outline"></i>用户须知
+                        <div style="text-align: right;margin: 0 7px;">
+                                <i class="icon ion-ios-informaticon ion-outline"></i><span style="color: #656572;">用户须知</span>
                         </div>
                     </div>
 
                     <!-- 1  -->
                     <ion-list>
-                        <ion-item ng-switch="ticketInfo.productType">
+                        <ion-item> 
 
-                            <div ng-switch-when="0">
-                                    <div class="row info " style="padding-left: 8px;">
-                                        <div class="col col-35 ">
-                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
-                                            <span class="btnfont4">{{ticketInfo.departtime}}</span>
-                                        </div>
-                                        <div class="col col-15" style="text-align: center">
-                                            <div ng-if="ticketInfo.haveTicket == 0">
-                                                    <div class="btnfont green">单程</div>
-                                            </div>
-                                            <div ng-if="ticketInfo.haveTicket == 1">
-                                                    <div class="btnfont green">单程 + 门票</div>
-                                            </div>
-                                        </div>
-                                        <div class="col" style="text-align: center;">
-                                            <span class="btnfont5">单程约{{ticketInfo.drivetime}}分钟
-                                        </div>
-                                    </div>
-                                    <div class="row startposition">
-                                        <div class="col">
-                                            <i class="icon ion-record btnfont3 green"></i>
-                                            {{ticketInfo.departName}}
-                                        </div>
-                                    </div>
-                                    <div class="row endposition">
-                                        <div class="col">
-                                            <i class="icon ion-record btnfont3 red "></i>
-                                            {{ticketInfo.arriveName}}
-                                        </div>
-                                    </div>
-                                    <div class="row purchase">
-                                        <div class="col col-75">
-                                            <div style="margin: 0 0 8px 11px" >出发日期: {{ticketInfo.departdate | date:'yyyy-MM-dd' }} {{ticketInfo.departtime}}</div>
-                                        </div>
-                                    </div>
+                                <!-- ng-switch="ticketInfo.productType"  ng-if -->
+
+                            <!-- 单程票 -->
+
+                            <!-- 往返票 带门票 -->
+                            <div>
+
+                                <!-- 去程票 -->
+                                <div>
                                     
-                            </div>
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-address">贵州饭店</span>
+                                                    <span class="station-arrow"></span>
+                                                    <span class="station-address">息烽温泉</span>
+                                                </div>
+                                        </div>
+        
+                                        <div class="row" style="background: white; margin-top: 3px;" ng-click="modal.show()">
+                                                <div class="col">
+                                                    <div>
+                                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                                            07:35
+                                                            <span style="font-size: 14px;display: inline-block;"> · </span>
+                                                            剩
+                                                            <span class="btnfont2">12</span>座/13座
+                                                            <span class="item-note" style="margin-right: 24px;" > 
+                                                                <i class="icon ion-chevron-right padding-left"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+        
+                                        <div class="row purchase">
+                                            <div class="col col-50">
+                                                <div style="margin: 0 0 8px 11px;white-space: normal;" >票价：80元</div>
+                                            </div>
+                                            <div class="col col-50">
+                                                <button class="button  btnfoot6" ng-click="decr()">-</button>
+                                                <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
+                                                <button class="button  btnfont8" ng-click="incr()">+</button>
+                                            </div>
+                                        </div>
 
-                            <div ng-switch-when="1">
-                                    <div class="row info " style="padding-left: 8px;">
-                                        <div class="col col-35 ">
-                                            <i class="icon ion-ios-clock-outline btnfont3 blue"></i>
-                                            <span class="btnfont4">{{ticketInfo.departtime}} - {{ticketInfo.backDeparttime}}</span>
+                                </div>
+                                <!-- 返程票 -->
+                                <div>
+
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-address">息烽温泉</span>
+                                                    <span class="station-arrow"></span>
+                                                    <span class="station-address">贵州饭店</span>
+                                                </div>
                                         </div>
-                                        <div class="col col-15" style="text-align: center">
-                                            <div ng-if="ticketInfo.haveTicket == 0">
-                                                    <div class="btnfont">往返</div>
+        
+                                        <div class="row" style="background: white; margin-top: 3px;" ng-click="modal.show()">
+                                                <div class="col">
+                                                    <div>
+                                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                                            16:00
+                                                            <span style="font-size: 14px;display: inline-block;"> · </span>
+                                                            剩
+                                                            <span class="btnfont2">10</span>座/13座
+                                                            <span class="item-note" style="margin-right: 24px;" > 
+                                                                <i class="icon ion-chevron-right padding-left"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+        
+                                        <div class="row purchase">
+                                            <div class="col col-50">
+                                                <div style="margin: 0 0 8px 11px;white-space: normal;" >票价：80元</div>
                                             </div>
-                                            <div ng-if="ticketInfo.haveTicket == 1">
-                                                    <div class="btnfont">往返 + 门票</div>
+                                            <div class="col col-50">
+                                                    
                                             </div>
                                         </div>
-                                        <div class="col" style="text-align: center;">
-                                            <span class="btnfont5">单程约{{ticketInfo.drivetime}}分钟
-                                        </div>
-                                    </div>
-                                    <div class="row startposition">
-                                        <div class="col">
-                                            <i class="icon ion-record btnfont3 green"></i>
-                                            {{ticketInfo.departName}}
-                                        </div>
-                                    </div>
-                                    <div class="row endposition">
-                                        <div class="col">
-                                            <i class="icon ion-record btnfont3 red "></i>
-                                            {{ticketInfo.arriveName}}
-                                        </div>
-                                    </div>
-                                    <div class="row purchase">
-                                        <div class="col col-75">
-                                            <div style="margin: 0 0 8px 11px" >出发日期: {{ticketInfo.departdate | date:'yyyy-MM-dd' }} {{ticketInfo.departtime}}</div>
-                                            <div style="margin: 0 0 8px 11px" >返程日期: {{ticketInfo.departdate | date:'yyyy-MM-dd' }} {{ticketInfo.backDeparttime}}</div>
-                                        </div>
-                                    </div>
+
+                                </div>
+                                <!-- 门票 -->
+                                <div>
+
+                                </div>
                                     
                             </div>
                             
@@ -243,6 +255,7 @@
 
                         </div>
 
+                        <!-- 优惠券 -->
                         <div class="row" style="background: white;">
                             <div class="col col-66">
                                 <div style="line-height: 30px;">
@@ -289,12 +302,6 @@
                                     </div>
                                 </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <!-- <span class="btnfont10">用户须知</span> -->
-                            </div>
-                        </div> 
 
                         <div class="row">
                             <div class="col">
