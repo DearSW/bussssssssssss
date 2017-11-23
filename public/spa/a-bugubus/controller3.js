@@ -423,7 +423,8 @@ app
 
         $scope.ticketsInfo = []; // 车票数据
         $scope.commentsInfo = []; // 评论数据
-        $scope.noticeInfo = ''; // 须知数据
+
+        // $scope.noticeInfo = ''; // 须知数据
 
         $rootScope.currentSelectedDate = null;
 
