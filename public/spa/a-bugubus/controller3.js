@@ -132,7 +132,7 @@ app
             sessionStorage.setItem("recommendImgCount", 2);
             // 请求获取推荐路线数据  /web/product/queryRecommendProductList
             $myHttpService.postNoLoad('api/product/queryRecommendProductList', {}, function(data) {
-                console.log("推荐API返回的数据");
+                console.log("首页：图片推荐API返回的数据");
                 console.log(data);
                 $rootScope.recommendProducts2 = data.products;
                 if($rootScope.recommendProducts2.length == 0) {
@@ -305,7 +305,7 @@ app
             // 搜索关键字 wechat/product/queryProductKeywords
             $myHttpService.postNoLoad('api/product/queryProductKeywords', {}, function(data) {
                 
-                console.log("搜索关键字API返回的数据");
+                console.log("首页：搜索关键字API返回的数据");
                 console.log(data);
 
             });
@@ -518,7 +518,7 @@ app
         var paramsData = JSON.parse($state.params.data);
 
         if(paramsData != null) {
-            if(paramsData.hasOwnProperty('productid')) { // 推荐类型的路线
+            if(paramsData.hasOwnProperty('productid')) { // 一、图片推荐类型的产品列表
 
                 sessionStorage.setItem('questUrlType', '0');
                 sessionStorage.setItem('tabsParamsDataProductid', paramsData.productid);
@@ -527,28 +527,30 @@ app
                 var requestData = {
                     productid: paramsData.productid
                 };
+                // 图片推荐类型产品列表 /web/product/queryRecommendProduct
                 $myHttpService.post('api/product/queryRecommendProduct', requestData, function(data) {
+                    console.log("产品页：图片推荐产品列表API返回的数据");
                     console.log(data);
-                    $scope.ticketsInfo = data.products;
-                    if(data.products.length != 0) {
-                        $scope.noticeInfo = data.products[0].productinfo;                        
-                    } else {
-                        layer.open({
-                            content: '万分抱歉，您当前选择的推荐主题路线，今日已售完，请返回进行主题线路搜索',
-                            btn: '确定',
-                            shadeClose: false,
-                            yes: function(index) {
-                                layer.closeAll();
-                                $timeout(function() {
-                                    window.history.back();
-                                    return false;
-                                }, 250)
-                            }
-                        });
-                    }
+                    // $scope.ticketsInfo = data.products;
+                    // if(data.products.length != 0) {
+                    //     $scope.noticeInfo = data.products[0].productinfo;                        
+                    // } else {
+                    //     layer.open({
+                    //         content: '万分抱歉，您当前选择的推荐主题路线，今日已售完，请返回进行主题线路搜索',
+                    //         btn: '确定',
+                    //         shadeClose: false,
+                    //         yes: function(index) {
+                    //             layer.closeAll();
+                    //             $timeout(function() {
+                    //                 window.history.back();
+                    //                 return false;
+                    //             }, 250)
+                    //         }
+                    //     });
+                    // }
                 }, errorFn);
                 
-            } else { // 手动搜索类型的路线
+            } else { // 二、手动搜索类型的产品列表
 
                 sessionStorage.setItem('questUrlType', '1');
                 sessionStorage.setItem('tabsParamsDataInput', paramsData.input);
@@ -565,17 +567,19 @@ app
                     region: paramsData.city
                 };
 
+                // 手动搜索类型的产品列表 wechat/product/queryProductList
                 $myHttpService.post('api/product/queryProductList', requestData, function(data) {
+                    console.log("产品页：手动搜索类型的产品列表API返回的数据");
                     console.log(data);
-                    $scope.ticketsInfo = data.products;
-                    if(data.products.length != 0) {
-                        $scope.noticeInfo = data.products[0].productinfo;                    
-                    } else {
-                        layer.open({
-                            content: '当前班次，今日已售完，请选择往后日期',
-                            btn: '确定'
-                        });
-                    }
+                    // $scope.ticketsInfo = data.products;
+                    // if(data.products.length != 0) {
+                    //     $scope.noticeInfo = data.products[0].productinfo;                    
+                    // } else {
+                    //     layer.open({
+                    //         content: '当前班次，今日已售完，请选择往后日期',
+                    //         btn: '确定'
+                    //     });
+                    // }
                 }, errorFn);
 
             }
@@ -626,7 +630,6 @@ app
                 $state.go('search');
             }
         }
-
 
         $scope.nextDay = function() {
 
@@ -764,7 +767,7 @@ app
 
         // 购买按钮函数 传递参数
         $scope.purchase = function(item, i) {
-            console.log("购买按钮传递的参数：");
+            console.log("产品页：点击购买按钮传递的参数");
             console.log(item);
             $state.go('order_confirm_pay', {data: JSON.stringify(item)});
         };
@@ -787,11 +790,6 @@ app
                 console.log('comment');
             }
             check_click_count2++;
-        }
-
-        // 须知信息
-        $scope.tab_notice = function() {
-            console.log('notice');
         }
 
         // 路线信息下拉刷新
