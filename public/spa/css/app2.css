@@ -849,6 +849,18 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
     font-weight: bold;
 }
 
-.station-mark {
-    
+.station-mark-orange {
+    background: #E75E0F;
+    display: inline-block;
+    border-radius: 3px;
+    padding: 1px;
+    color: white;
+}
+
+.station-mark-blue {
+    background: #6722E8;
+    display: inline-block;
+    border-radius: 3px;
+    padding: 1px;
+    color: white;
 }
