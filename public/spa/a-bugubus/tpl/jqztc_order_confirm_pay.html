@@ -101,11 +101,10 @@
 
                     <div style="
                         display: block;
-                        z-index: 2;
                         height: 40px;
-                        width: 100%;
                         text-align: center;
                         color: #3D3E3F;
+                        margin: 0 5px;
                     ">
             
                         <div class="row">
@@ -127,8 +126,8 @@
                     </div>
 
                     <div>
-                        <div style="text-align: right;margin: 0 7px;">
-                                <i class="icon ion-ios-informaticon"></i><span style="color: #656572;">用户须知</span>
+                        <div style="text-align: right;margin: 0px 10px;">
+                                <i class="icon ion-ios-information-outline" style="color: #f76601;font-size: 17px;margin-right: 3px;"></i><span style="color: #656572;">用户须知</span>
                         </div>
                     </div>
 
@@ -164,7 +163,7 @@
                                                                     <span style="font-size: 14px;display: inline-block;"> · </span>
                                                                     剩
                                                                     <span class="btnfont2">12</span>座/13座
-                                                                    <span class="item-note" style="margin-right: 10px;" > 
+                                                                    <span class="item-note" style="margin-right: 24px;" > 
                                                                         <i class="icon ion-chevron-right padding-left"></i>
                                                                     </span>
                                                             </span>
@@ -174,11 +173,11 @@
                                         </div>
         
                                         <div class="row purchase">
-                                            <div class="col col-50">
+                                            <div class="col col-60">
                                                 <div style="font-size: 17px;white-space: normal;" >票价：80元</div>
                                             </div>
-                                            <div class="col col-50">
-                                                <div style="margin-left: 40px;">
+                                            <div class="col col-40">
+                                                <div style="text-align: center;">
                                                         <button class="button  btnfoot6" ng-click="decr()">-</button>
                                                         <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
                                                         <button class="button  btnfont8" ng-click="incr()">+</button>
@@ -188,40 +187,47 @@
 
                                 </div>
                                 <!-- 返程票 -->
-                                <div>
-
-                                        <div class="row startposition">
-                                                <div class="col">
-                                                    <span class="station-address">息烽温泉</span>
-                                                    <span class="station-arrow"></span>
-                                                    <span class="station-address">贵州饭店</span>
-                                                </div>
-                                        </div>
-        
-                                        <div class="row" style="background: white; margin-top: 3px;" ng-click="modal.show()">
-                                                <div class="col">
-                                                    <div>
-                                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                                            16:00
-                                                            <span style="font-size: 14px;display: inline-block;"> · </span>
-                                                            剩
-                                                            <span class="btnfont2">10</span>座/13座
-                                                            <span class="item-note" style="margin-right: 24px;" > 
-                                                                <i class="icon ion-chevron-right padding-left"></i>
-                                                            </span>
-                                                        </div>
+                                <div style="border-bottom: 1px solid #D3D4D5;">
+                                        
+                                    <div class="row startposition">
+                                            <div class="col">
+                                                <span class="station-mark-orange">车票</span>
+                                                <span class="station-go-address2">息烽温泉</span>
+                                                <span class="station-arrow2"></span>
+                                                <span class="station-arrive-address2">贵州饭店</span>
+                                            </div>
+                                    </div>
+    
+                                    <div class="row" style="background: white; margin-top: 3px;" ng-click="modal.show()">
+                                            <div class="col">
+                                                <div>
+                                                    <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                                        <span style="font-size: 17px;">07:35</span>
+                                                        <span style="color:#a7a7ab">
+                                                                <span style="font-size: 14px;display: inline-block;"> · </span>
+                                                                剩
+                                                                <span class="btnfont2">12</span>座/13座
+                                                                <span class="item-note" style="margin-right: 24px;" > 
+                                                                    <i class="icon ion-chevron-right padding-left"></i>
+                                                                </span>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                        </div>
-        
-                                        <div class="row purchase">
-                                            <div class="col col-50">
-                                                <div style="margin: 0 0 8px 11px;white-space: normal;" >票价：80元</div>
                                             </div>
-                                            <div class="col col-50">
-                                                    
+                                    </div>
+    
+                                    <div class="row purchase">
+                                        <div class="col col-60">
+                                            <div style="font-size: 17px;white-space: normal;" >票价：80元</div>
+                                        </div>
+                                        <div class="col col-40">
+                                            <div style="text-align: center;">
+                                                    <button class="button  btnfoot6" ng-click="decr()">-</button>
+                                                    <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
+                                                    <button class="button  btnfont8" ng-click="incr()">+</button>
                                             </div>
                                         </div>
+                                    </div>
 
                                 </div>
                                 <!-- 门票 -->
