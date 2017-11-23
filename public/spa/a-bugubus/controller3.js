@@ -130,8 +130,9 @@ app
         
         if(recommendImgCount == 1) {
             sessionStorage.setItem("recommendImgCount", 2);
-            // 请求获取推荐路线数据
+            // 请求获取推荐路线数据  /web/product/queryRecommendProductList
             $myHttpService.postNoLoad('api/product/queryRecommendProductList', {}, function(data) {
+                console.log("推荐API返回的数据");
                 console.log(data);
                 $rootScope.recommendProducts2 = data.products;
                 if($rootScope.recommendProducts2.length == 0) {
@@ -182,7 +183,7 @@ app
             clearTimeout(slideImageTimer);
         });
 
-        // 推荐路线数据详情，点击图片进行跳转到tabs页面
+        // 推荐路线 数据详情，点击图片进行跳转到 产品 页面
         $scope.recommendProductsDetail = function(item, i) {
             var data = {
                 productid: item.productid
@@ -293,11 +294,21 @@ app
 
         if(recommendImgCount == 1) {
             // 路线数据
+
+
             $rootScope.roadLineData = [
                 '青岩古镇',
                 '息烽温泉',
                 '黄果树瀑布'
             ];
+
+            // 搜索关键字 wechat/product/queryProductKeywords
+            $myHttpService.postNoLoad('api/product/queryProductKeywords', {}, function(data) {
+                
+                console.log("搜索关键字API返回的数据");
+                console.log(data);
+
+            });
 
             $rootScope.isSelectedRoadLine = "";
             $rootScope.isSelectedRoadLineBoolean = true; // 是否选择路线
@@ -307,7 +318,7 @@ app
 
         }
 
-        // 选择路线的自定义的弹窗
+        // 选择路线的自定义弹窗
         $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
             '	  '+
             '        <ion-header-bar class="bar bar-header modal-one" >'+
@@ -418,7 +429,7 @@ app
 
     })
 
-    /* 路线、点评、须知 */
+    /* 路线、点评 控制器 */
     .controller('Tabs', function($rootScope, $scope, $state, $timeout,  $myHttpService, $myLocationService, $filter, ionicDatePicker, $ionicModal) {
 
         $scope.ticketsInfo = []; // 车票数据
