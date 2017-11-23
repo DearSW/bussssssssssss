@@ -231,7 +231,68 @@
 
                                 </div>
                                 <!-- 门票 -->
-                                <div>
+                                <div style="border-bottom: 1px solid #D3D4D5;">
+                                        
+                                    <div class="row startposition">
+                                            <div class="col">
+                                                <span class="station-mark-orange">门票</span>
+                                                <span class="station-go-address2">黔灵山公园</span>
+                                            </div>
+                                    </div>
+    
+                                    <div class="row" style="background: white; margin-top: 3px;">
+                                            <div class="col">
+                                                <div>
+                                                    <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                                        <span style="font-size: 17px;">有效时间：2017.12.01</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                    <div>
+                                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                                            <span style="font-size: 17px;">票价：成人50元 儿童10元 夜场30元</span>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                    </div>
+    
+                                    <div class="row purchase">
+                                        <div class="col col-60">
+                                            <div style="font-size: 17px;white-space: normal;" >成人票</div>
+                                        </div>
+                                        <div class="col col-40">
+                                            <div style="text-align: center;">
+                                                    <button class="button  btnfoot6" ng-click="decr()">-</button>
+                                                    <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
+                                                    <button class="button  btnfont8" ng-click="incr()">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row purchase">
+                                            <div class="col col-60">
+                                                <div style="font-size: 17px;white-space: normal;" >儿童票</div>
+                                            </div>
+                                            <div class="col col-40">
+                                                <div style="text-align: center;">
+                                                        <button class="button  btnfoot6" ng-click="decr()">-</button>
+                                                        <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
+                                                        <button class="button  btnfont8" ng-click="incr()">+</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="row purchase">
+                                            <div class="col col-60">
+                                                <div style="font-size: 17px;white-space: normal;" >夜场票</div>
+                                            </div>
+                                            <div class="col col-40">
+                                                <div style="text-align: center;">
+                                                        <button class="button  btnfoot6" ng-click="decr()">-</button>
+                                                        <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
+                                                        <button class="button  btnfont8" ng-click="incr()">+</button>
+                                                </div>
+                                            </div>
+                                    </div>
 
                                 </div>
                                     
@@ -271,20 +332,28 @@
 
                     </div>
 
-                    <!-- 3 notice  -->
-                    <div class="notice" ng-if="ticketInfo.productType == 0">
-                            <p>【特别说明】</p>
-                            <p>1.因车辆为一人一座，婴儿、儿童也须购买全价车位，严禁超员，敬请谅解、配合，如不按规定购票造成的损失需自行承担。</p>
-                            <p>2.未购买返程票提示（您所购买仅为单程，热门线路避免返程满座，建议购买往返套票）。</p>
-                            <p>3.为保证乘车顺利，预定时请务必填写真实姓名及手机号码等信息。</p>
-                            <p>4.如需咨询、投诉或与满座需解决等情况，请拨打客服电话（工作时间：08：30-20：00）{{customerPhone}}。</p>
-                    </div>
-                    <div class="notice" ng-if="ticketInfo.productType == 1">
-                            <p>【特别说明】</p>
-                            <p>1.因车辆为一人一座，婴儿、儿童也须购买全价车位，严禁超员，敬请谅解、配合，如不按规定购票造成的损失需自行承担。</p>
-                            <p>2.为保证乘车顺利，预定时请务必填写真实姓名及手机号码等信息。</p>
-                            <p>3.如需咨询、投诉或与满座需解决等情况，请拨打客服电话（工作时间：08：30-20：00）{{customerPhone}}。</p>
-                    </div>
+                    <!-- 3 优惠券 -->
+                    <div class="row" style="background: white;">
+                            <div class="col col-66">
+                                <div style="line-height: 30px;">
+                                    <div ng-if="!useCoupon">
+                                        优惠券
+                                    </div>
+                                    <div ng-if="useCoupon">
+                                        优惠券
+                                        <span style="color: #9E9E9E;margin-left: 5px;" ng-if="couponTxTShow">(无可用优惠券)</span>
+                                        <span style="color: #9E9E9E;margin-left: 5px;" ng-if="!couponTxTShow">(可用优惠券金额 {{newTicketPrice  | currency: '￥' }})</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-33">
+                                <div style="position: relative;">
+                                    <div ng-click="checkCoupon($event)"  style="position: absolute; background: transparent; width: 100%; height: 35px; z-index: 999; cursor: pointer;"></div>
+                                    <ion-checkbox  ng-checked="couponBtnState" ng-model="dataContainer.coupon"></ion-checkbox>
+                                </div>
+                            </div>
+                        </div>
+
                     <!-- 4   -->
                     <div>
 
@@ -338,41 +407,6 @@
                             </div>
 
                         </div>
-
-                        <!-- 优惠券 -->
-                        <div class="row" style="background: white;">
-                            <div class="col col-66">
-                                <div style="line-height: 30px;">
-                                    <div ng-if="!useCoupon">
-                                        优惠券
-                                    </div>
-                                    <div ng-if="useCoupon">
-                                        优惠券
-                                        <span style="color: #9E9E9E;margin-left: 5px;" ng-if="couponTxTShow">(无可用优惠券)</span>
-                                        <span style="color: #9E9E9E;margin-left: 5px;" ng-if="!couponTxTShow">(可用优惠券金额 {{newTicketPrice  | currency: '￥' }})</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-33">
-                                <div style="position: relative;">
-                                    <div ng-click="checkCoupon($event)"  style="position: absolute; background: transparent; width: 100%; height: 35px; z-index: 999; cursor: pointer;"></div>
-                                    <ion-checkbox  ng-checked="couponBtnState" ng-model="dataContainer.coupon"></ion-checkbox>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- <div class="row">
-                                <div class="col">
-                                    <div class="list padding-top gray f14">
-                                        <div style="border-radius: 5px;" class="item">
-                                            门票
-                                            <span class="item-note" > 
-                                                <i class="icon ion-chevron-right padding-left"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div> -->
 
                         <div class="row" style="background: white; margin-top: 3px;" ng-if="ticketInfo.haveTicket == 1" ng-click="modal.show()">
                                 <div class="col">
