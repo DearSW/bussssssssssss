@@ -336,7 +336,7 @@
                     </div>
 
                     <!-- 3 优惠券 -->
-                    <div class="row" style="background: white;">
+                    <!-- <div class="row" style="background: white;">
                             <div class="col col-66">
                                 <div style="line-height: 30px;">
                                     <div ng-if="!useCoupon">
@@ -355,16 +355,16 @@
                                     <ion-checkbox  ng-checked="couponBtnState" ng-model="dataContainer.coupon"></ion-checkbox>
                                 </div>
                             </div>
-                    </div>
+                    </div> -->
 
-                    <div class="row" style="background: white; margin-top: 5px;">
+                    <div class="row" style="background: white; margin-top: 10px;">
                             <div class="col">
                                 <div>
                                     <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
                                         <span style="font-size: 17px;">优惠券</span>
                                         <span style="color:#a7a7ab">
                                                 <span class="item-note" style="margin-right: 24px;" > 
-                                                    <span style="color: black;">国庆全家桶100元</span>
+                                                    <span style="color: black;font-size: 17px;">国庆全家桶100元</span>
                                                     <i class="icon ion-chevron-right padding-left"></i>
                                                 </span>
                                         </span>
@@ -376,25 +376,76 @@
                     <!-- 4   -->
                     <div>
 
-                        <div class="row" style="padding-top: 10px;padding-bottom: 0;">
+                        <div class="row" style="background: white; margin-top: 15px;">
+                                <div class="col col-90">
+                                    <div>
+                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                            <span style="font-size: 17px;">商品总价</span>
+                                            <span style="color:#a7a7ab">
+                                                    <span class="item-note" style="margin-right: 24px;" > 
+                                                        <span style="color: black;font-size: 17px;">￥2000.00</span>
+                                                    </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-90">
+                                        <div>
+                                            <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                                <span style="font-size: 17px;">优惠金额</span>
+                                                <span style="color:#a7a7ab">
+                                                        <span class="item-note" style="margin-right: 24px;" > 
+                                                            <span style="color: black;font-size: 17px;">-￥100.00</span>
+                                                        </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col col-90">
+                                    <div>
+                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                            <span style="font-size: 17px;">订单实付</span>
+                                            <span style="color:#a7a7ab">
+                                                    <span class="item-note" style="margin-right: 24px;" > 
+                                                        <span style="color: black;font-size: 17px;">￥1900.00</span>
+                                                    </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-90">
+                                        <div>
+                                            <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                                <span style="font-size: 17px;">实付款</span>
+                                                <span style="font-size: 17px;">￥1900.00</span>
+                                                <span style="color:#a7a7ab">
+                                                        <span class="item-note" style="margin-right: 24px;" > 
+                                                            <span style="color: black;font-size: 17px;">去付款</span>
+                                                        </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <!-- <div class="row" style="padding-top: 10px;padding-bottom: 0;">
                             <div class="col" style="padding-bottom: 0;">
                                 <div>
                                     <span style="color:#848383;">全票 ￥{{ price }}</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         
-                        <div class="row">
+                        <!-- <div class="row">
 
                             <div class="col col-66">
                                 <button class="button  btnfoot6" ng-click="decr()">-</button>
                                 <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
                                 <button class="button  btnfont8" ng-click="incr()">+</button>
-                                <!-- <sub style="bottom: -2.5em;color: #FF9800;">费用说明</sub> -->
                             </div>
 
                             <div class="col col-33 col-bottom">
-                                <!-- 有门票时 -->
+                                有门票时
                                 <div ng-if="ticketInfo.haveTicket == 1">
                                         <div ng-if="useCoupon" style="text-align: center;">
                                             <div ng-if="sumPrice2 - newTicketPrice >= 0">
@@ -408,7 +459,7 @@
                                             <span class="btnfont9">{{ sumPrice | currency: '￥' }}</span>
                                         </div>
                                 </div>
-                                <!-- 没有门票时 -->
+                                没有门票时
                                 <div ng-if="ticketInfo.haveTicket == 0">
                                         <div ng-if="useCoupon" style="text-align: center;">
                                             <div ng-if="sumPrice - newTicketPrice >= 0">
@@ -425,9 +476,9 @@
 
                             </div>
 
-                        </div>
+                        </div> -->
 
-                        <div class="row" style="background: white; margin-top: 3px;" ng-if="ticketInfo.haveTicket == 1" ng-click="modal.show()">
+                        <!-- <div class="row" style="background: white; margin-top: 3px;" ng-if="ticketInfo.haveTicket == 1" ng-click="modal.show()">
                                 <div class="col">
                                     <div>
                                         <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
@@ -438,13 +489,13 @@
                                         </div>
                                     </div>
                                 </div>
-                        </div>
+                        </div> -->
 
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col">
                                 <button ng-click="recharge()" ng-disabled="payBtnDisabled" class="button button-block button-balanced">确认支付</button>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
 
