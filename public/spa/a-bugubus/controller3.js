@@ -173,7 +173,7 @@ app
 
         slideImageTimer = $interval(function() {
             slideImage();
-        }, 3000);
+        }, 4000);
 
         $scope.$on("$destroy", function() {
             $interval.cancel(slideImageTimer);
@@ -898,12 +898,14 @@ app
             }
             var productid = $scope.paramsProductId;
             $scope.pageCount = 1;
+            // 产品评价wechat/product/queryProductHieList
             $myHttpService.postNoLoad('api/product/queryProductHieList', {
                 productid: productid,
                 offset: '0',
                 pagesize: '10'
             }, function(data) {
-                console.log("评论刷新");
+                console.log("产品页：产品评价API返回的数据(下拉刷新)");
+                console.log(data);
                 $scope.commentsInfo = data.viewOrders;
                 console.log(data);
                 $scope.$broadcast('scroll.refreshComplete');
@@ -919,7 +921,6 @@ app
                 }
             });
         };
-
         // 评论上拉加载更多
         $scope.hasmore = true;
         var run = false;
@@ -939,7 +940,10 @@ app
 
             if(!run) {
                 run = true;
+                // 产品评价wechat/product/queryProductHieList
                 $myHttpService.post('api/product/queryProductHieList', requestData, function(data) {
+                    console.log("产品页：产品评价API返回的数据(上拉加载)");
+                    console.log(data);
                     if (data.viewOrders.length < 10) { 
                         $scope.hasmore = false;//这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
                     } 
