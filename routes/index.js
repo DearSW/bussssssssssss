@@ -50,6 +50,7 @@ router.get('/spa/getUserInfoByCode', function(req, res, next) {
             openId: result.openid,
             userInfo: result.user
         };
+        console.log(data);
         console.log("ZW: Get User Information finished (/getUserInfoByCode)"); 
 
         //拿到用户信息后重定向到主页，之所以带上return，是为了在服务器session丢失的时候，重新刷新页面可以重定向到当前页

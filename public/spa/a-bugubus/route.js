@@ -30,6 +30,7 @@ angular
         console.log('>>>>>>>>路由监听中>>>>>>>>');
         console.log(toState);
         console.log(toStateParams);
+        console.log($rootScope.session.user.userInfo);
         if((toState.name.indexOf("i.") !=-1 || toState.name.indexOf("search") !=-1 || toState.name.indexOf("myplan") !=-1 ||  toState.name.indexOf("bus_service1") !=-1 || toState.name.indexOf("bus_service_history") !=-1 ) && $rootScope.session.user.userInfo == undefined) {
 
             event.preventDefault();//取消默认跳转行为
