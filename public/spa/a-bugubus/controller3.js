@@ -1675,13 +1675,15 @@ app
         
         // 车票下拉刷新函数
         $scope.doRefreshTicket = function() {
-            console.log("doRefreshTicket执行了");            
+            console.log("我的行程页：doRefreshTicket执行了");            
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
                 offset: 0,
                 pagesize: 10,
             };
+            // 订单列表wechat/product/queryUserProductTicketList
             $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+                console.log("我的行程页：获取所有订单的列表API返回的数据(下拉刷新)");
                 console.log(data);
                 if(data.userViewList.length < 10) {
                     $rootScope.hasmore2 = false;
@@ -1729,7 +1731,7 @@ app
         
         // 上拉加载更多票信息
         $scope.loadMoreTicket = function() {
-            console.log("loadMoreTicket执行了");
+            console.log("我的行程页：loadMoreTicket执行了");
             var offset = ($scope.pageCount - 1) * 10;
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
@@ -1739,6 +1741,7 @@ app
             if(!run) {
                 run = true;
                 $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+                    console.log("我的行程页：获取所有订单的列表API返回的数据(上拉加载)");                
                     if (data.userViewList.length < 10) { 
                         $scope.hasmore = false; // 这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
                         $rootScope.hasmore2 = false;
@@ -1762,6 +1765,11 @@ app
         // 点击未使用车票进入 车票详情界面
         $scope.unusedTicketToDetail = function(item, i) {
             $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
+        }
+
+        // 点击未使用门票进入 门票详情界面
+        $scope.unusedAdmissionTicketToDetail = function(item, i) {
+            $state.go('ticket_admission_detail', {data: JSON.stringify(item)}, {reload: false});
         }
 
         // 点击已使用车票进入 评价界面，同时还会判断是否已评价

@@ -462,6 +462,16 @@ angular
                 templateUrl: basePath + 'tpl/jqztc_bus_position.html'
             })
 
+            /*景区直通车：门票详情*/
+            .state('ticket_admission_detail', {
+                url: '/ticket_admission_detail', 
+                params: {
+                    data: null
+                },
+                templateUrl: basePath + 'tpl/jqztc_admission_ticket_detail.html'
+            })
+            
+
             /***********************************
              * 
              ****** 景区直通车 、我的行程 结束

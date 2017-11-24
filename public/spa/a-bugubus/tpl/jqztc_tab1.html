@@ -152,6 +152,50 @@
 
                         <!-- 接口 数据 -->
                         <ion-item ng-repeat="item in ticketsInfo track by $index" ng-switch="item.productType">
+
+                            <div>
+                                    <div class="row startposition">
+                                            <div class="col">
+                                                <span class="station-address">贵州饭店</span>
+                                                <span class="station-arrow"></span>
+                                                <span class="station-address">青岩古镇</span>
+                                            </div>
+                                    </div>
+
+                                    <div class="row info " style="padding-left: 8px;">
+
+                                        <div class="col" style="margin-left: 10px;">
+
+                                            <span ng-if="item.haveTicket == 0">
+                                                    <div class="btnfont">往返</div>
+                                            </span>
+                                            <span ng-if="item.haveTicket == 1">
+                                                    <div class="btnfont">往返 + 门票</div>
+                                            </span>
+                                            <span class="btnfont5">单程约30分钟
+                                                    <!-- <span style="
+                                                    font-size: 14px;
+                                                    display: inline-block;
+                                                "> · </span>
+                                                剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座 -->
+                                            </span>     
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row purchase">
+                                        <div class="col col-75">
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: AAAAAAAAA</div>
+                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >返程地点: BBBBBBBBB</div>
+                                        </div>
+                                        <div class="col">
+                                                <button class="button button-positive" ng-click="purchase(item, i)">
+                                                    测试购买
+                                                </button>
+                                        </div>
+                                    </div>
+                            </div>
                             
                             <div ng-switch-when="0" ng-if="item.leftTickets > 0">
 
