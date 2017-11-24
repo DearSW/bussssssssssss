@@ -185,6 +185,7 @@ app
 
         // 推荐路线 数据详情，点击图片进行跳转到 产品 页面
         $scope.recommendProductsDetail = function(item, i) {
+            console.log("首页：点击图片进入产品页");
             var data = {
                 productid: item.productid
             };
@@ -411,7 +412,7 @@ app
         $scope.goTabs = function() {
             // 封装参数
             var data = {
-                city: "贵阳", // 城市区域
+                // city: "贵阳", // 城市区域
                 input: $rootScope.isSelectedRoadLine, // 路线
                 date: $filter('date')($scope.goDate.time, 'yyyy-MM-dd') // 时间
             };
@@ -434,6 +435,7 @@ app
 
         $scope.ticketsInfo = []; // 车票数据
         $scope.commentsInfo = []; // 评论数据
+        $scope.paramsProductId = ''; // 产品ID，查询评论用
 
         // $scope.noticeInfo = ''; // 须知数据
 
@@ -523,12 +525,14 @@ app
                 sessionStorage.setItem('questUrlType', '0');
                 sessionStorage.setItem('tabsParamsDataProductid', paramsData.productid);
 
+                $scope.paramsProductId = paramsData.productid;
+
                 console.log("1111");
                 var requestData = {
                     productid: paramsData.productid
                 };
-                // 图片推荐类型产品列表 /web/product/queryRecommendProduct
-                $myHttpService.post('api/product/queryRecommendProduct', requestData, function(data) {
+                // 图片推荐类型产品列表 /web/product/queryProduct
+                $myHttpService.post('api/product/queryProduct', requestData, function(data) {
                     console.log("产品页：图片推荐产品列表API返回的数据");
                     console.log(data);
                     // $scope.ticketsInfo = data.products;
@@ -892,10 +896,10 @@ app
                 $scope.$broadcast('scroll.refreshComplete');                
                 return;
             }
-            var viewaddress = $scope.ticketsInfo[0].viewaddress;
+            var productid = $scope.paramsProductId;
             $scope.pageCount = 1;
             $myHttpService.postNoLoad('api/product/queryProductHieList', {
-                viewaddress: viewaddress,
+                productid: productid,
                 offset: '0',
                 pagesize: '10'
             }, function(data) {
@@ -925,10 +929,10 @@ app
                 $scope.isNoComment = true;
                 return;
             }
-            var viewaddress = $scope.ticketsInfo[0].viewaddress;
+            var productid = $scope.paramsProductId;
             var offset = ($scope.pageCount - 1) * 10;
             var requestData = {
-                viewaddress: viewaddress,
+                productid: productid,
                 offset: offset,
                 pagesize: '10'
             };
