@@ -891,6 +891,7 @@ app
         // 评论下拉刷新
         $scope.isNoComment = false;
         $scope.doRefreshComment = function() {
+            console.log("产品页：doRefreshComment已执行");
             if($scope.ticketsInfo.length == 0) {
                 $scope.isNoComment = true;
                 $scope.$broadcast('scroll.refreshComplete');                
@@ -925,7 +926,7 @@ app
         $scope.hasmore = true;
         var run = false;
         $scope.loadMoreComment = function() {
-
+            console.log("产品页：loadMoreComment已执行");
             if($scope.ticketsInfo.length == 0) {
                 $scope.isNoComment = true;
                 return;
