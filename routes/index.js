@@ -24,6 +24,7 @@ router.get('/spa/index', function(req, res, next) {
     //     }
     // };
     console.log("ZW: Get the Code (/spa/index)");    
+
     if(req.session.user == undefined) {
         console.log("ZW:Get Code, start to redirect (/spa/index)");    
         //如果没有用户信息，那么重定向来获取用户信息
