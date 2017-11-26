@@ -293,14 +293,110 @@
                         <!-- 接口 数据 图片推荐过来的 -->
                         <div ng-if="sourceComeType">
 
-                            <ion-item>
+                            <div ng-if="ticketsInfo1.plans != null">
+
+                                <ion-item>
+                                        
+                                    <div>
+                                            <div class="row startposition">
+                                                    <div class="col">
+                                                        <span class="station-address">{{ticketsInfo1_station[0]}}</span>
+                                                        <span class="station-arrow"></span>
+                                                        <span class="station-address2">{{ticketsInfo1_station[1]}}</span>
+                                                    </div>
+                                            </div>
+        
+                                            <div class="row info " style="padding-left: 8px;">
+        
+                                                <div class="col" style="margin-left: 10px;">
+        
+                                                    <span>
+                                                            <div class="btnfont">{{ticketsInfo1_prodcutType2}}</div>
+                                                    </span>
+    
+                                                    <span class="btnfont5">
+                                                        单程约{{$scope.ticketsInfo1_driveTime}}分钟
+                                                    </span>     
+        
+                                                </div>
+        
+                                            </div>
+        
+                                            <div class="row purchase">
+
+                                                <div class="col col-75">
+
+                                                        <div ng-if="$scope.ticketsInfo1.plans[0].bdidType == 0">
+                                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{ticketsInfo1_departAddr}}</div>
+                                                        </div>
+                        
+                                                        <div ng-if="$scope.ticketsInfo1.plans[0].bdidType != 0">
+                                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{ticketsInfo1_departAddr}}</div>
+                                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >返程地点: {{ticketsInfo1_arriveAddr}}</div>                                                            
+                                                        </div>
+
+                                                </div>
+
+                                                <div class="col">
+                                                        <button class="button button-positive" ng-click="purchase(ticketsInfo1, i)">
+                                                            购买
+                                                        </button>
+                                                </div>
+
+                                            </div>
+                                    </div>
+                                    
+                                </ion-item>
+
+                            </div>
+
+                            <div ng-if="ticketsInfo1.plans == null">
+                                
+                                <ion-item>
+                                        
+                                    <div>
+                                            <div class="row startposition">
+                                                    <div class="col">
+                                                        <span class="station-address">{{ticketsInfo1_viewName}}</span>
+                                                    </div>
+                                            </div>
+        
+                                            <div class="row info " style="padding-left: 8px;">
+        
+                                                <div class="col" style="margin-left: 10px;">
+        
+                                                    <span>
+                                                            <div class="btnfont">门票</div>
+                                                    </span>
+    
+                                                </div>
+        
+                                            </div>
+        
+                                            <div class="row purchase">
+                                                <div class="col col-75">
+                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >景点地址: {{ticketsInfo1_viewAddr}}</div>
+                                                </div>
+                                                <div class="col">
+                                                        <button class="button button-positive" ng-click="purchase(ticketsInfo1, i)">
+                                                            购买
+                                                        </button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    
+                                </ion-item>
+
+                            </div>
+
+                            <!-- <ion-item>
                                     
                                 <div>
                                         <div class="row startposition">
                                                 <div class="col">
                                                     <span class="station-address">贵州饭店</span>
                                                     <span class="station-arrow"></span>
-                                                    <span class="station-address">青岩古镇</span>
+                                                    <span class="station-address2">青岩古镇</span>
                                                 </div>
                                         </div>
     
@@ -308,12 +404,8 @@
     
                                             <div class="col" style="margin-left: 10px;">
     
-                                                <span ng-if="item.haveTicket == 0">
+                                                <span>
                                                         <div class="btnfont">往返</div>
-                                                </span>
-
-                                                <span ng-if="item.haveTicket == 1">
-                                                        <div class="btnfont">往返 + 门票</div>
                                                 </span>
 
                                                 <span class="btnfont5">
@@ -337,7 +429,7 @@
                                         </div>
                                 </div>
                                 
-                            </ion-item>
+                            </ion-item> -->
 
                         </div>
 

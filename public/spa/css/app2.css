@@ -849,6 +849,12 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
     font-weight: bold;
 }
 
+.station-address2 {
+    display: inline-block;
+    font-size: 17px;
+    font-weight: bold;
+}
+
 .station-mark-orange {
     background: #E75E0F;
     display: inline-block;
