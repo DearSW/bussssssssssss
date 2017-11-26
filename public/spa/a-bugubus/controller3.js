@@ -568,62 +568,63 @@ app
                     console.log(data);
                     $scope.ticketsInfo1 = data.product; // @产品对象
 
-                    if($scope.ticketsInfo1.plans != null) { // @产品 有车票时
-
-                        $scope.ticketsInfo1_havePlans = true; // @有无车票
-
-                        $scope.ticketsInfo1_prodcutType = $scope.ticketsInfo1.productType.split("&"); // @产品类型
-                        $scope.ticketsInfo1_prodcutType2 = $scope.ticketsInfo1.productType.replace("&", "+"); // @产品类型
-
-                        $scope.ticketsInfo1_station = $scope.ticketsInfo1.plans[0].linename.split("-"); // @出发/返回 站点名
-
-                        if($scope.ticketsInfo1.plans[0].bdidType == 0) { // @单程票
-
-                            $scope.ticketsInfo1_plansType = true; // @车票类型
-
-                            $scope.ticketsInfo1_departAddr = $scope.ticketsInfo1.plans[0].departaddr; // @出发发车地址
-                            $scope.ticketsInfo1_driveTime = $scope.ticketsInfo1.plans[0].drivetime; // @行程时间
+                    if($scope.ticketsInfo1 != null) {
+                        
+                        if($scope.ticketsInfo1.plans != null) { // @产品 有车票时
                             
-                        } else { // @往返票
-                            
-                            $scope.ticketsInfo1_plansType = false; // @车票类型
-                            $scope.ticketsInfo1_departAddr = $scope.ticketsInfo1.plans[0].departaddr; // @出发发车地址
-                            $scope.ticketsInfo1_arriveAddr = $scope.ticketsInfo1.plans[1].departaddr; // @返回发车地址
-                            $scope.ticketsInfo1_driveTime = $scope.ticketsInfo1.plans[0].drivetime; // @行程时间
-
+                            $scope.ticketsInfo1_havePlans = true; // @有无车票
+    
+                            $scope.ticketsInfo1_prodcutType = $scope.ticketsInfo1.productType.split("&"); // @产品类型
+                            $scope.ticketsInfo1_prodcutType2 = $scope.ticketsInfo1.productType.replace("&", "+"); // @产品类型
+    
+                            $scope.ticketsInfo1_station = $scope.ticketsInfo1.plans[0].linename.split("-"); // @出发/返回 站点名
+    
+                            if($scope.ticketsInfo1.plans[0].bdidType == 0) { // @单程票
+    
+                                $scope.ticketsInfo1_plansType = true; // @车票类型
+    
+                                $scope.ticketsInfo1_departAddr = $scope.ticketsInfo1.plans[0].departaddr; // @出发发车地址
+                                $scope.ticketsInfo1_driveTime = $scope.ticketsInfo1.plans[0].drivetime; // @行程时间
+                                
+                            } else { // @往返票
+                                
+                                $scope.ticketsInfo1_plansType = false; // @车票类型
+                                $scope.ticketsInfo1_departAddr = $scope.ticketsInfo1.plans[0].departaddr; // @出发发车地址
+                                $scope.ticketsInfo1_arriveAddr = $scope.ticketsInfo1.plans[1].departaddr; // @返回发车地址
+                                $scope.ticketsInfo1_driveTime = $scope.ticketsInfo1.plans[0].drivetime; // @行程时间
+    
+                            }
+    
+                        } else { // @产品 无车票时
+    
+                            $scope.ticketsInfo1_havePlans = false;
+    
+                            if($scope.ticketsInfo1.viewInfo != null) { // @单独的门票
+    
+                                $scope.ticketsInfo1_viewName = $scope.ticketsInfo1.viewInfo.viewName; // @景点名字
+                                $scope.ticketsInfo1_viewAddr = $scope.ticketsInfo1.viewInfo.viewAddr; // @景点地址
+    
+                            } 
+    
                         }
 
-                    } else { // @产品 无车票时
+                    } else {
 
-                        $scope.ticketsInfo1_havePlans = false;
-
-                        if($scope.ticketsInfo1.viewInfo != null) { // @单独的门票
-
-                            $scope.ticketsInfo1_viewName = $scope.ticketsInfo1.viewInfo.viewName; // @景点名字
-                            $scope.ticketsInfo1_viewAddr = $scope.ticketsInfo1.viewInfo.viewAddr; // @景点地址
-
-                        } 
+                        layer.open({
+                            content: '万分抱歉，您当前选择的推荐主题路线已售完，请返回进行主题线路搜索',
+                            btn: '确定',
+                            shadeClose: false,
+                            yes: function(index) {
+                                layer.closeAll();
+                                $timeout(function() {
+                                    window.history.back();
+                                    return false;
+                                }, 250)
+                            }
+                        });
 
                     }
 
-
-                    // $scope.ticketsInfo = data.products;
-                    // if(data.products.length != 0) {
-                    //     $scope.noticeInfo = data.products[0].productinfo;                        
-                    // } else {
-                    //     layer.open({
-                    //         content: '万分抱歉，您当前选择的推荐主题路线，今日已售完，请返回进行主题线路搜索',
-                    //         btn: '确定',
-                    //         shadeClose: false,
-                    //         yes: function(index) {
-                    //             layer.closeAll();
-                    //             $timeout(function() {
-                    //                 window.history.back();
-                    //                 return false;
-                    //             }, 250)
-                    //         }
-                    //     });
-                    // }
                 }, errorFn);
                 
             } else { // @二、手动搜索类型的产品列表
@@ -987,12 +988,13 @@ app
         $scope.isNoComment = false;
 
         $scope.doRefreshComment = function() {
+
             console.log("产品页：doRefreshComment已执行");
-            if($scope.ticketsInfo.length == 0) {
-                $scope.isNoComment = true;
-                $scope.$broadcast('scroll.refreshComplete');                
-                return;
-            }
+            // if($scope.ticketsInfo.length == 0) {
+            //     $scope.isNoComment = true;
+            //     $scope.$broadcast('scroll.refreshComplete');                
+            //     return;
+            // }
             var productid = $scope.paramsProductId;
             $scope.pageCount = 1;
             // @产品评价wechat/product/queryProductHieList
@@ -1017,6 +1019,7 @@ app
                     });
                 }
             });
+
         };
 
         // @点评信息 上拉加载
