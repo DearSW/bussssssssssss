@@ -325,8 +325,9 @@ app
 
                 if(data.products != null && data.products.length != 0) {
                     $rootScope.roadLineData = data.products;
+                    console.log("首页：路线数据数组");
+                    console.log($rootScope.roadLineData);
                 }
-                $rootScope.roadLineData = data
 
             });
 
