@@ -1005,8 +1005,7 @@ app
             }, function(data) {
                 console.log("产品页：产品评价API返回的数据(下拉刷新)");
                 console.log(data);
-                $scope.commentsInfo = data.viewOrders;
-                console.log(data);
+                $scope.commentsInfo = data.buslineHierarchys;
                 $scope.$broadcast('scroll.refreshComplete');
                 if($scope.commentsInfo.length == 0) {
                     $scope.isNoComment = true;
@@ -1047,14 +1046,14 @@ app
                 $myHttpService.post('api/product/queryProductHieList', requestData, function(data) {
                     console.log("产品页：产品评价API返回的数据(上拉加载)");
                     console.log(data);
-                    if (data.viewOrders.length < 10) { 
+                    if (data.buslineHierarchys.length < 10) { 
                         $scope.hasmore = false; // @这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
                     } 
                     $scope.pageCount++; 
                     console.log("计数： " + $scope.pageCount);
                     run = false;
                     console.log("评论加载");
-                    $scope.commentsInfo = $scope.commentsInfo.concat(data.viewOrders);
+                    $scope.commentsInfo = $scope.commentsInfo.concat(data.buslineHierarchys);
                     console.log($scope.commentsInfo);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                     if($scope.commentsInfo.length == 0) {
