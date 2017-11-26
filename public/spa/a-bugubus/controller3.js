@@ -1029,10 +1029,10 @@ app
         $scope.loadMoreComment = function() {
 
             console.log("产品页：loadMoreComment已执行");
-            if($scope.ticketsInfo.length == 0) {
-                $scope.isNoComment = true;
-                return;
-            }
+            // if($scope.ticketsInfo.length == 0) {
+            //     $scope.isNoComment = true;
+            //     return;
+            // }
             var productid = $scope.paramsProductId;
             var offset = ($scope.pageCount - 1) * 10;
             var requestData = {
