@@ -316,13 +316,14 @@
 
                                             <div class="col col-40">
                                                 <div style="text-align: center;">
-                                                        <button class="button  btnfoot6" ng-click="ticket_viewInfo_decr(ticketInfo_viewInfo_count2[$index], item.viewPriceId)">-</button>
-                                                        <button class="button  btnfont7" my-ng-model="true" ng-model="$parent.ticketInfo_viewInfo_count2[$index]">{{ticketInfo_viewInfo_count2[$index]}}</button>
-                                                        <button class="button  btnfont8" ng-click="ticket_viewInfo_incr(ticketInfo_viewInfo_count2[$index], item.viewPriceId)">+</button>
+                                                        <button class="button  btnfoot6" ng-click="ticket_viewInfo_decr($index)">-</button>
+                                                        <button class="button  btnfont7" my-ng-model="true" >{{ticketInfo_viewInfo_count2['res' + $index]}}</button>
+                                                        <button class="button  btnfont8" ng-click="ticket_viewInfo_incr($index)">+</button>
                                                 </div>
                                             </div>
 
                                         </div>
+
 
                                     </div>
 

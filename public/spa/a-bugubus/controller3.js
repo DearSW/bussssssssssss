@@ -1143,14 +1143,7 @@ app
             count: 1
         };
 
-        $scope.dataContainer2 = {
-            count1: 1,
-            count2: 1,
-            count3: 1,
-            count5: 1,
-            count6: 1,
-            count7: 1
-        };
+        
 
         $rootScope.customerPhone = "18302505304"; // @客服电话
 
@@ -1224,38 +1217,52 @@ app
 
         if($scope.ticketInfo.viewInfo != null) { // @检测产品对象是否有门票
 
-            $scope.ticketInfo_viewInfo_count = {}; // @门票数量
-
-            $scope.ticketInfo_viewInfo_priceStr = ''; // @票价字符串
-
-            $scope.ticketInfo_viewInfo_count2 = [
-                $scope.dataContainer2.count1,
-                $scope.dataContainer2.count2,
-                $scope.dataContainer2.count3,
-                $scope.dataContainer2.count4,
-                $scope.dataContainer2.count5
+            $scope.ticketInfo_viewInfo_type = [ // @6种门票
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
             ];
 
+            $scope.ticketInfo_viewInfo_count = { // @预定6种门票类型，数量默认为零
+                count1: 0,
+                count2: 0,
+                count3: 0,
+                count4: 0,
+                count5: 0,
+                count6: 0
+            };
 
+            $scope.ticketInfo_viewInfo_priceStr = ''; // @票价字符串
             for(var index in $scope.ticketInfo.viewInfo.viewPrices) {
+
                 var item = $scope.ticketInfo.viewInfo.viewPrices[index];
                 $scope.ticketInfo_viewInfo_priceStr += item.viewPriceType + item.couponPrice + '元 ';
+
+                $scope.ticketInfo_viewInfo_type[index] = true; // @检测门票几存在
+
+                $scope.ticketInfo_viewInfo_count2['res' + index] = 0;
+
             }
 
         }
 
         // 票数增加 函数
-        $scope.ticket_viewInfo_incr = function(count, lineid) {
-            if( count <= 99 ) {
-                count += 1;
-                console.log(count);
-                console.log(lineid);
+        $scope.ticket_viewInfo_incr = function(index) {
+            if(  index == 0 ) {
+                $scope.ticketInfo_viewInfo_count2.res0 += 1;
+               
+                console.log($scope.ticketInfo_viewInfo_count2.res0);
                 // $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
                 // if($scope.ticketInfo.haveTicket == 1) {
                 //     $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                                    
                 //     $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
                 // }
-            } else {
+            } else if(index == 1) {
+                $scope.ticketInfo_viewInfo_count2.res1 += 1;
+                console.log($scope.ticketInfo_viewInfo_count2.res1);
                 // layer.open({
                 //     content: '当前班次余票为: ' + $scope.leftTickets,
                 //     time: 5
