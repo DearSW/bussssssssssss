@@ -447,7 +447,7 @@ app.directive('myTag', function() {
         replace: true, 
         template: '<div class="btnfont"><span ng-repeat="t in tags track by $index" class="{{tag(t)}}">{{t}}</span></div>',
         scope: {
-            infostr: '='
+            myTags: '='
         },
         link: function(scope, element, attrs) {
             scope.tags = scope.myTags.split('&');
