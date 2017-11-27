@@ -1217,23 +1217,7 @@ app
 
         if($scope.ticketInfo.viewInfo != null) { // @检测产品对象是否有门票
 
-            $scope.ticketInfo_viewInfo_type = [ // @6种门票
-                false,
-                false,
-                false,
-                false,
-                false,
-                false
-            ];
-
-            $scope.ticketInfo_viewInfo_count = { // @预定6种门票类型，数量默认为零
-                count1: 0,
-                count2: 0,
-                count3: 0,
-                count4: 0,
-                count5: 0,
-                count6: 0
-            };
+            var len = $scope.ticketInfo.viewInfo.viewPrices.length;
 
             $scope.ticketInfo_viewInfo_priceStr = ''; // @票价字符串
             for(var index in $scope.ticketInfo.viewInfo.viewPrices) {
@@ -1243,15 +1227,34 @@ app
 
                 $scope.ticketInfo_viewInfo_type[index] = true; // @检测门票几存在
 
-                $scope["ticketInfo_viewInfo_count" + index] = 0;
+                $scope["ticketInfo_viewInfo_count" + index] = 0; // @动态创建相对应的门票数量 变量
 
             }
 
         }
 
-        // 票数增加 函数
+        // @门票数量 增加 函数
         $scope.ticket_viewInfo_incr = function(index) {
-            if(  index == 0 ) {
+
+            for(var i = 0; i < len; i++) {
+
+                if(index == i) {
+
+                    if($scope["ticketInfo_viewInfo_count" + index] < 99) {
+
+                        $scope["ticketInfo_viewInfo_count" + index] += 1;
+                        console.log($scope["ticketInfo_viewInfo_count" + index]);
+
+
+                    }
+
+                }
+
+            }
+
+            /*
+            if(index == 0) {
+
                 $scope.ticketInfo_viewInfo_count0 += 1;
                
                 console.log($scope.ticketInfo_viewInfo_count0);
@@ -1261,13 +1264,15 @@ app
                 //     $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
                 // }
             } else if(index == 1) {
+
                 $scope.ticketInfo_viewInfo_count1 += 1;
                 console.log($scope.ticketInfo_viewInfo_count1);
                 // layer.open({
                 //     content: '当前班次余票为: ' + $scope.leftTickets,
                 //     time: 5
                 // });
-            }
+            } 
+            */
         }
 
         // 票数减少 函数
