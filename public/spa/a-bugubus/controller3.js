@@ -1225,7 +1225,7 @@ app
                 var item = $scope.ticketInfo.viewInfo.viewPrices[index];
                 $scope.ticketInfo_viewInfo_priceStr += item.viewPriceType + item.couponPrice + '元 ';
 
-                $scope.ticketInfo_viewInfo_type[index] = true; // @检测门票几存在
+                
 
                 $scope["ticketInfo_viewInfo_count" + index] = 0; // @动态创建相对应的门票数量 变量
 
