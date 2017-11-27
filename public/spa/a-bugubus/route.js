@@ -27,10 +27,10 @@ angular
 
     // $on 订阅、监听，监听 路由改变开始，相当于路由监听过滤器
     $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams, fromState) {
-        console.log('>>>>>>>>路由监听中>>>>>>>>');
+        console.log('>>>>>>>>>>>>>>>>路由切换>>>>>>>>>>>>>>>>');
         console.log(toState);
         console.log(toStateParams);
-        console.log($rootScope.session.user.userInfo);
+        // console.log($rootScope.session.user.userInfo);
         if((toState.name.indexOf("i.") !=-1 || toState.name.indexOf("search") !=-1 || toState.name.indexOf("myplan") !=-1 ||  toState.name.indexOf("bus_service1") !=-1 || toState.name.indexOf("bus_service_history") !=-1 ) && $rootScope.session.user.userInfo == undefined) {
 
             event.preventDefault();//取消默认跳转行为
@@ -55,6 +55,7 @@ angular
     });
 
 })
+
 .config( // 项目配置
     function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionicDatePickerProvider) { 
 

@@ -665,7 +665,7 @@ app
                 }, errorFn);
 
             }
-        } else {
+        } else { // @进入产品页 没有参数时
 
             if(sessionStorage.getItem('questUrlType') == '0') {  // @一、图片推荐类型的产品列表
  
@@ -1124,116 +1124,236 @@ app
 
     })
 
-    /* 车票订单 确认、支付 控制器 */
+    /* @订单页 确认、支付 控制器 */
     .controller('order_confirm_pay', function($rootScope, $filter, $scope, $state, $myHttpService, $interval, $ionicModal) {
 
-        if(JSON.parse($state.params.data) == null) { // 访问此页面时，如果没有传递过来参数那么将直接倒退2个页面
-                window.history.go(-2); // 倒退到第一个页面，此动作不可逆
-                return false;
-        } else { // 访问此页面时，有参数的情况，正常流程
+        if(JSON.parse($state.params.data) == null) { // @访问此订单页时，如果没有传递过来参数那么将直接倒退2个页面
 
-            $scope.dataContainer = { // 数据容器
-                phone: "",
-                verificationCode: "",
-                coupon: false,
-                count: 1
-            };
+                window.history.go(-2); // @倒退回到首页，此动作不可逆
+                return false; // @兼容处理
 
-            $rootScope.customerPhone = "18302505304"; // 客服电话
+        } 
+        
+        // @访问订单页时，有参数的情况，走正常流程
 
-            var paramsData = JSON.parse($state.params.data); // 解析传递过来的参数
-            $scope.ticketInfo = paramsData; // 全部车票信息
-            console.log("ZW：传递到 order_confirm_pay 页面的全部车票信息");
-            console.log($scope.ticketInfo);
+        $scope.dataContainer = { // @数据容器
+            phone: "",
+            verificationCode: "",
+            coupon: false,
+            count: 1
+        };
 
-            $scope.leftTickets = $scope.ticketInfo.leftTickets; // 余票，用户可购票数不能超过余票
+        $scope.dataContainer2 = {
+            count1: 1,
+            count2: 1,
+            count3: 1,
+            count5: 1,
+            count6: 1,
+            count7: 1
+        };
 
-            $scope.checkPhoneState = false; // 检测电话号码是否正确
-            $scope.verificationCodeBtnDisabled = true; // 控制获取验证码按钮的状态
-            $scope.verificationCodeInputDisabled = true; // 控制验证码输入框的状态
-            $scope.payBtnDisabled = true; // 控制确认支付按钮的状态
-            $scope.countdownTxtShow = false; // 控制倒计时文本的状态
+        $rootScope.customerPhone = "18302505304"; // @客服电话
 
-            $scope.couponBtnState = false; // 控制优惠券的状态
-            $scope.couponTxTShow = false; // 控制优惠券文本的状态
+        $scope.currentSelectedDateOrTime = sessionStorage.getItem('tabsParamsDataDate'); // @唯一的当前选择的时间
 
-            // 函数 验证手机号码
-            $scope.checkPhone = function() {
-                if($scope.dataContainer.phone !=  undefined) {
-                    if($scope.dataContainer.phone.length == 11) {
-                        var phone = $scope.dataContainer.phone.toString();
-                        if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))) { // 正则检测
-                            layer.msg("输入的手机号码有误"); 
-                            $scope.verificationCodeBtnDisabled = true; // 禁用获取验证码按钮
-                            $scope.payBtnDisabled = true; // 禁用确认支付按钮
-                            return false; 
-                        } else {
-                            $scope.verificationCodeBtnDisabled = false; // 启用获取验证码按钮
-                        }
-                    } else{
+        var paramsData = JSON.parse($state.params.data); // @解析传递过来的参数
+
+        console.log("订单页：传递到订单页的参数");
+        console.log(paramsData);
+
+        $scope.ticketInfo = paramsData; // @产品对象
+        
+        $scope.leftTickets = $scope.ticketInfo.leftTickets; // @余票，用户可购票数不能超过余票
+
+        $scope.checkPhoneState = false; // 检测电话号码是否正确
+        $scope.verificationCodeBtnDisabled = true; // 控制获取验证码按钮的状态
+        $scope.verificationCodeInputDisabled = true; // 控制验证码输入框的状态
+        $scope.payBtnDisabled = true; // 控制确认支付按钮的状态
+        $scope.countdownTxtShow = false; // 控制倒计时文本的状态
+
+        $scope.couponBtnState = false; // 控制优惠券的状态
+        $scope.couponTxTShow = false; // 控制优惠券文本的状态
+
+
+        if($scope.ticketInfo.plans != null) { // @检测产品对象是否有车票
+
+            if($scope.ticketInfo.plans[0] != null) { // @去程票 类型
+
+                $scope.ticketInfo_forwardTicket_count = 0; // @去程票数
+                $scope.ticketInfo_forwardTicket_lineid = $scope.ticketInfo.plans[0].lineid; // @去程票 线路ID
+                
+                $scope.ticketInfo_forwardTicket_selectGoTime_Fn = function() { // @去程票选择出发时间函数
+
+                    var requestData = { // @参数封装
+                        departDate: $scope.currentSelectedDateOrTime,
+                        lineid: $scope.ticketInfo_forwardTicket_lineid
+                    };
+
+                    // @排班出发时间查询 /webchat/product/queryBuslineScheduleDetailsByLineid 
+                    $myHttpService.post('api/product/queryBuslineScheduleDetailsByLineid', requestData, function(data) {
+                        
+                        console.log("产品页：手动搜索类型的产品列表API返回的数据");
+                        console.log(data);
+
+                        // $scope.ticketsInfo2 = data.products;
+                        // if($scope.ticketsInfo2.length != 0) {
+                            
+                        //     $scope.paramsProductId = data.products[0].productid;  // @产品ID，查询评论用
+    
+                        // } else {
+                        //     layer.open({
+                        //         content: '客官，没有找到相关产品信息，请重新搜索 (╯-╰)',
+                        //         btn: '确定'
+                        //     });
+                        // }
+    
+                    }, errorFn);
+
+                }
+
+            } 
+
+            if($scope.ticketInfo.plans[1] != null) { //@返程票 类型
+
+                $scope.ticketInfo_doubleTicket_count = 0; // @返程票数
+                
+
+            }
+            
+        }
+
+        if($scope.ticketInfo.viewInfo != null) { // @检测产品对象是否有门票
+
+            $scope.ticketInfo_viewInfo_count = {}; // @门票数量
+
+            $scope.ticketInfo_viewInfo_priceStr = ''; // @票价字符串
+
+            $scope.ticketInfo_viewInfo_count2 = [
+                $scope.dataContainer2.count1,
+                $scope.dataContainer2.count2,
+                $scope.dataContainer2.count3,
+                $scope.dataContainer2.count4,
+                $scope.dataContainer2.count5
+            ];
+
+
+            for(var index in $scope.ticketInfo.viewInfo.viewPrices) {
+                var item = $scope.ticketInfo.viewInfo.viewPrices[index];
+                $scope.ticketInfo_viewInfo_priceStr += item.viewPriceType + item.couponPrice + '元 ';
+            }
+
+        }
+
+        // 票数增加 函数
+        $scope.ticket_viewInfo_incr = function(count, lineid) {
+            if( count <= 99 ) {
+                count += 1;
+                console.log(count);
+                console.log(lineid);
+                // $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
+                // if($scope.ticketInfo.haveTicket == 1) {
+                //     $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                                    
+                //     $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
+                // }
+            } else {
+                // layer.open({
+                //     content: '当前班次余票为: ' + $scope.leftTickets,
+                //     time: 5
+                // });
+            }
+        }
+
+        // 票数减少 函数
+        $scope.ticket_viewInfo_decr = function(count, lineid) {
+            if(count > 1) { //只有当数量大于一的时候才减
+                count -= 1;
+                console.log(count);
+                // $scope.sumPrice = $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
+                // if($scope.ticketInfo.haveTicket == 1) {
+                //     $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                    
+                //     $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
+                // }
+            }
+        }
+
+
+        // @函数 验证手机号码
+        $scope.checkPhone = function() {
+            if($scope.dataContainer.phone !=  undefined) {
+                if($scope.dataContainer.phone.length == 11) {
+                    var phone = $scope.dataContainer.phone.toString();
+                    if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))) { // 正则检测
+                        layer.msg("输入的手机号码有误"); 
                         $scope.verificationCodeBtnDisabled = true; // 禁用获取验证码按钮
                         $scope.payBtnDisabled = true; // 禁用确认支付按钮
-                    }
-                } else {
-                    // 
-                }
-            }
-
-            // 验证码倒计时 处理流程
-            var defaultCountdown = 60; // 默认60秒的倒计时时间
-            $scope.countdownTime = defaultCountdown;
-            var stopCountdownTime;
-            $scope.fight = function() {
-                $scope.countdownTxtShow = true;
-                if ( angular.isDefined(stopCountdownTime) ) {
-                    return;  // Don't start a new fight if we are already fighting
-                }
-                stopCountdownTime = $interval(function() {
-                    if ($scope.countdownTime >  0) {
-                        $scope.countdownTime = $scope.countdownTime - 1;
+                        return false; 
                     } else {
-                        $scope.stopFight();
-                        $scope.countdownTxtShow = false;
-                        $scope.verificationCodeBtnDisabled = false;
-                        $scope.resetFight();
+                        $scope.verificationCodeBtnDisabled = false; // 启用获取验证码按钮
                     }
-                }, 1000);
-            };
-            $scope.stopFight = function() {
-                if (angular.isDefined(stopCountdownTime)) {
-                    $interval.cancel(stopCountdownTime);
-                    stopCountdownTime = undefined;
+                } else{
+                    $scope.verificationCodeBtnDisabled = true; // 禁用获取验证码按钮
+                    $scope.payBtnDisabled = true; // 禁用确认支付按钮
                 }
-            };
-            $scope.resetFight = function() {
-                $scope.countdownTime = defaultCountdown;
-            };
-            $scope.$on('$destroy', function() {
-                $scope.stopFight(); // Make sure that the interval is destroyed too
-            });
-            $scope.countdown = function() {
-                $scope.verificationCodeBtnDisabled = true;
-                console.log("电话号码：" + $scope.dataContainer.phone);
-                $scope.fight();
-                // 进行倒计时的同时，还需要向服务器发送获一个取验证码的请求
-                var departDate = $filter('date')($scope.ticketInfo.departdate, 'yyyy-MM-dd');
-                var bsids = $scope.ticketInfo.golinename + '&' + departDate + '&' + $scope.ticketInfo.departtime
-                var checkcode = parseInt($scope.dataContainer.phone) % parseInt($scope.dataContainer.phone.substring(1,4)) ;
-                var requestData = {
-                    phone: $scope.dataContainer.phone,
-                    servicename: 'UserBuyViewTicket',
-                    checkcode: checkcode.toString(),
-                    bsids: bsids
-                };
-                console.log("验证码请求参数打印：");
-                console.log(requestData);
-                $myHttpService.postNoLoad('api/utils/sendCheckAuthcode', requestData, function(data){
-                    console.log(data);
-                });
+            } else {
+                // 
+            }
+        }
+
+        // @验证码倒计时 处理流程
+        var defaultCountdown = 60; // 默认60秒的倒计时时间
+        $scope.countdownTime = defaultCountdown;
+        var stopCountdownTime;
+        $scope.fight = function() {
+            $scope.countdownTxtShow = true;
+            if ( angular.isDefined(stopCountdownTime) ) {
+                return;  // Don't start a new fight if we are already fighting
+            }
+            stopCountdownTime = $interval(function() {
+                if ($scope.countdownTime >  0) {
+                    $scope.countdownTime = $scope.countdownTime - 1;
+                } else {
+                    $scope.stopFight();
+                    $scope.countdownTxtShow = false;
+                    $scope.verificationCodeBtnDisabled = false;
+                    $scope.resetFight();
+                }
+            }, 1000);
+        };
+        $scope.stopFight = function() {
+            if (angular.isDefined(stopCountdownTime)) {
+                $interval.cancel(stopCountdownTime);
+                stopCountdownTime = undefined;
             }
         };
+        $scope.resetFight = function() {
+            $scope.countdownTime = defaultCountdown;
+        };
+        $scope.$on('$destroy', function() {
+            $scope.stopFight(); // Make sure that the interval is destroyed too
+        });
+        $scope.countdown = function() {
+            $scope.verificationCodeBtnDisabled = true;
+            console.log("电话号码：" + $scope.dataContainer.phone);
+            $scope.fight();
+            // 进行倒计时的同时，还需要向服务器发送获一个取验证码的请求
+            var departDate = $filter('date')($scope.ticketInfo.departdate, 'yyyy-MM-dd');
+            var bsids = $scope.ticketInfo.golinename + '&' + departDate + '&' + $scope.ticketInfo.departtime
+            var checkcode = parseInt($scope.dataContainer.phone) % parseInt($scope.dataContainer.phone.substring(1,4)) ;
+            var requestData = {
+                phone: $scope.dataContainer.phone,
+                servicename: 'UserBuyViewTicket',
+                checkcode: checkcode.toString(),
+                bsids: bsids
+            };
+            console.log("验证码请求参数打印：");
+            console.log(requestData);
+            $myHttpService.postNoLoad('api/utils/sendCheckAuthcode', requestData, function(data){
+                console.log(data);
+            });
+        }
         
-        // 票价计算
+        
+        // @票价计算
         $scope.floatObj = floatObj; // 票价处理的运算对象
         if($scope.ticketInfo.haveTicket == 1) { // 有门票时
             console.log("有车票时");
@@ -1284,6 +1404,7 @@ app
                 });
             }
         }
+
         // 票数减少 函数
         $scope.decr = function() {
             if(this.dataContainer.count > 1) { //只有当数量大于一的时候才减
@@ -2606,10 +2727,7 @@ app
  *               \  \ `-.   \_ __\ /__ _/   .-` /  /
  *   ======`-.____`-.___\_____/___.-`____.-'======
  *                               `=---='
- *          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *                     佛祖保佑        永无BUG
- * 
- *               写字楼里写字间，写字间里程序员；
- *               程序人员写程序，又拿程序换酒钱。
 */
     
