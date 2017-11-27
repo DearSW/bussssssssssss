@@ -602,7 +602,7 @@ app
                             if($scope.ticketsInfo1.viewInfo != null) { // @单独的门票
     
                                 $scope.ticketsInfo1_viewName = $scope.ticketsInfo1.viewInfo.viewName; // @景点名字
-                                $scope.ticketsInfo1_viewAddr = $scope.ticketsInfo1.viewInfo.viewAddr; // @景点地址
+                                $scope.ticketsInfo1_viewAddr = $scope.ticketsInfo1.viewInfo.viewaddr; // @景点地址
     
                             } 
     
@@ -629,21 +629,19 @@ app
                 
             } else { // @二、手动搜索类型的产品列表
 
-                $scope.sourceComeType = false;
+                $scope.sourceComeType = false; // @数据来源类型
 
-                sessionStorage.setItem('questUrlType', '1');
-                sessionStorage.setItem('tabsParamsDataInput', paramsData.input);
-                sessionStorage.setItem('tabsParamsDataDate', paramsData.date);
-                sessionStorage.setItem('tabsParamsDataCity', paramsData.city);
+                sessionStorage.setItem('questUrlType', '1'); // @数据来源类型
 
-                $rootScope.currentSelectedDate = paramsData.date;
-                $rootScope.currentSelectedRoadLine = paramsData.input;
-                $rootScope.currentSelectedCity = paramsData.city;
-
-                var requestData = {
+                sessionStorage.setItem('tabsParamsDataInput', paramsData.input); // @存储数据，以便后用
+                sessionStorage.setItem('tabsParamsDataDate', paramsData.date); // @存储数据，以便后用
+                
+                $rootScope.currentSelectedDate = paramsData.date; // @参数接收 日期数据
+                $rootScope.currentSelectedRoadLine = paramsData.input; // @参数接收 线路选择数据
+                
+                var requestData = { // @请求参数封装
                     keyword: paramsData.input,
-                    departDate: paramsData.date,
-                    region: paramsData.city
+                    departDate: paramsData.date
                 };
 
                 // @手动搜索类型的产品列表 wechat/product/queryProductList
@@ -651,15 +649,19 @@ app
                     console.log("产品页：手动搜索类型的产品列表API返回的数据");
                     console.log(data);
                     $scope.ticketsInfo2 = data.products;
-                    // $scope.ticketsInfo = data.products;
-                    // if(data.products.length != 0) {
-                    //     $scope.noticeInfo = data.products[0].productinfo;                    
-                    // } else {
-                    //     layer.open({
-                    //         content: '当前班次，今日已售完，请选择往后日期',
-                    //         btn: '确定'
-                    //     });
-                    // }
+
+                    if($scope.ticketsInfo2.length != 0) {
+
+                        $scope.paramsProductId = data.products[0].productid;  // @产品ID，查询评论用
+
+                    
+                    } else {
+                        layer.open({
+                            content: '客官，没有找到相关产品信息，请重新搜索 (╯-╰)',
+                            btn: '确定'
+                        });
+                    }
+
                 }, errorFn);
 
             }

@@ -347,6 +347,7 @@ app.directive('errSrc', function() {
         }
     }
 });
+
 //=====
 // 图片加载动画
 // 使用方式  <loadinganimation ></loadinganimation>
@@ -435,6 +436,36 @@ app.directive('loadinganimation', function() {
     }
     return directive;
 });
+
+//=====
+// tag小标签
+// 
+app.directive('myTag', function() {
+
+    var directive = {
+        restrict: 'A',
+        replace: true, 
+        template: '<div class="btnfont"><span ng-repeat="t in tags track by $index" class="{{tag(t)}}">{{t}}</span></div>',
+        scope: {
+            infostr: '='
+        },
+        link: function(scope, element, attrs) {
+            scope.tags = scope.myTags.split('&');
+            scope.tag = function(t) {
+                switch(t) {
+                    case '单程':
+                        return 'label green';
+                    case '往返':
+                        return 'label orange';
+                    case '门票':
+                        return 'label blue';
+                }
+            }
+        }
+    };
+    return directive;
+});
+
 
 /**
  *                              _ooOoo_

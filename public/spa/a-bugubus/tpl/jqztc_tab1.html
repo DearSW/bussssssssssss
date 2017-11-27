@@ -51,7 +51,7 @@
                 <div class="placeholder"></div>
                 <ion-content class="has-header lx" has-tabs="true">
 
-                    <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" on-refresh="doRefreshRoad()" spinner="dots" ></ion-refresher>
+                    <!-- <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" on-refresh="doRefreshRoad()" spinner="dots" ></ion-refresher> -->
 
                     <div class="notice" >
                         <p><i class="icon ion-ios-information" style="color:crimson;font-size: 18px;"></i> 如行程有变，请于发车前1小时以上，申请退款，超时或验票后不能退款。</p>
@@ -151,148 +151,11 @@
                         </ion-item>
 
                         <!-- 接口 数据 -->
-                        <ion-item ng-repeat="item in ticketsInfo track by $index" ng-switch="item.productType">
-
-                            <div>
-                                    <div class="row startposition">
-                                            <div class="col">
-                                                <span class="station-address">贵州饭店</span>
-                                                <span class="station-arrow"></span>
-                                                <span class="station-address">青岩古镇</span>
-                                            </div>
-                                    </div>
-
-                                    <div class="row info " style="padding-left: 8px;">
-
-                                        <div class="col" style="margin-left: 10px;">
-
-                                            <span ng-if="item.haveTicket == 0">
-                                                    <div class="btnfont">往返</div>
-                                            </span>
-                                            <span ng-if="item.haveTicket == 1">
-                                                    <div class="btnfont">往返 + 门票</div>
-                                            </span>
-                                            <span class="btnfont5">单程约30分钟
-                                                    <!-- <span style="
-                                                    font-size: 14px;
-                                                    display: inline-block;
-                                                "> · </span>
-                                                剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座 -->
-                                            </span>     
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row purchase">
-                                        <div class="col col-75">
-                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: AAAAAAAAA</div>
-                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >返程地点: BBBBBBBBB</div>
-                                        </div>
-                                        <div class="col">
-                                                <button class="button button-positive" ng-click="purchase(item, i)">
-                                                    测试购买
-                                                </button>
-                                        </div>
-                                    </div>
-                            </div>
-                            
-                            <div ng-switch-when="0" ng-if="item.leftTickets > 0">
-
-                                    <div class="row startposition">
-                                            <div class="col">
-                                                <span class="station-address">{{item.departName}}</span>
-                                                <span class="station-arrow"></span>
-                                                <span class="station-address">{{item.arriveName}}</span>
-                                            </div>
-                                    </div>
-
-                                    <div class="row info " style="padding-left: 8px;">
-
-                                        <div class="col" style="margin-left: 10px;">
-
-                                            <span ng-if="item.haveTicket == 0">
-                                                <div class="btnfont green">单程</div>
-                                            </span>
-                                            <span ng-if="item.haveTicket == 1">
-                                                    <div class="btnfont green">单程 + 门票</div>
-                                            </span>
-                                            <span class="btnfont5">单程约30分钟
-                                                    <!-- <span style="
-                                                    font-size: 14px;
-                                                    display: inline-block;
-                                                "> · </span>
-                                                剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座 -->
-                                            </span>                                            
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row purchase">
-                                        <div class="col col-75">
-                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                        </div>
-                                        <div class="col">
-                                                <button class="button button-positive" ng-click="purchase(item, i)">
-                                                    购买
-                                                </button>
-                                        </div>
-                                    </div>
-
-                            </div>
-
-                            <div ng-switch-when="1" ng-if="item.leftTickets > 0">
-
-                                    <div class="row startposition">
-                                            <div class="col">
-                                                <span class="station-address">{{item.departName}}</span>
-                                                <span class="station-arrow"></span>
-                                                <span class="station-address">{{item.arriveName}}</span>
-                                            </div>
-                                    </div>
-
-                                    <div class="row info " style="padding-left: 8px;">
-
-                                        <div class="col" style="margin-left: 10px;">
-
-                                            <span ng-if="item.haveTicket == 0">
-                                                    <div class="btnfont">往返</div>
-                                            </span>
-                                            <span ng-if="item.haveTicket == 1">
-                                                    <div class="btnfont">往返 + 门票</div>
-                                            </span>
-                                            <span class="btnfont5">单程约30分钟
-                                                    <!-- <span style="
-                                                    font-size: 14px;
-                                                    display: inline-block;
-                                                "> · </span>
-                                                剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座 -->
-                                            </span>     
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row purchase">
-                                        <div class="col col-75">
-                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >返程地点: {{item.arriveaddr}}</div>
-                                        </div>
-                                        <div class="col">
-                                                <button class="button button-positive" ng-click="purchase(item, i)">
-                                                    购买
-                                                </button>
-                                        </div>
-                                    </div>
-
-                            </div>
-
-                        </ion-item>
 
                         <!-- 接口 数据 图片推荐过来的 -->
                         <div ng-if="sourceComeType">
 
+                            <!-- 有车票时 -->
                             <div ng-if="ticketsInfo1.plans != null">
 
                                 <ion-item>
@@ -311,7 +174,7 @@
                                                 <div class="col" style="margin-left: 10px;">
         
                                                     <span>
-                                                            <div class="btnfont">{{ticketsInfo1_prodcutType2}}</div>
+                                                            <div class="btnfont" my-tag my-tags="ticketsInfo1_prodcutType2"></div>
                                                     </span>
     
                                                     <span class="btnfont5">
@@ -350,6 +213,7 @@
 
                             </div>
 
+                            <!-- 无车票时 -->
                             <div ng-if="ticketsInfo1.plans == null">
                                 
                                 <ion-item>
@@ -368,6 +232,7 @@
                                                     <span>
                                                             <div class="btnfont">门票</div>
                                                     </span>
+                                                    
     
                                                 </div>
         
@@ -436,59 +301,15 @@
                         <!-- 接口 数据 手动搜索过来的 -->                        
                         <div ng-if="!sourceComeType">
 
-                                <ion-item ng-repeat="item in ticketsInfo track by $index" ng-switch="item.productType">
-                                        
-                                    <div>
-                                            <div class="row startposition">
-                                                    <div class="col">
-                                                        <span class="station-address">贵州饭店</span>
-                                                        <span class="station-arrow"></span>
-                                                        <span class="station-address">青岩古镇</span>
-                                                    </div>
-                                            </div>
-        
-                                            <div class="row info " style="padding-left: 8px;">
-        
-                                                <div class="col" style="margin-left: 10px;">
-        
-                                                    <span ng-if="item.haveTicket == 0">
-                                                            <div class="btnfont">往返</div>
-                                                    </span>
-                                                    <span ng-if="item.haveTicket == 1">
-                                                            <div class="btnfont">往返 + 门票</div>
-                                                    </span>
-                                                    <span class="btnfont5">单程约30分钟
-                                                            <!-- <span style="
-                                                            font-size: 14px;
-                                                            display: inline-block;
-                                                        "> · </span>
-                                                        剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座 -->
-                                                    </span>     
-        
-                                                </div>
-        
-                                            </div>
-        
-                                            <div class="row purchase">
-                                                <div class="col col-75">
-                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: AAAAAAAAA</div>
-                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >返程地点: BBBBBBBBB</div>
-                                                </div>
-                                                <div class="col">
-                                                        <button class="button button-positive" ng-click="purchase(item, i)">
-                                                            测试购买
-                                                        </button>
-                                                </div>
-                                            </div>
-                                    </div>
+                                <ion-item ng-repeat="item in ticketsInfo2 track by $index">
                                     
-                                    <div ng-switch-when="0" ng-if="item.leftTickets > 0">
-        
+                                    <!-- 有车票时 -->
+                                    <div ng-if="item.plans != null">
                                             <div class="row startposition">
                                                     <div class="col">
-                                                        <span class="station-address">{{item.departName}}</span>
+                                                        <span class="station-address">{{item.plans[0].departName}}</span>
                                                         <span class="station-arrow"></span>
-                                                        <span class="station-address">{{item.arriveName}}</span>
+                                                        <span class="station-address2">{{item.plans[0].arriveName}}</span>
                                                     </div>
                                             </div>
         
@@ -496,63 +317,12 @@
         
                                                 <div class="col" style="margin-left: 10px;">
         
-                                                    <span ng-if="item.haveTicket == 0">
-                                                        <div class="btnfont green">单程</div>
+                                                    <span>
+                                                            <div class="btnfont" my-tag my-tags="item.productType"></div>
                                                     </span>
-                                                    <span ng-if="item.haveTicket == 1">
-                                                            <div class="btnfont green">单程 + 门票</div>
-                                                    </span>
-                                                    <span class="btnfont5">单程约30分钟
-                                                            <!-- <span style="
-                                                            font-size: 14px;
-                                                            display: inline-block;
-                                                        "> · </span>
-                                                        剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座 -->
-                                                    </span>                                            
-        
-                                                </div>
-        
-                                            </div>
-        
-                                            <div class="row purchase">
-                                                <div class="col col-75">
-                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                                </div>
-                                                <div class="col">
-                                                        <button class="button button-positive" ng-click="purchase(item, i)">
-                                                            购买
-                                                        </button>
-                                                </div>
-                                            </div>
-        
-                                    </div>
-        
-                                    <div ng-switch-when="1" ng-if="item.leftTickets > 0">
-        
-                                            <div class="row startposition">
-                                                    <div class="col">
-                                                        <span class="station-address">{{item.departName}}</span>
-                                                        <span class="station-arrow"></span>
-                                                        <span class="station-address">{{item.arriveName}}</span>
-                                                    </div>
-                                            </div>
-        
-                                            <div class="row info " style="padding-left: 8px;">
-        
-                                                <div class="col" style="margin-left: 10px;">
-        
-                                                    <span ng-if="item.haveTicket == 0">
-                                                            <div class="btnfont">往返</div>
-                                                    </span>
-                                                    <span ng-if="item.haveTicket == 1">
-                                                            <div class="btnfont">往返 + 门票</div>
-                                                    </span>
-                                                    <span class="btnfont5">单程约30分钟
-                                                            <!-- <span style="
-                                                            font-size: 14px;
-                                                            display: inline-block;
-                                                        "> · </span>
-                                                        剩<span class="btnfont2">{{item.leftTickets}}</span>座/{{item.totalTickets}}座 -->
+                                                    
+                                                    <span class="btnfont5">
+                                                        单程约{{item.plans[0].drivetime}}分钟
                                                     </span>     
         
                                                 </div>
@@ -561,8 +331,14 @@
         
                                             <div class="row purchase">
                                                 <div class="col col-75">
-                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >返程地点: {{item.arriveaddr}}</div>
+                                                        <div ng-if="item.plans[0].bdidType == 0">
+                                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.plans[0].departaddr}}</div>
+                                                        </div>
+                        
+                                                        <div ng-if="item.plans[0].bdidType != 0">
+                                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >发车地点: {{item.plans[0].departaddr}}</div>
+                                                            <div style="margin: 0 0 8px 11px;white-space: normal;" >返程地点: {{item.plans[1].departaddr}}</div>                                                            
+                                                        </div>
                                                 </div>
                                                 <div class="col">
                                                         <button class="button button-positive" ng-click="purchase(item, i)">
@@ -570,7 +346,38 @@
                                                         </button>
                                                 </div>
                                             </div>
+                                    </div>
+
+                                    <!-- 没车票时 -->
+                                    <div ng-if="item.plans == null">
+                                            <div class="row startposition">
+                                                    <div class="col">
+                                                        <span class="station-address">{{item.viewInfo.viewName}}</span>
+                                                    </div>
+                                            </div>
         
+                                            <div class="row info " style="padding-left: 8px;">
+        
+                                                <div class="col" style="margin-left: 10px;">
+        
+                                                    <span>
+                                                            <div class="btnfont">门票</div>
+                                                    </span> 
+        
+                                                </div>
+        
+                                            </div>
+        
+                                            <div class="row purchase">
+                                                <div class="col col-75">
+                                                    <div style="margin: 0 0 8px 11px;white-space: normal;" >景点地址：{{item.viewInfo.viewaddr}}</div>
+                                                </div>
+                                                <div class="col">
+                                                        <button class="button button-positive" ng-click="purchase(item, i)">
+                                                            购买
+                                                        </button>
+                                                </div>
+                                            </div>
                                     </div>
         
                                 </ion-item>
