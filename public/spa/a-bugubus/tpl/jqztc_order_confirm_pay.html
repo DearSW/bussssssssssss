@@ -284,7 +284,7 @@
                                         <div class="row startposition">
                                                 <div class="col">
                                                     <span class="station-mark-blue">门票</span>
-                                                    <span class="station-go-address2">ticketInfo.viewInfo.viewName</span>
+                                                    <span class="station-go-address2">{{ticketInfo.viewInfo.viewName}}</span>
                                                 </div>
                                         </div>
         
@@ -317,7 +317,7 @@
                                             <div class="col col-40">
                                                 <div style="text-align: center;">
                                                         <button class="button  btnfoot6" ng-click="ticket_viewInfo_decr(ticketInfo_viewInfo_count2[$index], item.viewPriceId)">-</button>
-                                                        <button class="button  btnfont7" my-ng-model="true" ng-model="ticketInfo_viewInfo_count2[$index]">{{ticketInfo_viewInfo_count2[$index]}}</button>
+                                                        <button class="button  btnfont7" my-ng-model="true" ng-model="$parent.ticketInfo_viewInfo_count2[$index]">{{ticketInfo_viewInfo_count2[$index]}}</button>
                                                         <button class="button  btnfont8" ng-click="ticket_viewInfo_incr(ticketInfo_viewInfo_count2[$index], item.viewPriceId)">+</button>
                                                 </div>
                                             </div>
