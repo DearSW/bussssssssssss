@@ -459,6 +459,8 @@ app.directive('myTag', function() {
                         return 'label orange';
                     case '门票':
                         return 'label blue';
+                    default: 
+                        return 'label';
                 }
             }
         }
