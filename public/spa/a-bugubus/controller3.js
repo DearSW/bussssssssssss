@@ -1243,7 +1243,7 @@ app
 
                 $scope.ticketInfo_viewInfo_type[index] = true; // @检测门票几存在
 
-                $scope.ticketInfo_viewInfo_count2['res' + index] = 0;
+                $scope["ticketInfo_viewInfo_count" + index] = 0;
 
             }
 
@@ -1252,17 +1252,17 @@ app
         // 票数增加 函数
         $scope.ticket_viewInfo_incr = function(index) {
             if(  index == 0 ) {
-                $scope.ticketInfo_viewInfo_count2.res0 += 1;
+                $scope.ticketInfo_viewInfo_count0 += 1;
                
-                console.log($scope.ticketInfo_viewInfo_count2.res0);
+                console.log($scope.ticketInfo_viewInfo_count0);
                 // $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
                 // if($scope.ticketInfo.haveTicket == 1) {
                 //     $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                                    
                 //     $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
                 // }
             } else if(index == 1) {
-                $scope.ticketInfo_viewInfo_count2.res1 += 1;
-                console.log($scope.ticketInfo_viewInfo_count2.res1);
+                $scope.ticketInfo_viewInfo_count1 += 1;
+                console.log($scope.ticketInfo_viewInfo_count1);
                 // layer.open({
                 //     content: '当前班次余票为: ' + $scope.leftTickets,
                 //     time: 5
