@@ -1195,7 +1195,7 @@ app
                     '        <ion-header-bar class="bar bar-header modal-two" >'+
                     '		'+
                     '		   <button class="button  button-balanced" ng-click="ticketInfo_forwardTicket_chooseTime_OKFn()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
-                    '          <h1 class="title">请选择行程时间</h1>'+
+                    '          <h1 class="title" style="color: black;font-size: 17px;font-weight: 400;">请选择行程时间</h1>'+
                     '          <button class="button button-balanced" ng-click="ticketInfo_forwardTicket_chooseTime_OKFn()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">确定</button>'+
                     '		'+
                     '        </ion-header-bar>'+
@@ -1205,7 +1205,7 @@ app
                     '			<ion-radio style="padding: 15px 10px;border: none;font-size: 17px;" ng-repeat="item in ticketInfo_forwardTicket_arr"'+
                     '               ng-value="item.bdid"'+
                     '               ng-model="ticketInfo_forwardTicket_timeType.type">'+
-                    '      			{{ item.departTime }} <span style="margin-left: 5px;" >{{ item.leftTickets }} 座 / {{ item. totalTickets}} 座</span> '+
+                    '      			{{ item.departTime }} <span style="margin-left: 5px;color: #a2a2a2;font-size: 14px;" >剩 <span style="color: #DF6A0D;">{{ item.leftTickets }}</span>座 / {{ item. totalTickets}}座</span> '+
                     '    		</ion-radio>'+
                     '			'+
                     '        </ion-content>'+
@@ -1252,7 +1252,7 @@ app
                         } else {
 
                             layer.open({
-                                content: '客官，当前没有相关的发车信息，请重新选择日期 (╯-╰)',
+                                content: '客官，当前没有相关的班次信息，请重新选择日期 (╯-╰)',
                                 btn: '确定'
                             });
 
@@ -1282,6 +1282,8 @@ app
 
                     // $scope.ticketInfo_forwardTicket_count = 0; // @去程车票数量 清零
 
+                    $scope.ticketInfo_forwardTicket_chooseTime_Modal.hide(); // @弹窗关闭                   
+
                     $scope.ticketInfo_forwardTicket_haveChoosed = true; // @控制选择出发时间时的 样式表现    
                     
                     // @去程车票票价计算
@@ -1295,12 +1297,52 @@ app
                     
                 }
 
+                // @去程车票 票数增加 函数
+                $scope.ticketInfo_forwardTicket_incr = function() {
+
+                    if( $scope.ticketInfo_forwardTicket_count < $scope.ticketInfo_forwardTicket_leftTickets ) {
+
+                        $scope.ticketInfo_forwardTicket_count += 1;
+
+                        var tempPrice = $scope.floatObj.multiply($scope.ticketInfo_forwardTicket_price, 1, 2);
+
+                        $scope.ticketSumPrice_forwardTicket = $scope.floatObj.add($scope.ticketSumPrice_forwardTicket, tempPrice, 2);
+
+                        console.log("订单页：去程车票总价");
+                        console.log($scope.ticketSumPrice_forwardTicket);
+
+                    } else {
+
+                        layer.open({
+                            content: '当前班次余票为: ' + $scope.ticketInfo_forwardTicket_count,
+                            btn: '确定'
+                        });
+
+                    }
+                }
+
+                // @去程车票 票数减少 函数
+                $scope.ticketInfo_forwardTicket_decr = function() {
+
+                    if($scope.ticketInfo_forwardTicket_count > 1) { // @只有当数量大于一的时候才减
+
+                        $scope.ticketInfo_forwardTicket_count -= 1;
+
+                        var tempPrice = $scope.floatObj.multiply($scope.ticketInfo_forwardTicket_price, 1, 2);
+                        
+                        $scope.ticketSumPrice_forwardTicket = $scope.floatObj.subtract($scope.ticketSumPrice_forwardTicket, tempPrice, 2);
+
+                        console.log("订单页：去程车票总价");
+                        console.log($scope.ticketSumPrice_forwardTicket);
+
+                    }
+                }
+
                 $scope.$on('$destroy', function() { // @销毁工作
-                    $scope.ticketInfo_forwardTicket_chooseTime_Modal.remove();
+                    $scope.ticketInfo_forwardTicket_chooseTime_Modal.remove(); // @弹窗销毁
                 });
 
             } 
-
 
 
             if($scope.ticketInfo.plans[1] != null) { //@返程票 类型
@@ -1353,7 +1395,7 @@ app
     
                             var tempPrice = $scope.floatObj.multiply($scope.ticketInfo.viewInfo.viewPrices[index].couponPrice, 1, 2); // @临时的对应门票价格计算
     
-                            $scope.ticketViewSumPrice = scope.floatObj.add($scope.ticketViewSumPrice, tempPrice, 2); // @门票总价计算
+                            $scope.ticketViewSumPrice = $scope.floatObj.add($scope.ticketViewSumPrice, tempPrice, 2); // @门票总价计算
     
                             console.log("订单页：门票请求参数数组");
                             console.log($scope.ticketInfo_viewInfo_tempRequestParamArr);
@@ -1389,7 +1431,7 @@ app
                             var tempPrice = $scope.floatObj.multiply($scope.ticketInfo.viewInfo.viewPrices[index].couponPrice, 1, 2); // @临时的对应门票价格计算
     
                             
-                            $scope.ticketViewSumPrice = scope.floatObj.subtract($scope.ticketViewSumPrice, tempPrice, 2); // @门票总价计算
+                            $scope.ticketViewSumPrice = $scope.floatObj.subtract($scope.ticketViewSumPrice, tempPrice, 2); // @门票总价计算
 
                             console.log("订单页：门票请求参数数组");
                             console.log($scope.ticketInfo_viewInfo_tempRequestParamArr);
@@ -1528,33 +1570,33 @@ app
         */
         
         // 票数增加 函数
-        $scope.incr = function() {
-            if( this.dataContainer.count < $scope.leftTickets ) {
-                this.dataContainer.count += 1;
-                $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
-                if($scope.ticketInfo.haveTicket == 1) {
-                    $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                                    
-                    $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
-                }
-            } else {
-                layer.open({
-                    content: '当前班次余票为: ' + $scope.leftTickets,
-                    time: 5
-                });
-            }
-        }
+            // $scope.incr = function() {
+            //     if( this.dataContainer.count < $scope.leftTickets ) {
+            //         this.dataContainer.count += 1;
+            //         $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
+            //         if($scope.ticketInfo.haveTicket == 1) {
+            //             $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                                    
+            //             $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
+            //         }
+            //     } else {
+            //         layer.open({
+            //             content: '当前班次余票为: ' + $scope.leftTickets,
+            //             time: 5
+            //         });
+            //     }
+            // }
 
         // 票数减少 函数
-        $scope.decr = function() {
-            if(this.dataContainer.count > 1) { //只有当数量大于一的时候才减
-                this.dataContainer.count -= 1;
-                $scope.sumPrice = $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
-                if($scope.ticketInfo.haveTicket == 1) {
-                    $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                    
-                    $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
-                }
-            }
-        }
+            // $scope.decr = function() {
+            //     if(this.dataContainer.count > 1) { //只有当数量大于一的时候才减
+            //         this.dataContainer.count -= 1;
+            //         $scope.sumPrice = $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
+            //         if($scope.ticketInfo.haveTicket == 1) {
+            //             $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价                    
+            //             $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
+            //         }
+            //     }
+            // }
 
 
         // ************************************************************************************************
@@ -1649,9 +1691,10 @@ app
         // @车票支付 函数
         $scope.recharge = function() {
 
-            var departDate = $filter('date')($scope.ticketInfo.departdate, 'yyyy-MM-dd');
+            // $scope.currentSelectedDateOrTime
+            var departDate = $filter('date')($scope.currentSelectedDateOrTime, 'yyyy-MM-dd');
 
-            // 参数处理 api/product/buyProductTicket 接口
+            // 参数处理 wechat/product/buyProductTicket
             if($scope.ticketInfo.productType == '1') { // 往返类型
 
                 if($scope.ticketInfo.haveTicket == 0) { // 没有门票时
@@ -1710,8 +1753,13 @@ app
                 }
                     
             }
+
+
             console.log("ZW：传递到order_detail_refund的参数");
             console.log(data2); // 即是 api/product/buyProductTicket 接口的参数，也是传递到 order_detail_refund 的参数
+
+
+            // @支付请求接口 wechat/product/buyProductTicket
             $myHttpService.post("api/product/buyProductTicket", data2, function(data) {
 
                 console.log(data);
@@ -1784,6 +1832,7 @@ app
                     } else {
                         onBridgeReady();
                     }
+
                 }
 
             });
