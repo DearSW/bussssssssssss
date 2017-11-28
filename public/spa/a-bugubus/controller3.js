@@ -1241,13 +1241,13 @@ app
 
                         $scope.ticketInfo_forwardTicket_arr = data.details; // @去程车票详情数组
 
-                        if(ticketInfo_forwardTicket_arr.length != 0) {
+                        if($scope.ticketInfo_forwardTicket_arr.length != 0) {
 
                             $scope.ticketInfo_forwardTicket_timeType = { // @去程票的时间类型
-                                type:  ticketInfo_forwardTicket_arr[0].bdid // @指定数组的第一个为 默认类型
+                                type:  $scope.ticketInfo_forwardTicket_arr[0].bdid // @指定数组的第一个为 默认类型
                             };
 
-                            ticketInfo_forwardTicket_chooseTime_Modal.show(); // @弹窗显示
+                            $scope.ticketInfo_forwardTicket_chooseTime_Modal.show(); // @弹窗显示
 
                         } else {
 
@@ -1438,7 +1438,7 @@ app
         
 
         // @验证码倒计时 处理流程
-        var defaultCountdown = 60; // 默认60秒的倒计时时间
+        var defaultCountdown = 60; // @默认60秒的倒计时时间
         $scope.countdownTime = defaultCountdown;
         var stopCountdownTime;
         $scope.fight = function() {
@@ -1492,38 +1492,40 @@ app
         
         
         // @初始化票价计算
-        if($scope.ticketInfo.haveTicket == 1) { // 有门票时
-            console.log("有车票时");
-            $scope.scenicSpotTicketPrice = $scope.ticketInfo.viewPrices[0].couponPrice; // 指定门票数组的第一个为默认门票价
-            $scope.scenicSpotTicketPriceID = $scope.ticketInfo.viewPrices[0].viewPriceId; // 同时找出相应的默认门票的ID
-            console.log($scope.scenicSpotTicketPriceID);
-            // $scope.price = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice;
-            // 只要是涉及小数的运算，都必须使用 floatObj运算对象来保证正确的计算结果！
-            $scope.price = $scope.floatObj.add($scope.ticketInfo.productPrice, $scope.scenicSpotTicketPrice, 2); // 全票价格，车票 + 门票
-            $scope.price2 = $scope.ticketInfo.productPrice; // 车票
-            $scope.price3 = $scope.scenicSpotTicketPrice; // 门票
+        /*
+            if($scope.ticketInfo.haveTicket == 1) { // 有门票时
+                console.log("有车票时");
+                $scope.scenicSpotTicketPrice = $scope.ticketInfo.viewPrices[0].couponPrice; // 指定门票数组的第一个为默认门票价
+                $scope.scenicSpotTicketPriceID = $scope.ticketInfo.viewPrices[0].viewPriceId; // 同时找出相应的默认门票的ID
+                console.log($scope.scenicSpotTicketPriceID);
+                // $scope.price = $scope.ticketInfo.productPrice + $scope.scenicSpotTicketPrice;
+                // 只要是涉及小数的运算，都必须使用 floatObj运算对象来保证正确的计算结果！
+                $scope.price = $scope.floatObj.add($scope.ticketInfo.productPrice, $scope.scenicSpotTicketPrice, 2); // 全票价格，车票 + 门票
+                $scope.price2 = $scope.ticketInfo.productPrice; // 车票
+                $scope.price3 = $scope.scenicSpotTicketPrice; // 门票
 
-            $scope.sumPrice = $scope.price; // 全票总价 车票 + 门票
-            console.log("全票总价");
-            console.log($scope.sumPrice);
+                $scope.sumPrice = $scope.price; // 全票总价 车票 + 门票
+                console.log("全票总价");
+                console.log($scope.sumPrice);
 
-            $scope.sumPrice2 = $scope.price2; // 车票总价
-            console.log("车票总价");
-            console.log($scope.sumPrice2);        
+                $scope.sumPrice2 = $scope.price2; // 车票总价
+                console.log("车票总价");
+                console.log($scope.sumPrice2);        
 
-            $scope.sumPrice3 = $scope.price3; // 门票总价
-            console.log("门票总价");
-            console.log($scope.sumPrice3);
+                $scope.sumPrice3 = $scope.price3; // 门票总价
+                console.log("门票总价");
+                console.log($scope.sumPrice3);
 
-        } else { // 没有门票时
-            console.log("无车票时");
+            } else { // 没有门票时
+                console.log("无车票时");
 
-            $scope.price  = $scope.ticketInfo.productPrice; // 全票价格，车票
-            $scope.sumPrice = $scope.price; // 全票总价，车票
-            console.log("全票总价");
-            console.log($scope.sumPrice);
+                $scope.price  = $scope.ticketInfo.productPrice; // 全票价格，车票
+                $scope.sumPrice = $scope.price; // 全票总价，车票
+                console.log("全票总价");
+                console.log($scope.sumPrice);
 
-        }
+            }
+        */
         
         // 票数增加 函数
         $scope.incr = function() {
@@ -1554,7 +1556,11 @@ app
             }
         }
 
-        // 优惠券的检测 函数
+
+        // ************************************************************************************************
+
+
+        // @优惠券的检测 函数
         $scope.oldTicketPriceShow = true;
         $scope.newTicketPriceShow = false;
         $scope.useCoupon = false;
@@ -1607,7 +1613,11 @@ app
             couponCount++;
         };
 
-        // 确认支付按钮的状态监控 函数
+
+        // ************************************************************************************************
+
+
+        // @确认支付按钮的状态监控 函数
         $scope.payBtnCheck = function() {
             if($scope.dataContainer.phone !=  undefined) {
                 if($scope.dataContainer.phone.length == 11) {
@@ -1636,7 +1646,7 @@ app
             }
         }
 
-        // 车票支付 函数
+        // @车票支付 函数
         $scope.recharge = function() {
 
             var departDate = $filter('date')($scope.ticketInfo.departdate, 'yyyy-MM-dd');
@@ -1778,6 +1788,10 @@ app
 
             });
         }
+
+
+        // ************************************************************************************************
+
 
         // 门票处理 函数
         if($scope.ticketInfo.haveTicket == 1) { // 有门票时
