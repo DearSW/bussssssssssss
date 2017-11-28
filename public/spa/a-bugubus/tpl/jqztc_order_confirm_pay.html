@@ -11,6 +11,13 @@
                 border: none;
             }
 
+            .modal-two {
+                margin-top: 300px;
+                background: #ffffff;
+                box-shadow: 0px -6px 9px 0px rgba(191, 188, 188, 0.85);
+                border: none;
+            }
+
             .item-radio .radio-icon {
                 padding: 0px 11px;
                 margin-top: 10px;
@@ -570,7 +577,7 @@
                                             <span style="font-size: 17px;">商品总价</span>
                                             <span style="color:#a7a7ab">
                                                     <span class="item-note" > 
-                                                        <span style="color: black;font-size: 17px;">￥2000.00</span>
+                                                        <span style="color: black;font-size: 17px;">{{sumPrice  | currency: '￥' }}</span>
                                                     </span>
                                             </span>
                                         </div>
@@ -585,7 +592,7 @@
                                                 <span style="font-size: 17px;">优惠金额</span>
                                                 <span style="color:#a7a7ab">
                                                         <span class="item-note"  > 
-                                                            <span style="color: black;font-size: 17px;">-￥100.00</span>
+                                                            <span style="color: black;font-size: 17px;">-{{Coupon  | currency: '￥' }}</span>
                                                         </span>
                                                 </span>
                                             </div>
@@ -599,7 +606,7 @@
                                                 <span style="font-size: 17px;">订单实付</span>
                                                 <span style="color:#a7a7ab">
                                                         <span class="item-note" > 
-                                                            <span style="color: black;font-size: 17px;">￥1900.00</span>
+                                                            <span style="color: black;font-size: 17px;">{{  sumPrice - Coupon  | currency: '￥' }}</span>
                                                         </span>
                                                 </span>
                                             </div>
