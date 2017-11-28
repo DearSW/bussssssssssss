@@ -1153,6 +1153,11 @@ app
         $rootScope.customerPhone = "18302505304"; // @客服电话
 
         $scope.currentSelectedDateOrTime = sessionStorage.getItem('tabsParamsDataDate'); // @唯一的当前选择的时间
+        if($scope.currentSelectedDateOrTime == null) {
+            // var timeTemp = new Date();
+            // $filter('date')(new Date(), 'yyyy-MM-dd')
+            $scope.currentSelectedDateOrTime = $filter('date')(new Date(), 'yyyy-MM-dd');
+        }
 
         var paramsData = JSON.parse($state.params.data); // @解析传递过来的参数
 
