@@ -2538,7 +2538,7 @@ app
         }
     })
 
-    /* 我的行程 */
+    /* @我的行程页 控制器 */
     .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state) {
 
         if(sessionStorage.getItem("myplanCount") == null) {
@@ -2548,12 +2548,12 @@ app
         }
 
         if(myplanCount == 1) {
-            $rootScope.ticketsInfo = []; // 车票数组
+            $rootScope.ticketsInfo = []; // @车票数组
             sessionStorage.setItem("myplanCount", 2);
-            $rootScope.hasmore2 = false; // 首次进入页面时 不触发上拉加载函数
-            $scope.pageCount = 1; // 保存的记录页面参数 用于上拉加载分页的记录
+            $rootScope.hasmore2 = false; // @首次进入页面时 不触发上拉加载函数
+            $scope.pageCount = 1; // @保存的记录页面参数 用于上拉加载分页的记录
             $scope.hasmore = true;
-            // 车票首次加载函数
+            // @车票首次加载函数
             $scope.doRefreshTicket_first = function() {
                 console.log("doRefreshTicket_first执行了");            
                 var requestData = {
@@ -2581,13 +2581,13 @@ app
                     $scope.$broadcast('scroll.refreshComplete');                
                 });
             };
-            $scope.doRefreshTicket_first(); // 只在首次进去页面时 自动调用一次！！！
+            $scope.doRefreshTicket_first(); // @只在首次进去页面时 自动调用一次！！！
         }
 
         var run = false;
-        $scope.ticketsInfoIsEmpty = false; // 当没有任何票信息时显现
+        $scope.ticketsInfoIsEmpty = false; // @当没有任何票信息时显现
         
-        // 车票下拉刷新函数
+        // @车票下拉刷新函数
         $scope.doRefreshTicket = function() {
             console.log("我的行程页：doRefreshTicket执行了");            
             var requestData = {
@@ -2595,20 +2595,24 @@ app
                 offset: 0,
                 pagesize: 10,
             };
-            // 订单列表wechat/product/queryUserProductTicketList
+            // @订单列表 wechat/product/queryUserProductTicketList
             $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+
                 console.log("我的行程页：获取所有订单的列表API返回的数据(下拉刷新)");
                 console.log(data);
+
                 if(data.userViewList.length < 10) {
                     $rootScope.hasmore2 = false;
                 } else {
                     $rootScope.hasmore2 = true;
                     $scope.pageCount = 2;
                 }
+
                 $rootScope.ticketsInfo = data.userViewList;
                 $rootScope.ticketsTotal = data.totalnum;
                 
                 $scope.$broadcast('scroll.refreshComplete');
+
                 if($rootScope.ticketsInfo.length == 0) {
                     $scope.ticketsInfoIsEmpty = true;                    
                 } else {
@@ -2618,13 +2622,17 @@ app
                         time: 1
                     });
                 }
+
                 $scope.$broadcast('scroll.refreshComplete');
+
             }, function() {
-                $scope.$broadcast('scroll.refreshComplete');                
+
+                $scope.$broadcast('scroll.refreshComplete'); 
+
             });
         };
 
-        // 比较函数，对票进行排序，从大到小
+        // @比较函数，对票进行排序，从大到小
         var compare = function (prop) {
             return function (obj1, obj2) {
                 var val1 = obj1[prop];
@@ -2643,7 +2651,7 @@ app
             } 
         }
         
-        // 上拉加载更多票信息
+        // @上拉加载更多票信息
         $scope.loadMoreTicket = function() {
             console.log("我的行程页：loadMoreTicket执行了");
             var offset = ($scope.pageCount - 1) * 10;
@@ -2657,10 +2665,10 @@ app
                 $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
                     console.log("我的行程页：获取所有订单的列表API返回的数据(上拉加载)");                
                     if (data.userViewList.length < 10) { 
-                        $scope.hasmore = false; // 这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
+                        $scope.hasmore = false; // @这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
                         $rootScope.hasmore2 = false;
                     } else {
-                        $scope.pageCount++; // 计数
+                        $scope.pageCount++; // @计数
                     }
                     run = false;
                     $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); 
@@ -2676,17 +2684,17 @@ app
             }
         }
         
-        // 点击未使用车票进入 车票详情界面
+        // @点击未使用车票进入 车票详情界面
         $scope.unusedTicketToDetail = function(item, i) {
             $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
         }
 
-        // 点击未使用门票进入 门票详情界面
+        // @点击未使用门票进入 门票详情界面
         $scope.unusedAdmissionTicketToDetail = function(item, i) {
             $state.go('ticket_admission_detail', {data: JSON.stringify(item)}, {reload: false});
         }
 
-        // 点击已使用车票进入 评价界面，同时还会判断是否已评价
+        // @点击已使用车票进入 评价界面，同时还会判断是否已评价
         $scope.usedTicketToComment = function(item, i) {
             var isCommented = false;
             var isCommentedText = '';
@@ -2704,10 +2712,11 @@ app
             }, {reload: true});
         }
 
-        // 点击正在退款车票 进入 正在退款页面
+        // @点击正在退款车票 进入 正在退款页面
         $scope.refundingToRefund = function(item, i) {
             $state.go('order_refunding', {data: JSON.stringify(item)}, {reload: false});
         }
+
     })
 
      /* 测试 */
