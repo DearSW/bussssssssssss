@@ -1297,14 +1297,16 @@ app
 
                     console.log("订单页：去程车票总价");
                     console.log($scope.ticketSumPrice_forwardTicket);
+
+                    $scope.ticketInfo_Ticket_tempRequestParamArr[0] = [
+                        $scope.ticketInfo_forwardTicket_bdid,
+                        $scope.ticketInfo_forwardTicket_count
+                    ]; 
+
+                    console.log("订单页：车票参数数组");
+                    console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
                     
                 }
-
-                $scope.ticketInfo_Ticket_tempRequestParamArr[0] = [
-                    $scope.ticketInfo_forwardTicket_bdid,
-                    $scope.ticketInfo_forwardTicket_count
-                ]; 
-            
 
                 // @去程车票 票数增加 函数
                 $scope.ticketInfo_forwardTicket_incr = function() {
@@ -1462,14 +1464,16 @@ app
 
                     console.log("订单页：返程车票总价");
                     console.log($scope.ticketSumPrice_backwardTicket);
+
+                    $scope.ticketInfo_Ticket_tempRequestParamArr[1] = [
+                        $scope.ticketInfo_backwardTicket_bdid,
+                        $scope.ticketInfo_backwardTicket_count
+                    ]; 
+
+                    console.log("订单页：车票参数数组");
+                    console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
                     
                 }
-
-                $scope.ticketInfo_Ticket_tempRequestParamArr[1] = [
-                    $scope.ticketInfo_backwardTicket_bdid,
-                    $scope.ticketInfo_backwardTicket_count
-                ]; 
-            
 
                 // @返程车票 票数增加 函数
                 $scope.ticketInfo_backwardTicket_incr = function() {
@@ -1952,9 +1956,10 @@ app
 
 
 
-        // @支付检验 函数
+        // @支付 车票检验 函数
         $scope.checkRecharge = function() {
 
+            // @车票检测
             if($scope.ticketInfo.plans != null) { // @有车票
                 
                 // @有去程时 的情况
@@ -1993,9 +1998,8 @@ app
                             content: '您购买的订单中不包含车票，是否继续？',
                             btn: ['继续', '取消'],
                             shadeClose: false,
-                            // skin: 'footer',
                             yes: function(index) {
-                                $scope.recharge();
+                                $scope.recharge(); // @调用支付函数
                                 layer.closeAll();
                             }
                         })
@@ -2013,9 +2017,8 @@ app
                             content: '您购买的订单中不包含车票，是否继续？',
                             btn: ['继续', '取消'],
                             shadeClose: false,
-                            // skin: 'footer',
                             yes: function(index) {
-                                $scope.recharge();
+                                $scope.recharge(); // @调用支付函数
                                 layer.closeAll();
                             }
                         })
@@ -2026,14 +2029,14 @@ app
 
             }
 
-            $scope.recharge();
+            $scope.recharge(); // @调用支付函数
 
         }
 
-        // @车票支付 函数
+        // @支付 函数
         $scope.recharge = function() {
 
-            // @没有车票只有门票的情况 检测
+            // @没有车票只有门票的情况 门票检测
             if($scope.ticketInfo.plans == null && $scope.ticketInfo.viewInfo != null) {
 
                 var flag = false;
@@ -2058,7 +2061,70 @@ app
 
             }
 
-            // @参数封装
+            // @有车票 有门票的情况 门票检测
+            if($scope.ticketInfo.plans != null && $scope.ticketInfo.viewInfo != null) {
+
+                // @有去程，没有返程 的情况 门票检测
+                if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] == null) {
+
+                    if($scope.ticketInfo_forwardTicket_count == 0) {
+
+                        var flag2 = false;
+                        
+                        // @对门票参数数组进行检测
+                        for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
+        
+                            var item = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                            if(item != 0) {
+                                flag2 = true;
+                            }
+        
+                        }
+        
+                        if(flag2 == false) {
+                            layer.open({
+                                content: '客官，请至少选择一张门票 (╯-╰)',
+                                btn: '确定'
+                            });
+                            return false;
+                        }
+
+                    }
+
+                }
+
+                // @有去程，有返程 的情况 门票检测
+                if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] != null) {
+
+                    if($scope.ticketInfo_forwardTicket_count == 0 && $scope.ticketInfo_backwardTicket_count == 0) {
+
+                        var flag3 = false;
+                        
+                        // @对门票参数数组进行检测
+                        for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
+        
+                            var item = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                            if(item != 0) {
+                                flag3 = true;
+                            }
+        
+                        }
+        
+                        if(flag3 == false) {
+                            layer.open({
+                                content: '客官，请至少选择一张门票 (╯-╰)',
+                                btn: '确定'
+                            });
+                            return false;
+                        }
+
+                    }
+                
+                }
+
+            }
+
+            // @支付参数封装
             
             // @车票参数数组提取
             var bdids = '';                
@@ -2196,7 +2262,7 @@ app
             });
         }
 
-
+        
         // ************************************************************************************************
 
 
