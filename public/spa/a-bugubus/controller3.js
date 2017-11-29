@@ -1236,8 +1236,8 @@ app
 
                     console.log(requestData);
 
-                    // @排班出发时间查询 /webchat/product/queryBuslineScheduleDetailsByLineid 
-                    $myHttpService.post('api/product/queryBuslineScheduleDetailsByLineid', requestData, function(data) {
+                    // @排班出发时间查询 webchat/product/queryBuslineScheduleDetailsByBpid
+                    $myHttpService.post('api/product/queryBuslineScheduleDetailsByBpid', requestData, function(data) {
                         
                         console.log("订单页：排班出发时间查询API返回的数据");
                         console.log(data);
@@ -1401,8 +1401,8 @@ app
 
                     console.log(requestData);
 
-                    // @排班出发时间查询 /webchat/product/queryBuslineScheduleDetailsByLineid 
-                    $myHttpService.post('api/product/queryBuslineScheduleDetailsByLineid', requestData, function(data) {
+                    // @排班出发时间查询 webchat/product/queryBuslineScheduleDetailsByBpid
+                    $myHttpService.post('api/product/queryBuslineScheduleDetailsByBpid', requestData, function(data) {
                         
                         console.log("订单页：排班出发时间查询API返回的数据");
                         console.log(data);
@@ -1680,16 +1680,11 @@ app
 
         $scope.countdown = function() { // @获取验证码 并开始倒计时
 
-            $scope.verificationCodeBtnDisabled = true;
-            console.log("订单页：电话号码 " + $scope.dataContainer.phone);
-            $scope.fight();
-
             // @进行倒计时的同时，还需要向服务器发送获一个获取验证码的请求
 
             var departDate = $filter('date')($scope.currentSelectedDateOrTime, 'yyyy-MM-dd');
             var checkcode = parseInt($scope.dataContainer.phone) % parseInt($scope.dataContainer.phone.substring(1,4)) ;
             
-
             // @参数分情况封装
             if($scope.ticketInfo.plans != null) { // @有车票时
 
@@ -1753,6 +1748,9 @@ app
 
             }
 
+            $scope.verificationCodeBtnDisabled = true;
+            console.log("订单页：电话号码 " + $scope.dataContainer.phone);
+            $scope.fight();
             console.log("订单页：验证码请求参数打印");
             console.log(requestData);
 
@@ -1775,7 +1773,7 @@ app
             '	  '+
             '        <ion-header-bar class="bar bar-header modal-two" >'+
             '		'+
-            '		   <button class="button  button-balanced" ng-click="coupon_OKFn()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
+            '		   <button class="button  button-balanced" ng-click="coupon_NOFn()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
             '          <h1 class="title" style="color: black;font-size: 17px;font-weight: 400;">请选择优惠券</h1>'+
             '          <button class="button button-balanced" ng-click="coupon_OKFn()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">确定</button>'+
             '		'+
@@ -1786,7 +1784,7 @@ app
             '			<ion-radio style="padding: 15px 10px;border: none;font-size: 17px;" ng-repeat="item in couponArr"'+
             '               ng-value="item.brcid"'+
             '               ng-model="couponType.type">'+
-            '      			{{ item.couponMoney }} <span style="margin-left: 5px;">有效期 {{item.overDate | date:"yyyy-MM-dd"}}</span> '+
+            '      			{{ item.couponMoney }} 元 <span style="margin-left: 5px;">有效期 {{item.overDate | date:"yyyy-MM-dd"}}</span> '+
             '    		</ion-radio>'+
             '			'+
             '        </ion-content>'+
@@ -1798,10 +1796,8 @@ app
 
 
         // @优惠券的检测 函数
-        $scope.oldTicketPriceShow = true;
-        $scope.newTicketPriceShow = false;
+
         $scope.useCoupon = false;
-        var couponCount = 1;
 
         $scope.noCouponTxt = false; // @无可用优惠券时，控制文本
         $scope.noCouponTxt2 = false; // @有可用优惠券时，控制文本
@@ -1818,10 +1814,6 @@ app
                 console.log("订单页：查询用户是否有优惠卷API返回的数据");
                 console.log(data);
 
-                $scope.couponType = { // @优惠券类型，同时也是 brcid
-                    type: ''
-                };
-
                 if(data.isHaveCoupon) { // @有优惠券
 
                     $scope.couponArr = data.buslineCoupons; // @优惠券数组
@@ -1835,13 +1827,11 @@ app
 
                 }
 
-
             });
 
         }
 
-        $scope.coupon_OKFn = function() { // @优惠券弹窗中的确定、取消函数
-            
+        $scope.coupon_OKFn = function() { // @优惠券弹窗中的 取消函数
             
             for(var item in $scope.couponArr) {
 
@@ -1852,12 +1842,27 @@ app
                     $scope.coupon = objTemp.couponMoney; // 找出用户选择的相应的优惠券金额
 
                     $scope.noCouponTxt2 = true;
+
+                    $scope.useCoupon = true;
                     
                 }
             }
 
+            console.log("订单页：优惠券类型");
+            console.log($scope.couponType.type);
+
             $scope.couponChooseModal.hide();            
 
+        }
+
+        $scope.coupon_NOFn = function() { // @@优惠券弹窗中的 取消函数
+
+            $scope.couponType.type = ''; // 将优惠券类型清空
+            $scope.useCoupon = false;
+            console.log("订单页：优惠券类型");
+            console.log($scope.couponType.type);
+            $scope.couponChooseModal.hide();            
+            
         }
 
         /*
@@ -1945,6 +1950,8 @@ app
         }
 
 
+
+
         // @支付检验 函数
         $scope.checkRecharge = function() {
 
@@ -1982,7 +1989,18 @@ app
                     
                     if($scope.ticketInfo_forwardTicket_count == 0) {
 
+                        layer.open({
+                            content: '您购买的订单中不包含车票，是否继续？',
+                            btn: ['继续', '取消'],
+                            shadeClose: false,
+                            // skin: 'footer',
+                            yes: function(index) {
+                                $scope.recharge();
+                                layer.closeAll();
+                            }
+                        })
 
+                        return false;
 
                     }
 
@@ -1991,12 +2009,22 @@ app
                 // @有去程，有返程 的情况
                 if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] != null) {
                     if($scope.ticketInfo_forwardTicket_count == 0 && $scope.ticketInfo_backwardTicket_count == 0) {
+                        layer.open({
+                            content: '您购买的订单中不包含车票，是否继续？',
+                            btn: ['继续', '取消'],
+                            shadeClose: false,
+                            // skin: 'footer',
+                            yes: function(index) {
+                                $scope.recharge();
+                                layer.closeAll();
+                            }
+                        })
 
+                        return false;
                     }
                 }
 
             }
-
 
             $scope.recharge();
 
@@ -2036,10 +2064,16 @@ app
             var bdids = '';                
             if($scope.ticketInfo_Ticket_tempRequestParamArr != null) {
 
-                for(var i = 0; i < $scope.ticketInfo_Ticket_tempRequestParamArr.length; i++) {
+                for(var i = 0, len = $scope.ticketInfo_Ticket_tempRequestParamArr.length; i < len; i++) {
 
-                    if($scope.ticketInfo_Ticket_tempRequestParamArr[i][1] != 0) {
+                    // if($scope.ticketInfo_Ticket_tempRequestParamArr[i][1] != 0) {
+                    //     bdids += $scope.ticketInfo_Ticket_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_Ticket_tempRequestParamArr[i][1];
+                    // }
+
+                    if(i == len - 1) {
                         bdids += $scope.ticketInfo_Ticket_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_Ticket_tempRequestParamArr[i][1];
+                    } else {
+                        bdids += $scope.ticketInfo_Ticket_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_Ticket_tempRequestParamArr[i][1] + '&&';
                     }
 
                 }
@@ -2058,44 +2092,30 @@ app
 
                 }
             }
-            
-
-            // departDate
-            // bdids
-            // couponuse
-            // userid
-            // openid
-            // authcode
-            // viewPrices
-            // brcid
-            // productid
-            
-
-            // $scope.currentSelectedDateOrTime
+                        
+            // @$scope.currentSelectedDateOrTime
             var departDate = $filter('date')($scope.currentSelectedDateOrTime, 'yyyy-MM-dd');
             var userid = $rootScope.session.user.userInfo.userid;
             var openid = $rootScope.session.user.userInfo.openid;
             var authcode = $scope.dataContainer.verificationCode;
             var productid = $scope.paramsProductid;
             var couponuse = $scope.useCoupon;
-
             var brcid = $scope.couponType.type;
-
+            
             var data2 = { 
-                userid: $rootScope.session.user.userInfo.userid,
-                openid: $rootScope.session.user.userInfo.openid,
-                gobdid: $scope.ticketInfo.gobdid,
-                couponuse: $scope.couponBtnState,
                 departDate: departDate,
-                count: $scope.dataContainer.count,
-                authcode: $scope.dataContainer.verificationCode,
-                backbdid: $scope.ticketInfo.backbdid
+                bdids: bdids,
+                couponuse: couponuse,
+                userid: userid,
+                openid: openid,
+                authcode: authcode,
+                viewPrices: viewPrices,
+                brcid: brcid,
+                productid: productid
             };
 
-
-            console.log("ZW：传递到order_detail_refund的参数");
+            console.log("订单页：支付购买的请求参数");
             console.log(data2); // 即是 api/product/buyProductTicket 接口的参数，也是传递到 order_detail_refund 的参数
-
 
             // @支付请求接口 wechat/product/buyProductTicket
             $myHttpService.post("api/product/buyProductTicket", data2, function(data) {
