@@ -586,7 +586,7 @@
                         </div>
 
                         <!-- 需要判断有无使用优惠券 -->
-                        <div class="row" style="background: white;padding: 0;" ng-if="true">
+                        <div class="row" style="background: white;padding: 0;" ng-if="useCoupon">
                             <div class="col">
                                     <div>
                                         <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
@@ -633,7 +633,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="col col-40" style="background: #E35C1D;border: none;" ng-click="checkRecharge()" ng-disabled="payBtnDisabled">
+                                <button class="col col-40" style="background: #E35C1D;border: none;" ng-click="checkRecharge()" ng-disabled="payBtnDisabled" ng-class="{true: 'unselected2', false: 'selected2'}[payBtnDisabled]" >
                                     <div style="text-align: center;">
                                         <span style="color: white;font-size: 22px;line-height: 2;">去付款</span>
                                     </div>

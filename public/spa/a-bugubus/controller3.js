@@ -778,140 +778,7 @@ app
             }
         }
 
-        $scope.nextDay = function() {
-
-            var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
-            var temp1 = new Date();
-            var temp2 = $filter('date')(temp1, 'yyyy-MM-dd');
-            var endTime = new Date(temp2).getTime() + (60 * 86400000);
-
-            if(nextDayTime <= endTime) {
-                var temp = new Date(nextDayTime);
-                $rootScope.currentSelectedDate = $filter('date')(temp, 'yyyy-MM-dd');
-                sessionStorage.setItem('tabsParamsDataDate', $rootScope.currentSelectedDate);
-
-                var requestData = {
-                    keyword: $rootScope.currentSelectedRoadLine,
-                    departDate: $rootScope.currentSelectedDate,
-                    region: $rootScope.currentSelectedCity
-                };
-
-                $myHttpService.post('api/product/queryProductList', requestData, function(data) {
-                    console.log(data);
-                    $scope.ticketsInfo = data.products;
-                    if(data.products.length != 0) {
-                        $scope.noticeInfo = data.products[0].productinfo;                    
-                    } else {
-                        layer.open({
-                            content: '当前班次已售罄，请选择往后日期',
-                            btn: '确定'
-                        });
-                    }
-                }, function() {
-                    $scope.ticketsInfo = [];
-                });
-
-            } else {
-                layer.open({
-                    content: '不在预售范围内，预售期仅为60天，请重新选择！',
-                    btn: '确定'
-                });
-            }
-        }
-
-        $scope.prevDay = function() {
-
-
-            var prevDayTime = new Date($rootScope.currentSelectedDate).getTime() - (1 * 86400000); // ms
-
-            var temp3 = new Date();
-            var temp4 = $filter('date')(temp3, 'yyyy-MM-dd');
-
-            var startTime = new Date(temp4).getTime();
-
-            // var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
-            // var endTime = new Date().getTime() + (60 * 86400000);
-
-            if(prevDayTime >= startTime) {
-                var temp = new Date(prevDayTime);
-                $rootScope.currentSelectedDate = $filter('date')(temp, 'yyyy-MM-dd');
-                sessionStorage.setItem('tabsParamsDataDate', $rootScope.currentSelectedDate);
-
-                var requestData = {
-                    keyword: $rootScope.currentSelectedRoadLine,
-                    departDate: $rootScope.currentSelectedDate,
-                    region: $rootScope.currentSelectedCity
-                };
-
-                $myHttpService.post('api/product/queryProductList', requestData, function(data) {
-                    console.log(data);
-                    $scope.ticketsInfo = data.products;
-                    if(data.products.length != 0) {
-                        $scope.noticeInfo = data.products[0].productinfo;                    
-                    } else {
-                        layer.open({
-                            content: '当前班次已售罄，请选择往后日期',
-                            btn: '确定'
-                        });
-                    }
-                }, function() {
-                    $scope.ticketsInfo = [];
-                });
-
-            } else {
-                var temp = new Date();
-                var temp2 = $filter('date')(temp, 'yyyy-MM-dd');
-                layer.open({
-                    content: '选择日期仅当从' + temp2 + '往后' ,
-                    btn: '确定'
-                });
-            }
-        }
-
-        var compareTimeTemp1 = new Date();
-        var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
-        var compareTime = new Date(compareTimeTemp2).getTime() + (60 * 86400000); // 60天时间
-
-        $scope.selectDay = function(val) {
-            var ipObj1 = {
-                callback: function (val) {  // 必选
-                    var val2 = new Date(val);
-                    $rootScope.currentSelectedDate = $filter('date')(val2, 'yyyy-MM-dd');
-                    sessionStorage.setItem('tabsParamsDataDate', $rootScope.currentSelectedDate);
-
-                    var requestData = {
-                        keyword: $rootScope.currentSelectedRoadLine,
-                        departDate: $rootScope.currentSelectedDate,
-                        region: $rootScope.currentSelectedCity
-                    };
-    
-                    $myHttpService.post('api/product/queryProductList', requestData, function(data) {
-                        console.log(data);
-                        $scope.ticketsInfo = data.products;
-                        if(data.products.length != 0) {
-                            $scope.noticeInfo = data.products[0].productinfo;                    
-                        } else {
-                            layer.open({
-                                content: '当前班次已售罄，请选择往后日期',
-                                btn: '确定'
-                            });
-                        }
-                    }, function() {
-                        $scope.ticketsInfo = [];
-                    });
-                },
-                titleLabel: '选择日期',
-                closeLabel: '返回',
-                from: new Date(),
-                to: new Date(compareTime), // 11对应十二月，差1
-                dateFormat: 'yyyy-MM-dd', // 可选
-                closeOnSelect: true, // 可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
-                inputDate: new Date(),
-                templateType: 'modal'
-              };
-              ionicDatePicker.openDatePicker(ipObj1);
-        }
-
+        
         // @购买按钮函数 传递参数
         $scope.purchase = function(item, i) {
 
@@ -1127,7 +994,7 @@ app
     })
 
     /* @订单页 确认、支付 控制器 */
-    .controller('order_confirm_pay', function($rootScope, $filter, $scope, $state, $myHttpService, $interval, $ionicModal) {
+    .controller('order_confirm_pay', function($rootScope, $filter, $scope, $state, $myHttpService, $interval, $ionicModal, ionicDatePicker) {
 
         if(JSON.parse($state.params.data) == null) { // @访问此订单页时，如果没有传递过来参数那么将直接倒退2个页面
 
@@ -1158,8 +1025,6 @@ app
 
         $scope.currentSelectedDateOrTime = sessionStorage.getItem('tabsParamsDataDate'); // @唯一的当前选择的时间
         if($scope.currentSelectedDateOrTime == null) {
-            // var timeTemp = new Date();
-            // $filter('date')(new Date(), 'yyyy-MM-dd')
             $scope.currentSelectedDateOrTime = $filter('date')(new Date(), 'yyyy-MM-dd');
         }
 
@@ -1621,6 +1486,155 @@ app
         
 
         // ************************************************************************************************
+
+
+        // @日历选择 $scope.currentSelectedDateOrTime
+        
+        // @下一天 
+        $scope.nextDay = function() {
+            
+            var nextDayTime = new Date($scope.currentSelectedDateOrTime).getTime() + (1 * 86400000); // @ms
+            var temp1 = new Date();
+            var temp2 = $filter('date')(temp1, 'yyyy-MM-dd');
+            var endTime = new Date(temp2).getTime() + (60 * 86400000);
+
+            if(nextDayTime <= endTime) {
+
+                var temp = new Date(nextDayTime);
+                $scope.currentSelectedDateOrTime = $filter('date')(temp, 'yyyy-MM-dd');
+
+                // @清除掉验证码计时器
+                $scope.stopFight();
+                $scope.countdownTxtShow = false;
+                $scope.verificationCodeBtnDisabled = false;
+                $scope.resetFight();
+
+                // @车票选择出发时间 显示更新
+                if($scope.ticketInfo_forwardTicket_arr != null) {
+
+                    $scope.ticketInfo_forwardTicket_arr = [];
+                    $scope.ticketInfo_forwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
+                    $scope.ticketSumPrice_forwardTicket = 0;  // @去程车票总价 清零，重新计算
+                    
+                }
+                if($scope.ticketInfo_backwardTicket_arr != null) {
+
+                    $scope.ticketInfo_backwardTicket_arr = [];
+                    $scope.ticketInfo_backwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
+                    $scope.ticketSumPrice_backwardTicket = 0;  // @返程程车票总价 清零，重新计算
+                    
+                }
+
+
+            } else {
+                layer.open({
+                    content: '不在预售范围内，预售期仅为60天，请重新选择！',
+                    btn: '确定'
+                });
+            }
+        }
+            
+        // @上一天
+        $scope.prevDay = function() {
+
+
+            var prevDayTime = new Date($scope.currentSelectedDateOrTime).getTime() - (1 * 86400000); // ms
+
+            var temp3 = new Date();
+            var temp4 = $filter('date')(temp3, 'yyyy-MM-dd');
+
+            var startTime = new Date(temp4).getTime();
+
+            // var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
+            // var endTime = new Date().getTime() + (60 * 86400000);
+
+            if(prevDayTime >= startTime) {
+
+                var temp = new Date(prevDayTime);
+                $scope.currentSelectedDateOrTime = $filter('date')(temp, 'yyyy-MM-dd');
+
+                // @清除掉验证码计时器
+                $scope.stopFight();
+                $scope.countdownTxtShow = false;
+                $scope.verificationCodeBtnDisabled = false;
+                $scope.resetFight();
+
+                // @车票选择出发时间 显示更新
+                if($scope.ticketInfo_forwardTicket_arr != null) {
+                    
+                    $scope.ticketInfo_forwardTicket_arr = [];
+                    $scope.ticketInfo_forwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
+                    $scope.ticketSumPrice_forwardTicket = 0;  // @去程车票总价 清零，重新计算
+                    
+                }
+                if($scope.ticketInfo_backwardTicket_arr != null) {
+
+                    $scope.ticketInfo_backwardTicket_arr = [];
+                    $scope.ticketInfo_backwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
+                    $scope.ticketSumPrice_backwardTicket = 0;  // @返程车票总价 清零，重新计算
+                    
+                }
+
+            } else {
+                var temp = new Date();
+                var temp2 = $filter('date')(temp, 'yyyy-MM-dd');
+                layer.open({
+                    content: '选择日期仅当从' + temp2 + '往后' ,
+                    btn: '确定'
+                });
+            }
+        }
+
+        // @选择日期
+        var compareTimeTemp1 = new Date();
+        var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
+        var compareTime = new Date(compareTimeTemp2).getTime() + (60 * 86400000); // @60天时间
+
+        $scope.selectDay = function(val) {
+
+            var ipObj1 = {
+                callback: function (val) {  // @必选
+
+                    var val2 = new Date(val);
+                    $scope.currentSelectedDateOrTime = $filter('date')(val2, 'yyyy-MM-dd');
+
+                    // @清除掉验证码计时器
+                    $scope.stopFight();
+                    $scope.countdownTxtShow = false;
+                    $scope.verificationCodeBtnDisabled = false;
+                    $scope.resetFight();
+
+                    // @车票选择出发时间 显示更新
+                    if($scope.ticketInfo_forwardTicket_arr != null) {
+                        
+                        $scope.ticketInfo_forwardTicket_arr = [];
+                        $scope.ticketInfo_forwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
+                        $scope.ticketSumPrice_forwardTicket = 0;  // @去程车票总价 清零，重新计算
+                        
+                    }
+                    if($scope.ticketInfo_backwardTicket_arr != null) {
+
+                        $scope.ticketInfo_backwardTicket_arr = [];
+                        $scope.ticketInfo_backwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
+                        $scope.ticketSumPrice_backwardTicket = 0;  // @返程车票总价 清零，重新计算
+                        
+                    }
+
+                },
+                titleLabel: '选择日期',
+                closeLabel: '返回',
+                from: new Date(),
+                to: new Date(compareTime), // @11对应十二月，差1
+                dateFormat: 'yyyy-MM-dd', // @可选
+                closeOnSelect: true, // @可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
+                inputDate: new Date(),
+                templateType: 'modal'
+              };
+              ionicDatePicker.openDatePicker(ipObj1);
+        }
+
+
+        // ************************************************************************************************
         
 
         // @函数 验证手机号码
@@ -1952,9 +1966,6 @@ app
                 $scope.payBtnDisabled = true;
             }
         }
-
-
-
 
         // @支付 车票检验 函数
         $scope.checkRecharge = function() {
@@ -2316,78 +2327,6 @@ app
             });
         }
 
-
-        // ************************************************************************************************
-
-
-        // 门票处理 函数
-        if($scope.ticketInfo.haveTicket == 1) { // 有门票时
-
-            $scope.modal = $ionicModal.fromTemplate('<ion-modal-view>'+
-                '	  '+
-                '        <ion-header-bar class="bar bar-header modal-one" >'+
-                '		'+
-                '		   <button class="button  button-balanced" ng-click="chooseScenicSpotTicket()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">取消</button>'+
-                '          <h1 class="title"> </h1>'+
-                '          <button class="button button-balanced" ng-click="chooseScenicSpotTicket()" style="background: rgba(240, 248, 255, 0.09);color: #676464;">确定</button>'+
-                '		  '+
-                '        </ion-header-bar>'+
-                '		'+
-                '        <ion-content class="padding" style="background: #ffffff;margin-top: 300px;" >'+
-                '		    <p style="text-align:center;font-size: 20px;"><span>{{ticketInfo.viewName}}</span></p>	'+
-                '			<ion-radio style="padding: 15px 10px;border: none;font-size: 17px;" ng-repeat="item in scenicSpotTicketArr"'+
-                '               ng-value="item.viewPriceType"'+
-                '               ng-model="scenicSpotTicket.type">'+
-                '      			{{ item.viewPriceType }} <span style="margin-left: 5px;" >{{ item.couponPrice }} 元</span> '+
-                '    		</ion-radio>'+
-                '			'+
-                '        </ion-content>'+
-                '		'+
-                '      </ion-modal-view>', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            });
-          
-            $scope.scenicSpotTicketArr = $scope.ticketInfo.viewPrices; // 门票数组
-
-            $scope.scenicSpotTicket = {
-                type: $scope.ticketInfo.viewPrices[0].viewPriceType // 指定门票数组的第一个为 默认门票类型
-            };
-		
-            $scope.chooseScenicSpotTicket = function() {
-                for(var item in $scope.ticketInfo.viewPrices) {
-                    var objTemp = $scope.ticketInfo.viewPrices[item];
-                    if(objTemp.viewPriceType == $scope.scenicSpotTicket.type) {
-                        $scope.scenicSpotTicketPrice = objTemp.couponPrice; // 找出用户选择的相应类型的门票价格
-                        $scope.scenicSpotTicketPriceID = objTemp.viewPriceId; // 同时更新用户选择的门票的ID
-                    }
-                }
-                $scope.price = $scope.floatObj.add($scope.ticketInfo.productPrice, $scope.scenicSpotTicketPrice, 2);
-
-                $scope.sumPrice =  $scope.floatObj.multiply($scope.price, $scope.dataContainer.count, 2); // 全票总价
-                console.log("全票总价");
-                console.log($scope.sumPrice);
-
-                $scope.sumPrice2 = $scope.floatObj.multiply($scope.price2, $scope.dataContainer.count, 2);  // 车票总价
-                console.log("车票总价");
-                console.log($scope.sumPrice2); 
-
-                $scope.price3 = $scope.scenicSpotTicketPrice; // 门票
-                $scope.sumPrice3 = $scope.floatObj.multiply($scope.price3, $scope.dataContainer.count, 2);  // 门票总价
-                console.log("门票总价");
-                console.log($scope.sumPrice3);
-
-                $scope.modal.hide();
-                console.log($scope.scenicSpotTicketPriceID);
-            }
-
-
-            $scope.$on('$destroy', function() { // @销毁工作
-                $scope.modal.remove();
-            });
-
-        }
-        
     })
 
     /* @支付成功页 车票购买成功 跳转 */
