@@ -232,13 +232,13 @@
 
                                                         <div class="col">
 
-                                                            <div ng-if="false">
+                                                            <div ng-if="ticketInfo_backwardTicket_haveChoosed">
                                                                 <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                                                    <span style="font-size: 17px;">07:35</span>
+                                                                    <span style="font-size: 17px;">{{ticketInfo_backwardTicket_time}}</span>
                                                                     <span style="color:#a7a7ab">
                                                                             <span style="font-size: 14px;display: inline-block;"> · </span>
                                                                             剩
-                                                                            <span class="btnfont2">12</span>座 / 13座
+                                                                            <span class="btnfont2">{{ticketInfo_backwardTicket_leftTickets}}</span>座 / {{ticketInfo_backwardTicket_totalTickets}}座
                                                                             <span class="item-note" style="margin-right: 20px;" > 
                                                                                 <i class="icon ion-chevron-right padding-left"></i>
                                                                             </span>
@@ -246,8 +246,8 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div ng-if="true">
-                                                                <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
+                                                            <div ng-if="!ticketInfo_backwardTicket_haveChoosed">
+                                                                <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item" ng-click="ticketInfo_backwardTicket_selectGoTime_Fn()">
                                                                     <span style="font-size: 17px;">请选择出发时间</span>
                                                                     <span style="color:#a7a7ab">
                                                                             <span class="item-note" style="margin-right: 20px;" > 
@@ -261,17 +261,17 @@
 
                                                 </div>
                 
-                                                <div class="row purchase" ng-if="false">
+                                                <div class="row purchase" ng-if="ticketInfo_backwardTicket_haveChoosed">
 
                                                     <div class="col col-60">
-                                                        <div style="font-size: 17px;white-space: normal;" >票价：{{}}元</div>
+                                                        <div style="font-size: 17px;white-space: normal;" >票价：{{ticketInfo_backwardTicket_price}}元</div>
                                                     </div>
 
                                                     <div class="col col-40">
                                                         <div style="text-align: center;">
-                                                                <button class="button  btnfoot6" ng-click="decr()">-</button>
-                                                                <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
-                                                                <button class="button  btnfont8" ng-click="incr()">+</button>
+                                                                <button class="button  btnfoot6" ng-click="ticketInfo_backwardTicket_decr()">-</button>
+                                                                <button class="button  btnfont7">{{ticketInfo_backwardTicket_count}}</button>
+                                                                <button class="button  btnfont8" ng-click="ticketInfo_backwardTicket_incr()">+</button>
                                                         </div>
                                                     </div>
 
@@ -552,13 +552,14 @@
                     </div> -->
 
                     <div class="row" style="background: white; margin-top: 10px;">
-                            <div class="col">
+                            <div class="col" ng-click="checkCoupon2()">
                                 <div>
                                     <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
                                         <span style="font-size: 17px;">优惠券</span>
                                         <span style="color:#a7a7ab">
-                                                <span class="item-note" style="margin-right: 20px;" > 
-                                                    <span style="color: black;font-size: 17px;">国庆全家桶100元</span>
+                                                <span class="item-note" style="margin-right: 20px;" >
+                                                    <span style="color: black;font-size: 17px;" ng-if="noCouponTxt">无可用优惠券</span>
+                                                    <span style="color: black;font-size: 17px;" ng-if="noCouponTxt2">{{coupon  | currency: '￥' }}</span>
                                                     <i class="icon ion-chevron-right padding-left"></i>
                                                 </span>
                                         </span>
@@ -632,7 +633,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="col col-40" style="background: #E35C1D;border: none;" ng-click="recharge()" ng-disabled="payBtnDisabled">
+                                <button class="col col-40" style="background: #E35C1D;border: none;" ng-click="checkRecharge()" ng-disabled="payBtnDisabled">
                                     <div style="text-align: center;">
                                         <span style="color: white;font-size: 22px;line-height: 2;">去付款</span>
                                     </div>
