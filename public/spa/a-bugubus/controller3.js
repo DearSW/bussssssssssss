@@ -2181,23 +2181,77 @@ app
             };
 
             console.log("订单页：支付购买的请求参数");
-            console.log(data2); // 即是 api/product/buyProductTicket 接口的参数，也是传递到 order_detail_refund 的参数
+            console.log(data2); 
+
+            // @传递到支付成功页的参数封装
+
+            var data3_count = '';
+            var data3_backCount = '';
+            var data3_gobdid = '';
+            var data3_backbdid = '';
+            var data3_doorCount = '';
+            var data3_viewid = '';
+
+            if($scope.ticketInfo.viewInfo != null) {
+                data3_viewid = $scope.ticketInfo.viewInfo.viewid;
+            }
+
+            if($scope.ticketInfo_viewInfo_tempRequestParamArr != null) {
+
+                for(var i = 0, len = $scope.ticketInfo_Ticket_tempRequestParamArr.length; i < len; i++) {
+                    if(i == 0) {
+                        data3_gobdid = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0];
+                        data3_count = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                    } else if(i == 1) {
+                        data3_backbdid = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0];
+                        data3_backCount = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];                        
+                    }
+                }
+
+            }
+
+            if($scope.ticketInfo_viewInfo_tempRequestParamArr != null) {
+
+                for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
+                    data3_doorCount += Number.parseInt($scope.ticketInfo_viewInfo_tempRequestParamArr[i][1]);
+                }
+
+            }
+
+            var data3 = {
+                userid: userid,
+                departDate: departDate,
+                gobdid: data3_gobdid,
+                backbdid: data3_backbdid,
+                count: data3_count,
+                backCount: data3_backCount,
+                doorCount: data3_doorCount,
+                viewid: data3_viewid
+            };
+
+            console.log("订单页：传递到支付成功页的参数");                        
+            console.log(data3);
+
 
             // @支付请求接口 wechat/product/buyProductTicket
             $myHttpService.post("api/product/buyProductTicket", data2, function(data) {
 
+                console.log("订单页：支付请求API返回的数据");
                 console.log(data);
+
                 if(data.counponUse != null) {
                     
                     if(data.updateCoupon) {
-                        console.log(data2);
-                        $state.go('order_detail_refund', {data: JSON.stringify(data2)}, {reload: true});                        
+                        console.log("订单页：优惠券支付成功，传递到支付成功页的参数");                        
+                        console.log(data3);
+                        $state.go('order_detail_refund', {data: JSON.stringify(data3)}, {reload: true});                        
                     } else {
                         layer.open({
                             content: '支付失败',
                             btn: '确定'
                         });
                     }
+
                 } else {
 
                     $scope.rechargeid = data.rechargeid;
@@ -2222,9 +2276,9 @@ app
                                         rechargeid: $scope.rechargeid
                                     }, function(data) {
                                         alert("您已成功支付");
-                                        console.log("微信订单支付成功，传递参数打印");
-                                        console.log(data2);
-                                        $state.go('order_detail_refund', {data: JSON.stringify(data2)}, {reload: true});
+                                        console.log("订单页：微信支付成功，传递到支付成功页的参数");
+                                        console.log(data3);
+                                        $state.go('order_detail_refund', {data: JSON.stringify(data3)}, {reload: true});
                                     }, function(data) {
                                         layer.open({
                                             content: '支付失败，请联系客服处理。',
@@ -2262,7 +2316,7 @@ app
             });
         }
 
-        
+
         // ************************************************************************************************
 
 
@@ -2336,7 +2390,7 @@ app
         
     })
 
-    /* 车票购买成功 跳转 */
+    /* @支付成功页 车票购买成功 跳转 */
     .controller('order_detail_refund', function($rootScope, $scope, $filter, $state, $myHttpService, $ionicSlideBoxDelegate) {
 
         if(JSON.parse($state.params.data) == null) { // 访问此页面时，如果没有传递过来参数
@@ -2377,10 +2431,11 @@ app
                 $ionicSlideBoxDelegate.update();
             }, errorFn);
 
-        } else { // 访问此页面时，如果有参数传递过来
+        } else { // @访问此页面时，如果有参数传递过来
             
-            var paramsData = JSON.parse($state.params.data);
-            console.log("支付成功后，传递过来的参数");
+            var paramsData = JSON.parse($state.params.data); // @参数解析
+
+            console.log("支付成功页：传递过来的参数");
             console.log(paramsData);
 
             sessionStorage.setItem('order_detail_refund_userid', paramsData.userid);
@@ -2409,18 +2464,28 @@ app
                 sessionStorage.setItem('order_detail_refund_backbdid', paramsData.backbdid);
             }
 
-            // 获取用户刚刚购买的票
+            // 获取用户刚刚购买的票  /web/product/ queryProductOrderByBdid
             $myHttpService.post('api/product/queryProductOrderByBdid', requestData, function(data) {
+
+                console.log("支付成功页：获取用户刚刚购买的票API返回的数据");
                 console.log(data);
+
                 if(data.backViewOrders == null) { // 单程票
+
                     $scope.ticketsInfo = data.viewOrders;
                     $scope.ticketsInfoLength = data.viewOrders.length;
+
                 } else { // 往返票
+
                     $scope.ticketsInfo = data.viewOrders.concat(data.backViewOrders);
-                    $scope.ticketsInfoLength = $scope.ticketsInfo.length;              
+                    $scope.ticketsInfoLength = $scope.ticketsInfo.length;  
+
                 }
+
                 $ionicSlideBoxDelegate.update();
+
             }, errorFn);
+
         }
 
         // 车辆位置 函数
