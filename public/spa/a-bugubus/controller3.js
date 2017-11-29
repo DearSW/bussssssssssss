@@ -329,7 +329,7 @@ app
                     console.log($rootScope.roadLineData);
                 }
 
-            });
+            }, errorFn);
 
             $rootScope.isSelectedRoadLine = ""; // @用户点击的 某一条线路存在这里
             $rootScope.isSelectedRoadLineBoolean = true; // @是否选择路线，控制“主题/路线/目的地”等字段的显示状态，true为显示，false不显示
@@ -945,96 +945,98 @@ app
         }
 
         // @产品信息 下拉刷新
-        $scope.doRefreshRoad = function() {
-            if(paramsData != null) {
+        /*
+            $scope.doRefreshRoad = function() {
+                if(paramsData != null) {
 
-                if(sessionStorage.getItem('questUrlType') == '0') { // @一、图片推荐类型的产品列表
+                    if(sessionStorage.getItem('questUrlType') == '0') { // @一、图片推荐类型的产品列表
 
-                    console.log("1111");
-                    var requestData = {
-                        productid: paramsData.productid
-                    };
-                    // 图片推荐类型产品列表 /web/product/queryProduct
-                    $myHttpService.postNoLoad('api/product/queryRecommendProduct', requestData, function(data){
-                        console.log(data);
-                        $scope.ticketsInfo = data.products;
-                        $scope.$broadcast('scroll.refreshComplete');
-                        layer.open({
-                            content: '刷新成功',
-                            skin: 'msg',
-                            time: 1
+                        console.log("1111");
+                        var requestData = {
+                            productid: paramsData.productid
+                        };
+                        // 图片推荐类型产品列表 /web/product/queryProduct
+                        $myHttpService.postNoLoad('api/product/queryRecommendProduct', requestData, function(data){
+                            console.log(data);
+                            $scope.ticketsInfo = data.products;
+                            $scope.$broadcast('scroll.refreshComplete');
+                            layer.open({
+                                content: '刷新成功',
+                                skin: 'msg',
+                                time: 1
+                            });
+                        }, function() {
+                            $scope.$broadcast('scroll.refreshComplete');                        
                         });
-                    }, function() {
-                        $scope.$broadcast('scroll.refreshComplete');                        
-                    });
 
-                } else if(sessionStorage.getItem('questUrlType') == '1') { // @二、手动搜索类型的产品列表
-                    
-                    var requestData = {
-                        keyword: $rootScope.currentSelectedRoadLine,
-                        departDate: $rootScope.currentSelectedDate,
-                        region: $rootScope.currentSelectedCity
-                    };
-                    console.log(requestData);
+                    } else if(sessionStorage.getItem('questUrlType') == '1') { // @二、手动搜索类型的产品列表
+                        
+                        var requestData = {
+                            keyword: $rootScope.currentSelectedRoadLine,
+                            departDate: $rootScope.currentSelectedDate,
+                            region: $rootScope.currentSelectedCity
+                        };
+                        console.log(requestData);
 
-                    $myHttpService.postNoLoad('api/product/queryProductList', requestData, function(data){
-                        console.log(data);
-                        $scope.ticketsInfo = data.products;
-                        $scope.$broadcast('scroll.refreshComplete');
-                        layer.open({
-                            content: '刷新成功',
-                            skin: 'msg',
-                            time: 1
+                        $myHttpService.postNoLoad('api/product/queryProductList', requestData, function(data){
+                            console.log(data);
+                            $scope.ticketsInfo = data.products;
+                            $scope.$broadcast('scroll.refreshComplete');
+                            layer.open({
+                                content: '刷新成功',
+                                skin: 'msg',
+                                time: 1
+                            });
+                        }, function() {
+                            $scope.$broadcast('scroll.refreshComplete');                        
                         });
-                    }, function() {
-                        $scope.$broadcast('scroll.refreshComplete');                        
-                    });
+                    }
+
+                } else {
+
+                    if(sessionStorage.getItem('questUrlType') == '0') {
+                            
+                        var requestData = {
+                            productid: sessionStorage.getItem('tabsParamsDataProductid')
+                        };
+                        $myHttpService.postNoLoad('api/product/queryRecommendProduct', requestData, function(data){
+                            console.log(data);
+                            $scope.ticketsInfo = data.products;
+                            $scope.$broadcast('scroll.refreshComplete');
+                            layer.open({
+                                content: '刷新成功',
+                                skin: 'msg',
+                                time: 1
+                            });
+                        }, function() {
+                            $scope.$broadcast('scroll.refreshComplete');                        
+                        });
+                                            
+                    } else if(sessionStorage.getItem('questUrlType') == '1') {
+
+                        var requestData = {
+                            keyword: $rootScope.currentSelectedRoadLine,
+                            departDate: $rootScope.currentSelectedDate,
+                            region: $rootScope.currentSelectedCity
+                        };
+                        console.log(requestData);
+
+                        $myHttpService.postNoLoad('api/product/queryProductList', requestData, function(data){
+                            console.log(data);
+                            $scope.ticketsInfo = data.products;
+                            $scope.$broadcast('scroll.refreshComplete');
+                            layer.open({
+                                content: '刷新成功',
+                                skin: 'msg',
+                                time: 1
+                            });
+                        }, function() {
+                            $scope.$broadcast('scroll.refreshComplete');                        
+                        });
+                    }
                 }
-
-            } else {
-
-                if(sessionStorage.getItem('questUrlType') == '0') {
-                         
-                    var requestData = {
-                        productid: sessionStorage.getItem('tabsParamsDataProductid')
-                    };
-                    $myHttpService.postNoLoad('api/product/queryRecommendProduct', requestData, function(data){
-                        console.log(data);
-                        $scope.ticketsInfo = data.products;
-                        $scope.$broadcast('scroll.refreshComplete');
-                        layer.open({
-                            content: '刷新成功',
-                            skin: 'msg',
-                            time: 1
-                        });
-                    }, function() {
-                        $scope.$broadcast('scroll.refreshComplete');                        
-                    });
-                                        
-                } else if(sessionStorage.getItem('questUrlType') == '1') {
-
-                    var requestData = {
-                        keyword: $rootScope.currentSelectedRoadLine,
-                        departDate: $rootScope.currentSelectedDate,
-                        region: $rootScope.currentSelectedCity
-                    };
-                    console.log(requestData);
-
-                    $myHttpService.postNoLoad('api/product/queryProductList', requestData, function(data){
-                        console.log(data);
-                        $scope.ticketsInfo = data.products;
-                        $scope.$broadcast('scroll.refreshComplete');
-                        layer.open({
-                            content: '刷新成功',
-                            skin: 'msg',
-                            time: 1
-                        });
-                    }, function() {
-                        $scope.$broadcast('scroll.refreshComplete');                        
-                    });
-                }
-            }
-        };
+            };
+        */
 
         // @点评信息 下拉刷新
         $scope.isNoComment = false;
@@ -1220,7 +1222,7 @@ app
                 $scope.ticketInfo_forwardTicket_count = 0; // @去程车票数
                 $scope.ticketInfo_forwardTicket_price = 0; // @去程车票价格
 
-                $scope.ticketInfo_forwardTicket_lineid = $scope.ticketInfo.plans[0].lineid; // @去程票 线路ID
+                $scope.ticketInfo_forwardTicket_bpid = $scope.ticketInfo.plans[0].bpid; // @去程票 线路ID
                 
                 $scope.ticketInfo_forwardTicket_selectGoTime_Fn = function() { // @去程票选择出发时间函数
 
@@ -1229,7 +1231,7 @@ app
                     // @$filter('date')($scope.currentSelectedDateOrTime, 'yyyy-MM-dd')
                     var requestData = { // @参数封装
                         departDate: $filter('date')($scope.currentSelectedDateOrTime, 'yyyy-MM-dd'),
-                        lineid: $scope.ticketInfo_forwardTicket_lineid
+                        bpid: $scope.ticketInfo_forwardTicket_bpid
                     };
 
                     console.log(requestData);
@@ -1385,7 +1387,7 @@ app
                 $scope.ticketInfo_backwardTicket_count = 0; // @返程车票数
                 $scope.ticketInfo_backwardTicket_price = 0; // @返程车票价格
 
-                $scope.ticketInfo_backwardTicket_lineid = $scope.ticketInfo.plans[1].lineid; // @返程票 线路ID
+                $scope.ticketInfo_backwardTicket_bpid = $scope.ticketInfo.plans[1].bpid; // @返程票 线路ID
                 
                 $scope.ticketInfo_backwardTicket_selectGoTime_Fn = function() { // @返程票选择出发时间函数
 
@@ -1394,7 +1396,7 @@ app
                     // @$filter('date')($scope.currentSelectedDateOrTime, 'yyyy-MM-dd')
                     var requestData = { // @参数封装
                         departDate: $filter('date')($scope.currentSelectedDateOrTime, 'yyyy-MM-dd'),
-                        lineid: $scope.ticketInfo_backwardTicket_lineid
+                        bpid: $scope.ticketInfo_backwardTicket_bpid
                     };
 
                     console.log(requestData);
