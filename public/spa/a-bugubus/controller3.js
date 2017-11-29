@@ -1692,7 +1692,7 @@ app
 
                     if($scope.ticketInfo_forwardTicket_haveChoosed == true) {
                         
-                        var bsids = $scope.ticketInfo.plans[0].linename + '&' + departDate + '&' + ticketInfo_forwardTicket_time
+                        var bsids = $scope.ticketInfo.plans[0].linename + '&' + departDate + '&' + $scope.ticketInfo_forwardTicket_time
                         
                         var requestData = {
                             phone: $scope.dataContainer.phone,
@@ -1715,7 +1715,7 @@ app
 
                     if($scope.ticketInfo_forwardTicket_haveChoosed == true && $scope.ticketInfo_backwardTicket_haveChoosed == true) {
                         
-                        var bsids = $scope.ticketInfo.plans[0].linename + '&' + departDate + '&' + ticketInfo_forwardTicket_time
+                        var bsids = $scope.ticketInfo.plans[0].linename + '&' + departDate + '&' + $scope.ticketInfo_forwardTicket_time
                         
                         var requestData = {
                             phone: $scope.dataContainer.phone,
@@ -1973,7 +1973,7 @@ app
                 // @有返程时 的情况
                 if($scope.ticketInfo.plans[1] != null) {
 
-                    if($scope.$scope.ticketInfo_backwardTicket_haveChoosed == false) {
+                    if($scope.ticketInfo_backwardTicket_haveChoosed == false) {
                         layer.open({
                             content: '客官，请选择行程出发时间日期 (╯-╰)',
                             btn: '确定'
