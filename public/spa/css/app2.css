@@ -445,10 +445,10 @@ ul.rating {
 }
 
 .jqztc-order-confirm .unselected2 {
-    
+    opacity: 0.5;
 }
 .jqztc-order-confirm .selected2 {
-    opacity: 0.5;
+    
 }
 
 input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.cloned-text-input), textarea[readonly]:not(.cloned-text-input), select[readonly] {

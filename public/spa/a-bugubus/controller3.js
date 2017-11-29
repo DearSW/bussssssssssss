@@ -671,9 +671,7 @@ app
  
                 $scope.sourceComeType = true; // @来源类型 判断
 
-                var requestData = {
-                    productid: sessionStorage.getItem('tabsParamsDataProductid')
-                };
+                $scope.paramsProductId = sessionStorage.getItem('tabsParamsDataProductid'); // @产品ID，查询评论用
 
                 // @图片推荐类型产品列表 /web/product/queryProduct
                 $myHttpService.post('api/product/queryProduct', requestData, function(data) {
@@ -1022,6 +1020,8 @@ app
         $scope.coupon = 0; // @优惠总价
 
         $rootScope.customerPhone = "18302505304"; // @客服电话
+
+        $scope.againObtainCheckCode = false; // @显示重新获取验证码的提示
 
         $scope.currentSelectedDateOrTime = sessionStorage.getItem('tabsParamsDataDate'); // @唯一的当前选择的时间
         if($scope.currentSelectedDateOrTime == null) {
@@ -1509,6 +1509,9 @@ app
                 $scope.verificationCodeBtnDisabled = false;
                 $scope.resetFight();
 
+                $scope.dataContainer.verificationCode = '';
+                $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
+
                 // @车票选择出发时间 显示更新
                 if($scope.ticketInfo_forwardTicket_arr != null) {
 
@@ -1559,6 +1562,9 @@ app
                 $scope.verificationCodeBtnDisabled = false;
                 $scope.resetFight();
 
+                $scope.dataContainer.verificationCode = '';
+                $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
+
                 // @车票选择出发时间 显示更新
                 if($scope.ticketInfo_forwardTicket_arr != null) {
                     
@@ -1589,7 +1595,6 @@ app
         var compareTimeTemp1 = new Date();
         var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
         var compareTime = new Date(compareTimeTemp2).getTime() + (60 * 86400000); // @60天时间
-
         $scope.selectDay = function(val) {
 
             var ipObj1 = {
@@ -1603,6 +1608,9 @@ app
                     $scope.countdownTxtShow = false;
                     $scope.verificationCodeBtnDisabled = false;
                     $scope.resetFight();
+
+                    $scope.dataContainer.verificationCode = '';
+                    $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
 
                     // @车票选择出发时间 显示更新
                     if($scope.ticketInfo_forwardTicket_arr != null) {

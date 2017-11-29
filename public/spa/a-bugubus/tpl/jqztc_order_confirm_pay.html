@@ -515,7 +515,8 @@
                             <div class="col col-60">
                                 <div class="list list-inset">
                                     <label class="item item-input" style="border-radius: 3px;">
-                                        <input type="tel" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                        <input type="tel" ng-if="againObtainCheckCode" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                        <input type="tel" ng-if="!againObtainCheckCode" placeholder="请重新获取验证码，并输入" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
                                     </label>
                                 </div>
                             </div>
