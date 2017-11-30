@@ -1457,7 +1457,7 @@ app
     
                     if(index == i) {
     
-                        if($scope["ticketInfo_viewInfo_count" + index] > 1) {
+                        if($scope["ticketInfo_viewInfo_count" + index] >= 1) {
     
                             $scope["ticketInfo_viewInfo_count" + index] -= 1;
                             console.log("订单页：相应门票的数量" + $scope["ticketInfo_viewInfo_count" + index]);
@@ -2387,7 +2387,6 @@ app
 
         }
         
-
     })
 
     /* @支付成功页 车票购买成功 跳转 */
