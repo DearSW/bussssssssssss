@@ -2049,57 +2049,9 @@ app
             
         }
 
-        /*
-            $scope.checkCoupon = function($event) {
-
-                if($scope.ticketInfo.productType == '1') {
-                    var requestData = {
-                        userid: $rootScope.session.user.userInfo.userid,
-                        gobdid: $scope.ticketInfo.gobdid,
-                        count: $scope.dataContainer.count,
-                        backbdid: $scope.ticketInfo.backbdid
-                    }
-                } else {
-                    var requestData = {
-                        userid: $rootScope.session.user.userInfo.userid,
-                        gobdid: $scope.ticketInfo.gobdid,
-                        count: $scope.dataContainer.count
-                    }
-                }
-                
-                if(couponCount % 2 == 1) {
-
-                    $scope.oldTicketPriceShow = false;        
-                    $scope.newTicketPriceShow = true;
-                    $scope.useCoupon = true;
-            
-                    $myHttpService.post('api/product/queryUserBuslineCoupon', requestData, function(data) {
-                        console.log("优惠券状态");
-                        console.log(data.isHaveCoupon);
-                        if(data.isHaveCoupon) {
-                            // 有优惠券
-                            $scope.couponBtnState = true;
-                            $scope.couponTxTShow = false;
-                            $scope.newTicketPrice = data.showPrice; // 优惠金额
-                        } else {
-                            // 没有优惠券
-                            $scope.couponBtnState = false;
-                            $scope.couponTxTShow = true;
-                            $scope.newTicketPrice = 0;                
-                        }
-                    }, errorFn);
-
-                } else {
-                        $scope.couponBtnState = false;
-                        $scope.oldTicketPriceShow = true;
-                        $scope.newTicketPriceShow = false;   
-                        $scope.useCoupon = false;         
-                }
-                couponCount++;
-            };
-
-        */
-
+        $scope.$on('$destroy', function() {
+            $scope.couponChooseModal.remove();
+        });
 
         // ************************************************************************************************
 
@@ -2522,35 +2474,18 @@ app
 
         if(JSON.parse($state.params.data) == null) { // @访问此页面时，如果没有传递过来参数
 
-            layer.open({
-                content: '客官，暂时无法访问当前页面，将返回首页！',
-                btn: '确定',
-                yes: function(index){
-                    window.history.back();
-                    layer.close(index);
-                    return false;
-                }
-            });
-            
-        } else { // @访问此页面时，如果有参数传递过来
-            
-            var paramsData = JSON.parse($state.params.data); // @参数解析
-
-            // backCount:1
-            // backbdid:"2017112910420296374255"
-            // count:1
-            // departDate:"2017-12-01"
-            // doorCount:0
-            // gobdid:"2017112810380901002998"
-            // userid:"2017112409511512371556"
-            // viewid:"2017112711511975860548"
-
-            console.log("支付成功页：传递过来的参数");
-            console.log(paramsData);
-
+            // layer.open({
+            //     content: '客官，暂时无法访问当前页面，将返回首页！',
+            //     btn: '确定',
+            //     yes: function(index){
+            //         window.history.back();
+            //         layer.close(index);
+            //         return false;
+            //     }
+            // });
             // @获取用户刚刚购买的票  /web/product/queryProductOrderByBdid
-            $myHttpService.post('api/product/queryProductOrderByBdid', paramsData, function(data) {
-
+            $myHttpService.post('api/product/queryProductOrderByBdid', $rootScope.order_detail_refund_paramsData, function(data) {
+                
                 console.log("支付成功页：获取用户刚刚购买的票API返回的数据");
                 console.log(data);
 
@@ -2558,7 +2493,7 @@ app
                 $scope.ticketsInfo = []; // @车票
                 $scope.ticketsViewInfo = []; // @门票
 
-                if(data.viewOrder != null && data.viewOrders.length != 0) {
+                if(data.viewOrders != null && data.viewOrders.length != 0) {
                     $scope.ticketsInfoTemp = data.viewOrders;
                     console.log($scope.ticketsInfoTemp);
                 }
@@ -2578,17 +2513,71 @@ app
 
             }, errorFn);
 
-            // @车辆位置 函数
-            $scope.getBusPosition = function(item) {
-                console.log(item);
-                var data = {
-                    carid: item.carid,
-                    lineid: item.lineid
-                };
-                $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: false});
-            } 
+            
+        } else { // @访问此页面时，如果有参数传递过来
+            
+            var paramsData = JSON.parse($state.params.data); // @参数解析
 
+            // backCount:1
+            // backbdid:"2017112910420296374255"
+            // count:1
+            // departDate:"2017-12-01"
+            // doorCount:0
+            // gobdid:"2017112810380901002998"
+            // userid:"2017112409511512371556"
+            // viewid:"2017112711511975860548"
+
+            $rootScope.order_detail_refund_paramsData = paramsData;
+
+            console.log("支付成功页：传递过来的参数");
+            console.log(paramsData);
+
+            // @获取用户刚刚购买的票  /web/product/queryProductOrderByBdid
+            $myHttpService.post('api/product/queryProductOrderByBdid', paramsData, function(data) {
+
+                console.log("支付成功页：获取用户刚刚购买的票API返回的数据");
+                console.log(data);
+
+                $scope.ticketsInfoTemp = []; // @车票
+                $scope.ticketsInfo = []; // @车票
+                $scope.ticketsViewInfo = []; // @门票
+
+                if(data.viewOrders != null && data.viewOrders.length != 0) {
+                    $scope.ticketsInfoTemp = data.viewOrders;
+                    console.log($scope.ticketsInfoTemp);
+                }
+
+                if(data.backViewOrders != null && data.backViewOrders.length != 0) {
+                    $scope.ticketsInfo = $scope.ticketsInfoTemp.concat(data.backViewOrders);
+                }
+
+                console.log("支付成功页: 车票数组");
+                console.log($scope.ticketsInfo);
+
+                if(data.ticketOrders != null && data.ticketOrders.length != 0) {
+                    $scope.ticketsViewInfo = data.ticketOrders;
+                }
+
+                $ionicSlideBoxDelegate.update();
+
+            }, errorFn);
+
+            
         }
+
+        // @车辆位置 函数
+        $scope.getBusPosition = function(item) {
+            console.log(item);
+            var data = {
+                carid: item.carid,
+                lineid: item.lineid
+            };
+            $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: false});
+        } 
+
+        $scope.$on('$destroy', function() {
+            
+        });
                
     })
 
