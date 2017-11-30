@@ -2554,27 +2554,33 @@ app
                 console.log("支付成功页：获取用户刚刚购买的票API返回的数据");
                 console.log(data);
 
-                $scope.ticketInfo = []; // @车票
-                $scope.ticketViewInfo = []; // @门票
+                $scope.ticketsInfoTemp = []; // @车票
+                $scope.ticketsInfo = []; // @车票
+                $scope.ticketsViewInfo = []; // @门票
 
                 if(data.viewOrder != null && data.viewOrders.length != 0) {
-                    $scope.ticketsInfo = data.viewOrders;
+                    $scope.ticketsInfoTemp = data.viewOrders;
+                    console.log($scope.ticketsInfoTemp);
                 }
 
                 if(data.backViewOrders != null && data.backViewOrders.length != 0) {
-                    $scope.ticketsInfo = $scope.ticketsInfo.concat(data.backViewOrders);
+                    $scope.ticketsInfo = $scope.ticketsInfoTemp.concat(data.backViewOrders);
                 }
 
+                console.log("支付成功页: 车票数组");
+                console.log($scope.ticketsInfo);
+
                 if(data.ticketOrders != null && data.ticketOrders.length != 0) {
-                    $scope.ticketViewInfo = data.ticketOrders;
+                    $scope.ticketsViewInfo = data.ticketOrders;
                 }
 
                 $ionicSlideBoxDelegate.update();
 
             }, errorFn);
 
-            // 车辆位置 函数
+            // @车辆位置 函数
             $scope.getBusPosition = function(item) {
+                console.log(item);
                 var data = {
                     carid: item.carid,
                     lineid: item.lineid

@@ -10,9 +10,8 @@
         <ion-content has-tabs="true">
 
                     <div class="notice2" >
-                        <p>1、发车前1小时以上，可申请全额退款，超时或已验票后，无法退款。</p>
-                        <p>2、遇天气原因或其他不可抗拒因素而不能发车的，都可申请全额退款。</p>
-                        <p>3、更多票据信息、退票操作等请在公众号<span style="color:#47bd4c">我的行程</span>菜单中查看。</p>
+                        <p>1、左右滑动查看购买车票或者门票</p>
+                        <p>2、更多票据信息、退票等请在公众号的<span style="color:#47bd4c">我的行程</span>菜单中操作。</p>
                     </div>
 
                     <ion-slide-box show-pager="false">
@@ -112,7 +111,7 @@
                         </ion-slide> 
 
                         <!-- 门票 -->
-                        <ion-slide ng-repeat="item in ticketViewInfo track by $index">
+                        <ion-slide ng-repeat="item in ticketsViewInfo track by $index">
 
                                 <ion-list>
                                     <ion-item style="padding: 0;">
