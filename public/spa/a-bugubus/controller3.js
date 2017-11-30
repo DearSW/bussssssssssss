@@ -1992,6 +1992,9 @@ app
                         $scope.noCouponTxt = true;
                         $scope.useCoupon = false;
                     } else {
+                        $scope.couponType = { // @优惠券类型，同时也是 brcid
+                            type: $scope.couponArr[0].brcid // @默认取第一个为优惠券类型
+                        };
                         $scope.couponChooseModal.show(); // @优惠券弹窗显示
                     }
 
