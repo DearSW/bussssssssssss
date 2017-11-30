@@ -16,7 +16,7 @@ var errorFn = function() {
 /* @格式化 请求参数对象 去掉其中值为空的属性 */
 var formatParamObject = function(obj) {
     for (var key in obj) {  
-        if(obj[key]== '') {
+        if(obj[key] === '' && obj[key] !== false) {
                 delete obj[key];
            }
     }
