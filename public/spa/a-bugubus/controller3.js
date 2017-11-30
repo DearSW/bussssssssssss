@@ -2571,10 +2571,10 @@ app
             }, errorFn);
 
             // 车辆位置 函数
-            $scope.getBusPosition = function(i) {
+            $scope.getBusPosition = function(item) {
                 var data = {
-                    carid: $scope.ticketsInfo[i].carid,
-                    lineid: $scope.ticketsInfo[i].lineid
+                    carid: item.carid,
+                    lineid: item.lineid
                 };
                 $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: false});
             } 
@@ -3434,9 +3434,9 @@ app
             if(data.flag) {
                 $scope.user = data.user;
                 if($scope.user.userid.length > 4) {
-                    $scope.userOther = $scope.user.userid.substring(0, 6) + "***" + $scope.user.userid.substring($scope.user.userid.length-4);
+                    $scope.userOther = $scope.user.userid.substring(0, 6) + "*****" + $scope.user.userid.substring($scope.user.userid.length-4);
                 } else {
-                    $scope.userOther = $scope.user.userid.substring(0, 6) + "***";                    
+                    $scope.userOther = $scope.user.userid.substring(0, 6) + "*****";                    
                 }
                 tempUser2 = angular.copy($scope.user);
             } else {
