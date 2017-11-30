@@ -2517,109 +2517,70 @@ app
     /* @支付成功页 车票购买成功 跳转 */
     .controller('order_detail_refund', function($rootScope, $scope, $filter, $state, $myHttpService, $ionicSlideBoxDelegate) {
 
-        if(JSON.parse($state.params.data) == null) { // 访问此页面时，如果没有传递过来参数
+        if(JSON.parse($state.params.data) == null) { // @访问此页面时，如果没有传递过来参数
 
-            if(sessionStorage.getItem('order_detail_refund_backbdid') == null) {
-
-                var requestData = {
-                    userid: sessionStorage.getItem('order_detail_refund_userid'),
-                    departDate: sessionStorage.getItem('order_detail_refund_departDate'),
-                    gobdid: sessionStorage.getItem('order_detail_refund_gobdid'),
-                    count: sessionStorage.getItem('order_detail_refund_count')
-                };
-
-            } else {
-
-                var requestData = {
-                    userid: sessionStorage.getItem('order_detail_refund_userid'),
-                    departDate: sessionStorage.getItem('order_detail_refund_departDate'),
-                    gobdid: sessionStorage.getItem('order_detail_refund_gobdid'),
-                    backbdid: sessionStorage.getItem('order_detail_refund_backbdid'),
-                    count: sessionStorage.getItem('order_detail_refund_count')
-                };
-
-            }
-               
-            // 获取用户刚刚购买的票
-            $myHttpService.post('api/product/queryProductOrderByBdid', requestData, function(data) {
-                console.log(data);
-                if(data.backViewOrders == null) {
-                    $scope.ticketsInfo = data.viewOrders;
-                    $scope.ticketsInfoLength = data.viewOrders.length;
-                } else {
-
-                    $scope.ticketsInfo = data.viewOrders.concat(data.backViewOrders);
-                    $scope.ticketsInfoLength = $scope.ticketsInfo.length;              
+            layer.open({
+                content: '客官，暂时无法访问当前页面，将返回首页！',
+                btn: '确定',
+                yes: function(index){
+                    window.history.back();
+                    layer.close(index);
+                    return false;
                 }
-                
-                $ionicSlideBoxDelegate.update();
-            }, errorFn);
-
+            });
+            
         } else { // @访问此页面时，如果有参数传递过来
             
             var paramsData = JSON.parse($state.params.data); // @参数解析
 
+            // backCount:1
+            // backbdid:"2017112910420296374255"
+            // count:1
+            // departDate:"2017-12-01"
+            // doorCount:0
+            // gobdid:"2017112810380901002998"
+            // userid:"2017112409511512371556"
+            // viewid:"2017112711511975860548"
+
             console.log("支付成功页：传递过来的参数");
             console.log(paramsData);
 
-            sessionStorage.setItem('order_detail_refund_userid', paramsData.userid);
-            sessionStorage.setItem('order_detail_refund_departDate', paramsData.departDate);
-            sessionStorage.setItem('order_detail_refund_gobdid', paramsData.gobdid);
-            sessionStorage.setItem('order_detail_refund_count', paramsData.count);
-
-            if(paramsData.backbdid == null) { // 单程票
-                var requestData = { 
-                    userid: paramsData.userid,
-                    departDate: paramsData.departDate,
-                    gobdid: paramsData.gobdid,
-                    count: paramsData.count
-                };
-                if(sessionStorage.getItem('order_detail_refund_backbdid') != null) {
-                    sessionStorage.removeItem('order_detail_refund_backbdid)');
-                }
-            } else { // 往返票
-                var requestData = {
-                    userid: paramsData.userid,
-                    departDate: paramsData.departDate,
-                    gobdid: paramsData.gobdid,
-                    backbdid: paramsData.backbdid,
-                    count: paramsData.count
-                };
-                sessionStorage.setItem('order_detail_refund_backbdid', paramsData.backbdid);
-            }
-
-            // 获取用户刚刚购买的票  /web/product/ queryProductOrderByBdid
+            // @获取用户刚刚购买的票  /web/product/queryProductOrderByBdid
             $myHttpService.post('api/product/queryProductOrderByBdid', requestData, function(data) {
 
                 console.log("支付成功页：获取用户刚刚购买的票API返回的数据");
                 console.log(data);
 
-                if(data.backViewOrders == null) { // 单程票
+                $scope.ticketInfo = []; // @车票
+                $scope.ticketViewInfo = []; // @门票
 
+                if(data.viewOrder != null && data.viewOrders.length != 0) {
                     $scope.ticketsInfo = data.viewOrders;
-                    $scope.ticketsInfoLength = data.viewOrders.length;
+                }
 
-                } else { // 往返票
+                if(data.backViewOrders != null && data.backViewOrders.length != 0) {
+                    $scope.ticketsInfo = $scope.ticketsInfo.concat(data.backViewOrders);
+                }
 
-                    $scope.ticketsInfo = data.viewOrders.concat(data.backViewOrders);
-                    $scope.ticketsInfoLength = $scope.ticketsInfo.length;  
-
+                if(data.ticketOrders != null && data.ticketOrders.length != 0) {
+                    $scope.ticketViewInfo = data.ticketOrders;
                 }
 
                 $ionicSlideBoxDelegate.update();
 
             }, errorFn);
 
-        }
+            // 车辆位置 函数
+            $scope.getBusPosition = function(i) {
+                var data = {
+                    carid: $scope.ticketsInfo[i].carid,
+                    lineid: $scope.ticketsInfo[i].lineid
+                };
+                $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: false});
+            } 
 
-        // 车辆位置 函数
-        $scope.getBusPosition = function(i) {
-            var data = {
-                carid: $scope.ticketsInfo[i].carid,
-                lineid: $scope.ticketsInfo[i].lineid
-            };
-            $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: false});
-        }        
+        }
+               
     })
 
     /* 车票 评价 */
