@@ -1521,6 +1521,7 @@ app
 
                 $scope.dataContainer.verificationCode = ''; // @清空验证码
                 $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
+                $scope.payBtnDisabled = true; // @禁用确认支付按钮
 
                 // @车票选择出发时间 显示更新
                 if($scope.ticketInfo_forwardTicket_arr != null) {
@@ -1580,6 +1581,7 @@ app
 
                 $scope.dataContainer.verificationCode = ''; // @清空验证码
                 $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
+                $scope.payBtnDisabled = true; // @禁用确认支付按钮
 
                 // @车票选择出发时间 显示更新
                 if($scope.ticketInfo_forwardTicket_arr != null) {
@@ -1633,6 +1635,7 @@ app
 
                     $scope.dataContainer.verificationCode = ''; // @清空验证码
                     $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
+                    $scope.payBtnDisabled = true; // @禁用确认支付按钮
 
                     // @车票选择出发时间 显示更新
                     if($scope.ticketInfo_forwardTicket_arr != null) {
@@ -1865,7 +1868,12 @@ app
 
                     $scope.couponArr = data.buslineCoupons; // @优惠券数组
 
-                    $scope.couponChooseModal.show(); // @优惠券弹窗显示
+                    if($scope.couponArr[0] == null) { // @优惠券数组为空
+                        $scope.noCouponTxt = true;
+                        $scope.useCoupon = false;
+                    } else {
+                        $scope.couponChooseModal.show(); // @优惠券弹窗显示
+                    }
 
                 } else { // @无优惠券
 
@@ -2361,6 +2369,24 @@ app
 
             });
         }
+
+
+        // ************************************************************************************************
+        
+
+        $scope.yonghuxuzhi_Fn = function() { // @用户须知弹窗函数
+            
+            '<p><i class="icon ion-ios-information" style="color:crimson;font-size: 14px;"></i> 如行程有变，请于发车前1小时以上，申请退款，超时或验票后不能退款。</p>'
+            
+            layer.open({
+                type: 1,
+                content: '<p><i class="icon ion-ios-information" style="color:crimson;font-size: 14px;" onclick="layer.closeAll();"></i></p>' + $scope.ticketInfo.productinfo,
+                anim: 'up',
+                style: 'position:fixed; left:0; top:0; width:100%; height:100%; border: none; -webkit-animation-duration: .5s; animation-duration: .5s;'
+            });
+
+        }
+        
 
     })
 
