@@ -13,6 +13,16 @@ var errorFn = function() {
         console.log("你好，数据请求失败");
 };
 
+/* @格式化 请求参数对象 去掉其中值为空的属性 */
+var formatParamObject = function(obj) {
+    for (var key in obj) {  
+        if(obj[key]== '') {
+                delete obj[key];
+           }
+    }
+    return obj;
+}
+
 /* @浮点数运算对象 */
 var floatObj = function() {
     /*
@@ -2316,10 +2326,12 @@ app
 
                 for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
                     
-                    if($scope.ticketInfo_viewInfo_tempRequestParamArr[i][1] != 0) {
-                        viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0].viewPriceId + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
-                    }
+                    // if($scope.ticketInfo_viewInfo_tempRequestParamArr[i][1] != 0) {
+                    //     viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0].viewPriceId + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                    // }
 
+                    viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0].viewPriceId + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                    
                 }
             }
                         
@@ -2343,6 +2355,8 @@ app
                 brcid: brcid,
                 productid: productid
             };
+            // @格式化 data2
+            data2 = formatParamObject(data2);
 
             console.log("订单页：支付购买的请求参数");
             console.log(data2); 
@@ -2376,6 +2390,7 @@ app
 
             if($scope.ticketInfo_viewInfo_tempRequestParamArr != null) {
 
+                data3_doorCount = 0;
                 for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
                     data3_doorCount += Number.parseInt($scope.ticketInfo_viewInfo_tempRequestParamArr[i][1]);
                 }
