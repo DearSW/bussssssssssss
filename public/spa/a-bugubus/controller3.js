@@ -2518,6 +2518,8 @@ app
             
             var paramsData = JSON.parse($state.params.data); // @参数解析
 
+            paramsData = formatParamObject(paramsData); // @参数格式化
+
             // backCount:1
             // backbdid:"2017112910420296374255"
             // count:1
@@ -2527,7 +2529,7 @@ app
             // userid:"2017112409511512371556"
             // viewid:"2017112711511975860548"
 
-            $rootScope.order_detail_refund_paramsData = paramsData;
+            $rootScope.order_detail_refund_paramsData = paramsData; // @存储参数
 
             console.log("支付成功页：传递过来的参数");
             console.log(paramsData);
