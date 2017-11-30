@@ -2380,9 +2380,9 @@ app
             
             layer.open({
                 type: 1,
-                content: '<p><i class="icon ion-ios-information" style="color:crimson;font-size: 14px;" onclick="layer.closeAll();"></i></p>' + $scope.ticketInfo.productinfo,
+                content: '<p style="text-align: right;margin-top: 10px;"><i class="icon ion-ios-close" style="color:#1fb54a;font-size: 40px;margin-right: 10px;" onclick="layer.closeAll();"></i></p><div style="margin: 5px 15px;">' + $scope.ticketInfo.productinfo + '</div>',
                 anim: 'up',
-                style: 'position:fixed; left:0; top:0; width:100%; height:100%; border: none; -webkit-animation-duration: .5s; animation-duration: .5s;'
+                style: 'position: absolute; left:0; top:0; width:100%; height:100%; border: none; -webkit-animation-duration: .3s; animation-duration: .3s;background: white;'
             });
 
         }
