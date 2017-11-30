@@ -1191,9 +1191,7 @@ app
                         console.log("订单页：去程车票总价");
                         console.log($scope.ticketSumPrice_forwardTicket);
 
-                        $scope.ticketInfo_Ticket_tempRequestParamArr[0][1] = [
-                            $scope.ticketInfo_forwardTicket_count
-                        ]; 
+                        $scope.ticketInfo_Ticket_tempRequestParamArr[0][1] = $scope.ticketInfo_forwardTicket_count;
 
                         console.log("订单页：车票参数数组");
                         console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
@@ -1222,9 +1220,7 @@ app
                         console.log("订单页：去程车票总价");
                         console.log($scope.ticketSumPrice_forwardTicket);
 
-                        $scope.ticketInfo_Ticket_tempRequestParamArr[0][1] = [
-                            $scope.ticketInfo_forwardTicket_count
-                        ]; 
+                        $scope.ticketInfo_Ticket_tempRequestParamArr[0][1] = $scope.ticketInfo_forwardTicket_count;
 
                         console.log("订单页：车票参数数组");
                         console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
@@ -1372,9 +1368,7 @@ app
                         console.log("订单页：返程车票总价");
                         console.log($scope.ticketSumPrice_backwardTicket);
 
-                        $scope.ticketInfo_Ticket_tempRequestParamArr[1][1] = [
-                            $scope.ticketInfo_backwardTicket_count
-                        ]; 
+                        $scope.ticketInfo_Ticket_tempRequestParamArr[1][1] = $scope.ticketInfo_backwardTicket_count;
 
                         console.log("订单页：车票参数数组");
                         console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
@@ -1403,9 +1397,7 @@ app
                         console.log("订单页：返程车票总价");
                         console.log($scope.ticketSumPrice_backwardTicket);
 
-                        $scope.ticketInfo_Ticket_tempRequestParamArr[1][1] = [
-                            $scope.ticketInfo_backwardTicket_count
-                        ]; 
+                        $scope.ticketInfo_Ticket_tempRequestParamArr[1][1] = $scope.ticketInfo_backwardTicket_count;
 
                         console.log("订单页：车票参数数组");
                         console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
@@ -1419,7 +1411,6 @@ app
 
             } 
 
-            
         }
 
 
