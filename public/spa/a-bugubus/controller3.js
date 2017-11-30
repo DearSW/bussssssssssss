@@ -654,7 +654,7 @@ app
                     if($scope.ticketsInfo2.length != 0) {
 
                         $scope.paramsProductId = data.products[0].productid;  // @产品ID，查询评论用
-
+                        
                     } else {
                         layer.open({
                             content: '客官，没有找到相关产品信息，请重新搜索 (╯-╰)',
@@ -672,6 +672,10 @@ app
                 $scope.sourceComeType = true; // @来源类型 判断
 
                 $scope.paramsProductId = sessionStorage.getItem('tabsParamsDataProductid'); // @产品ID，查询评论用
+
+                var requestData = {
+                    productid: $scope.paramsProductId
+                };
 
                 // @图片推荐类型产品列表 /web/product/queryProduct
                 $myHttpService.post('api/product/queryProduct', requestData, function(data) {
@@ -757,6 +761,7 @@ app
 
                     console.log("产品页：手动搜索类型的产品列表API返回的数据");
                     console.log(data);
+                    
                     $scope.ticketsInfo2 = data.products;
                     if($scope.ticketsInfo2.length != 0) {
                         
