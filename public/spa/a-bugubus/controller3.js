@@ -1191,6 +1191,13 @@ app
                         console.log("订单页：去程车票总价");
                         console.log($scope.ticketSumPrice_forwardTicket);
 
+                        $scope.ticketInfo_Ticket_tempRequestParamArr[0][1] = [
+                            $scope.ticketInfo_forwardTicket_count
+                        ]; 
+
+                        console.log("订单页：车票参数数组");
+                        console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
+
                     } else {
 
                         layer.open({
@@ -1214,6 +1221,13 @@ app
 
                         console.log("订单页：去程车票总价");
                         console.log($scope.ticketSumPrice_forwardTicket);
+
+                        $scope.ticketInfo_Ticket_tempRequestParamArr[0][1] = [
+                            $scope.ticketInfo_forwardTicket_count
+                        ]; 
+
+                        console.log("订单页：车票参数数组");
+                        console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
 
                     }
                 }
@@ -1358,6 +1372,13 @@ app
                         console.log("订单页：返程车票总价");
                         console.log($scope.ticketSumPrice_backwardTicket);
 
+                        $scope.ticketInfo_Ticket_tempRequestParamArr[1][1] = [
+                            $scope.ticketInfo_backwardTicket_count
+                        ]; 
+
+                        console.log("订单页：车票参数数组");
+                        console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
+
                     } else {
 
                         layer.open({
@@ -1381,6 +1402,13 @@ app
 
                         console.log("订单页：返程车票总价");
                         console.log($scope.ticketSumPrice_backwardTicket);
+
+                        $scope.ticketInfo_Ticket_tempRequestParamArr[1][1] = [
+                            $scope.ticketInfo_backwardTicket_count
+                        ]; 
+
+                        console.log("订单页：车票参数数组");
+                        console.log($scope.ticketInfo_Ticket_tempRequestParamArr);
 
                     }
                 }
@@ -1507,12 +1535,13 @@ app
                 var temp = new Date(nextDayTime);
                 $scope.currentSelectedDateOrTime = $filter('date')(temp, 'yyyy-MM-dd');
 
+                // @验证码更新
                 // @清除掉验证码计时器
                 $scope.stopFight(); // @停止计时器
                 $scope.resetFight(); // @重置计时器
                 $scope.countdownTxtShow = false;
 
-                // @根据验证码按钮之前的状态来设置状态
+                // @根据验证码按钮之前的状态来设置状态 
                 if($scope.verificationCodeBtnDisabled == false) {
                     $scope.verificationCodeBtnDisabled = false; // @启用获取验证码按钮            
                 } else {
@@ -1523,9 +1552,37 @@ app
                 $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
                 $scope.payBtnDisabled = true; // @禁用确认支付按钮
 
+                // @门票更新
+                if($scope.ticketInfo.viewInfo != null) { // @检测产品对象是否有门票
+                    
+                    var len = $scope.ticketInfo.viewInfo.viewPrices.length; // @临时循环变量
+        
+                    $scope.ticketInfo_viewInfo_tempRequestParamArr = []; // @门票请求参数数组清空
+        
+                    for(var index in $scope.ticketInfo.viewInfo.viewPrices) {
+
+                        $scope["ticketInfo_viewInfo_count" + index] = 0; // @门票数量 清零
+        
+                    }
+
+                    $scope.ticketViewSumPrice = 0; // @门票总价
+                
+                }
+
+                // @优惠券更新
+                if($scope.useCoupon == true) {
+                    $scope.couponType.type = ''; // @将优惠券类型清空
+                    $scope.couponPrice = 0; // @将优惠券金额清空
+                    $scope.useCoupon = false; // @同时未使用优惠券
+                    $scope.noCouponTxt = false; // @无可用优惠券时，控制文本
+                    $scope.noCouponTxt2 = false; // @有可用优惠券时，控制文本 
+                }
+
+                // @车票更新
                 // @车票选择出发时间 显示更新
                 if($scope.ticketInfo_forwardTicket_arr != null) {
 
+                    $scope.ticketInfo_forwardTicket_count = 0; // @车票数量清零                                        
                     $scope.ticketInfo_forwardTicket_arr = [];
                     $scope.ticketInfo_forwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
                     $scope.ticketSumPrice_forwardTicket = 0;  // @去程车票总价 清零，重新计算
@@ -1533,6 +1590,7 @@ app
                 }
                 if($scope.ticketInfo_backwardTicket_arr != null) {
 
+                    $scope.ticketInfo_backwardTicket_count = 0; // @车票数量清零                                        
                     $scope.ticketInfo_backwardTicket_arr = [];
                     $scope.ticketInfo_backwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
                     $scope.ticketSumPrice_backwardTicket = 0;  // @返程程车票总价 清零，重新计算
@@ -1567,12 +1625,14 @@ app
                 var temp = new Date(prevDayTime);
                 $scope.currentSelectedDateOrTime = $filter('date')(temp, 'yyyy-MM-dd');
 
+               
+                // @验证码更新
                 // @清除掉验证码计时器
                 $scope.stopFight(); // @停止计时器
                 $scope.resetFight(); // @重置计时器
                 $scope.countdownTxtShow = false;
 
-                // @根据验证码按钮之前的状态来设置状态
+                // @根据验证码按钮之前的状态来设置状态 
                 if($scope.verificationCodeBtnDisabled == false) {
                     $scope.verificationCodeBtnDisabled = false; // @启用获取验证码按钮            
                 } else {
@@ -1583,9 +1643,37 @@ app
                 $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
                 $scope.payBtnDisabled = true; // @禁用确认支付按钮
 
+                // @门票更新
+                if($scope.ticketInfo.viewInfo != null) { // @检测产品对象是否有门票
+                    
+                    var len = $scope.ticketInfo.viewInfo.viewPrices.length; // @临时循环变量
+        
+                    $scope.ticketInfo_viewInfo_tempRequestParamArr = []; // @门票请求参数数组清空
+        
+                    for(var index in $scope.ticketInfo.viewInfo.viewPrices) {
+
+                        $scope["ticketInfo_viewInfo_count" + index] = 0; // @门票数量 清零
+        
+                    }
+
+                    $scope.ticketViewSumPrice = 0; // @门票总价
+                
+                }
+
+                // @优惠券更新
+                if($scope.useCoupon == true) {
+                    $scope.couponType.type = ''; // @将优惠券类型清空
+                    $scope.couponPrice = 0; // @将优惠券金额清空
+                    $scope.useCoupon = false; // @同时未使用优惠券
+                    $scope.noCouponTxt = false; // @无可用优惠券时，控制文本
+                    $scope.noCouponTxt2 = false; // @有可用优惠券时，控制文本 
+                }
+
+                // @车票更新
                 // @车票选择出发时间 显示更新
                 if($scope.ticketInfo_forwardTicket_arr != null) {
                     
+                    $scope.ticketInfo_forwardTicket_count = 0; // @车票数量清零
                     $scope.ticketInfo_forwardTicket_arr = [];
                     $scope.ticketInfo_forwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
                     $scope.ticketSumPrice_forwardTicket = 0;  // @去程车票总价 清零，重新计算
@@ -1593,6 +1681,7 @@ app
                 }
                 if($scope.ticketInfo_backwardTicket_arr != null) {
 
+                    $scope.ticketInfo_backwardTicket_count = 0; // @车票数量清零                    
                     $scope.ticketInfo_backwardTicket_arr = [];
                     $scope.ticketInfo_backwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
                     $scope.ticketSumPrice_backwardTicket = 0;  // @返程车票总价 清零，重新计算
@@ -1621,12 +1710,13 @@ app
                     var val2 = new Date(val);
                     $scope.currentSelectedDateOrTime = $filter('date')(val2, 'yyyy-MM-dd');
 
+                    // @验证码更新
                     // @清除掉验证码计时器
                     $scope.stopFight(); // @停止计时器
                     $scope.resetFight(); // @重置计时器
                     $scope.countdownTxtShow = false;
 
-                    // @根据验证码按钮之前的状态来设置状态
+                    // @根据验证码按钮之前的状态来设置状态 
                     if($scope.verificationCodeBtnDisabled == false) {
                         $scope.verificationCodeBtnDisabled = false; // @启用获取验证码按钮            
                     } else {
@@ -1637,9 +1727,37 @@ app
                     $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
                     $scope.payBtnDisabled = true; // @禁用确认支付按钮
 
+                    // @门票更新
+                    if($scope.ticketInfo.viewInfo != null) { // @检测产品对象是否有门票
+                        
+                        var len = $scope.ticketInfo.viewInfo.viewPrices.length; // @临时循环变量
+            
+                        $scope.ticketInfo_viewInfo_tempRequestParamArr = []; // @门票请求参数数组清空
+            
+                        for(var index in $scope.ticketInfo.viewInfo.viewPrices) {
+
+                            $scope["ticketInfo_viewInfo_count" + index] = 0; // @门票数量 清零
+            
+                        }
+
+                        $scope.ticketViewSumPrice = 0; // @门票总价
+                    
+                    }
+
+                    // @优惠券更新
+                    if($scope.useCoupon == true) {
+                        $scope.couponType.type = ''; // @将优惠券类型清空
+                        $scope.couponPrice = 0; // @将优惠券金额清空
+                        $scope.useCoupon = false; // @同时未使用优惠券
+                        $scope.noCouponTxt = false; // @无可用优惠券时，控制文本
+                        $scope.noCouponTxt2 = false; // @有可用优惠券时，控制文本 
+                    }
+
+                    // @车票更新
                     // @车票选择出发时间 显示更新
                     if($scope.ticketInfo_forwardTicket_arr != null) {
                         
+                        $scope.ticketInfo_forwardTicket_count = 0; // @车票数量清零                    
                         $scope.ticketInfo_forwardTicket_arr = [];
                         $scope.ticketInfo_forwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
                         $scope.ticketSumPrice_forwardTicket = 0;  // @去程车票总价 清零，重新计算
@@ -1647,6 +1765,7 @@ app
                     }
                     if($scope.ticketInfo_backwardTicket_arr != null) {
 
+                        $scope.ticketInfo_backwardTicket_count = 0; // @车票数量清零                                        
                         $scope.ticketInfo_backwardTicket_arr = [];
                         $scope.ticketInfo_backwardTicket_haveChoosed = false; // @控制选择出发时间时的 样式表现    
                         $scope.ticketSumPrice_backwardTicket = 0;  // @返程车票总价 清零，重新计算
