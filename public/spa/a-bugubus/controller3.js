@@ -2341,7 +2341,7 @@ app
             var openid = $rootScope.session.user.userInfo.openid;
             var authcode = $scope.dataContainer.verificationCode;
             var productid = $scope.paramsProductid;
-            var couponuse = $scope.useCoupon;
+            var couponuse = $scope.useCoupon + ''; // @将 布尔 false 转成字符串 'false'
             var brcid = $scope.couponType.type;
             
             var data2 = { 
