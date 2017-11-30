@@ -9,6 +9,12 @@
             .myplan .item {
                 border: none;
             }
+            .yyyy {
+                display: inline-block;
+                height: 1px;
+                width: 25%;
+                border-bottom: 1px solid rgba(204, 204, 204, 0.4);
+            }
     </style>
     <div class="myplan">
         <ion-content style="background-color: #E7E7E7;">
@@ -28,7 +34,6 @@
                                         <div class="item-content">
                                             全部
                                         </div>
-                                        <i class="radio-icon ion-ios-checkmark" style="color:#E91E63"></i>
                                     </div>
                                 </label>
                             </div>
@@ -40,7 +45,6 @@
                                         <div class="item-content">
                                             未使用
                                         </div>
-                                        <i class="radio-icon ion-ios-checkmark" style="color:#E91E63"></i>
                                     </div>
                                 </label>
                             </div>
@@ -52,7 +56,7 @@
                                         <div class="item-content">
                                             退款中
                                         </div>
-                                        <i class="radio-icon ion-ios-checkmark" style="color:#E91E63"></i>
+                                        <!-- <i class="radio-icon ion-ios-checkmark" style="color:#E91E63"></i> -->
                                     </div>
                                 </label>
                             </div>
@@ -273,7 +277,9 @@
                         </ion-item>
 
                         <div class="myplan-placeholder" style=" width: 100%; height: 45px; text-align: center; padding: 5px;" >
+                            <span class="yyyy"></span>
                             <span ng-if="!hasmore2" style="line-height: 2; color: #a2a2a2;">我是有底线的</span>
+                            <span class="yyyy"></span>
                         </div>
 
                     </ion-list>

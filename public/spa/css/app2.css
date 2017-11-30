@@ -627,6 +627,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
     background: white;
     height: 55px;
     margin-bottom: 5px;
+    text-align: center;
 }
 
 .myplan .ticketFilter .item-radio .item-content {
@@ -639,6 +640,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
 
 .myplan .ticketFilter .item-radio input:checked + .radio-content .item-content {
     background-color: #fff;
+    border-bottom: 4px solid #e69000;
 }
 
  .myplan .ticketFilter .item {
