@@ -2374,15 +2374,15 @@ app
                 data3_viewid = $scope.ticketInfo.viewInfo.viewid;
             }
 
-            if($scope.ticketInfo_viewInfo_tempRequestParamArr != null) {
+            if($scope.ticketInfo_Ticket_tempRequestParamArr != null) {
 
                 for(var i = 0, len = $scope.ticketInfo_Ticket_tempRequestParamArr.length; i < len; i++) {
                     if(i == 0) {
-                        data3_gobdid = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0];
-                        data3_count = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                        data3_gobdid = $scope.ticketInfo_Ticket_tempRequestParamArr[i][0];
+                        data3_count = $scope.ticketInfo_Ticket_tempRequestParamArr[i][1];
                     } else if(i == 1) {
-                        data3_backbdid = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0];
-                        data3_backCount = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];                        
+                        data3_backbdid = $scope.ticketInfo_Ticket_tempRequestParamArr[i][0];
+                        data3_backCount = $scope.ticketInfo_Ticket_tempRequestParamArr[i][1];                        
                     }
                 }
 
