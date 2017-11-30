@@ -2469,7 +2469,7 @@ app
         
     })
 
-    /* @支付成功页 车票购买成功 跳转 */
+    /* @支付成功页 车票购买成功 跳转 控制器*/
     .controller('order_detail_refund', function($rootScope, $scope, $filter, $state, $myHttpService, $ionicSlideBoxDelegate) {
 
         if(JSON.parse($state.params.data) == null) { // @访问此页面时，如果没有传递过来参数
@@ -2483,6 +2483,10 @@ app
             //         return false;
             //     }
             // });
+
+            console.log("支付成功页：传递过来的参数");
+            console.log(rootScope.order_detail_refund_paramsData);
+
             // @获取用户刚刚购买的票  /web/product/queryProductOrderByBdid
             $myHttpService.post('api/product/queryProductOrderByBdid', $rootScope.order_detail_refund_paramsData, function(data) {
                 
@@ -2529,6 +2533,9 @@ app
             // userid:"2017112409511512371556"
             // viewid:"2017112711511975860548"
 
+            // sessionStorage.setItem('order_detail_refund_', );
+            
+
             $rootScope.order_detail_refund_paramsData = paramsData; // @存储参数
 
             console.log("支付成功页：传递过来的参数");
@@ -2569,7 +2576,7 @@ app
 
         // @车辆位置 函数
         $scope.getBusPosition = function(item) {
-            console.log(item);
+            
             var data = {
                 carid: item.carid,
                 lineid: item.lineid
@@ -2677,7 +2684,7 @@ app
     })
 
     /* @我的行程页 控制器 */
-    .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state) {
+    .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout) {
 
         if(sessionStorage.getItem("myplanCount") == null) {
             var myplanCount = 1;
@@ -2685,54 +2692,78 @@ app
             var myplanCount = sessionStorage.getItem("myplanCount");
         }
 
-        if(myplanCount == 1) {
-            $rootScope.ticketsInfo = []; // @车票数组
+        $scope.ticketsInfoIsEmpty = false; // @当没有任何票信息时显现无票HTML，无票为 true；默认为有票 false
+
+        if(myplanCount == 1) { // 模拟了onLoad的初次执行效果
+
+            $rootScope.ticketsInfo = []; // @车票集合数组
+            $rootScope.ticketsViewInfo = []; // @门票集合数组
             sessionStorage.setItem("myplanCount", 2);
-            $rootScope.hasmore2 = false; // @首次进入页面时 不触发上拉加载函数
-            $scope.pageCount = 1; // @保存的记录页面参数 用于上拉加载分页的记录
+            $rootScope.hasmore2 = false; // @首次进入页面时  关闭掉上拉加载行为 ion-infinite-scroll，false为关闭；true为开启
+            $scope.pageCount = 1; // @页数参数 用于上拉加载的页数参数
             $scope.hasmore = true;
+
             // @车票首次加载函数
             $scope.doRefreshTicket_first = function() {
-                console.log("doRefreshTicket_first执行了");            
+
+                console.log("我的行程页：doRefreshTicket_first执行了");            
+
                 var requestData = {
                     userid: $rootScope.session.user.userInfo.userid,
                     offset: 0,
                     pagesize: 10,
                 };
+
                 $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+
                     console.log(data);
-                    if(data.userViewList.length < 10) {
+
+                    if(data.userViewList.length < 10) { // @判断当前获取的车票数量是否够十条，不够表示没有必要再上拉加载了，关闭掉上拉加载行为
                         $rootScope.hasmore2 = false;
                     } else {
-                        $rootScope.hasmore2 = true;
-                        $scope.pageCount = 2;
+                        $rootScope.hasmore2 = true; // @继续开启上拉加载行为
+                        $scope.pageCount = 2;  // @页数指向了第二页，第一页已加载完毕
                     }
+
                     $rootScope.ticketsInfo = data.userViewList;
                     $rootScope.ticketsTotal = data.totalnum;
                     
                     $scope.$broadcast('scroll.refreshComplete');
+
                     if($rootScope.ticketsInfo.length == 0) {
-                        $scope.ticketsInfoIsEmpty = true;                    
+
+                        $timeout(function() {
+                            $scope.ticketsInfoIsEmpty = true;                        
+                        }, 700);             
+
                     }
+
                     $scope.$broadcast('scroll.refreshComplete');
+
                 }, function() {
-                    $scope.$broadcast('scroll.refreshComplete');                
+
+                    $scope.$broadcast('scroll.refreshComplete'); 
+
                 });
             };
+            
             $scope.doRefreshTicket_first(); // @只在首次进去页面时 自动调用一次！！！
+
         }
 
-        var run = false;
-        $scope.ticketsInfoIsEmpty = false; // @当没有任何票信息时显现
+        var run = false; // @防止在短时间内重复出发上拉加载请求函数的执行
         
         // @车票下拉刷新函数
         $scope.doRefreshTicket = function() {
-            console.log("我的行程页：doRefreshTicket执行了");            
+
+            console.log("我的行程页：doRefreshTicket执行了");   
+
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
                 offset: 0,
                 pagesize: 10,
             };
+
             // @订单列表 wechat/product/queryUserProductTicketList
             $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
 
@@ -2752,7 +2783,11 @@ app
                 $scope.$broadcast('scroll.refreshComplete');
 
                 if($rootScope.ticketsInfo.length == 0) {
-                    $scope.ticketsInfoIsEmpty = true;                    
+
+                    $timeout(function() {
+                        $scope.ticketsInfoIsEmpty = true;                        
+                    }, 700);
+
                 } else {
                     layer.open({
                         content: '刷新成功',
@@ -2791,15 +2826,20 @@ app
         
         // @上拉加载更多票信息
         $scope.loadMoreTicket = function() {
+
             console.log("我的行程页：loadMoreTicket执行了");
+
             var offset = ($scope.pageCount - 1) * 10;
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
                 offset: offset,
                 pagesize: 10,
             };
+
             if(!run) {
+
                 run = true;
+                
                 $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
                     console.log("我的行程页：获取所有订单的列表API返回的数据(上拉加载)");                
                     if (data.userViewList.length < 10) { 
@@ -2809,12 +2849,21 @@ app
                         $scope.pageCount++; // @计数
                     }
                     run = false;
+
                     $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); 
+
                     console.log($rootScope.ticketsInfo);
+
                     $rootScope.ticketsInfo.sort(compare('departDate'));
+
                     $scope.$broadcast('scroll.infiniteScrollComplete');
+
                     if($rootScope.ticketsInfo.length == 0 ) { // 无票
-                        $scope.ticketsInfoIsEmpty = true;
+
+                        $timeout(function() {
+                            $scope.ticketsInfoIsEmpty = true;                        
+                        }, 700);
+
                     }
                 }, function() {
                     $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -2857,7 +2906,7 @@ app
 
     })
 
-     /* 测试 */
+     /* @测试 */
     .controller('test', function($rootScope, $scope, $state, $timeout, $myLocationService, $myHttpService, $ionicLoading, $ionicScrollDelegate, $ionicActionSheet, $selectCity, $filter, ionicDatePicker) {
 
         $scope.selectedDate1;
@@ -2972,7 +3021,7 @@ app
 
     })
 
-    /* 车辆位置 */
+    /* @车辆位置页 控制器 */
     .controller('BusPositionController', function($scope, $myHttpService, $timeout, $state) {
 
         if(JSON.parse($state.params.data) == null) {
@@ -3009,14 +3058,21 @@ app
         } else {
 
             var paramsData = JSON.parse($state.params.data);
-            console.log("传到定位地图页面的参数");
+
+            console.log("车辆位置页：传到定位地图页面的参数");
             console.log(paramsData);
+
             $scope.positionArr = {};
+
+            // @查询车辆位置 /wechat/product/queryCarLocation
             $myHttpService.post('api/product/queryCarLocation', {
                 carid: paramsData.carid,
                 lineid: paramsData.lineid
-            }, function(data) {        
+            }, function(data) {  
+                
+                console.log("车辆位置页：查询车辆位置API返回的数据");
                 console.log(data);
+
                 $scope.positionArr = data.car;
                 $scope.busline = data.busline;
                 $scope.stations = data.stations;
@@ -3035,10 +3091,10 @@ app
                 // 所有站点的经纬度数组
                 var allLonLatArr = [];
 
-                // 所有停靠点的经纬度数组
+                // @所有停靠点的经纬度数组
                 var stationType1 = [];
 
-                for(var index in $scope.stations) { // 站点、停靠点提取操作
+                for(var index in $scope.stations) { // @站点、停靠点提取操作
                     var item = $scope.stations[index];
                     var tempArr = [item.stalongitude, item.stalatitude];
                     allLonLatArr.push(tempArr);
@@ -3053,22 +3109,22 @@ app
                         stationType1.push(tempArr2);
                     }
                 }
-                // 起点站点 经纬度
+                // @起点站点 经纬度
                 var startPositionLonLat = [
                     $scope.busline.departlon,
                     $scope.busline.departlat
                 ];
-                // 终点站点 经纬度
+                // @终点站点 经纬度
                 var endPositionLonLat = [
                     $scope.busline.arrivelon,
                     $scope.busline.arrivelat
                 ];
-                // 中间站点、途径点
-                var allLonLatArr2 = allLonLatArr.slice(1, allLonLatArr.length-1); // 去掉首尾的经纬点
+                // @中间站点、途径点
+                var allLonLatArr2 = allLonLatArr.slice(1, allLonLatArr.length-1); // @去掉首尾的经纬点
 
                 AMapUI.load(['ui/overlay/SimpleMarker'], function(SimpleMarker) {
 
-                    // 路径规划绘制 
+                    // @路径规划绘制 
                     AMap.plugin('AMap.Driving', function() {
                         var drving = new AMap.Driving({
                             map: map,
@@ -3238,7 +3294,7 @@ app
                         strokeColor: '#09f',
                         strokeWeight: 1
                     });
-                    // 逆地理编码
+                    // @逆地理编码
                     AMap.plugin('AMap.Geocoder', function() {
                         var str = "加载中>>>";
                         var geocoder = new AMap.Geocoder({});
@@ -3261,7 +3317,7 @@ app
         }
     })
 
-    /* 车票详情 */
+    /* @车票详情页 控制器 */
     .controller('ticket_detail', function($rootScope, $scope, $filter, $interval, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
 
         $scope.timeShow = false;
@@ -3422,7 +3478,7 @@ app
 
     })
 
-    /* 我的账户 个人信息保存 编辑 */
+    /* @我的个人页 信息保存 编辑 控制器 */
     .controller('IUserController', function($rootScope, $scope, $location, $state, $myHttpService) {
         
         $scope.tempUser = {};
