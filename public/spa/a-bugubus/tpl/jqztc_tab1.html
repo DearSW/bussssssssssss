@@ -54,7 +54,7 @@
                     <!-- <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" on-refresh="doRefreshRoad()" spinner="dots" ></ion-refresher> -->
 
                     <div class="notice" >
-                        <p><i class="icon ion-ios-information" style="color:crimson;font-size: 18px;"></i> 如行程有变，请于发车前1小时以上，申请退款，超时或验票后不能退款。</p>
+                        <p><i class="icon ion-ios-information" style="color:crimson;font-size: 14px;"></i> 如行程有变，请于发车前1小时以上，申请退款，超时或验票后不能退款。</p>
                     </div>
 
                     <!-- 接口 车票显示  -->
@@ -152,7 +152,7 @@
 
                         <!-- 接口 数据 -->
 
-                        <!-- 接口 数据 图片推荐过来的 -->
+                        <!-- 接口 数据 图片推荐 -->
                         <div ng-if="sourceComeType">
 
                             <!-- 有车票时 -->
@@ -259,17 +259,17 @@
 
                                 <!-- 无门票时 -->
                                 <div ng-if="ticketsInfo1.viewInfo == null">
-                                        <div style="text-align: center;margin: 8px;">
-                                            <i class="icon ion-ios-information-outline" style="color:crimson;font-size: 14px;"></i>                                
-                                            没有相关查询信息( ¯ □ ¯ )
-                                        </div>
+                                    <div style="text-align: center;margin: 8px;">
+                                        <i class="icon ion-ios-information-outline" style="color:crimson;font-size: 14px;"></i>                                
+                                        加载中( ¯ □ ¯ )......
+                                    </div>
                                 </div>
                                 
                             </div>
 
                         </div>
 
-                        <!-- 接口 数据 手动搜索过来的 -->                        
+                        <!-- 接口 数据 手动搜索-->                        
                         <div ng-if="!sourceComeType">
 
                                 <ion-item ng-repeat="item in ticketsInfo2 track by $index">
@@ -321,6 +321,10 @@
 
                                     <!-- 没车票时 -->
                                     <div ng-if="item.plans == null">
+
+                                        <!-- 有门票时 -->
+                                        <div ng-if="item.viewInfo != null">
+
                                             <div class="row startposition">
                                                     <div class="col">
                                                         <span class="station-address">{{item.viewInfo.viewName}}</span>
@@ -349,6 +353,19 @@
                                                         </button>
                                                 </div>
                                             </div>
+
+                                        </div>
+
+                                        <!-- 无门票时 -->
+                                        <div ng-if="item.viewInfo == null">
+
+                                            <div style="text-align: center;margin: 8px;">
+                                                <i class="icon ion-ios-information-outline" style="color:crimson;font-size: 14px;"></i>                                
+                                                加载中( ¯ □ ¯ )......
+                                            </div>
+
+                                        </div>
+                                            
                                     </div>
         
                                 </ion-item>

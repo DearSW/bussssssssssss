@@ -781,7 +781,6 @@ app
             }
         }
 
-        
         // @购买按钮函数 传递参数
         $scope.purchase = function(item, i) {
 
@@ -1509,12 +1508,18 @@ app
                 $scope.currentSelectedDateOrTime = $filter('date')(temp, 'yyyy-MM-dd');
 
                 // @清除掉验证码计时器
-                $scope.stopFight();
+                $scope.stopFight(); // @停止计时器
+                $scope.resetFight(); // @重置计时器
                 $scope.countdownTxtShow = false;
-                $scope.verificationCodeBtnDisabled = false;
-                $scope.resetFight();
 
-                $scope.dataContainer.verificationCode = '';
+                // @根据验证码按钮之前的状态来设置状态
+                if($scope.verificationCodeBtnDisabled == false) {
+                    $scope.verificationCodeBtnDisabled = false; // @启用获取验证码按钮            
+                } else {
+                    $scope.verificationCodeBtnDisabled = true; // @禁用获取验证码按钮
+                }
+
+                $scope.dataContainer.verificationCode = ''; // @清空验证码
                 $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
 
                 // @车票选择出发时间 显示更新
@@ -1562,12 +1567,18 @@ app
                 $scope.currentSelectedDateOrTime = $filter('date')(temp, 'yyyy-MM-dd');
 
                 // @清除掉验证码计时器
-                $scope.stopFight();
+                $scope.stopFight(); // @停止计时器
+                $scope.resetFight(); // @重置计时器
                 $scope.countdownTxtShow = false;
-                $scope.verificationCodeBtnDisabled = false;
-                $scope.resetFight();
 
-                $scope.dataContainer.verificationCode = '';
+                // @根据验证码按钮之前的状态来设置状态
+                if($scope.verificationCodeBtnDisabled == false) {
+                    $scope.verificationCodeBtnDisabled = false; // @启用获取验证码按钮            
+                } else {
+                    $scope.verificationCodeBtnDisabled = true; // @禁用获取验证码按钮
+                }
+
+                $scope.dataContainer.verificationCode = ''; // @清空验证码
                 $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
 
                 // @车票选择出发时间 显示更新
@@ -1596,7 +1607,7 @@ app
             }
         }
 
-        // @选择日期
+        // @日期
         var compareTimeTemp1 = new Date();
         var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
         var compareTime = new Date(compareTimeTemp2).getTime() + (60 * 86400000); // @60天时间
@@ -1609,12 +1620,18 @@ app
                     $scope.currentSelectedDateOrTime = $filter('date')(val2, 'yyyy-MM-dd');
 
                     // @清除掉验证码计时器
-                    $scope.stopFight();
+                    $scope.stopFight(); // @停止计时器
+                    $scope.resetFight(); // @重置计时器
                     $scope.countdownTxtShow = false;
-                    $scope.verificationCodeBtnDisabled = false;
-                    $scope.resetFight();
 
-                    $scope.dataContainer.verificationCode = '';
+                    // @根据验证码按钮之前的状态来设置状态
+                    if($scope.verificationCodeBtnDisabled == false) {
+                        $scope.verificationCodeBtnDisabled = false; // @启用获取验证码按钮            
+                    } else {
+                        $scope.verificationCodeBtnDisabled = true; // @禁用获取验证码按钮
+                    }
+
+                    $scope.dataContainer.verificationCode = ''; // @清空验证码
                     $scope.againObtainCheckCode = true; // @显示重新获取验证码的提示
 
                     // @车票选择出发时间 显示更新
@@ -1825,10 +1842,9 @@ app
             animation: 'slide-in-up'
         });
 
-
         // @优惠券的检测 函数
 
-        $scope.useCoupon = false;
+        $scope.useCoupon = false; // @是否使用优惠券
 
         $scope.noCouponTxt = false; // @无可用优惠券时，控制文本
         $scope.noCouponTxt2 = false; // @有可用优惠券时，控制文本
@@ -1862,7 +1878,7 @@ app
 
         }
 
-        $scope.coupon_OKFn = function() { // @优惠券弹窗中的 取消函数
+        $scope.coupon_OKFn = function() { // @优惠券弹窗中的 确定函数
             
             for(var item in $scope.couponArr) {
 
@@ -1886,12 +1902,18 @@ app
 
         }
 
-        $scope.coupon_NOFn = function() { // @@优惠券弹窗中的 取消函数
+        $scope.coupon_NOFn = function() { // @优惠券弹窗中的 取消函数
 
-            $scope.couponType.type = ''; // 将优惠券类型清空
-            $scope.useCoupon = false;
+            $scope.couponType.type = ''; // @将优惠券类型清空
+            $scope.couponPrice = 0; // @将优惠券金额清空
+            $scope.useCoupon = false; // @同时未使用优惠券
+
+            $scope.noCouponTxt = false; // @无可用优惠券时，控制文本
+            $scope.noCouponTxt2 = false; // @有可用优惠券时，控制文本
+
             console.log("订单页：优惠券类型");
             console.log($scope.couponType.type);
+
             $scope.couponChooseModal.hide();            
             
         }
