@@ -2546,7 +2546,7 @@ app
             console.log(paramsData);
 
             // @获取用户刚刚购买的票  /web/product/queryProductOrderByBdid
-            $myHttpService.post('api/product/queryProductOrderByBdid', requestData, function(data) {
+            $myHttpService.post('api/product/queryProductOrderByBdid', paramsData, function(data) {
 
                 console.log("支付成功页：获取用户刚刚购买的票API返回的数据");
                 console.log(data);
