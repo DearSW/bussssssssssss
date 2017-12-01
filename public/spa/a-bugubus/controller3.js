@@ -2039,7 +2039,7 @@ app
         $scope.coupon_NOFn = function() { // @优惠券弹窗中的 取消函数
 
             $scope.couponType.type = ''; // @将优惠券类型清空
-            $scope.couponPrice = 0; // @将优惠券金额清空
+            $scope.coupon = 0; // @将优惠券金额清空
             $scope.useCoupon = false; // @同时未使用优惠券
 
             $scope.noCouponTxt = false; // @无可用优惠券时，控制文本
