@@ -49,17 +49,17 @@
                                 </div>
                                 
                                 <div class="row" >
-                                    <div class="col col-center col-33" style="color: #a2a2a2;">
+                                    <!-- <div class="col col-center col-33" style="color: #a2a2a2;">
                                         <span style="margin-left: 10px;">未使用</span>
-                                    </div>
-                                    <div class="col col-66" style="text-align: right;">
-                                        <button ng-disabled="refundBtnState" class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="refund()">
+                                    </div> -->
+                                    <div class="col" style="text-align: right;">
+                                        <button ng-disabled="refundBtnState" class="button" style="line-height: 2;margin-right: 20px;font-size: 17px;color: #111;border: 1px solid black;background: white;min-width: 0;min-height: 0;height: 40px;width: 70px;border-radius: 3px;" ng-click="refund()">
                                             退款
                                         </button>
                                     </div>
                                 </div> 
 
-                                <div class="row" >
+                                <div class="row" style="text-align: center;">
                                     <div class="col col-33">
                                         <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
                                         <span ng-click="getBusPosition()">车辆位置</span>
@@ -69,7 +69,7 @@
                                         <a href="tel:18302505304" style="text-decoration:none;"><span>联系客服</span></a> 
                                     </div>
                                     <div class="col col-33">
-                                        <i class="icon ion-cash" style="color: gold"></i>
+                                        <!-- <i class="icon ion-cash" style="color: gold"></i> -->
                                         <span>实付 ￥{{ticketInfo.payPrice}}</span>
                                     </div>
                                 </div>
