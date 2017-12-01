@@ -2698,15 +2698,15 @@ app
 
             $rootScope.ticketsInfo = []; // @车票集合数组
             $rootScope.ticketsViewInfo = []; // @门票集合数组
+
             sessionStorage.setItem("myplanCount", 2);
             $rootScope.hasmore2 = false; // @首次进入页面时  关闭掉上拉加载行为 ion-infinite-scroll，false为关闭；true为开启
             $scope.pageCount = 1; // @页数参数 用于上拉加载的页数参数
-            $scope.hasmore = true;
 
             // @车票首次加载函数
             $scope.doRefreshTicket_first = function() {
 
-                console.log("我的行程页：doRefreshTicket_first执行了");            
+                console.log("我的行程页：doRefreshTicket_first首次执行了");            
 
                 var requestData = {
                     userid: $rootScope.session.user.userInfo.userid,
@@ -2714,23 +2714,31 @@ app
                     pagesize: 10,
                 };
 
+                // @获取用户票 列表 wechat/product/queryUserProductTicketList
                 $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
 
+                    console.log("我的行程页：获取用户票列表API返回的数据");                            
                     console.log(data);
 
-                    if(data.userViewList.length < 10) { // @判断当前获取的车票数量是否够十条，不够表示没有必要再上拉加载了，关闭掉上拉加载行为
+                    if( (data.totalnum + data.num)  <= 10) { // @判断当前 门票和车票 的总数量是否够十条，不够表示没有必要再上拉加载了，关闭掉上拉加载行为
                         $rootScope.hasmore2 = false;
                     } else {
                         $rootScope.hasmore2 = true; // @继续开启上拉加载行为
                         $scope.pageCount = 2;  // @页数指向了第二页，第一页已加载完毕
                     }
 
-                    $rootScope.ticketsInfo = data.userViewList;
-                    $rootScope.ticketsTotal = data.totalnum;
+                    $rootScope.ticketsInfo = data.userViewList; // @车票
+                    $rootScope.ticketsViewInfo = data.ticketOrders; // @门票
                     
                     $scope.$broadcast('scroll.refreshComplete');
 
-                    if($rootScope.ticketsInfo.length == 0) {
+                    console.log("我的行程页：车票数组");
+                    console.log($rootScope.ticketsInfo);
+
+                    console.log("我的行程页：门票数组");
+                    console.log($rootScope.ticketsViewInfo);   
+
+                    if($rootScope.ticketsInfo.length == 0 && $rootScope.ticketsViewInfo.length == 0) { // @无票
 
                         $timeout(function() {
                             $scope.ticketsInfoIsEmpty = true;                        
@@ -2738,13 +2746,12 @@ app
 
                     }
 
-                    $scope.$broadcast('scroll.refreshComplete');
-
                 }, function() {
 
                     $scope.$broadcast('scroll.refreshComplete'); 
 
                 });
+
             };
             
             $scope.doRefreshTicket_first(); // @只在首次进去页面时 自动调用一次！！！
@@ -2770,7 +2777,7 @@ app
                 console.log("我的行程页：获取所有订单的列表API返回的数据(下拉刷新)");
                 console.log(data);
 
-                if(data.userViewList.length < 10) {
+                if( (data.totalnum + data.num)  < 10) {
                     $rootScope.hasmore2 = false;
                 } else {
                     $rootScope.hasmore2 = true;
@@ -2778,11 +2785,17 @@ app
                 }
 
                 $rootScope.ticketsInfo = data.userViewList;
-                $rootScope.ticketsTotal = data.totalnum;
+                $rootScope.ticketsViewInfo = data.ticketOrders;
                 
                 $scope.$broadcast('scroll.refreshComplete');
 
-                if($rootScope.ticketsInfo.length == 0) {
+                console.log("我的行程页：车票数组");
+                console.log($rootScope.ticketsInfo);
+
+                console.log("我的行程页：门票数组");
+                console.log($rootScope.ticketsViewInfo);   
+
+                if($rootScope.ticketsInfo.length == 0 && $rootScope.ticketsViewInfo.length == 0) {
 
                     $timeout(function() {
                         $scope.ticketsInfoIsEmpty = true;                        
@@ -2795,8 +2808,6 @@ app
                         time: 1
                     });
                 }
-
-                $scope.$broadcast('scroll.refreshComplete');
 
             }, function() {
 
@@ -2841,8 +2852,11 @@ app
                 run = true;
                 
                 $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
-                    console.log("我的行程页：获取所有订单的列表API返回的数据(上拉加载)");                
-                    if (data.userViewList.length < 10) { 
+
+                    console.log("我的行程页：获取所有订单的列表API返回的数据(上拉加载)");  
+                    console.log(data);
+
+                    if ( (data.totalnum + data.num)  <= 10) { 
                         $scope.hasmore = false; // @这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
                         $rootScope.hasmore2 = false;
                     } else {
@@ -2850,21 +2864,27 @@ app
                     }
                     run = false;
 
-                    $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); 
+                    $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); // @车票
+                    $rootScope.ticketsViewInfo = $rootScope.ticketsViewInfo.concat(data.ticketOrders); // @门票
 
+                    console.log("我的行程页：车票数组");
                     console.log($rootScope.ticketsInfo);
 
-                    $rootScope.ticketsInfo.sort(compare('departDate'));
+                    console.log("我的行程页：门票数组");
+                    console.log($rootScope.ticketsViewInfo);                    
+
+                    $rootScope.ticketsInfo.sort(compare('departDate'));  // @车票排序
 
                     $scope.$broadcast('scroll.infiniteScrollComplete');
 
-                    if($rootScope.ticketsInfo.length == 0 ) { // 无票
+                    if($rootScope.ticketsInfo.length == 0  && $rootScope.ticketsViewInfo.length == 0) { // @无票
 
                         $timeout(function() {
                             $scope.ticketsInfoIsEmpty = true;                        
                         }, 700);
 
                     }
+
                 }, function() {
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 });
@@ -3322,7 +3342,7 @@ app
 
         $scope.timeShow = false;
         $scope.timeText = "距离发车时间还剩";
-        // 倒计时间处理函数
+        // @倒计时间处理函数
         var stopCountDown = null;
         function ShowCountDown(endTime) { 
 			var now = new Date(); 
@@ -3369,13 +3389,25 @@ app
         } else {
 
             var paramsData = JSON.parse($state.params.data);
+
+            console.log("车票详情页：参数打印");
+            console.log(paramsData);
+
             var requestData = {
                 viewOrderid: paramsData.viewOrderid
             };
+
             sessionStorage.setItem('ticket_detail_viewOrderid', paramsData.viewOrderid);
+
+            // @查询订单详情 wechat/product/queryUserProductTicketDetails
             $myHttpService.post('api/product/queryUserProductTicketDetails', requestData, function(data) {
+                
+                console.log("车票详情页：查询订单详情API返回的数据");
                 console.log(data);
+
                 $scope.ticketInfo = data.viewOrder;
+
+                // @退款参数封装
                 $scope.refundData = {
                     rechargeid: data.viewOrder.rechargeid,
                     userid: $rootScope.session.user.userInfo.userid,
@@ -3384,7 +3416,7 @@ app
                     applyResult: false
                 };
 
-                // 倒计时处理
+                // @倒计时处理
                 $scope.timeShow = true;
                 var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy/MM/dd') + " " + $scope.ticketInfo.departTime;
                 var endTime = (new Date(temp)).getTime();
@@ -3402,17 +3434,24 @@ app
         $scope.refundBtnState = false;
         var flag = true;
 
-        // 退款函数
+        // @退款函数
         $scope.refund = function() {
+
             console.log($scope.refundData);
-            if($scope.ticketInfo.counponUse) {
+
+            if($scope.ticketInfo.counponUse) { // @使用优惠券
+
                 layer.open({
                     content: '您确定要退款吗？',
                     btn: ['退款', '不要'],
                     shadeClose: false,
                     yes: function(index) {
+
+                        // @申请退款 wechat/product/applyRefund
                         $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
+
                             if(data.data.couponRefund) {
+
                                 $scope.refundBtnState = true;
                                 layer.open({
                                     content: '退款成功',
@@ -3423,10 +3462,12 @@ app
                                         layer.close(index);
                                     }
                                 });
+
                             } else {
+
                                 $scope.refundBtnState = false;
                                 layer.open({
-                                    content: '申请退款失败，请重试',
+                                    content: '申请退款失败，请稍后重试',
                                     btn: '确定',
                                     shadeClose: false,
                                     yes: function(index) {
@@ -3434,20 +3475,25 @@ app
                                         // layer.close(index);
                                     }
                                 });
+
                             }
+
                         }, errorFn);
+
                         layer.close(index);
                     }
                 });
 
-            } else {
+            } else { // @没有使用优惠券
 
                 layer.open({
                     content: '您确定要退款吗？',
                     btn: ['退款', '不要'],
                     shadeClose: false,
                     yes: function(index) {
+
                         $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
+
                             $scope.refundBtnState = true;
                             layer.open({
                                 content: '申请退款成功，退款将按原路返回到支付账户，预计到账时间为0-3个工作日',
@@ -3466,7 +3512,7 @@ app
             }
         };
 
-        // 车辆位置函数
+        // @车辆位置函数
         $scope.getBusPosition = function() {
             var data = {
                 carid: $scope.ticketInfo.carid,
