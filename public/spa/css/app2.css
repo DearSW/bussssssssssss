@@ -868,7 +868,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
     background: #E75E0F;
     display: inline-block;
     border-radius: 3px;
-    padding: 1px 3px;
+    padding: 1px 5px;
     color: white;
 }
 
@@ -876,6 +876,6 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
     background: #6722E8;
     display: inline-block;
     border-radius: 3px;
-    padding: 1px 3px;
+    padding: 1px 5px;
     color: white;
 }

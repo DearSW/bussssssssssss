@@ -112,9 +112,10 @@
                         text-align: center;
                         color: #3D3E3F;
                         margin: 0 5px;
+                        font-size: 16px;
                     ">
             
-                        <div class="row">
+                        <div class="row" style="margin-top: 5px;">
 
                             <div class="col" style="text-align: left;" ng-click="prevDay()">
                                 <span style="display: inline-block;">上一天</span>
@@ -133,7 +134,7 @@
                     </div>
 
                     <div>
-                        <div style="text-align: right;margin: 0px 10px;">
+                        <div style="text-align: right;margin: 0px 10px 5px 10px;">
                                 <i class="icon ion-ios-information-outline" style="color: #f76601;font-size: 17px;margin-right: 3px;"></i><span style="color: #656572;" ng-click="yonghuxuzhi_Fn()">用户须知</span>
                         </div>
                     </div>
@@ -171,7 +172,7 @@
                                                                     <span style="color:#a7a7ab">
                                                                             <span style="font-size: 14px;display: inline-block;"> · </span>
                                                                             剩
-                                                                            <span class="btnfont2">{{ticketInfo_forwardTicket_leftTickets}}</span>座 / {{ticketInfo_forwardTicket_totalTickets}}座
+                                                                            <span class="btnfont2">{{ticketInfo_forwardTicket_leftTickets}}</span>座/{{ticketInfo_forwardTicket_totalTickets}}座
                                                                             <span class="item-note" style="margin-right: 20px;" > 
                                                                                 <i class="icon ion-chevron-right padding-left"></i>
                                                                             </span>
@@ -238,7 +239,7 @@
                                                                     <span style="color:#a7a7ab">
                                                                             <span style="font-size: 14px;display: inline-block;"> · </span>
                                                                             剩
-                                                                            <span class="btnfont2">{{ticketInfo_backwardTicket_leftTickets}}</span>座 / {{ticketInfo_backwardTicket_totalTickets}}座
+                                                                            <span class="btnfont2">{{ticketInfo_backwardTicket_leftTickets}}</span>座/{{ticketInfo_backwardTicket_totalTickets}}座
                                                                             <span class="item-note" style="margin-right: 20px;" > 
                                                                                 <i class="icon ion-chevron-right padding-left"></i>
                                                                             </span>
@@ -317,7 +318,7 @@
         
                                         <div class="row purchase" ng-repeat="item in ticketInfo.viewInfo.viewPrices track by $index">
 
-                                            <div class="col col-60">
+                                            <div class="col col-60 col-center">
                                                 <div style="font-size: 17px;white-space: normal;" >{{item.viewPriceType}}票</div>
                                             </div>
 
@@ -530,35 +531,13 @@
 
                     </div>
 
-                    <!-- 3 优惠券 -->
-                    <!-- <div class="row" style="background: white;">
-                            <div class="col col-66">
-                                <div style="line-height: 30px;">
-                                    <div ng-if="!useCoupon">
-                                        优惠券
-                                    </div>
-                                    <div ng-if="useCoupon">
-                                        优惠券
-                                        <span style="color: #9E9E9E;margin-left: 5px;" ng-if="couponTxTShow">(无可用优惠券)</span>
-                                        <span style="color: #9E9E9E;margin-left: 5px;" ng-if="!couponTxTShow">(可用优惠券金额 {{newTicketPrice  | currency: '￥' }})</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col col-33">
-                                <div style="position: relative;">
-                                    <div ng-click="checkCoupon($event)"  style="position: absolute; background: transparent; width: 100%; height: 35px; z-index: 999; cursor: pointer;"></div>
-                                    <ion-checkbox  ng-checked="couponBtnState" ng-model="dataContainer.coupon"></ion-checkbox>
-                                </div>
-                            </div>
-                    </div> -->
-
                     <div class="row" style="background: white; margin-top: 10px;">
                             <div class="col" ng-click="checkCoupon2()">
                                 <div>
                                     <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
                                         <span style="font-size: 17px;">优惠券</span>
                                         <span style="color:#a7a7ab">
-                                                <span class="item-note" style="margin-right: 20px;" >
+                                                <span class="item-note" style="margin-right: 3px;" >
                                                     <span style="color: black;font-size: 17px;" ng-if="noCouponTxt">无可用优惠券</span>
                                                     <span style="color: black;font-size: 17px;" ng-if="noCouponTxt2">{{coupon  | currency: '￥' }}</span>
                                                     <i class="icon ion-chevron-right padding-left"></i>
@@ -623,7 +602,7 @@
                         <div class="row" style="padding:0;">
                                 <div class="col col-60" style="background: #E6E7E8;">
                                     <div>
-                                        <div style="margin: 0;border-style: none none none none;padding: 0;padding-top: 19px;background: #E6E7E8;color: #FA972B;" class="item">
+                                        <div style="margin: 0;border-style: none none none none;padding: 0;padding-top: 19px;background: #E6E7E8;color: #FA972B;text-align: center;" class="item">
                                             <span style="font-size: 17px;">实付款:</span>
                                             <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0">
                                                 {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}

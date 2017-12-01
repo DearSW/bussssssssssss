@@ -1088,7 +1088,7 @@ app
                     '			<ion-radio style="padding: 15px 10px;border: none;font-size: 17px;" ng-repeat="item in ticketInfo_forwardTicket_arr"'+
                     '               ng-value="item.bdid"'+
                     '               ng-model="ticketInfo_forwardTicket_timeType.type">'+
-                    '      			{{ item.departTime }} <span style="margin-left: 5px;color: #a2a2a2;font-size: 14px;" >剩 <span style="color: #DF6A0D;">{{ item.leftTickets }}</span> 座 / {{ item. totalTickets}} 座</span> '+
+                    '      			{{ item.departTime }} <span style="margin-left: 5px;color: #a2a2a2;font-size: 14px;" >剩<span style="color: #DF6A0D;">{{ item.leftTickets }}</span>座/{{ item. totalTickets}}座</span> '+
                     '    		</ion-radio>'+
                     '			'+
                     '        </ion-content>'+
@@ -1265,7 +1265,7 @@ app
                     '			<ion-radio style="padding: 15px 10px;border: none;font-size: 17px;" ng-repeat="item in ticketInfo_backwardTicket_arr"'+
                     '               ng-value="item.bdid"'+
                     '               ng-model="ticketInfo_backwardTicket_timeType.type">'+
-                    '      			{{ item.departTime }} <span style="margin-left: 5px;color: #a2a2a2;font-size: 14px;" >剩 <span style="color: #DF6A0D;">{{ item.leftTickets }}</span>座 / {{ item. totalTickets}}座</span> '+
+                    '      			{{ item.departTime }} <span style="margin-left: 5px;color: #a2a2a2;font-size: 14px;">剩<span style="color: #DF6A0D;">{{ item.leftTickets }}</span>座/{{ item. totalTickets}}座</span> '+
                     '    		</ion-radio>'+
                     '			'+
                     '        </ion-content>'+
