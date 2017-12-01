@@ -2720,7 +2720,7 @@ app
                     console.log("我的行程页：获取用户票列表API返回的数据");                            
                     console.log(data);
 
-                    if( (data.totalnum + data.num)  <= 10) { // @判断当前 门票和车票 的总数量是否够十条，不够表示没有必要再上拉加载了，关闭掉上拉加载行为
+                    if( (data.userViewList.length + data.ticketOrders.length)  <= 10) { // @判断当前 门票和车票 的总数量是否够十条，不够表示没有必要再上拉加载了，关闭掉上拉加载行为
                         $rootScope.hasmore2 = false;
                     } else {
                         $rootScope.hasmore2 = true; // @继续开启上拉加载行为
@@ -2777,7 +2777,7 @@ app
                 console.log("我的行程页：获取所有订单的列表API返回的数据(下拉刷新)");
                 console.log(data);
 
-                if( (data.totalnum + data.num)  < 10) {
+                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
                     $rootScope.hasmore2 = false;
                 } else {
                     $rootScope.hasmore2 = true;
@@ -2856,7 +2856,7 @@ app
                     console.log("我的行程页：获取所有订单的列表API返回的数据(上拉加载)");  
                     console.log(data);
 
-                    if ( (data.totalnum + data.num)  <= 10) { 
+                    if ( (data.userViewList.length + data.ticketOrders.length) <= 10) { 
                         $scope.hasmore = false; // @这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
                         $rootScope.hasmore2 = false;
                     } else {
