@@ -2891,17 +2891,12 @@ app
             }
         }
         
-        // @点击未使用车票进入 车票详情界面
+        // @点击 未使用 车票进入 车票详情界面
         $scope.unusedTicketToDetail = function(item, i) {
             $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
         }
 
-        // @点击未使用门票进入 门票详情界面
-        $scope.unusedAdmissionTicketToDetail = function(item, i) {
-            $state.go('ticket_admission_detail', {data: JSON.stringify(item)}, {reload: false});
-        }
-
-        // @点击已使用车票进入 评价界面，同时还会判断是否已评价
+        // @点击 已使用 车票进入 车票评价界面，同时还会判断是否已评价
         $scope.usedTicketToComment = function(item, i) {
             var isCommented = false;
             var isCommentedText = '';
@@ -2919,9 +2914,14 @@ app
             }, {reload: true});
         }
 
-        // @点击正在退款车票 进入 正在退款页面
+        // @点击 正在退款 车票 进入 车票详情界面
         $scope.refundingToRefund = function(item, i) {
-            $state.go('order_refunding', {data: JSON.stringify(item)}, {reload: false});
+            $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
+        }
+
+        // @点击 未使用 门票进入 门票详情界面
+        $scope.unusedAdmissionTicketToDetail = function(item, i) {
+            $state.go('ticket_admission_detail', {data: JSON.stringify(item)}, {reload: false});
         }
 
     })
@@ -3337,11 +3337,12 @@ app
         }
     })
 
-    /* @车票详情页 控制器 */
-    .controller('ticket_detail', function($rootScope, $scope, $filter, $interval, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
+    /* @车票详情页 控制器 2、4、5 三种状态 */
+    .controller('ticket_detail', function($rootScope, $scope, $filter, $interval, $timeout, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
 
         $scope.timeShow = false;
         $scope.timeText = "距离发车时间还剩";
+
         // @倒计时间处理函数
         var stopCountDown = null;
         function ShowCountDown(endTime) { 
@@ -3393,7 +3394,10 @@ app
                 }
 
                 // @倒计时处理
-                $scope.timeShow = true;
+                $timeout(function() {
+                    $scope.timeShow = true;
+                }, 1500);
+
                 var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy/MM/dd') + " " + $scope.ticketInfo.departTime;
                 var endTime = (new Date(temp)).getTime();
                 stopTime = $interval(function() {
@@ -3446,7 +3450,10 @@ app
                 }
                 
                 // @倒计时处理
-                $scope.timeShow = true;
+                $timeout(function() {
+                    $scope.timeShow = true;
+                }, 1500);
+
                 var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy/MM/dd') + " " + $scope.ticketInfo.departTime;
                 var endTime = (new Date(temp)).getTime();
                 stopTime = $interval(function() {
@@ -3454,13 +3461,14 @@ app
                 }, 1000);
 
             }, errorFn);
+
         }
 
         $scope.$on("$destroy", function() {
             $interval.cancel(stopTime);
         });
 
-        $scope.refundBtnState = false;
+        $scope.refundBtnState = false; // @退款按钮控制状态
         var flag = true;
 
         // @退款函数
@@ -3481,71 +3489,52 @@ app
                             console.log("车票详情页: 退款申请API返回的数据");
                             console.log(data);
 
-                            // if() {
+                            if(data.counponUse == true) {  
 
-                            // } else {
+                                if(data.couponRefund == true) {
+                                    $scope.refundBtnState = true;
+                                    layer.open({
+                                        content: '退款成功',
+                                        btn: '确定',
+                                        shadeClose: false,
+                                        yes: function(index) {
+                                            $state.go('myplan', {}, {location: 'replace'});
+                                            layer.close(index);
+                                        }
+                                    });
+                                } else {
+                                    $scope.refundBtnState = false;
+                                    layer.open({
+                                        content: '申请退款失败，请稍后重试',
+                                        btn: '确定',
+                                        shadeClose: false,
+                                        yes: function(index) {
+                                            // $state.go('myplan', {}, {location: 'replace'});
+                                            // layer.close(index);
+                                        }
+                                    });
+                                }
 
-                            // }
+                            } else {
 
-                            // if(data.data.couponRefund) {
+                                $scope.refundBtnState = true;
+                                layer.open({
+                                    content: '申请退款成功，退款将按原路返回到支付账户，预计到账时间为0-3个工作日',
+                                    btn: '确定',
+                                    shadeClose: false,
+                                    yes: function(index) {
+                                        $state.go('myplan', {}, {location: 'replace'});
+                                        layer.close(index);
+                                    }
+                                })
 
-                            //     $scope.refundBtnState = true;
-                            //     layer.open({
-                            //         content: '退款成功',
-                            //         btn: '确定',
-                            //         shadeClose: false,
-                            //         yes: function(index) {
-                            //             $state.go('myplan', {}, {location: 'replace'});
-                            //             layer.close(index);
-                            //         }
-                            //     });
-
-                            // } else {
-
-                            //     $scope.refundBtnState = false;
-                            //     layer.open({
-                            //         content: '申请退款失败，请稍后重试',
-                            //         btn: '确定',
-                            //         shadeClose: false,
-                            //         yes: function(index) {
-                            //             // $state.go('myplan', {}, {location: 'replace'});
-                            //             // layer.close(index);
-                            //         }
-                            //     });
-
-                            // }
+                            }
 
                         }, errorFn);
 
                         layer.close(index);
                     }
                 });
-
-            
-
-                // layer.open({
-                //     content: '您确定要退款吗？',
-                //     btn: ['退款', '不要'],
-                //     shadeClose: false,
-                //     yes: function(index) {
-
-                //         $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
-
-                //             $scope.refundBtnState = true;
-                //             layer.open({
-                //                 content: '申请退款成功，退款将按原路返回到支付账户，预计到账时间为0-3个工作日',
-                //                 btn: '确定',
-                //                 shadeClose: false,
-                //                 yes: function(index) {
-                //                     $state.go('myplan', {}, {location: 'replace'});
-                //                     layer.close(index);
-                //                 }
-                //             });
-                //         }, errorFn);
-                //         layer.close(index);
-                //     }
-                // });
-
         }
 
         // @车辆位置函数
@@ -3555,6 +3544,118 @@ app
                 lineid: $scope.ticketInfo.lineid
             };
             $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
+        }
+
+    })
+
+    /* @门票详情页 控制器 2、3、4、5 四种状态 */
+    .controller('admission_ticket_detail', function($rootScope, $scope, $filter, $interval, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
+
+        var paramsData = JSON.parse($state.params.data);
+
+        console.log("门票详情页：参数打印");
+        console.log(paramsData);
+
+        var requestData = {
+            orderid: paramsData.orderid
+        };
+
+        // @查询用户已购买景区门票详情 wechat/ticketorder/queryUserDoorTicketDetails
+        $myHttpService.post('api/ticketorder/queryUserDoorTicketDetails', requestData, function(data) {
+            
+            console.log("门票详情页：查询订单详情API返回的数据");
+            console.log(data);
+
+            $scope.ticketViewInfo = data.ticketOrder; // @门票
+
+            // @门票退款参数封装
+            if(data.ticketOrder.rechargeid != null) {
+
+                $scope.refundData = {
+                    rechargeid: data.ticketOrder.rechargeid,
+                    userid: $rootScope.session.user.userInfo.userid,
+                    openid: $rootScope.session.user.userInfo.openid,
+                    orderid: data.ticketOrder.orderid,
+                    applyResult: false
+                };
+
+            } else {
+
+                $scope.refundData = {
+                    userid: $rootScope.session.user.userInfo.userid,
+                    openid: $rootScope.session.user.userInfo.openid,
+                    orderid: data.ticketOrder.orderid,
+                    applyResult: false
+                };
+
+            }
+
+        }, errorFn);
+        
+        // @退款函数
+        $scope.refund = function() {
+
+                layer.open({
+                    content: '您确定要退款吗？',
+                    btn: ['退款', '取消'],
+                    shadeClose: false,
+                    yes: function(index) {
+
+                        console.log("门票详情页: 退款参数");
+                        console.log($scope.refundData);
+
+                        // @申请门票退款 wechat/ticketorder/applyDoorTicketRefund
+                        $myHttpService.post('api/ticketorder/applyDoorTicketRefund', $scope.refundData, function(data) {
+
+                            console.log("门票详情页: 退款申请API返回的数据");
+                            console.log(data);
+
+                            if(data.counponUse == true) {  
+
+                                if(data.couponRefund == true) {
+                                    $scope.refundBtnState = true;
+                                    layer.open({
+                                        content: '退款成功',
+                                        btn: '确定',
+                                        shadeClose: false,
+                                        yes: function(index) {
+                                            $state.go('myplan', {}, {location: 'replace'});
+                                            layer.close(index);
+                                        }
+                                    });
+                                } else {
+                                    $scope.refundBtnState = false;
+                                    layer.open({
+                                        content: '申请退款失败，请稍后重试',
+                                        btn: '确定',
+                                        shadeClose: false,
+                                        yes: function(index) {
+                                            // $state.go('myplan', {}, {location: 'replace'});
+                                            // layer.close(index);
+                                        }
+                                    });
+                                }
+
+                            } else {
+
+                                $scope.refundBtnState = true;
+                                layer.open({
+                                    content: '申请退款成功，退款将按原路返回到支付账户，预计到账时间为0-3个工作日',
+                                    btn: '确定',
+                                    shadeClose: false,
+                                    yes: function(index) {
+                                        $state.go('myplan', {}, {location: 'replace'});
+                                        layer.close(index);
+                                    }
+                                })
+
+                            }
+
+                        }, errorFn);
+
+                        layer.close(index);
+                    }
+                });
         }
 
     })
@@ -3650,6 +3751,7 @@ app
  *   ======`-.____`-.___\_____/___.-`____.-'======
  *                               `=---='
  *   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *                     佛祖保佑        永无BUG
  *                     佛祖保佑        永无BUG
 */
     

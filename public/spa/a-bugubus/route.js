@@ -416,15 +416,6 @@ angular
                 templateUrl: basePath + 'tpl/jqztc_order_check_comment.html'
             })
 
-            /*景区直通车：订单退款中*/
-            .state('order_refunding', {
-                url: '/order_refunding',
-                params: {
-                    data: null
-                },
-                templateUrl: basePath + 'tpl/jqztc_order_refunding.html'
-            })
-
             /*景区直通车：我的行程*/
             .state('myplan', {
                 url: '/myplan',
