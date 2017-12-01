@@ -205,7 +205,7 @@
                                 
                                 <div class="row" >
                                     <div class="col col-33 col-center" style="color: #a2a2a2;">
-                                        <span style="margin-left: 10px;">正在退款中</span>
+                                        <span style="margin-left: 10px;">退款中</span>
                                     </div>
                                     <div class="col col-66" style="text-align: right;">
                                         <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="refundingToRefund(item, i)">
@@ -252,7 +252,8 @@
                                 
                                 <div class="row" >
                                     <div class="col col-33 col-center" style="color: #a2a2a2;">
-                                        <span style="margin-left: 10px;">已退款 ￥{{item.payPrice}}</span>
+                                        <span ng-if="item.payPrice == 0">已退款 （优惠券购买） </span>
+                                        <span ng-if="item.payPrice != 0" style="margin-left: 10px;">已退款 ￥{{item.payPrice}}</span>
                                     </div>
                                     <div class="col col-66" style="text-align: right;">
                                         <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: rgba(255, 255, 255, 0);">

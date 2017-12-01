@@ -3360,23 +3360,39 @@ app
 			}
 		}
 
-        if(JSON.parse($state.params.data) == null) {
+        if(JSON.parse($state.params.data) == null) { // @进入页面没有参数时
 
             var viewOrderid = sessionStorage.getItem('ticket_detail_viewOrderid');
+
             $myHttpService.post('api/product/queryUserProductTicketDetails', {
                 viewOrderid: viewOrderid
             }, function(data) {
-                console.log(data);
+                
                 $scope.ticketInfo = data.viewOrder;
-                $scope.refundData = {
-                    rechargeid: data.viewOrder.rechargeid,
-                    userid: $rootScope.session.user.userInfo.userid,
-                    openid: $rootScope.session.user.userInfo.openid,
-                    viewOrderid: data.viewOrder.viewOrderid,
-                    applyResult: false
-                };
 
-                // 倒计时处理
+                // @退款参数封装
+                if(data.viewOrder.rechargeid != null) {
+                    
+                    $scope.refundData = {
+                        rechargeid: data.viewOrder.rechargeid,
+                        userid: $rootScope.session.user.userInfo.userid,
+                        openid: $rootScope.session.user.userInfo.openid,
+                        viewOrderid: data.viewOrder.viewOrderid,
+                        applyResult: false
+                    };
+
+                } else {
+
+                    $scope.refundData = {
+                        userid: $rootScope.session.user.userInfo.userid,
+                        openid: $rootScope.session.user.userInfo.openid,
+                        viewOrderid: data.viewOrder.viewOrderid,
+                        applyResult: false
+                    };
+
+                }
+
+                // @倒计时处理
                 $scope.timeShow = true;
                 var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy/MM/dd') + " " + $scope.ticketInfo.departTime;
                 var endTime = (new Date(temp)).getTime();
@@ -3386,7 +3402,7 @@ app
 
             }, errorFn);
 
-        } else {
+        } else { // @进入页面有参数时
 
             var paramsData = JSON.parse($state.params.data);
 
@@ -3405,17 +3421,30 @@ app
                 console.log("车票详情页：查询订单详情API返回的数据");
                 console.log(data);
 
-                $scope.ticketInfo = data.viewOrder;
+                $scope.ticketInfo = data.viewOrder; // @车票
 
                 // @退款参数封装
-                $scope.refundData = {
-                    rechargeid: data.viewOrder.rechargeid,
-                    userid: $rootScope.session.user.userInfo.userid,
-                    openid: $rootScope.session.user.userInfo.openid,
-                    viewOrderid: data.viewOrder.viewOrderid,
-                    applyResult: false
-                };
+                if(data.viewOrder.rechargeid != null) {
 
+                    $scope.refundData = {
+                        rechargeid: data.viewOrder.rechargeid,
+                        userid: $rootScope.session.user.userInfo.userid,
+                        openid: $rootScope.session.user.userInfo.openid,
+                        viewOrderid: data.viewOrder.viewOrderid,
+                        applyResult: false
+                    };
+
+                } else {
+
+                    $scope.refundData = {
+                        userid: $rootScope.session.user.userInfo.userid,
+                        openid: $rootScope.session.user.userInfo.openid,
+                        viewOrderid: data.viewOrder.viewOrderid,
+                        applyResult: false
+                    };
+
+                }
+                
                 // @倒计时处理
                 $scope.timeShow = true;
                 var temp = $filter('date')($scope.ticketInfo.departDate, 'yyyy/MM/dd') + " " + $scope.ticketInfo.departTime;
@@ -3437,46 +3466,54 @@ app
         // @退款函数
         $scope.refund = function() {
 
-            console.log($scope.refundData);
-
-            if($scope.ticketInfo.counponUse) { // @使用优惠券
-
                 layer.open({
                     content: '您确定要退款吗？',
-                    btn: ['退款', '不要'],
+                    btn: ['退款', '取消'],
                     shadeClose: false,
                     yes: function(index) {
+
+                        console.log("车票详情页: 退款参数");
+                        console.log($scope.refundData);
 
                         // @申请退款 wechat/product/applyRefund
                         $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
 
-                            if(data.data.couponRefund) {
+                            console.log("车票详情页: 退款申请API返回的数据");
+                            console.log(data);
 
-                                $scope.refundBtnState = true;
-                                layer.open({
-                                    content: '退款成功',
-                                    btn: '确定',
-                                    shadeClose: false,
-                                    yes: function(index) {
-                                        $state.go('myplan', {}, {location: 'replace'});
-                                        layer.close(index);
-                                    }
-                                });
+                            // if() {
 
-                            } else {
+                            // } else {
 
-                                $scope.refundBtnState = false;
-                                layer.open({
-                                    content: '申请退款失败，请稍后重试',
-                                    btn: '确定',
-                                    shadeClose: false,
-                                    yes: function(index) {
-                                        // $state.go('myplan', {}, {location: 'replace'});
-                                        // layer.close(index);
-                                    }
-                                });
+                            // }
 
-                            }
+                            // if(data.data.couponRefund) {
+
+                            //     $scope.refundBtnState = true;
+                            //     layer.open({
+                            //         content: '退款成功',
+                            //         btn: '确定',
+                            //         shadeClose: false,
+                            //         yes: function(index) {
+                            //             $state.go('myplan', {}, {location: 'replace'});
+                            //             layer.close(index);
+                            //         }
+                            //     });
+
+                            // } else {
+
+                            //     $scope.refundBtnState = false;
+                            //     layer.open({
+                            //         content: '申请退款失败，请稍后重试',
+                            //         btn: '确定',
+                            //         shadeClose: false,
+                            //         yes: function(index) {
+                            //             // $state.go('myplan', {}, {location: 'replace'});
+                            //             // layer.close(index);
+                            //         }
+                            //     });
+
+                            // }
 
                         }, errorFn);
 
@@ -3484,33 +3521,32 @@ app
                     }
                 });
 
-            } else { // @没有使用优惠券
+            
 
-                layer.open({
-                    content: '您确定要退款吗？',
-                    btn: ['退款', '不要'],
-                    shadeClose: false,
-                    yes: function(index) {
+                // layer.open({
+                //     content: '您确定要退款吗？',
+                //     btn: ['退款', '不要'],
+                //     shadeClose: false,
+                //     yes: function(index) {
 
-                        $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
+                //         $myHttpService.post('api/product/applyRefund', $scope.refundData, function(data) {
 
-                            $scope.refundBtnState = true;
-                            layer.open({
-                                content: '申请退款成功，退款将按原路返回到支付账户，预计到账时间为0-3个工作日',
-                                btn: '确定',
-                                shadeClose: false,
-                                yes: function(index) {
-                                    $state.go('myplan', {}, {location: 'replace'});
-                                    layer.close(index);
-                                }
-                            });
-                        }, errorFn);
-                        layer.close(index);
-                    }
-                });
+                //             $scope.refundBtnState = true;
+                //             layer.open({
+                //                 content: '申请退款成功，退款将按原路返回到支付账户，预计到账时间为0-3个工作日',
+                //                 btn: '确定',
+                //                 shadeClose: false,
+                //                 yes: function(index) {
+                //                     $state.go('myplan', {}, {location: 'replace'});
+                //                     layer.close(index);
+                //                 }
+                //             });
+                //         }, errorFn);
+                //         layer.close(index);
+                //     }
+                // });
 
-            }
-        };
+        }
 
         // @车辆位置函数
         $scope.getBusPosition = function() {
@@ -3518,7 +3554,6 @@ app
                 carid: $scope.ticketInfo.carid,
                 lineid: $scope.ticketInfo.lineid
             };
-            console.log(data);
             $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
         }
 
