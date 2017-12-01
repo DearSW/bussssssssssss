@@ -1,4 +1,5 @@
 <ui-view ng-controller="myplan">
+    
     <style>
             .spinner svg {
                 width: 38px;
@@ -16,6 +17,7 @@
                 border-bottom: 1px solid rgba(204, 204, 204, 0.4);
             }
     </style>
+
     <div class="myplan">
         <ion-content style="background-color: #E7E7E7;">
 
@@ -40,7 +42,7 @@
                         
                             <div class="col">
                                 <label class="item item-radio">
-                                    <input type="radio" name="group" ng-model="q"  value="2" checked="checked">
+                                    <input type="radio" name="group" ng-model="q">
                                     <div class="radio-content">
                                         <div class="item-content">
                                             未使用
@@ -51,7 +53,7 @@
                         
                             <div class="col">
                                 <label class="item item-radio">
-                                    <input type="radio" name="group" ng-model="q"  value="4" checked="checked">
+                                    <input type="radio" name="group" ng-model="q">
                                     <div class="radio-content">
                                         <div class="item-content">
                                             退款中
@@ -264,9 +266,10 @@
                         </ion-item>
 
                         <!-- 门票 -->
-                        <ion-item ng-repeat="item in ticketsViewInfo track by $index">
+                        <ion-item class="animate-repeat" ng-repeat="item in ticketsViewInfo track by $index">
 
                         </ion-item>
+
                         <!-- 无相关票提醒 -->
                         <ion-item class="animate-repeat" ng-if="results.length === 0">
                             
@@ -275,13 +278,16 @@
                                 <div class="row" style="text-align: center;font-size: 18px;">
                                     <div class="col">
                                         <i class="icon ion-ios-information-outline" style="color:crimson;font-size: 14px;"></i>
-                                        <span style="font-size: 12px;">没有相关票据信息</span>
+                                        <span style="font-size: 12px;">暂时没有相关内容</span>
                                     </div>
                                 </div> 
                             </div>
+
                         </ion-item>
 
-                        <div class="myplan-placeholder" style=" width: 100%; height: 45px; text-align: center; padding: 5px;" >
+
+                        <!-- 底线提示 -->
+                        <div class="myplan-placeholder animate-repeat" style=" width: 100%; height: 45px; text-align: center; padding: 5px;" ng-if="results.length !== 0" >
                             <span class="yyyy"></span>
                             <span ng-if="!hasmore2" style="line-height: 2; color: #a2a2a2;">我是有底线的</span>
                             <span class="yyyy"></span>
@@ -291,9 +297,11 @@
 
                     <!-- 无票 -->
                     <ion-list ng-if="ticketsInfoIsEmpty">
+
                             <!-- 无票提醒 -->
                             <ion-item class="animate-repeat">
-                                <!-- 没有任何票据信息 -->
+
+                                <!-- 没有任何信息 -->
                                 <div class="detail">
                                         <div class="row" style="text-align: center;font-size: 18px;">
                                             <div class="col">
@@ -302,6 +310,7 @@
                                             </div>
                                         </div> 
                                 </div>
+
                             </ion-item>
 
                             <!-- 测试 -->
@@ -398,7 +407,7 @@
                     </ion-list>
 
                     <!-- 上拉加载 -->
-                    <ion-infinite-scroll ng-if="hasmore2" on-infinite="loadMoreTicket()" distance="5%" spinner="dots"></ion-infinite-scroll>
+                    <ion-infinite-scroll ng-if="hasmore2" on-infinite="loadMoreTicket()" distance="7%" spinner="dots"></ion-infinite-scroll>
 
                 </ion-content>
     </div>
