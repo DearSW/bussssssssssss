@@ -2467,7 +2467,7 @@ app
             
             layer.open({
                 type: 1,
-                content: '<p style="text-align: right;margin-top: 10px;"><i class="icon ion-ios-close" style="color:#1fb54a;font-size: 40px;margin-right: 10px;" onclick="layer.closeAll();"></i></p><div style="margin: 5px 15px;">' + $scope.ticketInfo.productinfo + '</div>',
+                content: '<p style="text-align: right;margin-top: 10px;"><i class="icon ion-ios-close-empty" style="color:#111;font-size: 45px;margin-right: 10px;" onclick="layer.closeAll();"></i></p><div style="margin: 5px 15px;">' + $scope.ticketInfo.productinfo + '</div>',
                 anim: 'up',
                 style: 'position: absolute; left:0; top:0; width:100%; height:100%; border: none; -webkit-animation-duration: .3s; animation-duration: .3s;background: white;'
             });
