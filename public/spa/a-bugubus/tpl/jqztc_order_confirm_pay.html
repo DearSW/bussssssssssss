@@ -504,7 +504,7 @@
                     <div>
                         <div class="row">
                             <div class="col">
-                                <div class="list list-inset">
+                                <div class="list list-inset" style="margin: 0 5px;">
                                     <label class="item item-input" style="border-radius: 3px;">
                                         <input type="tel" placeholder="请输入手机号" required ng-model="dataContainer.phone" ng-change="checkPhone()">
                                     </label>
@@ -512,7 +512,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" style="margin-left: 5px;">
                             <div class="col col-60">
                                 <div class="list list-inset">
                                     <label class="item item-input" style="border-radius: 3px;">
@@ -522,8 +522,8 @@
                                 </div>
                             </div>
 
-                            <div class="col col-40">
-                                <i class="button" ng-click="countdown()" ng-disabled="verificationCodeBtnDisabled" ng-class="{true: 'unselected', false: 'selected'}[verificationCodeBtnDisabled]"  style="width: 100%;border-radius: 3px;">
+                            <div class="col col-40" style="padding-left: 3px;">
+                                <i class="button" ng-click="countdown()" ng-disabled="verificationCodeBtnDisabled" ng-class="{true: 'unselected', false: 'selected'}[verificationCodeBtnDisabled]"  style="border-radius: 3px;">
                                     <span ng-if="!countdownTxtShow">获取验证码</span><span  ng-if="countdownTxtShow">{{countdownTime}}s</span>
                                 </i>
                             </div>
