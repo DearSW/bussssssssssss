@@ -45,12 +45,13 @@
                             <span style="
                             background: red;
                             display: inline-block;
-                            height: 30px;
-                            width: 80px;
+                            height: 27px;
+                            width: 70px;
                             color: white;
-                            margin: 3px 5px 3px 10px;
+                            margin: 3px 10px 3px 10px;
                             text-align: center;
                             border-radius: 3px;
+                            font-size: 14px;
                         " >热门推荐</span><span style="color: whitesmoke;">{{item.titleName}}</span>
                         </div>
                 </div>
@@ -108,11 +109,11 @@
             <div class="row">
                 <div class="col">
                     <div class="list padding-top gray f14">
-                        <div style="border-radius: 3px; border: none;" class="item" ng-click="openDatePicker()" ng-model="goDate.time">
-                            出发日期
+                        <div style="border-radius: 3px; border: none;color: #ADADAD;" class="item" ng-click="openDatePicker()" ng-model="goDate.time">
+                            出发时间
                             <span class="item-note">
                                 {{ goDate.time | date: "yyyy-MM-dd"}} 
-                                <i class="icon ion-chevron-right padding-left"></i>
+                                <i class="icon ion-chevron-right padding-left" style="color: #c7c5c5;padding-left: 3px;"></i>
                             </span>
                         </div>
                     </div>
@@ -123,7 +124,7 @@
 
         <!-- 搜索按钮 -->
         <div style="padding: 10px 15px;">
-            <button style="transition: all linear 1s;margin: 10px auto;width: 25%;background: #0F50FB;" ng-disabled="isSearchBtnDisabled" class="button button-block button-positive" ng-click="goTabs()">搜索</button>
+            <button style="transition: all linear 1s;margin: 10px auto;width: 30%;background: #0F50FB;border-radius: 3px;" ng-disabled="isSearchBtnDisabled" class="button button-block button-positive" ng-click="goTabs()">搜索</button>
         </div>
 
         <!-- <button class="button button-block button-positive" ng-click="goTest()">Test</button> -->
