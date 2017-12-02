@@ -22,9 +22,10 @@
                 padding: 0px 3px;
                 margin-top: 13px;
                 color: #f8f8f8;
-                background: #387ef5;
-                height: 28px;
-                width: 24px;
+                background: #28a54c;
+                height: 29px;
+                width: 26px;
+                border-radius: 3px;
                 /* scale: .8; */
             }
 
@@ -184,7 +185,7 @@
                                                                 <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item" ng-click="ticketInfo_forwardTicket_selectGoTime_Fn()">
                                                                     <span style="font-size: 17px;">请选择出发时间</span>
                                                                     <span style="color:#a7a7ab">
-                                                                            <span class="item-note" style="margin-right: 20px;" > 
+                                                                            <span class="item-note"> 
                                                                                 <i class="icon ion-chevron-right padding-left"></i>
                                                                             </span>
                                                                     </span>
@@ -201,8 +202,8 @@
                                                         <div style="font-size: 17px;white-space: normal;" >票价：{{ticketInfo_forwardTicket_price}}元</div>
                                                     </div>
 
-                                                    <div class="col col-40">
-                                                        <div style="text-align: center;">
+                                                    <div class="col col-40" style="text-align: right;">
+                                                        <div>
                                                                 <button class="button  btnfoot6" ng-click="ticketInfo_forwardTicket_decr()">-</button>
                                                                 <button class="button  btnfont7">{{ticketInfo_forwardTicket_count}}</button>
                                                                 <button class="button  btnfont8" ng-click="ticketInfo_forwardTicket_incr()">+</button>
@@ -251,7 +252,7 @@
                                                                 <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item" ng-click="ticketInfo_backwardTicket_selectGoTime_Fn()">
                                                                     <span style="font-size: 17px;">请选择出发时间</span>
                                                                     <span style="color:#a7a7ab">
-                                                                            <span class="item-note" style="margin-right: 20px;" > 
+                                                                            <span class="item-note"> 
                                                                                 <i class="icon ion-chevron-right padding-left"></i>
                                                                             </span>
                                                                     </span>
@@ -268,8 +269,8 @@
                                                         <div style="font-size: 17px;white-space: normal;" >票价：{{ticketInfo_backwardTicket_price}}元</div>
                                                     </div>
 
-                                                    <div class="col col-40">
-                                                        <div style="text-align: center;">
+                                                    <div class="col col-40" style="text-align: right;">
+                                                        <div>
                                                                 <button class="button  btnfoot6" ng-click="ticketInfo_backwardTicket_decr()">-</button>
                                                                 <button class="button  btnfont7">{{ticketInfo_backwardTicket_count}}</button>
                                                                 <button class="button  btnfont8" ng-click="ticketInfo_backwardTicket_incr()">+</button>
