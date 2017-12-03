@@ -148,8 +148,6 @@ app
 
         }
 
-        $scope.showDefaultImg = true; // @推荐图片不存在时，默认的placeholder
-
         $scope.dataContainer = { // @数据容器
 
             input: "", // @用户输入
@@ -157,10 +155,12 @@ app
 
         }
         
-        if(recommendImgCount == 1) {
+        if(recommendImgCount == 1) { // @首次加载
 
             sessionStorage.setItem("recommendImgCount", 2);
 
+            $rootScope.showDefaultImg = true; // @推荐图片不存在时，默认的placeholder
+        
             // @请求获取推荐路线数据  /web/product/queryRecommendProductList
             $myHttpService.postNoLoad('api/product/queryRecommendProductList', {}, function(data) {
                 console.log("首页：图片推荐API返回的数据");
@@ -168,11 +168,11 @@ app
                 $rootScope.recommendProducts2 = data.products;
                 if($rootScope.recommendProducts2.length == 0) {
                     $timeout(function() {
-                        $scope.showDefaultImg = true;
+                        $rootScope.showDefaultImg = true;
                         $ionicSlideBoxDelegate.update();
                     }, 500);
                 } else {
-                    $scope.showDefaultImg = false;
+                    $rootScope.showDefaultImg = false;
                     $ionicSlideBoxDelegate.update();
                     $timeout(function() {
                         $ionicSlideBoxDelegate.next();
@@ -180,18 +180,19 @@ app
                 }
             }, errorFn);
 
-        } else {
+        } else { // @不是首次加载
 
-            clearTimeout(slideImageTimer);
-            if($rootScope.recommendProducts2 instanceof Array) { // @加个判断，在调试时容易出错，请求不到数据，导致length属性不存在
-                if($rootScope.recommendProducts2.length > 0) {
-                    $scope.showDefaultImg = false;
-                }
-            }
+            // clearTimeout(slideImageTimer);
+            // if($rootScope.recommendProducts2 instanceof Array) { // @加个判断，在调试时容易出错，请求不到数据，导致length属性不存在
+            //     if($rootScope.recommendProducts2.length > 0) {
+            //         $rootScope.showDefaultImg = false;
+            //     }
+            // }
+
         }
         
         $rootScope.recommendProducts2Index = 0;
-        function slideImage() {
+        function slideImage() { // @轮播控制函数
             if($rootScope.recommendProducts2 && $rootScope.recommendProducts2.length > 0) {
                 $rootScope.recommendProducts2Index = $rootScope.recommendProducts2Index === $rootScope.recommendProducts2.length - 1 ? 0 : $rootScope.recommendProducts2Index + 1;
                 $rootScope.slideNumber = $ionicSlideBoxDelegate.$getByHandle("adBanner").currentIndex();
@@ -204,16 +205,13 @@ app
             }
         }
 
-        slideImageTimer = $interval(function() {
+        slideImageTimer = $interval(function() { // @定时器，开始轮播
             slideImage();
         }, 4000);
 
-        $scope.$on("$destroy", function() {
-            $interval.cancel(slideImageTimer);
-        });
-        // @当DOM元素从页面中被移除时，AngularJS将会在scope中触发$destory事件。这让我们可以有机会来cancel任何潜在的定时器
-        $scope.$on('$ionicView.beforeLeave', function(event, data) {
-            clearTimeout(slideImageTimer);
+        // @当DOM元素从页面中被移除时，Ng将会在scope中触发$destory事件。
+        $scope.$on("$destroy", function() { // @清除定时器，防止定时的叠加效应
+            $interval.cancel(slideImageTimer); // @专业的清除函数
         });
 
         // @推荐路线 数据详情，点击图片进行跳转到 产品 页面
@@ -352,9 +350,9 @@ app
 
             }, errorFn);
 
-            $rootScope.isSelectedRoadLine = ""; // @用户点击的 某一条线路存在这里
+            $rootScope.isSelectedRoadLine = ""; // @把用户点击的 某一条线路 存在这里
             $rootScope.isSelectedRoadLineBoolean = true; // @是否选择路线，控制“主题/路线/目的地”等字段的显示状态，true为显示，false不显示
-            $rootScope.isSearchBtnDisabled = true; // @是否开启搜索按钮的可点击状态，true 不开启，false开启
+            $rootScope.isSearchBtnDisabled = true; // @是否开启搜索按钮的可点击状态，true 不开启（默认、初始），false开启
 
         } else {
 
@@ -404,7 +402,7 @@ app
 
         }
 
-        // @时间选择的的综合操作
+        // @时间选择的默认操作
         if(sessionStorage.getItem('jqztc_search_time') != null) {
 
             var tempTime = sessionStorage.getItem('jqztc_search_time');
@@ -416,7 +414,7 @@ app
         }
 
         $scope.goDate = {
-            time: tempTime
+            time: tempTime // @赋予默认的时间，或者当前时间，或者用户选择的时间
         };
 
         var compareTime = new Date().getTime() + (60 * 86400000); // @60天时间的时间段，用来比较的
@@ -427,7 +425,6 @@ app
               callback: function (val) {  // @必选
                 var val2 = new Date(val);
                 var val3 = $filter('date')(val2, 'yyyy-MM-dd');
-                console.log('返回的时间为：' + val3);
                 $scope.goDate.time = new Date(val);
               },
               titleLabel: '选择日期',
@@ -443,31 +440,19 @@ app
 
         }
 
-        // @当所有的输入都是完成状态时，开启搜索按钮
-        $scope.btnCheck = function() {
-
-            if($scope.dataContainer.input) {
-                $scope.dataContainer.btnDisabled = false;
-            } else {
-                $scope.dataContainer.btnDisabled = true;
-            }
-
-        }
-
         // @点击搜索的同时，需要把数据传递到下一个tabs页面
         $scope.goTabs = function() {
 
             // 封装参数
             var data = {
-                // city: "贵阳", // 城市区域
                 input: $rootScope.isSelectedRoadLine, // 路线
                 date: $filter('date')($scope.goDate.time, 'yyyy-MM-dd') // 时间
             };
+
             console.log("首页：打印搜索按钮传递到产品页的参数");
             console.log(data);
+
             sessionStorage.setItem('jqztc_search_time', data.date);
-            // sessionStorage.setItem('search_city', $scope.cityssss);
-            // sessionStorage.setItem('search_input', $scope.dataContainer.input.trim());
 
             $state.go('tabs', {data: JSON.stringify(data)}, {reload: true});
 
