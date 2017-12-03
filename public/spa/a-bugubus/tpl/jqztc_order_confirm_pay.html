@@ -642,12 +642,12 @@
                     width: 70%;
                     height: 100%;
                     margin: 0;
-                    line-height: 2;
+                    line-height: 50px;
                     font-size: 30px;
                     color: #FA972B;
                     font-weight: 400;
                     ">
-                    <span style="font-size: 17px;">实付款</span>
+                    <span style="font-size: 17px;">实付款：</span>
                     <span ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0">
                         {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}
                     </span>
@@ -670,6 +670,7 @@
                     color: white;
                     font-size: 22px;
                     text-align: center;
+                    line-height: 50px;
                     ">去付款</button>
 
         </div>
