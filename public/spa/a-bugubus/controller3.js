@@ -4,16 +4,23 @@
  */
 /**************************************** 
  * 
- ****** 贵旅景区直通车 我的线路、行程、账户
+ * @贵旅景区直通车 我的线路、行程、账户
  * 
-****************************************/
+ ****************************************/
 var app = angular.module('app');
 
+/**
+ * @描述：HTTP请求的Error回调函数
+ */
 var errorFn = function() {
         console.log("你好，数据请求失败");
 };
 
-/* @格式化 请求参数对象 去掉其中值为空的属性 */
+/**
+ * @描述：格式化请求参数对象，去掉其中值为空的属性 
+ * @参数：需要格式化的对象
+ * @返回：格式化之后的对象
+ */
 var formatParamObject = function(obj) {
     for (var key in obj) {  
         if(obj[key] === '' && obj[key] !== false) {
@@ -23,7 +30,9 @@ var formatParamObject = function(obj) {
     return obj;
 }
 
-/* @浮点数运算对象 */
+/* 
+ *  @描述：浮点数运算对象，解决JS运算精度丢失的问题
+ */
 var floatObj = function() {
     /*
      * @判断obj是否为一个整数
@@ -35,7 +44,7 @@ var floatObj = function() {
      * @将一个浮点数转成整数，返回整数和倍数。如 3.14 >> 314，倍数是 100
      * @param floatNum {number} 小数
      * @return {object}
-     *   @{times:100, num: 314}
+     * @{times:100, num: 314}
      */
     function toInteger(floatNum) {
         var ret = {times: 1, num: 0}
@@ -121,7 +130,9 @@ var floatObj = function() {
 }();
 
 app
-    /* @首页、搜索、控制器 */
+    /**
+     * @首页、搜索、控制器
+     */
     .controller('City_select', function($rootScope, $scope, $state, $timeout, $interval, $myLocationService, $myHttpService, $ionicSlideBoxDelegate, $ionicActionSheet, $selectCity, $filter, ionicDatePicker, $ionicModal) {
         
         // @流程控制，确保推荐在未关闭Ng页面之前仅仅请求一次，优化
@@ -464,7 +475,9 @@ app
 
     })
 
-    /* @产品页  路线 点评 控制器 */
+    /**
+     * @产品页  路线 点评 控制器
+     */
     .controller('Tabs', function($rootScope, $scope, $state, $timeout,  $myHttpService, $myLocationService, $filter, ionicDatePicker, $ionicModal) {
 
         $scope.ticketsInfo1 = ''; // @图片推荐产品 数据
@@ -1005,7 +1018,9 @@ app
 
     })
 
-    /* @订单页 确认、支付 控制器 */
+    /**
+     * @订单页 确认、支付 控制器
+     */ 
     .controller('order_confirm_pay', function($rootScope, $filter, $scope, $state, $myHttpService, $interval, $ionicModal, ionicDatePicker) {
 
         if(JSON.parse($state.params.data) == null) { // @访问此订单页时，如果没有传递过来参数那么将直接倒退2个页面
@@ -2463,11 +2478,9 @@ app
 
         $scope.yonghuxuzhi_Fn = function() { // @用户须知弹窗函数
             
-            '<p><i class="icon ion-ios-information" style="color:crimson;font-size: 14px;"></i> 如行程有变，请于发车前1小时以上，申请退款，超时或验票后不能退款。</p>'
-            
             layer.open({
                 type: 1,
-                content: '<p style="text-align: right;margin-top: 10px;"><i class="icon ion-ios-close-empty" style="color:#111;font-size: 45px;margin-right: 10px;" onclick="layer.closeAll();"></i></p><div style="margin: 5px 15px;">' + $scope.ticketInfo.productinfo + '</div>',
+                content: '<p style="text-align: right;margin-top: 10px;"><i class="icon ion-ios-close-empty" style="color:#ccc;font-size: 45px;margin-right: 10px;" onclick="layer.closeAll();"></i></p><div style="margin: 5px 15px;">' + $scope.ticketInfo.productinfo + '</div>',
                 anim: 'up',
                 style: 'position: absolute; left:0; top:0; width:100%; height:100%; border: none; -webkit-animation-duration: .3s; animation-duration: .3s;background: white;'
             });
@@ -2476,7 +2489,9 @@ app
         
     })
 
-    /* @支付成功页 车票购买成功 跳转 控制器*/
+    /**
+     * @支付成功页 车票购买成功 控制器
+     */
     .controller('order_detail_refund', function($rootScope, $scope, $filter, $state, $myHttpService, $ionicSlideBoxDelegate) {
 
         if(JSON.parse($state.params.data) == null) { // @访问此页面时，如果没有传递过来参数
@@ -2607,7 +2622,9 @@ app
                
     })
 
-    /* @车票评价页 控制器 */
+    /**
+     * @车票评价页 控制器
+     */ 
     .controller('order_check_comment', function($rootScope, $scope, $timeout, $state, $filter, $myHttpService) {
 
         $scope.submitBtnIsDiasbled = true; // 控制提交按钮的状态
@@ -2688,7 +2705,9 @@ app
         }
     })
 
-    /* @我的行程页 门票、车票 控制器 */
+    /**
+     * @我的行程页 门票、车票 控制器
+     */ 
     .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout) {
 
         if(sessionStorage.getItem("myplanCount") == null) {
@@ -2941,7 +2960,9 @@ app
 
     })
 
-     /* @测试 */
+     /**
+      * @测试 控制器
+      */
     .controller('test', function($rootScope, $scope, $state, $timeout, $myLocationService, $myHttpService, $ionicLoading, $ionicScrollDelegate, $ionicActionSheet, $selectCity, $filter, ionicDatePicker) {
 
         $scope.selectedDate1;
@@ -3056,7 +3077,9 @@ app
 
     })
 
-    /* @车辆位置页 控制器 */
+    /**
+     * @车辆位置页 控制器
+     */ 
     .controller('BusPositionController', function($scope, $myHttpService, $timeout, $state) {
 
         if(JSON.parse($state.params.data) == null) {
@@ -3352,7 +3375,9 @@ app
         }
     })
 
-    /* @车票详情页 控制器 2、4、5 三种状态 */
+    /**
+     * @车票详情页 控制器 2、4、5 三种状态
+     */
     .controller('ticket_detail', function($rootScope, $scope, $filter, $interval, $timeout, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
 
         $scope.timeShow = false;
@@ -3563,7 +3588,9 @@ app
 
     })
 
-    /* @门票详情页 控制器 2、3、4、5 四种状态 */
+    /**
+     * @门票详情页 控制器 2、3、4、5 四种状态
+     */
     .controller('admission_ticket_detail', function($rootScope, $scope, $filter, $interval, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
 
         var paramsData = JSON.parse($state.params.data);
@@ -3675,7 +3702,9 @@ app
 
     })
 
-    /* @我的个人页 信息保存 编辑 控制器 */
+    /**
+     * @我的个人页 信息保存 编辑 控制器
+     */
     .controller('IUserController', function($rootScope, $scope, $location, $state, $myHttpService) {
         
         $scope.tempUser = {};
@@ -3768,5 +3797,5 @@ app
  *   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *                     佛祖保佑        永无BUG
  *                     佛祖保佑        永无BUG
-*/
+ */
     
