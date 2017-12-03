@@ -601,7 +601,8 @@
                                 </div>
                         </div>
 
-                        <div class="row" style="padding:0;">
+                        <!-- 支付区域 -->
+                        <!-- <div class="row" style="padding:0;">
                                 <div class="col col-60" style="background: #E6E7E8;">
                                     <div>
                                         <div style="margin: 0;border-style: none none none none;padding: 0;padding-top: 19px;background: #E6E7E8;color: #FA972B;text-align: center;" class="item">
@@ -620,6 +621,30 @@
                                         <span style="color: white;font-size: 22px;line-height: 2;">去付款</span>
                                     </div>
                                 </button>
+                        </div> -->
+
+                        <div class="bar bar-footer">
+
+                            <div class="title">
+                                    <div>
+                                            <div style="margin: 0;border-style: none none none none;padding: 0;padding-top: 19px;background: #E6E7E8;color: #FA972B;text-align: center;" class="item">
+                                                <span style="font-size: 17px;">实付款:</span>
+                                                <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0">
+                                                    {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}
+                                                </span>
+                                                <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon < 0">
+                                                    {{ 0 + ticketViewSumPrice  | currency: '￥' }}
+                                                </span>
+                                            </div>
+                                        </div>
+                            </div>
+
+                            <button class="col col-40" style="background: #E35C1D;border: none;" ng-click="checkRecharge()" ng-disabled="payBtnDisabled" ng-class="{true: 'unselected2', false: 'selected2'}[payBtnDisabled]" >
+                                    <div style="text-align: center;">
+                                        <span style="color: white;font-size: 22px;line-height: 2;">去付款</span>
+                                    </div>
+                            </button>
+                            
                         </div>
 
                         <!-- <div class="row" style="padding-top: 10px;padding-bottom: 0;">
