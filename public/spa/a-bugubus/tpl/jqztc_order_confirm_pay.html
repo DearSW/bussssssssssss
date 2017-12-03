@@ -623,14 +623,55 @@
                                 </button>
                         </div> -->
 
+                        <div class="row" style="background: white;padding: 0;padding-bottom: 20px;">
+                                <div class="col"></div>
+                        </div>
+                        <div class="row" style="background: white;padding: 0;padding-bottom: 20px;">
+                                <div class="col"></div>
+                        </div>
+                        <div class="row" style="background: white;padding: 0;padding-bottom: 20px;">
+                                <div class="col"></div>
+                        </div>
                     </div>
 
         </ion-content>
 
-        <div class="bar bar-footer bar-balanced">
-                <button class="button ">Left</button>
-                <div class="title">Title</div>
-                <button class="button">Right</button>
+        <div class="bar bar-footer" style="background: #E6E7E8;padding: 0;margin: 0;">
+            
+                <div class="title" style="
+                    width: 70%;
+                    height: 100%;
+                    margin: 0;
+                    line-height: 2;
+                    font-size: 30px;
+                    color: #FA972B;
+                    font-weight: 400;
+                    ">
+                    <span style="font-size: 17px;">实付款</span>
+                    <span ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0">
+                        {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}
+                    </span>
+                    <span ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon < 0">
+                        {{ 0 + ticketViewSumPrice  | currency: '￥' }}
+                    </span>
+
+                </div>
+
+                <button ng-click="checkRecharge()" ng-disabled="payBtnDisabled" ng-class="{true: 'unselected2', false: 'selected2'}[payBtnDisabled]" class="button" style="
+                    right: 0;
+                    width: 30%;
+                    height: 100%;
+                    border: none;
+                    background: #E35C1D;
+                    padding: 0;
+                    top: 0;
+                    bottom: 0;
+                    border-radius: 0;
+                    color: white;
+                    font-size: 22px;
+                    text-align: center;
+                    ">去付款</button>
+
         </div>
 
     </div>
