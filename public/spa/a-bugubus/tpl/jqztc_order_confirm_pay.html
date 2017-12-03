@@ -623,99 +623,41 @@
                                 </button>
                         </div> -->
 
-                        <div class="bar bar-footer">
-
-                            <div class="title">
-                                    <div>
-                                            <div style="margin: 0;border-style: none none none none;padding: 0;padding-top: 19px;background: #E6E7E8;color: #FA972B;text-align: center;" class="item">
-                                                <span style="font-size: 17px;">实付款:</span>
-                                                <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0">
-                                                    {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}
-                                                </span>
-                                                <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon < 0">
-                                                    {{ 0 + ticketViewSumPrice  | currency: '￥' }}
-                                                </span>
-                                            </div>
-                                        </div>
-                            </div>
-
-                            <button class="col col-40" style="background: #E35C1D;border: none;" ng-click="checkRecharge()" ng-disabled="payBtnDisabled" ng-class="{true: 'unselected2', false: 'selected2'}[payBtnDisabled]" >
-                                    <div style="text-align: center;">
-                                        <span style="color: white;font-size: 22px;line-height: 2;">去付款</span>
-                                    </div>
-                            </button>
-                            
-                        </div>
-
-                        <!-- <div class="row" style="padding-top: 10px;padding-bottom: 0;">
-                            <div class="col" style="padding-bottom: 0;">
-                                <div>
-                                    <span style="color:#848383;">全票 ￥{{ price }}</span>
-                                </div>
-                            </div>
-                        </div> -->
-                        
-                        <!-- <div class="row">
-
-                            <div class="col col-66">
-                                <button class="button  btnfoot6" ng-click="decr()">-</button>
-                                <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
-                                <button class="button  btnfont8" ng-click="incr()">+</button>
-                            </div>
-
-                            <div class="col col-33 col-bottom">
-                                有门票时
-                                <div ng-if="ticketInfo.haveTicket == 1">
-                                        <div ng-if="useCoupon" style="text-align: center;">
-                                            <div ng-if="sumPrice2 - newTicketPrice >= 0">
-                                                <span class="btnfont9">{{ sumPrice2 - newTicketPrice + sumPrice3 | currency: '￥' }}</span>                                    
-                                            </div>
-                                            <div ng-if="sumPrice2 - newTicketPrice < 0">
-                                                <span class="btnfont9">{{ 0 + sumPrice3 | currency: '￥' }}</span>                              
-                                            </div>
-                                        </div>
-                                        <div ng-if="!useCoupon" style="text-align: center;">
-                                            <span class="btnfont9">{{ sumPrice | currency: '￥' }}</span>
-                                        </div>
-                                </div>
-                                没有门票时
-                                <div ng-if="ticketInfo.haveTicket == 0">
-                                        <div ng-if="useCoupon" style="text-align: center;">
-                                            <div ng-if="sumPrice - newTicketPrice >= 0">
-                                                <span class="btnfont9">{{ sumPrice - newTicketPrice | currency: '￥' }}</span>                                    
-                                            </div>
-                                            <div ng-if="sumPrice - newTicketPrice < 0">
-                                                <span class="btnfont9">{{ 0 | currency: '￥' }}</span>                              
-                                            </div>
-                                        </div>
-                                        <div ng-if="!useCoupon" style="text-align: center;">
-                                            <span class="btnfont9">{{ sumPrice | currency: '￥' }}</span>
-                                        </div>
-                                </div>
-
-                            </div>
-
-                        </div> -->
-
-                        <!-- <div class="row" style="background: white; margin-top: 3px;" ng-if="ticketInfo.haveTicket == 1" ng-click="modal.show()">
-                                <div class="col">
-                                    <div>
-                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                            门票（{{scenicSpotTicket.type}}，点击更换选择）
-                                            <span class="item-note" style="margin-right: 24px;" > 
-                                                <i class="icon ion-chevron-right padding-left"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div> -->
-
-                        <!-- <div class="row">
+                        <div class="row" style="padding:0;">
                             <div class="col">
-                                <button ng-click="recharge()" ng-disabled="payBtnDisabled" class="button button-block button-balanced">确认支付</button>
+                                    <div class="bar bar-footer">
+                                            
+                                        <div class="title">
+                                                <div>
+                                                        <div style="margin: 0;border-style: none none none none;padding: 0;padding-top: 19px;background: #E6E7E8;color: #FA972B;text-align: center;" class="item">
+                                                            <span style="font-size: 17px;">实付款:</span>
+                                                            <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0">
+                                                                {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}
+                                                            </span>
+                                                            <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon < 0">
+                                                                {{ 0 + ticketViewSumPrice  | currency: '￥' }}
+                                                            </span>
+                                                        </div>
+                                                </div>
+                                        </div>
+            
+                                        <button style="background: #E35C1D;border: none;" ng-click="checkRecharge()" ng-disabled="payBtnDisabled" ng-class="{true: 'unselected2', false: 'selected2'}[payBtnDisabled]" >
+                                                <div style="text-align: center;">
+                                                    <span style="color: white;font-size: 22px;line-height: 2;">去付款</span>
+                                                </div>
+                                        </button>
+            
+                                    </div>
                             </div>
-                        </div> -->
 
+                        </div>
+                        
+                    </div>
+
+                    <div class="bar bar-footer">
+                            <button class="button button-clear">Left</button>
+                            <div class="title">Title</div>
+                            <button class="button button-clear">Right</button>
                     </div>
 
         </ion-content>
