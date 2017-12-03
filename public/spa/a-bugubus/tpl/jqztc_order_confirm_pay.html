@@ -623,44 +623,15 @@
                                 </button>
                         </div> -->
 
-                        <div class="row" style="padding:0;">
-                            <div class="col">
-                                    <div class="bar bar-footer">
-                                            
-                                        <div class="title">
-                                                <div>
-                                                        <div style="margin: 0;border-style: none none none none;padding: 0;padding-top: 19px;background: #E6E7E8;color: #FA972B;text-align: center;" class="item">
-                                                            <span style="font-size: 17px;">实付款:</span>
-                                                            <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0">
-                                                                {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}
-                                                            </span>
-                                                            <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon < 0">
-                                                                {{ 0 + ticketViewSumPrice  | currency: '￥' }}
-                                                            </span>
-                                                        </div>
-                                                </div>
-                                        </div>
-            
-                                        <button style="background: #E35C1D;border: none;" ng-click="checkRecharge()" ng-disabled="payBtnDisabled" ng-class="{true: 'unselected2', false: 'selected2'}[payBtnDisabled]" >
-                                                <div style="text-align: center;">
-                                                    <span style="color: white;font-size: 22px;line-height: 2;">去付款</span>
-                                                </div>
-                                        </button>
-            
-                                    </div>
-                            </div>
-
-                        </div>
-                        
-                    </div>
-
-                    <div class="bar bar-footer">
-                            <button class="button button-clear">Left</button>
-                            <div class="title">Title</div>
-                            <button class="button button-clear">Right</button>
                     </div>
 
         </ion-content>
+
+        <div class="bar bar-footer bar-balanced">
+                <button class="button ">Left</button>
+                <div class="title">Title</div>
+                <button class="button">Right</button>
+        </div>
 
     </div>
 
