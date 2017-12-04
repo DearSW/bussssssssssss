@@ -2646,7 +2646,7 @@ app
     /**
      * @我的行程页 门票、车票 控制器
      */ 
-    .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout) {
+    .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout, $ionicTabsDelegate) {
 
         if(sessionStorage.getItem("myplanCount") == null) { // @流程控制变量
             var myplanCount = 1;
@@ -2671,7 +2671,10 @@ app
 
             sessionStorage.setItem("myplanCount", 2);
             $rootScope.hasmore2 = false; // @首次进入页面时  关闭掉上拉加载行为 ion-infinite-scroll，false为关闭；true为开启
-                        
+            
+            // @当前的 tab index
+            $rootScope.jqztc_xdxcy_current_tab_index = 0;
+
         }
 
         // @tab_all 全部的票据
