@@ -156,12 +156,13 @@ app
      */
     .controller('City_select', function($rootScope, $scope, $state, $timeout, $interval, $myLocationService, $myHttpService, $ionicSlideBoxDelegate, $ionicActionSheet, $selectCity, $filter, ionicDatePicker, $ionicModal) {
         
+        var slideImageTimer = null; // @图片定时器
+        
         // @流程控制，确保推荐在未关闭Ng页面之前仅仅请求一次，优化
         if(sessionStorage.getItem("recommendImgCount") == null) { // @首次加载
 
             var recommendImgCount = 1; // @流程控制变量
             $rootScope.recommendProducts2 = []; // @推荐图片数组
-            var slideImageTimer = null; // @图片控制定时器
 
         } else {
 
@@ -198,7 +199,7 @@ app
                 }
             }, errorFn);
 
-            $rootScope.recommendProducts2Index = 0;
+            // $rootScope.recommendProducts2Index = 0;
 
         }
         
