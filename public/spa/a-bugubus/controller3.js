@@ -2287,12 +2287,10 @@ app
             if($scope.ticketInfo_viewInfo_tempRequestParamArr != null) {
 
                 for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
-                    
-                    // if($scope.ticketInfo_viewInfo_tempRequestParamArr[i][1] != 0) {
-                    //     viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0].viewPriceId + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
-                    // }
 
-                    viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0].viewPriceId + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                    if($scope.ticketInfo_viewInfo_tempRequestParamArr != undefined) {
+                        viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];                        
+                    }
                     
                 }
             }
