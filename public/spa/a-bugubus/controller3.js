@@ -136,7 +136,7 @@ app
     .controller('City_select', function($rootScope, $scope, $state, $timeout, $interval, $myLocationService, $myHttpService, $ionicSlideBoxDelegate, $ionicActionSheet, $selectCity, $filter, ionicDatePicker, $ionicModal) {
         
         // @流程控制，确保推荐在未关闭Ng页面之前仅仅请求一次，优化
-        if(sessionStorage.getItem("recommendImgCount") == null) {
+        if(sessionStorage.getItem("recommendImgCount") == null) { // @首次加载
 
             var recommendImgCount = 1; // @流程控制变量
             $rootScope.recommendProducts2 = []; // @推荐图片数组
@@ -144,14 +144,13 @@ app
 
         } else {
 
-            var recommendImgCount = sessionStorage.getItem("recommendImgCount");
+            var recommendImgCount = sessionStorage.getItem("recommendImgCount"); // @读取次数变量
 
         }
 
         $scope.dataContainer = { // @数据容器
 
-            input: "", // @用户输入
-            btnDisabled: true // @控制搜索按钮状态
+            input: "" // @用户输入
 
         }
         
@@ -179,15 +178,6 @@ app
                     }, 1000);
                 }
             }, errorFn);
-
-        } else { // @不是首次加载
-
-            // clearTimeout(slideImageTimer);
-            // if($rootScope.recommendProducts2 instanceof Array) { // @加个判断，在调试时容易出错，请求不到数据，导致length属性不存在
-            //     if($rootScope.recommendProducts2.length > 0) {
-            //         $rootScope.showDefaultImg = false;
-            //     }
-            // }
 
         }
         
@@ -353,8 +343,6 @@ app
             $rootScope.isSelectedRoadLine = ""; // @把用户点击的 某一条线路 存在这里
             $rootScope.isSelectedRoadLineBoolean = true; // @是否选择路线，控制“主题/路线/目的地”等字段的显示状态，true为显示，false不显示
             $rootScope.isSearchBtnDisabled = true; // @是否开启搜索按钮的可点击状态，true 不开启（默认、初始），false开启
-
-        } else {
 
         }
 
@@ -671,6 +659,21 @@ app
                     }
 
                 }, errorFn);
+
+                console.log("产品页：测试开始");
+
+                console.log("开始写入");
+                sessionStorage.setItem('jqztc_cpy', JSON.stringify($scope.ticketsInfo2));
+                console.log("写入结束");
+
+                console.log("开始解析");
+                var test = JSON.parse(sessionStorage.getItem('jqztc_cpy'));
+                console.log("解析完毕");
+
+                console.log("打印测试结果");
+                console.log(test);
+
+                console.log("产品页：测试结束");
 
             }
         } else { // @进入产品页 没有参数时
@@ -2481,6 +2484,7 @@ app
 
         if(JSON.parse($state.params.data) == null) { // @访问此页面时，如果没有传递过来参数
 
+            console.log("支付成功页：流程一");
             // layer.open({
             //     content: '客官，暂时无法访问当前页面，将返回首页！',
             //     btn: '确定',
@@ -2531,6 +2535,8 @@ app
 
             
         } else { // @访问此页面时，如果有参数传递过来
+
+            console.log("支付成功页：流程二");
             
             var paramsData = JSON.parse($state.params.data); // @参数解析
 
@@ -2559,7 +2565,7 @@ app
                 console.log("支付成功页：获取用户刚刚购买的票API返回的数据");
                 console.log(data);
 
-                $scope.ticketsInfoTemp = []; // @车票
+                $scope.ticketsInfoTemp = []; // @车票 临时变量
                 $scope.ticketsInfo = []; // @车票
                 $scope.ticketsViewInfo = []; // @门票
 

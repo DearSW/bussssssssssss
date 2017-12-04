@@ -40,7 +40,7 @@
 
             <ion-slide  class="showDefaultImg2" ng-repeat="item in recommendProducts2 track by $index" ng-click="recommendProductsDetail(item, $index)">
                 <div class="showDefaultImg2">
-                        <img ng-if="item.photoPath" ng-src="{{item.photoPath}}" alt="景区直通车为您服务" err-src="images/month-bus.png" />
+                        <img ng-if="item.photoPath != null" ng-src="{{item.photoPath}}" alt="景区直通车为您服务" err-src="images/month-bus.png" />
                         <div class="imgTitle">
                             <span style="
                             background: red;
