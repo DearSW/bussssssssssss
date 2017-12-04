@@ -1010,8 +1010,8 @@ app
 
         if(JSON.parse($state.params.data) == null) { // @访问此订单页时，如果没有传递过来参数那么将直接倒退2个页面
 
-                window.history.go(-2); // @倒退回到首页，此动作不可逆
-                return false; // @兼容处理
+            window.history.go(-2); // @倒退回到首页，此动作不可逆
+            return false; // @兼容处理
 
         } 
         
