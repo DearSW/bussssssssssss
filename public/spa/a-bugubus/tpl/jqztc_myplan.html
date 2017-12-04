@@ -66,13 +66,13 @@
                         <ion-content class="has-header lx" has-tabs="true" style="background-color: #E7E7E7;">
 
                             <!-- 下拉刷新 -->
-                            <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" on-refresh="doRefreshTicket()" spinner="lines"></ion-refresher>
+                            <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" on-refresh="refresh_tab_all()" spinner="lines"></ion-refresher>
                                 
                             <!-- 有票 -->
                             <ion-list ng-if="!ticketsInfoIsEmpty">
                                     
                                 <!-- 车票 -->
-                                <ion-item class="animate-repeat" ng-repeat="item in ticketsInfo  | filter: {viewOrderStatus:q} as results" ng-switch="item.viewOrderStatus">
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsInfo track by $index" ng-switch="item.viewOrderStatus">
 
                                     <!-- 2 未使用  -->
                                     <div class="detail" ng-switch-when="2">
@@ -268,19 +268,124 @@
                                 </ion-item>
 
                                 <!-- 门票 -->
-                                <ion-item class="animate-repeat" ng-repeat="item in ticketsViewInfo track by $index">
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsViewInfo track by $index" ng-switch="item.ticketStatus">
 
-                                </ion-item>
+                                    <!-- 2 未使用 -->
+                                    <div class="detail" ng-switch-when="2">
+                                            
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-mark-blue" style="margin-left: 10px;">门票</span>
+                                                    <span class="station-address">{{item.viewName}}</span>
+                                                </div>
+                                        </div>
 
-                                <!-- 无相关票提醒 -->
-                                <ion-item class="animate-repeat" ng-if="results.length === 0">
-                                    
-                                    <!-- 没有相关票据信息 -->
-                                    <div class="detail">
-                                        <div class="row" style="text-align: center;font-size: 18px;">
-                                            <div class="col">
-                                                <i class="icon ion-ios-information-outline" style="color:crimson;font-size: 14px;"></i>
-                                                <span style="font-size: 12px;">暂时没有相关内容</span>
+                                        <div class="row refund">
+                                                <div class="col col-70">
+                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row" >
+                                            <div class="col col-center col-33" style="color: #a2a2a2;">
+                                                <span style="margin-left: 10px;">未使用</span>
+                                            </div>
+                                            <div class="col col-66" style="text-align: right;">
+                                                <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedAdmissionTicketToDetail(item, i)">
+                                                    详情
+                                                </button>
+                                            </div>
+                                        </div> 
+                                    </div>
+
+                                    <!-- 3 已使用-->
+                                    <div class="detail" ng-switch-when="3">
+                                            
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-mark-blue" style="margin-left: 10px;">门票</span>
+                                                    <span class="station-address">{{item.viewName}}</span>
+                                                </div>
+                                        </div>
+
+                                        <div class="row refund">
+                                                <div class="col col-70">
+                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row" >
+                                            <div class="col col-center col-33" style="color: #a2a2a2;">
+                                                <span style="margin-left: 10px;">已使用</span>
+                                            </div>
+                                            <div class="col col-66" style="text-align: right;">
+                                                <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedAdmissionTicketToDetail(item, i)">
+                                                    详情
+                                                </button>
+                                            </div>
+                                        </div> 
+                                    </div>
+
+                                    <!-- 4 退款中 -->
+                                    <div class="detail" ng-switch-when="4">
+                                            
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-mark-blue" style="margin-left: 10px;">门票</span>
+                                                    <span class="station-address">{{item.viewName}}</span>
+                                                </div>
+                                        </div>
+
+                                        <div class="row refund">
+                                                <div class="col col-70">
+                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row" >
+                                            <div class="col col-center col-33" style="color: #a2a2a2;">
+                                                <span style="margin-left: 10px;">退款中</span>
+                                            </div>
+                                            <div class="col col-66" style="text-align: right;">
+                                                <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedAdmissionTicketToDetail(item, i)">
+                                                    详情
+                                                </button>
+                                            </div>
+                                        </div> 
+                                    </div>
+
+                                    <!-- 5 已退款  -->
+                                    <div class="detail" ng-switch-when="5">
+                                            
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-mark-blue" style="margin-left: 10px;">门票</span>
+                                                    <span class="station-address">{{item.viewName}}</span>
+                                                </div>
+                                        </div>
+
+                                        <div class="row refund">
+                                                <div class="col col-70">
+                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row" >
+                                            <div class="col col-center col-33" style="color: #a2a2a2;">
+                                                <span style="margin-left: 10px;">已退款 ￥{{item.couponPrice}}</span>
+                                            </div>
+                                            <div class="col col-66" style="text-align: right;">
+                                                <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: rgba(255, 255, 255, 0);" >
+                                                    详情
+                                                </button>
                                             </div>
                                         </div> 
                                     </div>
@@ -288,7 +393,7 @@
                                 </ion-item>
 
                                 <!-- 底线提示 -->
-                                <div class="myplan-placeholder animate-repeat" style=" width: 100%; height: 45px; text-align: center; padding: 5px;" ng-if="results.length !== 0" >
+                                <div class="myplan-placeholder animate-repeat" style=" width: 100%; height: 45px; text-align: center; padding: 5px;" ng-if="!ticketsInfoIsEmpty" >
                                     <span class="yyyy"></span>
                                     <span ng-if="!hasmore2" style="line-height: 2; color: #a2a2a2;">我是有底线的</span>
                                     <span class="yyyy"></span>
@@ -317,7 +422,7 @@
                             </ion-list>
 
                             <!-- 上拉加载 -->
-                            <ion-infinite-scroll ng-if="hasmore2" on-infinite="loadMoreTicket()" distance="7%" spinner="dots"></ion-infinite-scroll>
+                            <ion-infinite-scroll ng-if="hasmore2" on-infinite="load_more_tab_all()" distance="7%" spinner="dots"></ion-infinite-scroll>
                     
                         </ion-content>
 
@@ -327,7 +432,133 @@
                         
                         <div class="placeholder"></div>
 
-                        <ion-content class="has-header lx" has-tabs="true">
+                        <ion-content class="has-header lx" has-tabs="true" style="background-color: #E7E7E7;">
+
+                            <!-- 下拉刷新 -->
+                            <!-- <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" on-refresh="refresh_tab_all()" spinner="lines"></ion-refresher> -->
+                                
+                            <!-- 有票 -->
+                            <ion-list ng-if="!jqztc_xdxcy_ticketsInfo_nouse_ticketsInfoIsEmpty">
+                                    
+                                <!-- 车票 -->
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsInfo_nouse track by $index" ng-switch="item.viewOrderStatus">
+
+                                    <!-- 2 未使用  -->
+                                    <div class="detail" ng-switch-when="2">
+                                            
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-mark-orange" style="margin-left: 10px;">车票</span>
+                                                    <span class="station-address">{{item.departName}}</span>
+                                                    <span class="station-arrow"></span>
+                                                    <span class="station-address2">{{item.arriveName}}</span>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row info " style="padding-left: 8px;">
+                                                
+                                            <div class="col" style="margin-left: 10px;">
+
+                                                <span>
+                                                    <div class="btnfont" style="color: #0c60ee;">{{item.platenum}}</div>
+                                                </span>
+
+                                                <span class="btnfont5">
+                                                    单程约{{item.drivetime}}分钟
+                                                </span>     
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row refund">
+                                                <div class="col col-70">
+                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row" >
+                                            <div class="col col-center col-33" style="color: #a2a2a2;">
+                                                <span style="margin-left: 10px;">未使用</span>
+                                            </div>
+                                            <div class="col col-66" style="text-align: right;">
+                                                <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedTicketToDetail(item, i)">
+                                                    详情
+                                                </button>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    
+                                </ion-item>
+
+                                <!-- 门票 -->
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsViewInfo_nouse track by $index" ng-switch="item.ticketStatus">
+
+                                    <!-- 2 未使用 -->
+                                    <div class="detail" ng-switch-when="2">
+                                            
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-mark-blue" style="margin-left: 10px;">门票</span>
+                                                    <span class="station-address">{{item.viewName}}</span>
+                                                </div>
+                                        </div>
+
+                                        <div class="row refund">
+                                                <div class="col col-70">
+                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row" >
+                                            <div class="col col-center col-33" style="color: #a2a2a2;">
+                                                <span style="margin-left: 10px;">未使用</span>
+                                            </div>
+                                            <div class="col col-66" style="text-align: right;">
+                                                <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedAdmissionTicketToDetail(item, i)">
+                                                    详情
+                                                </button>
+                                            </div>
+                                        </div> 
+                                    </div>
+
+                                </ion-item>
+
+                                <!-- 底线提示 -->
+                                <div class="myplan-placeholder animate-repeat" style=" width: 100%; height: 45px; text-align: center; padding: 5px;" ng-if="!jqztc_xdxcy_ticketsInfo_nouse_ticketsInfoIsEmpty" >
+                                    <span class="yyyy"></span>
+                                    <span ng-if="!hasmore2" style="line-height: 2; color: #a2a2a2;">我是有底线的</span>
+                                    <span class="yyyy"></span>
+                                </div>
+                            
+                            </ion-list>
+                            
+                            <!-- 无票 -->
+                            <ion-list ng-if="jqztc_xdxcy_ticketsInfo_nouse_ticketsInfoIsEmpty">
+        
+                                    <!-- 无票提醒 -->
+                                    <ion-item class="animate-repeat">
+        
+                                        <!-- 没有任何信息 -->
+                                        <div class="detail">
+                                                <div class="row" style="text-align: center;font-size: 18px;">
+                                                    <div class="col">
+                                                        <i class="icon ion-ios-information" style="color:crimson;font-size: 14px;"></i>
+                                                        <span style="font-size: 12px;">暂时没有相关内容</span>
+                                                    </div>
+                                                </div> 
+                                        </div>
+        
+                                    </ion-item>
+                                    
+                            </ion-list>
+
+                            <!-- 上拉加载 -->
+                            <!-- <ion-infinite-scroll ng-if="hasmore2" on-infinite="load_more_tab_all()" distance="7%" spinner="dots"></ion-infinite-scroll> -->
+                    
                         </ion-content>
 
                 </ion-tab>
@@ -336,7 +567,133 @@
                         
                         <div class="placeholder"></div>
 
-                        <ion-content class="has-header lx" has-tabs="true">
+                        <ion-content class="has-header lx" has-tabs="true" style="background-color: #E7E7E7;">
+
+                            <!-- 下拉刷新 -->
+                            <!-- <ion-refresher pulling-text="下拉刷新" pulling-icon="ion-ios-arrow-thin-down" on-refresh="refresh_tab_all()" spinner="lines"></ion-refresher> -->
+                                
+                            <!-- 有票 -->
+                            <ion-list ng-if="!jqztc_xdxcy_ticketsInfo_refund_ticketsInfoIsEmpty">
+                                    
+                                <!-- 车票 -->
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsInfo_refund track by $index" ng-switch="item.viewOrderStatus">
+
+                                    <!-- 4 退款中 -->
+                                    <div class="detail" ng-switch-when="4">
+                                            
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-mark-orange" style="margin-left: 10px;">车票</span>
+                                                    <span class="station-address">{{item.departName}}</span>
+                                                    <span class="station-arrow"></span>
+                                                    <span class="station-address2">{{item.arriveName}}</span>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row info " style="padding-left: 8px;">
+                                                
+                                            <div class="col" style="margin-left: 10px;">
+
+                                                <span>
+                                                    <div class="btnfont" style="color: #0c60ee;">{{item.platenum}}</div>
+                                                </span>
+
+                                                <span class="btnfont5">
+                                                    单程约{{item.drivetime}}分钟
+                                                </span>     
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row refund">
+                                                <div class="col col-70">
+                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row" >
+                                            <div class="col col-33 col-center" style="color: #a2a2a2;">
+                                                <span style="margin-left: 10px;">退款中</span>
+                                            </div>
+                                            <div class="col col-66" style="text-align: right;">
+                                                <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="refundingToRefund(item, i)">
+                                                    详情
+                                                </button>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    
+                                </ion-item>
+
+                                <!-- 门票 -->
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsViewInfo_refund track by $index" ng-switch="item.ticketStatus">
+
+                                    <!-- 4 退款中 -->
+                                    <div class="detail" ng-switch-when="4">
+                                            
+                                        <div class="row startposition">
+                                                <div class="col">
+                                                    <span class="station-mark-blue" style="margin-left: 10px;">门票</span>
+                                                    <span class="station-address">{{item.viewName}}</span>
+                                                </div>
+                                        </div>
+
+                                        <div class="row refund">
+                                                <div class="col col-70">
+                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row" >
+                                            <div class="col col-center col-33" style="color: #a2a2a2;">
+                                                <span style="margin-left: 10px;">退款中</span>
+                                            </div>
+                                            <div class="col col-66" style="text-align: right;">
+                                                <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedAdmissionTicketToDetail(item, i)">
+                                                    详情
+                                                </button>
+                                            </div>
+                                        </div> 
+                                    </div>
+
+                                </ion-item>
+
+                                <!-- 底线提示 -->
+                                <div class="myplan-placeholder animate-repeat" style=" width: 100%; height: 45px; text-align: center; padding: 5px;" ng-if="!jqztc_xdxcy_ticketsInfo_refund_ticketsInfoIsEmpty">
+                                    <span class="yyyy"></span>
+                                    <span ng-if="!hasmore2" style="line-height: 2; color: #a2a2a2;">我是有底线的</span>
+                                    <span class="yyyy"></span>
+                                </div>
+                            
+                            </ion-list>
+                            
+                            <!-- 无票 -->
+                            <ion-list ng-if="jqztc_xdxcy_ticketsInfo_refund_ticketsInfoIsEmpty">
+        
+                                    <!-- 无票提醒 -->
+                                    <ion-item class="animate-repeat">
+        
+                                        <!-- 没有任何信息 -->
+                                        <div class="detail">
+                                                <div class="row" style="text-align: center;font-size: 18px;">
+                                                    <div class="col">
+                                                        <i class="icon ion-ios-information" style="color:crimson;font-size: 14px;"></i>
+                                                        <span style="font-size: 12px;">暂时没有相关内容</span>
+                                                    </div>
+                                                </div> 
+                                        </div>
+        
+                                    </ion-item>
+                                    
+                            </ion-list>
+
+                            <!-- 上拉加载 -->
+                            <!-- <ion-infinite-scroll ng-if="hasmore2" on-infinite="load_more_tab_all()" distance="7%" spinner="dots"></ion-infinite-scroll> -->
+                    
                         </ion-content>
 
                 </ion-tab>

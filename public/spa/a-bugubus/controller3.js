@@ -2648,27 +2648,35 @@ app
      */ 
     .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout) {
 
-        if(sessionStorage.getItem("myplanCount") == null) {
+        if(sessionStorage.getItem("myplanCount") == null) { // @流程控制变量
             var myplanCount = 1;
         } else {
             var myplanCount = sessionStorage.getItem("myplanCount");
         }
 
         $scope.ticketsInfoIsEmpty = false; // @当没有任何票信息时显现无票HTML，无票为 true；默认为有票 false
+        $scope.jqztc_xdxcy_ticketsInfo_nouse_ticketsInfoIsEmpty = false;
+        $scope.jqztc_xdxcy_ticketsInfo_refund_ticketsInfoIsEmpty = false;
 
-        if(myplanCount == 1) { // 模拟了onLoad的初次执行效果
+        if(myplanCount == 1) { // 模拟onLoad的初次执行效果
 
-            $rootScope.ticketsInfo = []; // @车票集合数组
-            $rootScope.ticketsViewInfo = []; // @门票集合数组
+            $rootScope.jqztc_xdxcy_ticketsInfo = []; // @tab_all 全部 车票集合数组
+            $rootScope.jqztc_xdxcy_ticketsViewInfo = []; // @tab_all 全部 门票集合数组
+
+            $rootScope.jqztc_xdxcy_ticketsInfo_nouse = []; // @tab_nouse 未使用的车票
+            $rootScope.jqztc_xdxcy_ticketsViewInfo_nouse = []; // @tab_nosue 未使用的门票
+
+            $rootScope.jqztc_xdxcy_ticketsInfo_refund = []; // @tab_refund 正在退款中的车票
+            $rootScope.jqztc_xdxcy_ticketsViewInfo_refund = []; // @tab_refund 正在退款中的门票
 
             sessionStorage.setItem("myplanCount", 2);
             $rootScope.hasmore2 = false; // @首次进入页面时  关闭掉上拉加载行为 ion-infinite-scroll，false为关闭；true为开启
-            $scope.pageCount = 1; // @页数参数 用于上拉加载的页数参数
+            $scope.pageCount = 1; // @tab_all 页数参数 用于上拉加载的页数参数，第一页
 
-            // @车票首次加载函数
-            $scope.doRefreshTicket_first = function() {
+            // @票据信息 首次加载函数
+            $scope.refresh_tab_all_first = function() {
 
-                console.log("我的行程页：doRefreshTicket_first首次执行了");            
+                console.log("我的行程页：refresh_tab_all_first首次执行");            
 
                 var requestData = {
                     userid: $rootScope.session.user.userInfo.userid,
@@ -2685,22 +2693,26 @@ app
                     if( (data.userViewList.length + data.ticketOrders.length)  < 10) { // @判断当前 门票和车票 的总数量是否够十条，不够表示没有必要再上拉加载了，关闭掉上拉加载行为
                         $rootScope.hasmore2 = false;
                     } else {
-                        $rootScope.hasmore2 = true; // @继续开启上拉加载行为
+
+                        $timeout(function() {
+                            $rootScope.hasmore2 = true; // @继续开启上拉加载行为                        
+                        }, 2000); // @延迟两秒
+
                         $scope.pageCount = 2;  // @页数指向了第二页，第一页已加载完毕
                     }
 
-                    $rootScope.ticketsInfo = data.userViewList; // @车票
-                    $rootScope.ticketsViewInfo = data.ticketOrders; // @门票
-                    
+                    $rootScope.jqztc_xdxcy_ticketsInfo = data.userViewList; // @全部车票
+                    $rootScope.jqztc_xdxcy_ticketsViewInfo = data.ticketOrders; // @全部门票
+
                     $scope.$broadcast('scroll.refreshComplete');
 
-                    console.log("我的行程页：车票数组");
-                    console.log($rootScope.ticketsInfo);
+                    console.log("我的行程页：全部车票数组");
+                    console.log($rootScope.jqztc_xdxcy_ticketsInfo);
 
-                    console.log("我的行程页：门票数组");
-                    console.log($rootScope.ticketsViewInfo);   
+                    console.log("我的行程页：全部门票数组");
+                    console.log($rootScope.jqztc_xdxcy_ticketsViewInfo);   
 
-                    if($rootScope.ticketsInfo.length == 0 && $rootScope.ticketsViewInfo.length == 0) { // @无票
+                    if($rootScope.jqztc_xdxcy_ticketsInfo.length == 0 && $rootScope.jqztc_xdxcy_ticketsViewInfo.length == 0) { // @无票
 
                         $timeout(function() {
                             $scope.ticketsInfoIsEmpty = true;                        
@@ -2709,23 +2721,77 @@ app
                     }
 
                 }, function() {
-
                     $scope.$broadcast('scroll.refreshComplete'); 
-
                 });
 
             };
             
-            $scope.doRefreshTicket_first(); // @只在首次进去页面时 自动调用一次！！！
+            $scope.refresh_tab_all_first(); // @只在首次进去页面时 自动调用一次！！！
 
         }
 
-        var run = false; // @防止在短时间内重复出发上拉加载请求函数的执行
-        
-        // @车票下拉刷新函数
-        $scope.doRefreshTicket = function() {
+        // @tab_all 全部的票据
 
-            console.log("我的行程页：doRefreshTicket执行了");   
+        var run = false; // @防止在短时间内重复出发上拉加载请求函数的执行
+
+        $scope.tab_all = function() { // @每次点击tab项时，就会执行一遍这个函数
+
+            console.log("我的行程页：tab_all执行");   
+            
+            var requestData = {
+                userid: $rootScope.session.user.userInfo.userid,
+                offset: 0,
+                pagesize: 10,
+            };
+
+            // @订单列表 wechat/product/queryUserProductTicketList
+            $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+
+                console.log("我的行程页：获取所有订单的列表API返回的数据");
+                console.log(data);
+
+                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
+                    $rootScope.hasmore2 = false;
+                } else {
+                    $rootScope.hasmore2 = true;
+                    $scope.pageCount = 2;
+                }
+
+                $rootScope.jqztc_xdxcy_ticketsInfo = data.userViewList;
+                $rootScope.jqztc_xdxcy_ticketsViewInfo = data.ticketOrders;
+                
+                $scope.$broadcast('scroll.refreshComplete');
+
+                console.log("我的行程页：全部车票数组");
+                console.log($rootScope.jqztc_xdxcy_ticketsInfo);
+
+                console.log("我的行程页：全部门票数组");
+                console.log($rootScope.jqztc_xdxcy_ticketsViewInfo);   
+
+                if($rootScope.jqztc_xdxcy_ticketsInfo.length == 0 && $rootScope.jqztc_xdxcy_ticketsViewInfo.length == 0) {
+
+                    $timeout(function() {
+                        $scope.ticketsInfoIsEmpty = true;                        
+                    }, 700);
+
+                } else {
+                    layer.open({
+                        content: '刷新成功',
+                        skin: 'msg',
+                        time: 1
+                    });
+                }
+
+            }, function() {
+                $scope.$broadcast('scroll.refreshComplete'); 
+            });
+
+        }
+        
+        // @票据信息 下拉刷新函数
+        $scope.refresh_tab_all = function() {
+
+            console.log("我的行程页：doRefreshTicket执行");   
 
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
@@ -2746,18 +2812,18 @@ app
                     $scope.pageCount = 2;
                 }
 
-                $rootScope.ticketsInfo = data.userViewList;
-                $rootScope.ticketsViewInfo = data.ticketOrders;
+                $rootScope.jqztc_xdxcy_ticketsInfo = data.userViewList;
+                $rootScope.jqztc_xdxcy_ticketsViewInfo = data.ticketOrders;
                 
                 $scope.$broadcast('scroll.refreshComplete');
 
-                console.log("我的行程页：车票数组");
-                console.log($rootScope.ticketsInfo);
+                console.log("我的行程页：全部车票数组");
+                console.log($rootScope.jqztc_xdxcy_ticketsInfo);
 
-                console.log("我的行程页：门票数组");
-                console.log($rootScope.ticketsViewInfo);   
+                console.log("我的行程页：全部门票数组");
+                console.log($rootScope.jqztc_xdxcy_ticketsViewInfo);   
 
-                if($rootScope.ticketsInfo.length == 0 && $rootScope.ticketsViewInfo.length == 0) {
+                if($rootScope.jqztc_xdxcy_ticketsInfo.length == 0 && $rootScope.jqztc_xdxcy_ticketsViewInfo.length == 0) {
 
                     $timeout(function() {
                         $scope.ticketsInfoIsEmpty = true;                        
@@ -2772,11 +2838,10 @@ app
                 }
 
             }, function() {
-
                 $scope.$broadcast('scroll.refreshComplete'); 
-
             });
         };
+
 
         // @比较函数，对票进行排序，从大到小
         var compare = function (prop) {
@@ -2798,9 +2863,9 @@ app
         }
         
         // @上拉加载更多票信息
-        $scope.loadMoreTicket = function() {
+        $scope.load_more_tab_all = function() {
 
-            console.log("我的行程页：loadMoreTicket执行了");
+            console.log("我的行程页：load_more_tab_all执行");
 
             var offset = ($scope.pageCount - 1) * 10;
             var requestData = {
@@ -2826,20 +2891,20 @@ app
                     }
                     run = false;
 
-                    $rootScope.ticketsInfo = $rootScope.ticketsInfo.concat(data.userViewList); // @车票
-                    $rootScope.ticketsViewInfo = $rootScope.ticketsViewInfo.concat(data.ticketOrders); // @门票
+                    $rootScope.jqztc_xdxcy_ticketsInfo = $rootScope.jqztc_xdxcy_ticketsInfo.concat(data.userViewList); // @车票
+                    $rootScope.jqztc_xdxcy_ticketsViewInfo = $rootScope.jqztc_xdxcy_ticketsViewInfo.concat(data.ticketOrders); // @门票
 
-                    console.log("我的行程页：车票数组");
-                    console.log($rootScope.ticketsInfo);
+                    console.log("我的行程页：全部车票数组");
+                    console.log($rootScope.jqztc_xdxcy_ticketsInfo);
 
-                    console.log("我的行程页：门票数组");
-                    console.log($rootScope.ticketsViewInfo);                    
+                    console.log("我的行程页：全部门票数组");
+                    console.log($rootScope.jqztc_xdxcy_ticketsViewInfo);                    
 
-                    $rootScope.ticketsInfo.sort(compare('departDate'));  // @车票排序
+                    $rootScope.jqztc_xdxcy_ticketsInfo.sort(compare('departDate'));  // @车票排序
 
                     $scope.$broadcast('scroll.infiniteScrollComplete');
 
-                    if($rootScope.ticketsInfo.length == 0  && $rootScope.ticketsViewInfo.length == 0) { // @无票
+                    if($rootScope.jqztc_xdxcy_ticketsInfo.length == 0  && $rootScope.jqztc_xdxcy_ticketsViewInfo.length == 0) { // @无票
 
                         $timeout(function() {
                             $scope.ticketsInfoIsEmpty = true;                        
@@ -2852,7 +2917,122 @@ app
                 });
             }
         }
+
+
+        // @tab_nouse 未使用的票据
+        $scope.tab_nouse = function() { // @每次点击tab项时，就会执行一遍这个函数
+            
+            console.log("我的行程页：tab_nouse执行");   
+            
+            var requestData = {
+                userid: $rootScope.session.user.userInfo.userid,
+                viewOrderStatus: 2,
+                offset: 0,
+                pagesize: 10,
+            };
+
+            // @订单列表 wechat/product/queryUserProductTicketList
+            $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+
+                console.log("我的行程页：获取未使用订单的列表API返回的数据");
+                console.log(data);
+
+                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
+                    $rootScope.jqztc_xdxcy_ticketsInfo_nouse_hasmore2 = false;
+                } else {
+                    $rootScope.jqztc_xdxcy_ticketsInfo_nouse_hasmore2 = true;
+                    $scope.jqztc_xdxcy_ticketsInfo_nouse_pageCount = 2;
+                }
+
+                $rootScope.jqztc_xdxcy_ticketsInfo_nouse = data.userViewList;
+                $rootScope.jqztc_xdxcy_ticketsViewInfo_nouse = data.ticketOrders;
+                
+                $scope.$broadcast('scroll.refreshComplete');
+
+                console.log("我的行程页：未使用车票数组");
+                console.log($rootScope.jqztc_xdxcy_ticketsInfo_nouse);
+
+                console.log("我的行程页：未使用门票数组");
+                console.log($rootScope.jqztc_xdxcy_ticketsViewInfo_nouse);   
+
+                if($rootScope.jqztc_xdxcy_ticketsInfo_nouse.length == 0 && $rootScope.jqztc_xdxcy_ticketsViewInfo_nouse.length == 0) {
+
+                    $timeout(function() {
+                        $scope.jqztc_xdxcy_ticketsInfo_nouse_ticketsInfoIsEmpty = true;                        
+                    }, 700);
+
+                } else {
+                    layer.open({
+                        content: '刷新成功',
+                        skin: 'msg',
+                        time: 1
+                    });
+                }
+
+            }, function() {
+                $scope.$broadcast('scroll.refreshComplete'); 
+            });
+            
+        }
+
+
+        // @tab_refund 退款中的票据
+        $scope.tab_refund = function() { // @每次点击tab项时，就会执行一遍这个函数
+            
+            console.log("我的行程页：tab_refund执行");   
+            
+            var requestData = {
+                userid: $rootScope.session.user.userInfo.userid,
+                viewOrderStatus: 4,
+                offset: 0,
+                pagesize: 10,
+            };
+
+            // @订单列表 wechat/product/queryUserProductTicketList
+            $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+
+                console.log("我的行程页：获取正在退款中订单的列表API返回的数据");
+                console.log(data);
+
+                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
+                    $rootScope.jqztc_xdxcy_ticketsInfo_refund_hasmore2 = false;
+                } else {
+                    $rootScope.jqztc_xdxcy_ticketsInfo_refund_hasmore2 = true;
+                    $scope.jqztc_xdxcy_ticketsInfo_refund_pageCount = 2;
+                }
+
+                $rootScope.jqztc_xdxcy_ticketsInfo_refund = data.userViewList;
+                $rootScope.jqztc_xdxcy_ticketsViewInfo_refund = data.ticketOrders;
+                
+                $scope.$broadcast('scroll.refreshComplete');
+
+                console.log("我的行程页：未使用车票数组");
+                console.log($rootScope.jqztc_xdxcy_ticketsInfo_refund);
+
+                console.log("我的行程页：未使用门票数组");
+                console.log($rootScope.jqztc_xdxcy_ticketsViewInfo_refund);   
+
+                if($rootScope.jqztc_xdxcy_ticketsInfo_refund.length == 0 && $rootScope.jqztc_xdxcy_ticketsViewInfo_refund.length == 0) {
+
+                    $timeout(function() {
+                        $scope.jqztc_xdxcy_ticketsInfo_refund_ticketsInfoIsEmpty = true;                        
+                    }, 700);
+
+                } else {
+                    layer.open({
+                        content: '刷新成功',
+                        skin: 'msg',
+                        time: 1
+                    });
+                }
+
+            }, function() {
+                $scope.$broadcast('scroll.refreshComplete'); 
+            });
+            
+        }
         
+
         // @点击 未使用 车票进入 车票详情界面
         $scope.unusedTicketToDetail = function(item, i) {
 
