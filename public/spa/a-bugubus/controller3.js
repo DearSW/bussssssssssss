@@ -652,28 +652,37 @@ app
                         $scope.paramsProductId = data.products[0].productid;  // @产品ID，查询评论用
                         
                     } else {
+
                         layer.open({
                             content: '客官，没有找到相关产品信息，请重新搜索 (╯-╰)',
-                            btn: '确定'
+                            btn: '确定',
+                            yes: function(index){
+                                $timeout(function() {
+                                    window.history.back();
+                                    return false;
+                                }, 250)
+                                layer.closeAll();
+                            }
                         });
+
                     }
 
+                    console.log("产品页：测试开始");
+                    
+                    console.log("开始写入");
+                    sessionStorage.setItem('jqztc_cpy', JSON.stringify($scope.ticketsInfo2));
+                    console.log("写入结束");
+    
+                    console.log("开始解析");
+                    var test = JSON.parse(sessionStorage.getItem('jqztc_cpy'));
+                    console.log("解析完毕");
+    
+                    console.log("打印测试结果");
+                    console.log(test);
+    
+                    console.log("产品页：测试结束");
+
                 }, errorFn);
-
-                console.log("产品页：测试开始");
-
-                console.log("开始写入");
-                sessionStorage.setItem('jqztc_cpy', JSON.stringify($scope.ticketsInfo2));
-                console.log("写入结束");
-
-                console.log("开始解析");
-                var test = JSON.parse(sessionStorage.getItem('jqztc_cpy'));
-                console.log("解析完毕");
-
-                console.log("打印测试结果");
-                console.log(test);
-
-                console.log("产品页：测试结束");
 
             }
         } else { // @进入产品页 没有参数时
