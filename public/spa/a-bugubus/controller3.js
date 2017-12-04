@@ -2286,10 +2286,14 @@ app
             var viewPrices = '';
             if($scope.ticketInfo_viewInfo_tempRequestParamArr != null) {
 
-                for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
+                for(var i = 0, len = $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i < len; i++) {
 
                     if($scope.ticketInfo_viewInfo_tempRequestParamArr != undefined) {
-                        viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];                        
+                        if(i == len - 1) {
+                            viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];                     
+                        } else {
+                            viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1] + '&';                                             
+                        }
                     }
                     
                 }
