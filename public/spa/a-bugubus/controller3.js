@@ -2292,7 +2292,7 @@ app
                         if(i == len - 1) {
                             viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];                     
                         } else {
-                            viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1] + '&';                                             
+                            viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1] + '&&';                                             
                         }
                     }
                     
