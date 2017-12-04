@@ -676,7 +676,7 @@ app
 
                     if($scope.ticketsInfo2.length != 0) {
 
-                        $scope.paramsProductId = data.products[0].productid;  // @产品ID，查询评论用
+                        $scope.paramsProductId = $scope.ticketsInfo2[0].productid;  // @产品ID，查询评论用
                         
                     } else {
 
@@ -868,7 +868,7 @@ app
 
                 if($scope.ticketsInfo2.length != 0) {
                     
-                    $scope.paramsProductId = data.products[0].productid;  // @产品ID，查询评论用
+                    $scope.paramsProductId = $scope.ticketsInfo2[0].productid;  // @产品ID，查询评论用
 
                 } else {
                     layer.open({
