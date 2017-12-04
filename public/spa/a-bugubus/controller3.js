@@ -2671,61 +2671,7 @@ app
 
             sessionStorage.setItem("myplanCount", 2);
             $rootScope.hasmore2 = false; // @首次进入页面时  关闭掉上拉加载行为 ion-infinite-scroll，false为关闭；true为开启
-            $scope.pageCount = 1; // @tab_all 页数参数 用于上拉加载的页数参数，第一页
-
-            // @票据信息 首次加载函数
-            $scope.refresh_tab_all_first = function() {
-
-                console.log("我的行程页：refresh_tab_all_first首次执行");            
-
-                var requestData = {
-                    userid: $rootScope.session.user.userInfo.userid,
-                    offset: 0,
-                    pagesize: 10,
-                };
-
-                // @获取用户票 列表 wechat/product/queryUserProductTicketList
-                $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
-
-                    console.log("我的行程页：获取用户票列表API返回的数据");                            
-                    console.log(data);
-
-                    if( (data.userViewList.length + data.ticketOrders.length)  < 10) { // @判断当前 门票和车票 的总数量是否够十条，不够表示没有必要再上拉加载了，关闭掉上拉加载行为
-                        $rootScope.hasmore2 = false;
-                    } else {
-
-                        $timeout(function() {
-                            $rootScope.hasmore2 = true; // @继续开启上拉加载行为                        
-                        }, 2000); // @延迟两秒
-
-                        $scope.pageCount = 2;  // @页数指向了第二页，第一页已加载完毕
-                    }
-
-                    $rootScope.jqztc_xdxcy_ticketsInfo = data.userViewList; // @全部车票
-                    $rootScope.jqztc_xdxcy_ticketsViewInfo = data.ticketOrders; // @全部门票
-
-                    $scope.$broadcast('scroll.refreshComplete');
-
-                    console.log("我的行程页：全部车票数组");
-                    console.log($rootScope.jqztc_xdxcy_ticketsInfo);
-
-                    console.log("我的行程页：全部门票数组");
-                    console.log($rootScope.jqztc_xdxcy_ticketsViewInfo);   
-
-                    if($rootScope.jqztc_xdxcy_ticketsInfo.length == 0 && $rootScope.jqztc_xdxcy_ticketsViewInfo.length == 0) { // @无票
-
-                        $timeout(function() {
-                            $scope.ticketsInfoIsEmpty = true;                        
-                        }, 700);             
-
-                    }
-
-                }, function() {
-                    $scope.$broadcast('scroll.refreshComplete'); 
-                });
-
-            };
-            
+                        
         }
 
         // @tab_all 全部的票据
@@ -2743,18 +2689,11 @@ app
             };
 
             // @订单列表 wechat/product/queryUserProductTicketList
-            $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+            $myHttpService.post('api/product/queryUserProductTicketList', requestData, function(data) {
 
                 console.log("我的行程页：获取所有订单的列表API返回的数据");
                 console.log(data);
-
-                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
-                    $rootScope.hasmore2 = false;
-                } else {
-                    $rootScope.hasmore2 = true;
-                    $scope.pageCount = 2;
-                }
-
+                
                 $rootScope.jqztc_xdxcy_ticketsInfo = data.userViewList;
                 $rootScope.jqztc_xdxcy_ticketsViewInfo = data.ticketOrders;
                 
@@ -2772,6 +2711,13 @@ app
                         $scope.ticketsInfoIsEmpty = true;                        
                     }, 700);
 
+                }
+
+                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
+                    $rootScope.hasmore2 = false;
+                } else {
+                    $rootScope.hasmore2 = true;
+                    $scope.pageCount = 2;
                 }
 
             }, function() {
@@ -2797,13 +2743,6 @@ app
                 console.log("我的行程页：获取所有订单的列表API返回的数据(下拉刷新)");
                 console.log(data);
 
-                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
-                    $rootScope.hasmore2 = false;
-                } else {
-                    $rootScope.hasmore2 = true;
-                    $scope.pageCount = 2;
-                }
-
                 $rootScope.jqztc_xdxcy_ticketsInfo = data.userViewList;
                 $rootScope.jqztc_xdxcy_ticketsViewInfo = data.ticketOrders;
                 
@@ -2827,6 +2766,16 @@ app
                         skin: 'msg',
                         time: 1
                     });
+                }
+
+                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
+                    $rootScope.hasmore2 = false;
+                } else {
+                    // $timeout(function() {
+                    //     $rootScope.hasmore2 = true;                    
+                    // }, 2000);
+                    $rootScope.hasmore2 = true; 
+                    $scope.pageCount = 2;
                 }
 
             }, function() {
@@ -2875,14 +2824,6 @@ app
                     console.log("我的行程页：获取所有订单的列表API返回的数据(上拉加载)");  
                     console.log(data);
 
-                    if ( (data.userViewList.length + data.ticketOrders.length) < 10) { 
-                        $scope.hasmore = false; // @这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
-                        $rootScope.hasmore2 = false;
-                    } else {
-                        $scope.pageCount++; // @计数
-                    }
-                    run = false;
-
                     $rootScope.jqztc_xdxcy_ticketsInfo = $rootScope.jqztc_xdxcy_ticketsInfo.concat(data.userViewList); // @车票
                     $rootScope.jqztc_xdxcy_ticketsViewInfo = $rootScope.jqztc_xdxcy_ticketsViewInfo.concat(data.ticketOrders); // @门票
 
@@ -2902,7 +2843,21 @@ app
                             $scope.ticketsInfoIsEmpty = true;                        
                         }, 700);
 
+                    } else {
+                        layer.open({
+                            content: '加载成功',
+                            skin: 'msg',
+                            time: 1
+                        });
                     }
+
+                    if ( (data.userViewList.length + data.ticketOrders.length) < 10) { 
+                        $scope.hasmore = false; // @这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
+                        $rootScope.hasmore2 = false;
+                    } else {
+                        $scope.pageCount++; // @计数
+                    }
+                    run = false;
 
                 }, function() {
                     $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -2924,7 +2879,7 @@ app
             };
 
             // @订单列表 wechat/product/queryUserProductTicketList
-            $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+            $myHttpService.post('api/product/queryUserProductTicketList', requestData, function(data) {
 
                 console.log("我的行程页：获取未使用订单的列表API返回的数据");
                 console.log(data);
@@ -2953,12 +2908,6 @@ app
                         $scope.jqztc_xdxcy_ticketsInfo_nouse_ticketsInfoIsEmpty = true;                        
                     }, 700);
 
-                } else {
-                    layer.open({
-                        content: '刷新成功',
-                        skin: 'msg',
-                        time: 1
-                    });
                 }
 
             }, function() {
@@ -2981,7 +2930,7 @@ app
             };
 
             // @订单列表 wechat/product/queryUserProductTicketList
-            $myHttpService.postNoLoad('api/product/queryUserProductTicketList', requestData, function(data) {
+            $myHttpService.post('api/product/queryUserProductTicketList', requestData, function(data) {
 
                 console.log("我的行程页：获取正在退款中订单的列表API返回的数据");
                 console.log(data);
@@ -3010,12 +2959,6 @@ app
                         $scope.jqztc_xdxcy_ticketsInfo_refund_ticketsInfoIsEmpty = true;                        
                     }, 700);
 
-                } else {
-                    layer.open({
-                        content: '刷新成功',
-                        skin: 'msg',
-                        time: 1
-                    });
                 }
 
             }, function() {
