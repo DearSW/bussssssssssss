@@ -2726,8 +2726,6 @@ app
 
             };
             
-            $scope.refresh_tab_all_first(); // @只在首次进去页面时 自动调用一次！！！
-
         }
 
         // @tab_all 全部的票据
@@ -2774,12 +2772,6 @@ app
                         $scope.ticketsInfoIsEmpty = true;                        
                     }, 700);
 
-                } else {
-                    layer.open({
-                        content: '刷新成功',
-                        skin: 'msg',
-                        time: 1
-                    });
                 }
 
             }, function() {

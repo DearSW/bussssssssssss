@@ -26,9 +26,7 @@
             .jqztc-tabs  .tabs {
                 border-color: white;
                 background-color: white;
-                /* color: #9E9E9E; */
                 position: fixed;
-                /* top: 32px; */
             }
 
             .jqztc-tabs .notice {
@@ -37,13 +35,11 @@
                 color: #e86702;
                 font-size: 12px;
                 line-height: 26px;
-                /* margin-top: 32px; */
             }
 
             .jqztc-tabs .pl {
                 padding-top: 0; 
                 padding-bottom: 0;
-                /* margin-top: 32px; */
             }
 
             .jqztc-tabs .xz {
@@ -51,7 +47,6 @@
                 color: #4c4848;
                 font-size: 16px;
                 font-weight: 500;
-                /* margin-top: 32px; */
             }
     </style>
 
@@ -104,14 +99,14 @@
 
                                         <div class="row refund">
                                                 <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 9px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
                                                 </div>
                                         </div>
                                         
                                         <div class="row" >
                                             <div class="col col-center col-33" style="color: #a2a2a2;">
-                                                <span style="margin-left: 10px;">未使用</span>
+                                                <span style="margin-left: 11px;">未使用</span>
                                             </div>
                                             <div class="col col-66" style="text-align: right;">
                                                 <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedTicketToDetail(item, i)">
@@ -151,14 +146,14 @@
 
                                         <div class="row refund">
                                                 <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 9px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
                                                 </div>
                                         </div>
                                         
                                         <div class="row" >
                                             <div class="col col-33 col-center" style="color: #a2a2a2;">
-                                                <span style="margin-left: 10px;">已使用（待评论）</span>
+                                                <span style="margin-left: 11px;">已使用（待评论）</span>
                                             </div>
                                             <div class="col col-66" style="text-align: right;">
                                                 <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="usedTicketToComment(item, i)">
@@ -199,14 +194,14 @@
 
                                         <div class="row refund">
                                                 <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 9px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
                                                 </div>
                                         </div>
                                         
                                         <div class="row" >
                                             <div class="col col-33 col-center" style="color: #a2a2a2;">
-                                                <span style="margin-left: 10px;">退款中</span>
+                                                <span style="margin-left: 11px;">退款中</span>
                                             </div>
                                             <div class="col col-66" style="text-align: right;">
                                                 <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="refundingToRefund(item, i)">
@@ -246,15 +241,15 @@
 
                                         <div class="row refund">
                                                 <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 9px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
                                                 </div>
                                         </div>
                                         
                                         <div class="row" >
                                             <div class="col col-33 col-center" style="color: #a2a2a2;">
-                                                <span ng-if="item.payPrice == 0" style="margin-left: 10px;">已退款 （优惠券购买） </span>
-                                                <span ng-if="item.payPrice != 0" style="margin-left: 10px;">已退款 ￥{{item.payPrice}}</span>
+                                                <span ng-if="item.payPrice == 0" style="margin-left: 11px;">已退款 （优惠券购买） </span>
+                                                <span ng-if="item.payPrice != 0" style="margin-left: 11px;">已退款 ￥{{item.payPrice}}</span>
                                             </div>
                                             <div class="col col-66" style="text-align: right;">
                                                 <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: rgba(255, 255, 255, 0);">
@@ -282,15 +277,15 @@
 
                                         <div class="row refund">
                                                 <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 9px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
                                                 </div>
                                         </div>
                                         
                                         <div class="row" >
                                             <div class="col col-center col-33" style="color: #a2a2a2;">
-                                                <span style="margin-left: 10px;">未使用</span>
+                                                <span style="margin-left: 11px;">未使用</span>
                                             </div>
                                             <div class="col col-66" style="text-align: right;">
                                                 <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedAdmissionTicketToDetail(item, i)">
@@ -312,15 +307,15 @@
 
                                         <div class="row refund">
                                                 <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 9px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
                                                 </div>
                                         </div>
                                         
                                         <div class="row" >
                                             <div class="col col-center col-33" style="color: #a2a2a2;">
-                                                <span style="margin-left: 10px;">已使用</span>
+                                                <span style="margin-left: 11px;">已使用</span>
                                             </div>
                                             <div class="col col-66" style="text-align: right;">
                                                 <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedAdmissionTicketToDetail(item, i)">
@@ -342,15 +337,15 @@
 
                                         <div class="row refund">
                                                 <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 9px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>                                                    
                                                 </div>
                                         </div>
                                         
                                         <div class="row" >
                                             <div class="col col-center col-33" style="color: #a2a2a2;">
-                                                <span style="margin-left: 10px;">退款中</span>
+                                                <span style="margin-left: 11px;">退款中</span>
                                             </div>
                                             <div class="col col-66" style="text-align: right;">
                                                 <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;" ng-click="unusedAdmissionTicketToDetail(item, i)">
@@ -372,15 +367,15 @@
 
                                         <div class="row refund">
                                                 <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
-                                                    <div style="margin: 0 0 -8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >有效期: {{item.useDate | date:'yyyy-MM-dd'}}</div>
+                                                    <div style="margin: 0 0 8px 9px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    <div style="margin: 0 0 -8px 9px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>
                                                 </div>
                                         </div>
                                         
                                         <div class="row" >
                                             <div class="col col-center col-33" style="color: #a2a2a2;">
-                                                <span style="margin-left: 10px;">已退款 ￥{{item.couponPrice}}</span>
+                                                <span style="margin-left: 11px;">已退款 ￥{{item.couponPrice}}</span>
                                             </div>
                                             <div class="col col-66" style="text-align: right;">
                                                 <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: rgba(255, 255, 255, 0);" >
