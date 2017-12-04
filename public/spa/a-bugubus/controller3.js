@@ -170,9 +170,7 @@ app
         }
 
         $scope.dataContainer = { // @数据容器
-
             input: "" // @用户输入
-
         }
         
         if(recommendImgCount == 1) { // @首次加载
@@ -200,9 +198,10 @@ app
                 }
             }, errorFn);
 
+            $rootScope.recommendProducts2Index = 0;
+
         }
         
-        $rootScope.recommendProducts2Index = 0;
         function slideImage() { // @轮播控制函数
             if($rootScope.recommendProducts2 && $rootScope.recommendProducts2.length > 0) {
                 $rootScope.recommendProducts2Index = $rootScope.recommendProducts2Index === $rootScope.recommendProducts2.length - 1 ? 0 : $rootScope.recommendProducts2Index + 1;
@@ -479,7 +478,6 @@ app
         $scope.commentsInfo = []; // @点评 数据
         $scope.paramsProductId = ''; // @产品ID，查询评论用
         $scope.sourceComeType = ''; // @类型来源判断，true：图片推荐接口来的；false：手动搜索接口来的
-
         $rootScope.currentSelectedDate = null;
 
         // @Mock数据 接口 api/product/queryProductList
@@ -557,10 +555,10 @@ app
             }
         ]; */
 
-        // @接收jqztc_search.html页面传递过来的参数，并解析
+        // @接收 首页 传递过来的参数，并解析
         var paramsData = JSON.parse($state.params.data);
 
-        if(paramsData != null) { // @进入产品页有参数时
+        if(paramsData != null) { // @进入产品页 有参数时
 
             if(paramsData.hasOwnProperty('productid')) { // @一、图片推荐类型的产品列表
 
@@ -694,21 +692,6 @@ app
 
                     }
 
-                    // console.log("产品页：测试开始");
-                    
-                    // console.log("开始写入");
-                    // sessionStorage.setItem('jqztc_cpy', JSON.stringify($scope.ticketsInfo2));
-                    // console.log("写入结束");
-    
-                    // console.log("开始解析");
-                    // var test = JSON.parse(sessionStorage.getItem('jqztc_cpy'));
-                    // console.log("解析完毕");
-    
-                    // console.log("打印测试结果");
-                    // console.log(test);
-    
-                    // console.log("产品页：测试结束");
-
                 }, errorFn);
 
             }
@@ -722,7 +705,7 @@ app
                 $scope.paramsProductId = sessionStorage.getItem('jqztc_cpy_paramsProductId'); // @产品ID，查询评论用
 
 
-                $scope.ticketsInfo1 = getStorageData('jqztc_cpy_ticketsInfo1');
+                $scope.ticketsInfo1 = getStorageData('jqztc_cpy_ticketsInfo1'); // @获取数据
 
                 if($scope.ticketsInfo1 != null) {
                     
@@ -780,91 +763,15 @@ app
                     });
 
                 }
-
-                // var requestData = {
-                //     productid: $scope.paramsProductId
-                // };
-
-                // @图片推荐类型产品列表 /web/product/queryProduct
-                // $myHttpService.post('api/product/queryProduct', requestData, function(data) {
-
-                //     console.log("产品页：图片推荐产品列表API返回的数据");
-                //     console.log(data);
-                //     $scope.ticketsInfo1 = data.product; // @产品对象
-                    
-                //     if($scope.ticketsInfo1 != null) {
-                        
-                //         if($scope.ticketsInfo1.plans != null) { // @产品 有车票时
-                            
-                //             $scope.ticketsInfo1_havePlans = true; // @有无车票
-    
-                //             $scope.ticketsInfo1_prodcutType = $scope.ticketsInfo1.productType.split("&"); // @产品类型
-                //             $scope.ticketsInfo1_prodcutType2 = $scope.ticketsInfo1.productType.replace("&", "+"); // @产品类型
-    
-                //             $scope.ticketsInfo1_station = $scope.ticketsInfo1.plans[0].linename.split("-"); // @出发/返回 站点名
-    
-                //             if($scope.ticketsInfo1.plans[0].bdidType == 0) { // @单程票
-    
-                //                 $scope.ticketsInfo1_plansType = true; // @车票类型
-    
-                //                 $scope.ticketsInfo1_departAddr = $scope.ticketsInfo1.plans[0].departaddr; // @出发发车地址
-                //                 $scope.ticketsInfo1_driveTime = $scope.ticketsInfo1.plans[0].drivetime; // @行程时间
-                                
-                //             } else { // @往返票
-                                
-                //                 $scope.ticketsInfo1_plansType = false; // @车票类型
-                //                 $scope.ticketsInfo1_departAddr = $scope.ticketsInfo1.plans[0].departaddr; // @出发发车地址
-                //                 $scope.ticketsInfo1_arriveAddr = $scope.ticketsInfo1.plans[1].departaddr; // @返回发车地址
-                //                 $scope.ticketsInfo1_driveTime = $scope.ticketsInfo1.plans[0].drivetime; // @行程时间
-    
-                //             }
-    
-                //         } else { // @产品 无车票时
-    
-                //             $scope.ticketsInfo1_havePlans = false;
-    
-                //             if($scope.ticketsInfo1.viewInfo != null) { // @单独的门票
-    
-                //                 $scope.ticketsInfo1_viewName = $scope.ticketsInfo1.viewInfo.viewName; // @景点名字
-                //                 $scope.ticketsInfo1_viewAddr = $scope.ticketsInfo1.viewInfo.viewaddr; // @景点地址
-    
-                //             } 
-    
-                //         }
-
-                //     } else {
-
-                //         layer.open({
-                //             content: '客官，您当前选择的推荐主题路线已售完，请返回进行主题线路搜索 (╯-╰)',
-                //             btn: '确定',
-                //             shadeClose: false,
-                //             yes: function(index) {
-                //                 layer.closeAll();
-                //                 $timeout(function() {
-                //                     window.history.back();
-                //                     return false;
-                //                 }, 250)
-                //             }
-                //         });
-
-                //     }       
-
-                // }, errorFn);
                 
             } else if(sessionStorage.getItem('jqztc_cpy_requestUrlType') == '1') {  // @二、手动搜索类型的产品列表
 
                 $scope.sourceComeType = false; // @来源类型 判断
 
-                var requestData = {
-                    keyword: sessionStorage.getItem('tabsParamsDataInput'),
-                    departDate: sessionStorage.getItem('tabsParamsDataDate')
-                };
-                console.log(requestData);
-
                 $rootScope.currentSelectedDate = sessionStorage.getItem('tabsParamsDataDate');
                 $rootScope.currentSelectedRoadLine = sessionStorage.getItem('tabsParamsDataInput');
 
-                $scope.ticketsInfo2 = getStorageData('jqztc_cpy_ticketsInfo2');
+                $scope.ticketsInfo2 = getStorageData('jqztc_cpy_ticketsInfo2'); // @获取数据
 
                 if($scope.ticketsInfo2.length != 0) {
                     
@@ -876,26 +783,6 @@ app
                         btn: '确定'
                     });
                 }
-
-                // @手动搜索类型的产品列表 wechat/product/queryProductList
-                // $myHttpService.post('api/product/queryProductList', requestData, function(data) {
-
-                //     console.log("产品页：手动搜索类型的产品列表API返回的数据");
-                //     console.log(data);
-                    
-                //     $scope.ticketsInfo2 = data.products;
-                //     if($scope.ticketsInfo2.length != 0) {
-                        
-                //         $scope.paramsProductId = data.products[0].productid;  // @产品ID，查询评论用
-
-                //     } else {
-                //         layer.open({
-                //             content: '客官，没有找到相关产品信息，请重新搜索 (╯-╰)',
-                //             btn: '确定'
-                //         });
-                //     }
-
-                // }, errorFn);
 
             } else {
                 $state.go('search');
@@ -914,7 +801,7 @@ app
         var check_click_count = 0; // @检测 产品tab 的点击次数
         var check_click_count2 = 0; // @检测 点评tab 的点击次数
 
-        // @产品 信息
+        // @产品 信息 tab函数
         $scope.tab_road = function() {
 
             if(check_click_count < 1) {
@@ -924,7 +811,7 @@ app
 
         }
 
-        // @点评 信息
+        // @点评 信息 tab函数
         $scope.tab_comment = function() {
 
             if(check_click_count2 < 1) {
@@ -2592,61 +2479,18 @@ app
      */
     .controller('order_detail_refund', function($rootScope, $scope, $filter, $state, $myHttpService, $ionicSlideBoxDelegate) {
 
+        $scope.ticketsInfo = []; // @车票
+        $scope.ticketsViewInfo = []; // @门票
+
         if(JSON.parse($state.params.data) == null) { // @访问此页面时，如果没有传递过来参数
 
-            console.log("支付成功页：流程一");
-            // layer.open({
-            //     content: '客官，暂时无法访问当前页面，将返回首页！',
-            //     btn: '确定',
-            //     yes: function(index){
-            //         window.history.back();
-            //         layer.close(index);
-            //         return false;
-            //     }
-            // });
-
-            console.log("支付成功页：传递过来的参数");
-            console.log($rootScope.order_detail_refund_paramsData);
-
-            // @获取用户刚刚购买的票  /web/product/queryProductOrderByBdid
-            $myHttpService.post('api/product/queryProductOrderByBdid', $rootScope.order_detail_refund_paramsData, function(data) {
-                
-                console.log("支付成功页：获取用户刚刚购买的票API返回的数据");
-                console.log(data);
-
-                $scope.ticketsInfoTemp = []; // @临时数组
-                $scope.ticketsInfo = []; // @车票
-                $scope.ticketsViewInfo = []; // @门票
-
-                // @去程车票数组
-                if(data.viewOrders != null && data.viewOrders.length != 0) {
-                    $scope.ticketsInfoTemp = data.viewOrders;
-                }
-
-                // @合并返程车票数组
-                if(data.backViewOrders != null && data.backViewOrders.length != 0) {
-                    $scope.ticketsInfo = $scope.ticketsInfoTemp.concat(data.backViewOrders);
-                }
-
-                console.log("支付成功页: 合并之后的车票数组");
-                console.log($scope.ticketsInfo);
-
-                // @门票车票数组
-                if(data.ticketOrders != null && data.ticketOrders.length != 0) {
-                    $scope.ticketsViewInfo = data.ticketOrders;
-                }
-
-                console.log("支付成功页: 合并之后的门票数组");
-                console.log($scope.ticketsViewInfo);
-
-                $ionicSlideBoxDelegate.update();
-
-            }, errorFn);
-
+            $scope.ticketsInfo = getStorageData('jqztc_zfcgy_ticketsInfo');
+            $scope.ticketsViewInfo = getStorageData('jqztc_zfcgy_ticketsViewInfo');
+            $ionicSlideBoxDelegate.update();
             
         } else { // @访问此页面时，如果有参数传递过来
 
-            console.log("支付成功页：流程二");
+            $scope.ticketsInfoTemp = []; // @车票 临时变量
             
             var paramsData = JSON.parse($state.params.data); // @参数解析
 
@@ -2661,23 +2505,14 @@ app
             // userid:"2017112409511512371556"
             // viewid:"2017112711511975860548"
 
-            // sessionStorage.setItem('order_detail_refund_', );
-            
-
-            $rootScope.order_detail_refund_paramsData = paramsData; // @存储参数
-
             console.log("支付成功页：请求参数");
-            console.log($rootScope.order_detail_refund_paramsData);
+            console.log(paramsData);
 
             // @获取用户刚刚购买的票  /web/product/queryProductOrderByBdid
-            $myHttpService.post('api/product/queryProductOrderByBdid', $rootScope.order_detail_refund_paramsData, function(data) {
+            $myHttpService.post('api/product/queryProductOrderByBdid', paramsData, function(data) {
 
                 console.log("支付成功页：获取用户刚刚购买的票API返回的数据");
                 console.log(data);
-
-                $scope.ticketsInfoTemp = []; // @车票 临时变量
-                $scope.ticketsInfo = []; // @车票
-                $scope.ticketsViewInfo = []; // @门票
 
                 // @去程车票数组
                 if(data.viewOrders != null && data.viewOrders.length != 0) {
@@ -2703,6 +2538,9 @@ app
 
                 $ionicSlideBoxDelegate.update();
 
+                storageData('jqztc_zfcgy_ticketsInfo', $scope.ticketsInfo);
+                storageData('jqztc_zfcgy_ticketsViewInfo', $scope.ticketsViewInfo);
+
             }, errorFn);
             
         }
@@ -2716,10 +2554,6 @@ app
             };
             $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: false});
         } 
-
-        // $scope.$on('$destroy', function() {
-            
-        // });
                
     })
 
