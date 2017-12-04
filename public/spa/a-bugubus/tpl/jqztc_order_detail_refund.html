@@ -59,14 +59,6 @@
                                         
                                         <div class="row" >
 
-                                            <!-- <div class="col col-33" style="line-height: 2.5;color: #a2a2a2;">
-                                                <span style="margin-left: 10px;">未使用</span>
-                                            </div>
-                                            <div class="col col-66" style="text-align: right;">
-                                                <button class="button button-clear" style="margin-right: 20px;font-size: 18px;color: #f78304;">
-                                                    测试详情
-                                                </button>
-                                            </div> -->
                                             <div class="row" style="text-align: center;">
                                                 <div class="col col-33">
                                                     <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
@@ -90,7 +82,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
-                                        <span class="btnfont11 ">已付款待乘车</span>
+                                        <span class="btnfont11 ">已付款<span style="color: #F90002">待乘车</span></span>
                                     </div>
                                 </div>
 
@@ -130,7 +122,7 @@
                                                     <div class="col" style="margin-left: 10px;">
             
                                                         <span>
-                                                            有效期：{{item.useDate}}
+                                                            有效期：{{item.useDate | date:'yyyy-MM-dd'}}
                                                         </span>    
         
                                                     </div>
@@ -138,25 +130,21 @@
                                                 </div>
         
                                                 <div class="row refund">
-                                                        <div class="col col-70">
-                                                            <div style="margin: 0 0 8px 8px;white-space: normal;" >景点地点: {{item.viewaddr}}</div>
-                                                            <!-- <div style="margin: 0 0 8px 8px;white-space: normal;" >景区简介: NNNNJDNL</div> -->
-                                                        </div>
+                                                    <div class="col col-70">
+                                                        <div style="margin: 0 0 8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row refund">
+                                                    <div class="col col-70">
+                                                        <div style="margin: 0 0 8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>
+                                                    </div>
                                                 </div>
                                                 
-                                                <div class="row" style="text-align: center;">
-
-                                                    <div class="col col-33">
-                                                        <i class="icon ion-android-notifications-none" style="color: #2196F3;font-size: 16px;"></i>
-                                                        <span>{{item.viewPriceType}}</span>
-                                                    </div>
-
-                                                    <div class="col col-33">
-                                                        <i class="icon ion-headphone" style="color: #4CAF50;"></i>
-                                                        <a href="tel:18302505304" style="text-decoration:none;"><span>联系客服</span></a>                                              
-                                                    </div>
-
+                                                <div class="row">
+                                                    <div class="col "></div>
                                                 </div> 
+                                                
                                             </div>
 
                                     </ion-item>
@@ -166,8 +154,8 @@
     
                                     <div class="row">
                                         <div class="col">
-                                            <i class="icon ion-ios-information-outline" style="color: #47bd4c;font-size: 22px;"></i>
-                                            <span class="btnfont11 ">已付款未认证</span>
+                                            <i class="icon ion-ios-information-outline" style="color: #F90002;font-size: 22px;"></i>
+                                            <span class="btnfont11 ">已付款<span style="color: #F90002">未认证</span></span>
                                         </div>
                                     </div>
     
