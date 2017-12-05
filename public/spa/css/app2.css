@@ -862,7 +862,8 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
 
 .station-arrow2 {
     display: inline-block;
-    height: 35px;
+    height: 34px;
+    vertical-align: bottom;
     width: 50px;
     background-size: cover;
     background-repeat: no-repeat;
