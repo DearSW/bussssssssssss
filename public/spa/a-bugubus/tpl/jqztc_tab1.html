@@ -164,7 +164,8 @@
                                             <div class="row startposition">
                                                     <div class="col">
                                                         <span class="station-address">{{ticketsInfo1_station[0]}}</span>
-                                                        <span class="station-arrow"></span>
+                                                        <span class="station-arrow" ng-if="$scope.ticketsInfo1.plans[0].bdidType == 0"></span>
+                                                        <span class="station-arrow2" ng-if="$scope.ticketsInfo1.plans[0].bdidType != 0"></span>
                                                         <span class="station-address2">{{ticketsInfo1_station[1]}}</span>
                                                     </div>
                                             </div>
