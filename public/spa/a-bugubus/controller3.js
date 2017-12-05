@@ -2904,11 +2904,11 @@ app
 
             console.log("我的行程页：当前元素的位置");
             console.log($event);
-            var off = angular.element($event.target).offset();  
-            console.log(off.top);  
-            console.log(off.left);  
+            // var off = angular.element($event.target).offset();  
+            // console.log(off.top);  
+            // console.log(off.left);  
 
-            // $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
+            $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
 
         }
 
