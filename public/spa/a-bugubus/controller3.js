@@ -2596,6 +2596,9 @@ app
         $scope.tab_all = function() { // @每次点击tab项时，就会执行一遍这个函数
 
             console.log("我的行程页：tab_all执行");   
+
+            $rootScope.jqztc_xdxcy_ticketsInfo = [];
+            $rootScope.jqztc_xdxcy_ticketsViewInfo = [];   
             
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
@@ -2645,6 +2648,9 @@ app
         $scope.refresh_tab_all = function() {
 
             console.log("我的行程页：doRefreshTicket执行");   
+
+            $rootScope.jqztc_xdxcy_ticketsInfo = [];
+            $rootScope.jqztc_xdxcy_ticketsViewInfo = [];            
 
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
@@ -2785,6 +2791,9 @@ app
         $scope.tab_nouse = function() { // @每次点击tab项时，就会执行一遍这个函数
             
             console.log("我的行程页：tab_nouse执行");   
+
+            $rootScope.jqztc_xdxcy_ticketsInfo_nouse = [];
+            $rootScope.jqztc_xdxcy_ticketsViewInfo_nouse = [];
             
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
@@ -2836,6 +2845,9 @@ app
         $scope.tab_refund = function() { // @每次点击tab项时，就会执行一遍这个函数
             
             console.log("我的行程页：tab_refund执行");   
+
+            $rootScope.jqztc_xdxcy_ticketsInfo_refund = [];
+            $rootScope.jqztc_xdxcy_ticketsViewInfo_refund = [];
             
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
