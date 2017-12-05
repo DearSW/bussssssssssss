@@ -110,7 +110,7 @@
                                 </ion-item>
 
                                 <!-- 门票 2 -->
-                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsViewInfo track by $index" ng-switch="item.ticketStatus">
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsViewInfo track by $index" ng-switch="item.ticketStatus" ng-if="item.ticketStatus == 2">
 
                                     <!-- 2 未使用 -->
                                     <div class="detail" ng-switch-when="2">
@@ -294,7 +294,7 @@
                                 </ion-item>
 
                                 <!-- 门票 3 4 5 -->
-                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsViewInfo track by $index" ng-switch="item.ticketStatus">
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsViewInfo track by $index" ng-switch="item.ticketStatus" ng-if="item.ticketStatus != 2">
 
                                     <!-- 3 已使用-->
                                     <div class="detail" ng-switch-when="3">
