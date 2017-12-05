@@ -280,7 +280,8 @@
                                             <div class="row startposition">
                                                     <div class="col">
                                                         <span class="station-address">{{item.plans[0].departName}}</span>
-                                                        <span class="station-arrow"></span>
+                                                        <span class="station-arrow" ng-if="item.plans[0].bdidType == 0"></span>
+                                                        <span class="station-arrow2" ng-if="item.plans[0].bdidType != 0"></span>
                                                         <span class="station-address2">{{item.plans[0].arriveName}}</span>
                                                     </div>
                                             </div>
