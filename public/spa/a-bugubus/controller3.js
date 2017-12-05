@@ -2514,13 +2514,13 @@ app
 
                 // @去程车票数组
                 if(data.viewOrders != null && data.viewOrders.length != 0) {
-                    $scope.ticketsInfoTemp = data.viewOrders;
-                    console.log($scope.ticketsInfoTemp);
+                    $scope.ticketsInfo = data.viewOrders;
+                    console.log($scope.ticketsInfo);
                 }
 
                 // @合并返程车票数组
                 if(data.backViewOrders != null && data.backViewOrders.length != 0) {
-                    $scope.ticketsInfo = $scope.ticketsInfoTemp.concat(data.backViewOrders);
+                    $scope.ticketsInfo = $scope.ticketsInfo.concat(data.backViewOrders);
                 }
 
                 console.log("支付成功页: 车票数组");
