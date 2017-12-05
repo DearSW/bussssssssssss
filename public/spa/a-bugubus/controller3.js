@@ -1099,7 +1099,6 @@ app
                     animation: 'slide-in-up'
                 });
 
-                
                 $scope.ticketInfo_forwardTicket_count = 1; // @去程车票数
                 $scope.ticketInfo_forwardTicket_price = 0; // @去程车票价格
 
@@ -1862,7 +1861,7 @@ app
             // @参数分情况封装
             if($scope.ticketInfo.plans != null) { // @有车票时
 
-                if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[0] == null) { // @有去程，无返程的情况
+                if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] == null) { // @有去程，无返程的情况
 
                     if($scope.ticketInfo_forwardTicket_haveChoosed == true) {
                         
@@ -1885,7 +1884,7 @@ app
                         return false;
                     }
 
-                } else if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[0] != null) { // @有去程，有返程的情况
+                } else if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] != null) { // @有去程，有返程的情况
 
                     if($scope.ticketInfo_forwardTicket_haveChoosed == true && $scope.ticketInfo_backwardTicket_haveChoosed == true) {
                         
