@@ -341,11 +341,7 @@ app
         if(recommendImgCount == 1) {
 
             // @路线数据 数组，展现在路线选择的弹窗中 
-            $rootScope.roadLineData = [
-                '青岩古镇',
-                '息烽温泉',
-                '黄果树瀑布'
-            ];
+            $rootScope.roadLineData = [];
 
             // @搜索关键字 wechat/product/queryProductKeywords
             $myHttpService.postNoLoad('api/product/queryProductKeywords', {}, function(data) {
