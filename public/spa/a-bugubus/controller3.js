@@ -2593,14 +2593,14 @@ app
 
         var run = false; // @防止在短时间内重复出发上拉加载请求函数的执行
 
-        $scope.tab_all = function() { // @每次点击tab项时，就会执行一遍这个函数
+        $scope.tab_all = function() { // @每次点击tab项时，就会执行一遍这个函数 15张
 
             console.log("我的行程页：tab_all执行");   
             
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
                 offset: 0,
-                pagesize: 10,
+                pagesize: 15,
             };
 
             // @订单列表 wechat/product/queryUserProductTicketList
@@ -2628,7 +2628,7 @@ app
 
                 }
 
-                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
+                if( (data.userViewList.length + data.ticketOrders.length) < 15) {
                     $rootScope.hasmore2 = false;
                 } else {
                     $rootScope.hasmore2 = true;
@@ -2641,7 +2641,7 @@ app
 
         }
         
-        // @票据信息 下拉刷新函数
+        // @票据信息 下拉刷新函数 15张
         $scope.refresh_tab_all = function() {
 
             console.log("我的行程页：doRefreshTicket执行");           
@@ -2649,7 +2649,7 @@ app
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
                 offset: 0,
-                pagesize: 10,
+                pagesize: 15,
             };
 
             // @订单列表 wechat/product/queryUserProductTicketList
@@ -2683,7 +2683,7 @@ app
                     });
                 }
 
-                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
+                if( (data.userViewList.length + data.ticketOrders.length) < 15) {
                     $rootScope.hasmore2 = false;
                 } else {
                     // $timeout(function() {
@@ -2717,16 +2717,16 @@ app
             } 
         }
         
-        // @上拉加载更多票信息
+        // @上拉加载更多票信息 15张
         $scope.load_more_tab_all = function() {
 
             console.log("我的行程页：load_more_tab_all执行");
 
-            var offset = ($scope.pageCount - 1) * 10;
+            var offset = ($scope.pageCount - 1) * 15;
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
                 offset: offset,
-                pagesize: 10,
+                pagesize: 15,
             };
 
             if(!run) {
@@ -2765,7 +2765,7 @@ app
                         });
                     }
 
-                    if ( (data.userViewList.length + data.ticketOrders.length) < 10) { 
+                    if ( (data.userViewList.length + data.ticketOrders.length) < 15) { 
                         $scope.hasmore = false; // @这里判断是否还能获取到数据，如果没有获取数据，则不再触发加载事件 
                         $rootScope.hasmore2 = false;
                     } else {
