@@ -9,27 +9,111 @@
 
         <ion-content has-tabs="true">
 
-                    <div class="notice2" >
-                        <p>1、可左右滑动查看购买的车票或者门票</p>
-                        <p>2、查看更多票据信息、退票等请在公众号的<span style="color:#47bd4c">我的行程</span>菜单栏中操作。</p>
+            <div class="notice2" >
+                <p>1、可左右滑动查看购买的车票或者门票</p>
+                <p>2、查看更多票据信息、退票等请在公众号的<span style="color:#47bd4c">我的行程</span>菜单栏中操作。</p>
+            </div>
+
+            <ion-slide-box show-pager="false">
+
+                <!-- 车票 -->
+                <ion-slide ng-repeat="item in ticketsInfo track by $index">
+
+                    <ion-list>
+                        <ion-item style="padding: 0;">
+
+                            <div class="detail">
+                                
+                                <div class="row startposition">
+                                        <div class="col">
+                                            <span class="station-mark-orange" style="margin-left: 10px;">车票</span>
+                                            <span class="station-address">{{item.departName}}</span>
+                                            <span class="station-arrow"></span>
+                                            <span class="station-address2">{{item.arriveName}}</span>
+                                        </div>
+                                </div>
+                                
+                                <div class="row info " style="padding-left: 8px;">
+                                        
+                                    <div class="col" style="margin-left: 10px;">
+
+                                        <span>
+                                            <div class="btnfont" style="color: #0c60ee;">{{item.platenum}}</div>
+                                        </span>
+
+                                        <span class="btnfont5">
+                                            单程约{{item.drivetime}}分钟
+                                        </span>     
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row refund">
+                                        <div class="col col-70">
+                                            <div style="margin: 0 0 8px 8px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
+                                            <!-- <div style="margin: 0 0 8px 11px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div> -->
+                                            <div style="margin: 0 0 8px 8px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
+                                        </div>
+                                </div>
+                                
+                                <div class="row" >
+
+                                    <div class="row" style="text-align: center;">
+                                        <div class="col col-33">
+                                            <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
+                                            <span ng-click="getBusPosition(item)">车辆位置</span>
+                                        </div>
+                                        <div class="col col-33">
+                                            <i class="icon ion-headphone" style="color: #4CAF50;"></i>
+                                            <a href="tel:18302505304" style="text-decoration:none;"><span>联系客服</span></a>                                              
+                                        </div>
+                                    </div>
+
+                                </div> 
+
+                            </div>
+                            
+                        </ion-item>
+                    </ion-list>
+                
+                    <div style="text-align: center;">
+
+                        <div class="row">
+                            <div class="col">
+                                <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
+                                <span class="btnfont11 ">已付款<span style="color: #F90002">待乘车</span></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <span class="btnfont11">上车请出示条形码!</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <canvas ng-model="item.barcode" barcode></canvas>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <ion-slide-box show-pager="false">
+                </ion-slide> 
 
-                        <!-- 车票 -->
-                        <ion-slide ng-repeat="item in ticketsInfo track by $index">
+                <!-- 门票 -->
+                <ion-slide ng-repeat="item in ticketsViewInfo track by $index">
 
-                            <ion-list>
-                                <ion-item style="padding: 0;">
+                        <ion-list>
+                            <ion-item style="padding: 0;">
 
                                     <div class="detail">
-                                        
+                                            
                                         <div class="row startposition">
                                                 <div class="col">
-                                                    <span class="station-mark-orange" style="margin-left: 10px;">车票</span>
-                                                    <span class="station-address">{{item.departName}}</span>
-                                                    <span class="station-arrow"></span>
-                                                    <span class="station-address2">{{item.arriveName}}</span>
+                                                    <span class="station-mark-blue" style="margin-left: 10px;">门票</span>
+                                                    <span class="station-address">{{item.viewName}}</span>
                                                 </div>
                                         </div>
                                         
@@ -38,145 +122,63 @@
                                             <div class="col" style="margin-left: 10px;">
     
                                                 <span>
-                                                    <div class="btnfont" style="color: #0c60ee;">{{item.platenum}}</div>
-                                                </span>
-
-                                                <span class="btnfont5">
-                                                    单程约{{item.drivetime}}分钟
-                                                </span>     
+                                                    有效期：{{item.useDate | date:'yyyy-MM-dd'}}
+                                                </span>    
 
                                             </div>
     
                                         </div>
 
                                         <div class="row refund">
-                                                <div class="col col-70">
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >发车地点: {{item.departaddr}}</div>
-                                                    <!-- <div style="margin: 0 0 8px 11px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div> -->
-                                                    <div style="margin: 0 0 8px 8px;white-space: normal;" >出发日期: {{item.departDate | date:'yyyy-MM-dd'}} {{item.departTime}}</div>
-                                                </div>
+                                            <div class="col col-70">
+                                                <div style="margin: 0 0 8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row refund">
+                                            <div class="col col-70">
+                                                <div style="margin: 0 0 8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>
+                                            </div>
                                         </div>
                                         
-                                        <div class="row" >
-
-                                            <div class="row" style="text-align: center;">
-                                                <div class="col col-33">
-                                                    <i class="icon ion-location" style="color: #2196F3;font-size: 16px;"></i>
-                                                    <span ng-click="getBusPosition(item)">车辆位置</span>
-                                                </div>
-                                                <div class="col col-33">
-                                                    <i class="icon ion-headphone" style="color: #4CAF50;"></i>
-                                                    <a href="tel:18302505304" style="text-decoration:none;"><span>联系客服</span></a>                                              
-                                                </div>
-                                            </div>
-
+                                        <div class="row">
+                                            <div class="col "></div>
                                         </div> 
-
+                                        
                                     </div>
-                                    
-                                </ion-item>
-                            </ion-list>
+
+                            </ion-item>
+                        </ion-list>
                         
-                            <div style="text-align: center;">
+                        <div style="text-align: center;">
 
-                                <div class="row">
-                                    <div class="col">
-                                        <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
-                                        <span class="btnfont11 ">已付款<span style="color: #F90002">待乘车</span></span>
-                                    </div>
+                            <div class="row">
+                                <div class="col">
+                                    <i class="icon ion-ios-information-outline" style="color: #F90002;font-size: 22px;"></i>
+                                    <span class="btnfont11 ">已付款<span style="color: #F90002">未认证</span></span>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <span class="btnfont11">上车请出示条形码!</span>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <canvas ng-model="item.barcode" barcode></canvas>
-                                    </div>
-                                </div>
-
                             </div>
 
-                        </ion-slide> 
-
-                        <!-- 门票 -->
-                        <ion-slide ng-repeat="item in ticketsViewInfo track by $index">
-
-                                <ion-list>
-                                    <ion-item style="padding: 0;">
-
-                                            <div class="detail">
-                                                    
-                                                <div class="row startposition">
-                                                        <div class="col">
-                                                            <span class="station-mark-blue" style="margin-left: 10px;">门票</span>
-                                                            <span class="station-address">{{item.viewName}}</span>
-                                                        </div>
-                                                </div>
-                                                
-                                                <div class="row info " style="padding-left: 8px;">
-                                                        
-                                                    <div class="col" style="margin-left: 10px;">
-            
-                                                        <span>
-                                                            有效期：{{item.useDate | date:'yyyy-MM-dd'}}
-                                                        </span>    
-        
-                                                    </div>
-            
-                                                </div>
-        
-                                                <div class="row refund">
-                                                    <div class="col col-70">
-                                                        <div style="margin: 0 0 8px 8px;white-space: normal;" >景点地址: {{item.viewaddr}}</div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row refund">
-                                                    <div class="col col-70">
-                                                        <div style="margin: 0 0 8px 8px;white-space: normal;" >门票类型: {{item.viewPriceType}}票</div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="row">
-                                                    <div class="col "></div>
-                                                </div> 
-                                                
-                                            </div>
-
-                                    </ion-item>
-                                </ion-list>
-                                
-                                <div style="text-align: center;">
-    
-                                    <div class="row">
-                                        <div class="col">
-                                            <i class="icon ion-ios-information-outline" style="color: #F90002;font-size: 22px;"></i>
-                                            <span class="btnfont11 ">已付款<span style="color: #F90002">未认证</span></span>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row">
-                                        <div class="col">
-                                            <span class="btnfont11">入场请出示条形码!</span>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row">
-                                        <div class="col">
-                                            <canvas ng-model="item.ticketCode" barcode></canvas>
-                                        </div>
-                                    </div>
-    
+                            <div class="row">
+                                <div class="col">
+                                    <span class="btnfont11">入场请出示条形码!</span>
                                 </div>
+                            </div>
 
-                        </ion-slide>
+                            <div class="row">
+                                <div class="col">
+                                    <canvas ng-model="item.ticketCode" barcode></canvas>
+                                </div>
+                            </div>
 
-                    </ion-slide-box>
+                        </div>
 
-                </ion-content>
+                </ion-slide>
+
+            </ion-slide-box>
+
+        </ion-content>
+
     </div>
+    
 </ui-view>
