@@ -2584,8 +2584,15 @@ app
             sessionStorage.setItem("myplanCount", 2);
             $rootScope.hasmore2 = false; // @首次进入页面时  关闭掉上拉加载行为 ion-infinite-scroll，false为关闭；true为开启
             
-            // @当前的 tab index
+            // @当前的 tab index索引
             $rootScope.jqztc_xdxcy_current_tab_index = 0;
+
+        } else {
+
+            if($rootScope.jqztc_xdxcy_current_tab_index == -1) {
+                $rootScope.jqztc_xdxcy_current_tab_index = 0;
+            }
+            $ionicTabsDelegate.select($rootScope.jqztc_xdxcy_current_tab_index);
 
         }
 
@@ -2596,6 +2603,11 @@ app
         $scope.tab_all = function() { // @每次点击tab项时，就会执行一遍这个函数 15张
 
             console.log("我的行程页：tab_all执行");   
+
+            $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引
+
+            console.log("我的行程页：当前索引");
+            console.log($rootScope.jqztc_xdxcy_current_tab_index);
             
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
@@ -2784,6 +2796,8 @@ app
         $scope.tab_nouse = function() { // @每次点击tab项时，就会执行一遍这个函数
             
             console.log("我的行程页：tab_nouse执行");   
+
+            $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引            
             
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
@@ -2834,6 +2848,8 @@ app
         $scope.tab_refund = function() { // @每次点击tab项时，就会执行一遍这个函数
             
             console.log("我的行程页：tab_refund执行");   
+
+            $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引            
             
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
