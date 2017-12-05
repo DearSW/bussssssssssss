@@ -2561,89 +2561,6 @@ app
     })
 
     /**
-     * @车票评价页 控制器
-     */ 
-    .controller('order_check_comment', function($rootScope, $scope, $timeout, $state, $filter, $myHttpService) {
-
-        $scope.submitBtnIsDiasbled = true; // 控制提交按钮的状态
-
-        if(JSON.parse($state.params.data) == null) {
-            $state.go('myplan', {}, {location: 'replace'});
-        } else {
-
-            // 接受参数
-            $scope.isCommented = JSON.parse($state.params.isCommented);
-            $scope.isCommentedText = JSON.parse($state.params.isCommentedText);
-            $scope.isCommentedScore = JSON.parse($state.params.isCommentedScore);
-            var paramsData = JSON.parse($state.params.data);
-
-            var requestData = {
-                viewOrderid: paramsData.viewOrderid
-            };
-
-            $myHttpService.post('api/product/queryUserProductTicketDetails', requestData, function(data){
-
-                console.log(data);
-                $scope.ticketInfo = data.viewOrder;
-
-            }, errorFn);
-            
-            // 由于ionic的原因，必须要是对象来接收数据
-            $scope.dataContainer = {
-                text: ""
-            }
-
-            // 星星 调用了Star的指令，这里是相关的配置信息
-            $scope.max = 5; // 星星数量
-            $scope.ratingVal = 5; // 默认点亮数量
-            $scope.readonly = false; // 是否只读
-            $scope.onHover = function(val) {$scope.ratingVal = val;};
-            $scope.onLeave = function() {};
-
-            // 评价提交按钮状态 监测函数
-            $scope.submitBtnCheck = function() {
-                if($scope.dataContainer.text) {
-                    $scope.submitBtnIsDiasbled = false;
-                } else {
-                    $scope.submitBtnIsDiasbled = true;
-                }
-            };
-
-            // 提交数据
-            $scope.submitComment = function() {
-                // 封装数据
-                var data = {
-                    viewOrderid: paramsData.viewOrderid, // 订单编号
-                    orderScore: $scope.ratingVal, // 订单评分
-                    orderhie: $scope.dataContainer.text // 订单评价
-                };
-                console.log(data);
-                $myHttpService.post('api/product/insertViewOrderHierarchy', data, function(data) {
-                    layer.open({
-                        content: '评价提交成功',
-                        btn: '确定',
-                        shadeClose: false,
-                        yes: function(index){
-                            $state.go('myplan', {}, {location: 'replace'});
-                            layer.close(index);
-                        }
-                    });
-                }, errorFn);
-            };
-
-            // 车辆位置函数
-            $scope.getBusPosition = function() {
-                var data = {
-                    carid: $scope.ticketInfo.carid,
-                    lineid: $scope.ticketInfo.lineid
-                };
-                console.log(data);
-                $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
-            }
-        }
-    })
-
-    /**
      * @我的行程页 门票、车票 控制器
      */ 
     .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout, $ionicTabsDelegate) {
@@ -3642,6 +3559,89 @@ app
             $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
         }
 
+    })
+
+    /**
+     * @车票评价页 控制器 3 一种状态
+     */ 
+    .controller('order_check_comment', function($rootScope, $scope, $timeout, $state, $filter, $myHttpService) {
+
+        $scope.submitBtnIsDiasbled = true; // 控制提交按钮的状态
+
+        if(JSON.parse($state.params.data) == null) {
+            $state.go('myplan', {}, {location: 'replace'});
+        } else {
+
+            // 接受参数
+            $scope.isCommented = JSON.parse($state.params.isCommented);
+            $scope.isCommentedText = JSON.parse($state.params.isCommentedText);
+            $scope.isCommentedScore = JSON.parse($state.params.isCommentedScore);
+            var paramsData = JSON.parse($state.params.data);
+
+            var requestData = {
+                viewOrderid: paramsData.viewOrderid
+            };
+
+            $myHttpService.post('api/product/queryUserProductTicketDetails', requestData, function(data){
+
+                console.log(data);
+                $scope.ticketInfo = data.viewOrder;
+
+            }, errorFn);
+            
+            // 由于ionic的原因，必须要是对象来接收数据
+            $scope.dataContainer = {
+                text: ""
+            }
+
+            // 星星 调用了Star的指令，这里是相关的配置信息
+            $scope.max = 5; // 星星数量
+            $scope.ratingVal = 5; // 默认点亮数量
+            $scope.readonly = false; // 是否只读
+            $scope.onHover = function(val) {$scope.ratingVal = val;};
+            $scope.onLeave = function() {};
+
+            // 评价提交按钮状态 监测函数
+            $scope.submitBtnCheck = function() {
+                if($scope.dataContainer.text) {
+                    $scope.submitBtnIsDiasbled = false;
+                } else {
+                    $scope.submitBtnIsDiasbled = true;
+                }
+            };
+
+            // 提交数据
+            $scope.submitComment = function() {
+                // 封装数据
+                var data = {
+                    viewOrderid: paramsData.viewOrderid, // 订单编号
+                    orderScore: $scope.ratingVal, // 订单评分
+                    orderhie: $scope.dataContainer.text // 订单评价
+                };
+                console.log(data);
+                $myHttpService.post('api/product/insertViewOrderHierarchy', data, function(data) {
+                    layer.open({
+                        content: '评价提交成功',
+                        btn: '确定',
+                        shadeClose: false,
+                        yes: function(index){
+                            $state.go('myplan', {}, {location: 'replace'});
+                            layer.close(index);
+                        }
+                    });
+                }, errorFn);
+            };
+
+            // 车辆位置函数
+            $scope.getBusPosition = function() {
+                var data = {
+                    carid: $scope.ticketInfo.carid,
+                    lineid: $scope.ticketInfo.lineid
+                };
+                console.log(data);
+                $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
+            }
+        }
     })
 
     /**
