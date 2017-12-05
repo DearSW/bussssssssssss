@@ -58,7 +58,7 @@
                             <ion-list ng-if="!ticketsInfoIsEmpty">
 
                                 <!-- 车票 2 -->
-                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsInfo track by $index" ng-switch="item.viewOrderStatus">
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsInfo track by $index" ng-switch="item.viewOrderStatus" ng-if="item.viewOrderStatus == 2">
 
                                     <!-- 2 未使用  -->
                                     <div class="detail" ng-switch-when="2">
@@ -145,7 +145,7 @@
                                 </ion-item>
                                     
                                 <!-- 车票 3 4 5 -->
-                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsInfo track by $index" ng-switch="item.viewOrderStatus">
+                                <ion-item class="animate-repeat" ng-repeat="item in jqztc_xdxcy_ticketsInfo track by $index" ng-switch="item.viewOrderStatus" ng-if="item.viewOrderStatus != 2">
 
                                     <!-- 3 已使用-->
                                     <div class="detail" ng-switch-when="3">

@@ -2780,7 +2780,7 @@ app
         }
 
 
-        // @tab_nouse 未使用的票据
+        // @tab_nouse 未使用的票据 20张
         $scope.tab_nouse = function() { // @每次点击tab项时，就会执行一遍这个函数
             
             console.log("我的行程页：tab_nouse执行");   
@@ -2789,7 +2789,7 @@ app
                 userid: $rootScope.session.user.userInfo.userid,
                 viewOrderStatus: 2,
                 offset: 0,
-                pagesize: 10,
+                pagesize: 20,
             };
 
             // @订单列表 wechat/product/queryUserProductTicketList
@@ -2798,7 +2798,7 @@ app
                 console.log("我的行程页：获取未使用订单的列表API返回的数据");
                 console.log(data);
 
-                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
+                if( (data.userViewList.length + data.ticketOrders.length) < 20) {
                     $rootScope.jqztc_xdxcy_ticketsInfo_nouse_hasmore2 = false;
                 } else {
                     $rootScope.jqztc_xdxcy_ticketsInfo_nouse_hasmore2 = true;
@@ -2830,7 +2830,7 @@ app
             
         }
 
-        // @tab_refund 退款中的票据
+        // @tab_refund 退款中的票据 20张
         $scope.tab_refund = function() { // @每次点击tab项时，就会执行一遍这个函数
             
             console.log("我的行程页：tab_refund执行");   
@@ -2839,7 +2839,7 @@ app
                 userid: $rootScope.session.user.userInfo.userid,
                 viewOrderStatus: 4,
                 offset: 0,
-                pagesize: 10,
+                pagesize: 20,
             };
 
             // @订单列表 wechat/product/queryUserProductTicketList
@@ -2848,7 +2848,7 @@ app
                 console.log("我的行程页：获取正在退款中订单的列表API返回的数据");
                 console.log(data);
 
-                if( (data.userViewList.length + data.ticketOrders.length) < 10) {
+                if( (data.userViewList.length + data.ticketOrders.length) < 20) {
                     $rootScope.jqztc_xdxcy_ticketsInfo_refund_hasmore2 = false;
                 } else {
                     $rootScope.jqztc_xdxcy_ticketsInfo_refund_hasmore2 = true;
