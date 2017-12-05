@@ -2558,7 +2558,7 @@ app
     /**
      * @我的行程页 门票、车票 控制器
      */ 
-    .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout, $ionicTabsDelegate) {
+    .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout, $ionicTabsDelegate, $ionicScrollDelegate) {
 
         if(sessionStorage.getItem("myplanCount") == null) { // @流程控制变量
             var myplanCount = 1;
@@ -2791,7 +2791,6 @@ app
             }
         }
 
-
         // @tab_nouse 未使用的票据 20张
         $scope.tab_nouse = function() { // @每次点击tab项时，就会执行一遍这个函数
             
@@ -2901,7 +2900,12 @@ app
         }
 
         // @点击 未使用 车票进入 车票详情界面
-        $scope.unusedTicketToDetail = function(item, i) {
+        $scope.unusedTicketToDetail = function(item, i, $event) {
+
+            console.log("我的行程页：当前元素的位置");
+            var off = $($event.target).offset();  
+            console.log(off.top);  
+            console.log(off.left);  
 
             $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
 
