@@ -2797,7 +2797,9 @@ app
             
             console.log("我的行程页：tab_nouse执行");   
 
-            $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引            
+            $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引     
+            console.log("我的行程页：当前索引");
+            console.log($rootScope.jqztc_xdxcy_current_tab_index);       
             
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
@@ -2849,7 +2851,9 @@ app
             
             console.log("我的行程页：tab_refund执行");   
 
-            $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引            
+            $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引 
+            console.log("我的行程页：当前索引");
+            console.log($rootScope.jqztc_xdxcy_current_tab_index);           
             
             var requestData = {
                 userid: $rootScope.session.user.userInfo.userid,
