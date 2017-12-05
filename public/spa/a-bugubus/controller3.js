@@ -2903,11 +2903,12 @@ app
         $scope.unusedTicketToDetail = function(item, i, $event) {
 
             console.log("我的行程页：当前元素的位置");
-            var off = $($event.target).offset();  
-            console.log(off.top);  
-            console.log(off.left);  
+            console.log($event);
+            // var off = $($event.target).offset();  
+            // console.log(off.top);  
+            // console.log(off.left);  
 
-            $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
+            // $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
 
         }
 

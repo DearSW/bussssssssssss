@@ -91,7 +91,7 @@
                 font-weight: bold;
             }
 
-            .station-arrow2 {
+            .station-arrow22 {
                 display: inline-block;
                 height: 10px;
                 width: 40px;
@@ -158,7 +158,7 @@
                                                         <div class="col">
                                                             <span class="station-mark-orange">车票</span>
                                                             <span class="station-go-address2">{{ticketInfo.plans[0].departName}}</span>
-                                                            <span class="station-arrow2"></span>
+                                                            <span class="station-arrow22"></span>
                                                             <span class="station-arrive-address2">{{ticketInfo.plans[0].arriveName}}</span>
                                                         </div>
                                                 </div>
@@ -225,7 +225,7 @@
                                                         <div class="col">
                                                             <span class="station-mark-orange">车票</span>
                                                             <span class="station-go-address2">{{ticketInfo.plans[1].departName}}</span>
-                                                            <span class="station-arrow2"></span>
+                                                            <span class="station-arrow22"></span>
                                                             <span class="station-arrive-address2">{{ticketInfo.plans[1].arriveName}}</span>
                                                         </div>
                                                 </div>
@@ -337,163 +337,6 @@
                                     </div>
 
                                 </div>
-
-                                <!-- 去程票 -->
-                                <!-- <div style="border-bottom: 1px solid #D3D4D5;">
-
-                                        <div class="row startposition">
-                                                <div class="col">
-                                                    <span class="station-mark-orange">车票</span>
-                                                    <span class="station-go-address2">贵州饭店</span>
-                                                    <span class="station-arrow2"></span>
-                                                    <span class="station-arrive-address2">息烽温泉</span>
-                                                </div>
-                                        </div>
-        
-                                        <div class="row" style="background: white; margin-top: 3px;" ng-click="modal.show()">
-                                                <div class="col">
-                                                    <div>
-                                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                                            <span style="font-size: 17px;">07:35</span>
-                                                            <span style="color:#a7a7ab">
-                                                                    <span style="font-size: 14px;display: inline-block;"> · </span>
-                                                                    剩
-                                                                    <span class="btnfont2">12</span>座/13座
-                                                                    <span class="item-note" style="margin-right: 20px;" > 
-                                                                        <i class="icon ion-chevron-right padding-left"></i>
-                                                                    </span>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        </div>
-        
-                                        <div class="row purchase">
-                                            <div class="col col-60">
-                                                <div style="font-size: 17px;white-space: normal;" >票价：80元</div>
-                                            </div>
-                                            <div class="col col-40">
-                                                <div style="text-align: center;">
-                                                        <button class="button  btnfoot6" ng-click="decr()">-</button>
-                                                        <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
-                                                        <button class="button  btnfont8" ng-click="incr()">+</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                </div> -->
-                                <!-- 返程票 -->
-                                <!-- <div style="border-bottom: 1px solid #D3D4D5;">
-                                        
-                                    <div class="row startposition">
-                                            <div class="col">
-                                                <span class="station-mark-orange">车票</span>
-                                                <span class="station-go-address2">息烽温泉</span>
-                                                <span class="station-arrow2"></span>
-                                                <span class="station-arrive-address2">贵州饭店</span>
-                                            </div>
-                                    </div>
-    
-                                    <div class="row" style="background: white; margin-top: 3px;" ng-click="modal.show()">
-                                            <div class="col">
-                                                <div>
-                                                    <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                                        <span style="font-size: 17px;">07:35</span>
-                                                        <span style="color:#a7a7ab">
-                                                                <span style="font-size: 14px;display: inline-block;"> · </span>
-                                                                剩
-                                                                <span class="btnfont2">12</span>座/13座
-                                                                <span class="item-note" style="margin-right: 20px;" > 
-                                                                    <i class="icon ion-chevron-right padding-left"></i>
-                                                                </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    </div>
-    
-                                    <div class="row purchase">
-                                        <div class="col col-60">
-                                            <div style="font-size: 17px;white-space: normal;" >票价：80元</div>
-                                        </div>
-                                        <div class="col col-40">
-                                            <div style="text-align: center;">
-                                                    <button class="button  btnfoot6" ng-click="decr()">-</button>
-                                                    <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
-                                                    <button class="button  btnfont8" ng-click="incr()">+</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div> -->
-                                <!-- 门票 -->
-                                <!-- <div style="border-bottom: 1px solid #D3D4D5;">
-                                        
-                                    <div class="row startposition">
-                                            <div class="col">
-                                                <span class="station-mark-blue">门票</span>
-                                                <span class="station-go-address2">黔灵山公园</span>
-                                            </div>
-                                    </div>
-    
-                                    <div class="row" style="background: white; margin-top: -10px;">
-                                            <div class="col">
-                                                <div>
-                                                    <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                                        <span style="font-size: 17px;">有效时间：2017.12.01</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    </div>
-
-                                    <div class="row" style="background: white; margin-top: -15px;">
-                                            <div class="col">
-                                                    <div>
-                                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                                            <span style="font-size: 17px;">票价：成人50元 儿童10元 夜场30元</span>
-                                                        </div>
-                                                    </div>
-                                            </div>
-                                    </div>
-    
-                                    <div class="row purchase">
-                                        <div class="col col-60">
-                                            <div style="font-size: 17px;white-space: normal;" >成人票</div>
-                                        </div>
-                                        <div class="col col-40">
-                                            <div style="text-align: center;">
-                                                    <button class="button  btnfoot6" ng-click="decr()">-</button>
-                                                    <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
-                                                    <button class="button  btnfont8" ng-click="incr()">+</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row purchase">
-                                            <div class="col col-60">
-                                                <div style="font-size: 17px;white-space: normal;" >儿童票</div>
-                                            </div>
-                                            <div class="col col-40">
-                                                <div style="text-align: center;">
-                                                        <button class="button  btnfoot6" ng-click="decr()">-</button>
-                                                        <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
-                                                        <button class="button  btnfont8" ng-click="incr()">+</button>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <div class="row purchase">
-                                            <div class="col col-60">
-                                                <div style="font-size: 17px;white-space: normal;" >夜场票</div>
-                                            </div>
-                                            <div class="col col-40">
-                                                <div style="text-align: center;">
-                                                        <button class="button  btnfoot6" ng-click="decr()">-</button>
-                                                        <button class="button  btnfont7" my-ng-model="true" ng-model="dataContainer.count">{{dataContainer.count}}</button>
-                                                        <button class="button  btnfont8" ng-click="incr()">+</button>
-                                                </div>
-                                            </div>
-                                    </div>
-
-                                </div> -->
                                     
                             </div>
                             
