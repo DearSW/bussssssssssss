@@ -2091,6 +2091,8 @@ app
         // @支付 车票检验 函数
         $scope.checkRecharge = function() {
 
+            var flag = true;
+
             // @车票检测
             if($scope.ticketInfo.plans != null) { // @有车票
                 
@@ -2102,7 +2104,7 @@ app
                             content: '客官，请选择行程出发时间日期 (╯-╰)',
                             btn: '确定'
                         });
-                        return false;
+                        flag = false;
                     }
 
                 }
@@ -2116,7 +2118,7 @@ app
                             btn: '确定'
                         });
 
-                        return false;
+                        flag = false;
                     }
 
                 }
@@ -2136,7 +2138,7 @@ app
                             }
                         })
 
-                        return false;
+                        flag =  false;
 
                     }
 
@@ -2155,13 +2157,15 @@ app
                             }
                         })
 
-                        return false;
+                        flag = false;
                     }
                 }
 
             }
 
-            $scope.recharge(); // @调用支付函数
+            if(flag == true) {
+                $scope.recharge(); // @调用支付函数
+            } 
 
         }
 

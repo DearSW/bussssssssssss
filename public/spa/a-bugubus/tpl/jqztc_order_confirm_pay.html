@@ -350,7 +350,7 @@
                             <div class="col">
                                 <div class="list list-inset" style="margin: 0 5px;">
                                     <label class="item item-input" style="border-radius: 3px;padding-left: 10px;">
-                                        <input style="font-size: 17px;" type="tel" placeholder="请输入手机号" required ng-model="dataContainer.phone" ng-change="checkPhone()">
+                                        <input style="font-size: 17px;line-height: 17px;" type="tel" placeholder="请输入手机号" required ng-model="dataContainer.phone" ng-change="checkPhone()">
                                     </label>
                                 </div>
                             </div>
@@ -360,8 +360,8 @@
                             <div class="col col-60">
                                 <div class="list list-inset">
                                     <label class="item item-input" style="border-radius: 3px;padding-left: 10px;">
-                                        <input style="font-size: 17px;" type="tel" ng-if="!againObtainCheckCode" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
-                                        <input style="font-size: 16px;" type="tel" ng-if="againObtainCheckCode" placeholder="请重新获取验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                        <input style="font-size: 17px;line-height: 17px;" type="tel" ng-if="!againObtainCheckCode" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                        <input style="font-size: 16px;line-height: 16px;" type="tel" ng-if="againObtainCheckCode" placeholder="请重新获取验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
                                     </label>
                                 </div>
                             </div>
@@ -379,7 +379,7 @@
                             <div class="col" ng-click="checkCoupon2()">
                                 <div>
                                     <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                        <span style="font-size: 17px;">优惠券</span>
+                                        <span style="font-size: 17px;margin-left: 5px;">优惠券</span>
                                         <span style="color:#a7a7ab">
                                                 <span class="item-note" style="margin-right: 3px;">
                                                     <span style="color: black;font-size: 17px;" ng-if="noCouponTxt3">未使用</span>
