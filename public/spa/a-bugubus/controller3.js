@@ -3630,7 +3630,7 @@ app
             $scope.isCommented = JSON.parse($state.params.isCommented); // @是否已评论
             $scope.isCommentedText = JSON.parse($state.params.isCommentedText); // @评论文字
             $scope.isCommentedScore = JSON.parse($state.params.isCommentedScore); // @评论分数
-            
+
             var paramsData = JSON.parse($state.params.data);
 
             var requestData = {
@@ -3682,16 +3682,19 @@ app
 
                 // @插入评论wechat/product/insertViewOrderHierarchy
                 $myHttpService.post('api/product/insertViewOrderHierarchy', data, function(data) {
+
+                    $scope.readonly = true; // @是否只读
+                    $scope.isCommented = true;
+                    
                     layer.open({
                         content: '评价提交成功',
                         btn: '确定',
                         shadeClose: false,
                         yes: function(index){
-                            $scope.readonly = true; // @是否只读
-                            $scope.isCommented = true;
                             layer.close(index);
                         }
                     });
+                    
                 }, errorFn);
             };
 
