@@ -1187,7 +1187,7 @@ app
                 // @去程车票 票数增加 函数
                 $scope.ticketInfo_forwardTicket_incr = function() {
 
-                    if( $scope.ticketInfo_forwardTicket_count < $scope.ticketInfo_forwardTicket_leftTickets ) {
+                    if( $scope.ticketInfo_forwardTicket_count <= $scope.ticketInfo_forwardTicket_leftTickets ) {
 
                         $scope.ticketInfo_forwardTicket_count += 1;
 
@@ -1364,7 +1364,7 @@ app
                 // @返程车票 票数增加 函数
                 $scope.ticketInfo_backwardTicket_incr = function() {
 
-                    if( $scope.ticketInfo_backwardTicket_count < $scope.ticketInfo_backwardTicket_leftTickets ) {
+                    if( $scope.ticketInfo_backwardTicket_count <= $scope.ticketInfo_backwardTicket_leftTickets ) {
 
                         $scope.ticketInfo_backwardTicket_count += 1;
 
@@ -2099,11 +2099,15 @@ app
                 // @对门票参数数组进行检测
                 for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
 
-                    var item = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
-                    if(item != 0) {
-                        flag = true;
-                    }
+                    if($scope.ticketInfo_viewInfo_tempRequestParamArr[i] != undefined) { 
 
+                        var item = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                        if(item != 0) {
+                            flag = true;
+                        }
+
+                    }
+                    
                 }
 
                 if(flag == false) {
@@ -2129,11 +2133,15 @@ app
                         // @对门票参数数组进行检测
                         for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
         
-                            var item = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
-                            if(item != 0) {
-                                flag2 = true;
+                            if($scope.ticketInfo_viewInfo_tempRequestParamArr[i] != undefined) { 
+                                
+                                var item = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                                if(item != 0) {
+                                    flag2 = true;
+                                }
+
                             }
-        
+                            
                         }
         
                         if(flag2 == false) {
@@ -2157,10 +2165,12 @@ app
                         
                         // @对门票参数数组进行检测
                         for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
-        
-                            var item = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
-                            if(item != 0) {
-                                flag3 = true;
+
+                            if($scope.ticketInfo_viewInfo_tempRequestParamArr[i] != undefined) {
+                                var item = $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];
+                                if(item != 0) {
+                                    flag3 = true;
+                                }
                             }
         
                         }
