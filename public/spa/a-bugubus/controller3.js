@@ -2595,14 +2595,25 @@ app
         if($rootScope.jqztc_xdxcy_current_tab_index) {
             console.log("A");
             console.log($rootScope.jqztc_xdxcy_current_tab_index);
-            $timeout(function() {
-                $ionicTabsDelegate.select($rootScope.jqztc_xdxcy_current_tab_index); 
-            }, 50);
-        } else {
-            console.log("B");
-            $timeout(function() {
-                $ionicTabsDelegate.select(0);
-            }, 50);
+            if($rootScope.jqztc_xdxcy_current_tab_index == 0) {
+                
+                $timeout(function() {
+                    $ionicTabsDelegate.select(0); 
+                }, 50);
+
+            } else if($rootScope.jqztc_xdxcy_current_tab_index == 1) {
+
+                $timeout(function() {
+                    $ionicTabsDelegate.select(1); 
+                }, 50);
+
+            } else if($rootScope.jqztc_xdxcy_current_tab_index == 2) {
+
+                $timeout(function() {
+                    $ionicTabsDelegate.select(2);
+                }, 50);
+                
+            }
         }
 
         if(sessionStorage.getItem("myplanCount") == null) { // @流程控制变量
