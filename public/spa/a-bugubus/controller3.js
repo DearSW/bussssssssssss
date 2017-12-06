@@ -2395,8 +2395,6 @@ app
         // @支付 车票检验 函数
         $scope.checkRecharge = function() {
 
-            var flag = true;
-
             // @车票检测
             if($scope.ticketInfo.plans != null) { // @有车票
 
@@ -2448,16 +2446,12 @@ app
                             btn: ['继续', '取消'],
                             shadeClose: false,
                             yes: function(index) {
-                                // $scope.recharge(); // @调用支付函数
-                                flag = true;     
+                                $scope.recharge(); // @调用支付函数
                                 layer.close(index);                                
-                            },
-                            no: function() {
-                                console.log("点击了取消");                                
-                                flag =  false;
-                                layer.closeAll();
                             }
                         })
+
+                        return false;
 
                     }
 
@@ -2476,29 +2470,20 @@ app
                             btn: ['继续', '取消'],
                             shadeClose: false,
                             yes: function(index) {
-                                // $scope.recharge(); // @调用支付函数
-                                flag = true;                                
+                                $scope.recharge(); // @调用支付函数            
                                 layer.close(index);
-                            },
-                            no: function() {
-                                console.log("点击了取消");                                                                
-                                flag = false;
-                                layer.closeAll();
                             }
                         })
+
+                        return false;
 
                     }
                 }
 
             }
 
-            if(flag == true) {
-                console.log("调用了");
-                $scope.recharge(); // @调用支付函数
-            }  else {
-                console.log("没有调用");                
-                return false;
-            }
+            console.log("调用了");
+            $scope.recharge(); // @调用支付函数
 
         }
 
