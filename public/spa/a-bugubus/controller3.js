@@ -2088,87 +2088,6 @@ app
             }
         }
 
-        // @支付 车票检验 函数
-        $scope.checkRecharge = function() {
-
-            var flag = true;
-
-            // @车票检测
-            if($scope.ticketInfo.plans != null) { // @有车票
-                
-                // @有去程时 的情况
-                if($scope.ticketInfo.plans[0] != null) {
-
-                    if($scope.ticketInfo_forwardTicket_haveChoosed == false) {
-                        layer.open({
-                            content: '客官，请选择行程出发时间日期 (╯-╰)',
-                            btn: '确定'
-                        });
-                        flag = false;
-                    }
-
-                }
-                
-                // @有返程时 的情况
-                if($scope.ticketInfo.plans[1] != null) {
-
-                    if($scope.ticketInfo_backwardTicket_haveChoosed == false) {
-                        layer.open({
-                            content: '客官，请选择行程出发时间日期 (╯-╰)',
-                            btn: '确定'
-                        });
-
-                        flag = false;
-                    }
-
-                }
-                
-                // @有去程，没有返程 的情况
-                if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] == null) {
-                    
-                    if($scope.ticketInfo_forwardTicket_count == 0) {
-
-                        layer.open({
-                            content: '您购买的订单中不包含车票，是否继续？',
-                            btn: ['继续', '取消'],
-                            shadeClose: false,
-                            yes: function(index) {
-                                $scope.recharge(); // @调用支付函数
-                                layer.closeAll();
-                            }
-                        })
-
-                        flag =  false;
-
-                    }
-
-                }
-
-                // @有去程，有返程 的情况
-                if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] != null) {
-                    if($scope.ticketInfo_forwardTicket_count == 0 && $scope.ticketInfo_backwardTicket_count == 0) {
-                        layer.open({
-                            content: '您购买的订单中不包含车票，是否继续？',
-                            btn: ['继续', '取消'],
-                            shadeClose: false,
-                            yes: function(index) {
-                                $scope.recharge(); // @调用支付函数
-                                layer.closeAll();
-                            }
-                        })
-
-                        flag = false;
-                    }
-                }
-
-            }
-
-            if(flag == true) {
-                $scope.recharge(); // @调用支付函数
-            } 
-
-        }
-
         // @支付 函数
         $scope.recharge = function() {
 
@@ -2288,7 +2207,7 @@ app
 
                 for(var i = 0, len = $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i < len; i++) {
 
-                    if($scope.ticketInfo_viewInfo_tempRequestParamArr != undefined) {
+                    if($scope.ticketInfo_viewInfo_tempRequestParamArr[i] != undefined) {
                         if(i == len - 1) {
                             viewPrices += $scope.ticketInfo_viewInfo_tempRequestParamArr[i][0] + '&' + $scope.ticketInfo_viewInfo_tempRequestParamArr[i][1];                     
                         } else {
@@ -2457,6 +2376,100 @@ app
                 }
 
             });
+        }
+
+        // @支付 车票检验 函数
+        $scope.checkRecharge = function() {
+
+            var flag = true;
+
+            // @车票检测
+            if($scope.ticketInfo.plans != null) { // @有车票
+                
+                // @有去程时 的情况
+                if($scope.ticketInfo.plans[0] != null) {
+
+                    if($scope.ticketInfo_forwardTicket_haveChoosed == false) {
+                        layer.open({
+                            content: '客官，请选择行程出发时间日期 (╯-╰)',
+                            btn: '确定'
+                        });
+                        return false;
+                    }
+
+                }
+                
+                // @有返程时 的情况
+                if($scope.ticketInfo.plans[1] != null) {
+
+                    if($scope.ticketInfo_backwardTicket_haveChoosed == false) {
+                        layer.open({
+                            content: '客官，请选择行程出发时间日期 (╯-╰)',
+                            btn: '确定'
+                        });
+
+                        return false;
+                    }
+
+                }
+                
+                // @有去程，没有返程 的情况
+                if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] == null) {
+                    
+                    if($scope.ticketInfo_forwardTicket_count == 0) {
+
+                        layer.open({
+                            content: '您购买的订单中不包含车票，是否继续？',
+                            btn: ['继续', '取消'],
+                            shadeClose: false,
+                            yes: function(index) {
+                                console.log("点击了继续");                                
+                                flag = true;
+                                layer.close(index);                                
+                            },
+                            no: function() {
+                                console.log("点击了取消");                                
+                                flag =  false;
+                                layer.closeAll();
+                            }
+                        })
+
+                    }
+
+                }
+
+                // @有去程，有返程 的情况
+                if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] != null) {
+                    if($scope.ticketInfo_forwardTicket_count == 0 && $scope.ticketInfo_backwardTicket_count == 0) {
+                        layer.open({
+                            content: '您购买的订单中不包含车票，是否继续？',
+                            btn: ['继续', '取消'],
+                            shadeClose: false,
+                            yes: function(index) {
+                                console.log("点击了继续");
+                                flag = true;
+                                layer.close(index);
+                            },
+                            no: function() {
+                                console.log("点击了取消");                                                                
+                                flag = false;
+                                layer.closeAll();
+                            }
+                        })
+
+                    }
+                }
+
+            }
+
+            if(flag == true) {
+                console.log("调用了");
+                $scope.recharge(); // @调用支付函数
+            }  else {
+                console.log("没有调用");                
+                return false;
+            }
+
         }
 
 
