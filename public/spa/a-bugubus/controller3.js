@@ -3685,7 +3685,10 @@ app
 
                     $scope.readonly = true; // @是否只读
                     $scope.isCommented = true;
-                    
+
+                    $scope.isCommentedText = $scope.dataContainer.text;
+                    $scope.isCommentedScore = $scope.ratingVal;
+
                     layer.open({
                         content: '评价提交成功',
                         btn: '确定',
