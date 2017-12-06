@@ -2592,6 +2592,16 @@ app
      */ 
     .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout, $ionicTabsDelegate, $ionicScrollDelegate) {
 
+        if($rootScope.jqztc_xdxcy_current_tab_index) {
+            $timeout(function() {
+                $ionicTabsDelegate.select($rootScope.jqztc_xdxcy_current_tab_index); 
+            }, 50);
+        } else {
+            $timeout(function() {
+                $ionicTabsDelegate.select(0);
+            }, 50);
+        }
+
         if(sessionStorage.getItem("myplanCount") == null) { // @流程控制变量
             var myplanCount = 1;
         } else {
@@ -2627,14 +2637,9 @@ app
             console.log("我的行程页：当前索引2");
             console.log($rootScope.jqztc_xdxcy_current_tab_index);
 
-            $timeout(function() {
-                $ionicTabsDelegate.select($rootScope.jqztc_xdxcy_current_tab_index); 
-            }, 50);
-
         }
 
         // @tab_all 全部的票据
-
         var run = false; // @防止在短时间内重复出发上拉加载请求函数的执行
 
         $scope.tab_all = function() { // @每次点击tab项时，就会执行一遍这个函数 15张
@@ -2941,10 +2946,6 @@ app
 
             console.log("我的行程页：当前元素的位置");
             console.log($event);
-            // var off = angular.element($event.target).offset();  
-            // console.log(off.top);  
-            // console.log(off.left);  
-
             $state.go('ticket_detail.ticketdetail', {data: JSON.stringify(item)}, {reload: false});
 
         }
