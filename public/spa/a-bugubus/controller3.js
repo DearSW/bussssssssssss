@@ -2437,9 +2437,9 @@ app
                             btn: ['继续', '取消'],
                             shadeClose: false,
                             yes: function(index) {
-                                console.log("点击了继续");                                
-                                flag = true;
-                                layer.close(index);                                
+                                $scope.recharge(); // @调用支付函数
+                                layer.close(index);
+                                return false;                             
                             },
                             no: function() {
                                 console.log("点击了取消");                                
@@ -2460,9 +2460,9 @@ app
                             btn: ['继续', '取消'],
                             shadeClose: false,
                             yes: function(index) {
-                                console.log("点击了继续");
-                                flag = true;
+                                $scope.recharge(); // @调用支付函数
                                 layer.close(index);
+                                return false;
                             },
                             no: function() {
                                 console.log("点击了取消");                                                                
