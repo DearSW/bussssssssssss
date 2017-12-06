@@ -3622,14 +3622,14 @@ app
     })
 
     /**
-     * @车票评价页 控制器 3 一种状态
+     * @车票评价页 控制器 3 一种状态 已使用（已评价、未评价）
      */ 
     .controller('order_check_comment', function($rootScope, $scope, $timeout, $state, $filter, $myHttpService) {
 
         $scope.submitBtnIsDiasbled = true; // 控制提交按钮的状态
 
         if(JSON.parse($state.params.data) == null) {
-            $state.go('myplan', {}, {location: 'replace'});
+            $state.go('myplan');
         } else {
 
             // @接受参数
@@ -3642,19 +3642,9 @@ app
             console.log("车票评价页：接收参数");            
             console.log(paramsData);
 
-            var requestData = {
-                viewOrderid: paramsData.viewOrderid
-            };
-
-            $myHttpService.post('api/product/queryUserProductTicketDetails', requestData, function(data){
-
-                console.log("车票评价页：车票详情API返回的数据");
-                console.log(data);
-                $scope.ticketInfo = data.viewOrder;
-                $scope.productid = $scope.ticketInfo.productid; // @产品ID
-                $scope.orderid = $scope.ticketInfo.orderid; // @订单ID
-
-            }, errorFn);
+            $scope.ticketInfo = paramsData; // @车票对象
+            $scope.productid = $scope.ticketInfo.productid; // @产品ID
+            $scope.orderid = $scope.ticketInfo.orderid; // @订单ID
             
             // @由于ionic的原因，必须要是对象来接收数据
             $scope.dataContainer = {
@@ -3695,10 +3685,10 @@ app
                 // @插入评论wechat/product/insertViewOrderHierarchy
                 $myHttpService.post('api/product/insertViewOrderHierarchy', data, function(data) {
 
-                    $scope.readonly = true; // @是否只读
-                    $scope.isCommented = true;
-                    $scope.isCommentedText = $scope.dataContainer.text;
-                    $scope.isCommentedScore = $scope.ratingVal;
+                    $scope.readonly = true; // @true 评论星星 只读
+                    $scope.isCommented = true; // @true 产品已评价
+                    $scope.isCommentedText = $scope.dataContainer.text; // @评价
+                    $scope.isCommentedScore = $scope.ratingVal; // @评分
 
                     layer.open({
                         content: '评价提交成功',
