@@ -2593,16 +2593,17 @@ app
     .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout, $ionicTabsDelegate, $ionicScrollDelegate) {
 
         if($rootScope.jqztc_xdxcy_current_tab_index) {
+            console.log("A");
+            console.log($rootScope.jqztc_xdxcy_current_tab_index);
             $timeout(function() {
                 $ionicTabsDelegate.select($rootScope.jqztc_xdxcy_current_tab_index); 
             }, 50);
         } else {
-            
+            console.log("B");
+            $timeout(function() {
+                $ionicTabsDelegate.select(0);
+            }, 50);
         }
-
-        $timeout(function() {
-            $ionicTabsDelegate.select(2);
-        }, 2000);
 
         if(sessionStorage.getItem("myplanCount") == null) { // @流程控制变量
             var myplanCount = 1;
