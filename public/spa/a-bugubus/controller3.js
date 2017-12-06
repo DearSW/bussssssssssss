@@ -2594,7 +2594,8 @@ app
             }
             console.log("我的行程页：当前索引2");
             console.log($rootScope.jqztc_xdxcy_current_tab_index);
-            $ionicTabsDelegate.select($rootScope.jqztc_xdxcy_current_tab_index);
+
+            $ionicTabsDelegate.select(2);
 
         }
 
