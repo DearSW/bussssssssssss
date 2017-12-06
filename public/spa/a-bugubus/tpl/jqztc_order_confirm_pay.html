@@ -349,8 +349,8 @@
                         <div class="row">
                             <div class="col">
                                 <div class="list list-inset" style="margin: 0 5px;">
-                                    <label class="item item-input" style="border-radius: 3px;">
-                                        <input type="tel" placeholder="请输入手机号" required ng-model="dataContainer.phone" ng-change="checkPhone()">
+                                    <label class="item item-input" style="border-radius: 3px;padding-left: 10px;">
+                                        <input style="font-size: 17px;" type="tel" placeholder="请输入手机号" required ng-model="dataContainer.phone" ng-change="checkPhone()">
                                     </label>
                                 </div>
                             </div>
@@ -359,15 +359,15 @@
                         <div class="row" style="margin-left: 5px;">
                             <div class="col col-60">
                                 <div class="list list-inset">
-                                    <label class="item item-input" style="border-radius: 3px;">
-                                        <input type="tel" ng-if="!againObtainCheckCode" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
-                                        <input type="tel" ng-if="againObtainCheckCode" placeholder="请重新获取验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                    <label class="item item-input" style="border-radius: 3px;padding-left: 10px;">
+                                        <input style="font-size: 17px;" type="tel" ng-if="!againObtainCheckCode" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                        <input style="font-size: 16px;" type="tel" ng-if="againObtainCheckCode" placeholder="请重新获取验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
                                     </label>
                                 </div>
                             </div>
 
                             <div class="col col-40" style="padding-left: 3px;">
-                                <i class="button" ng-click="countdown()" ng-disabled="verificationCodeBtnDisabled" ng-class="{true: 'unselected', false: 'selected'}[verificationCodeBtnDisabled]"  style="width: 92%;border-radius: 3px;">
+                                <i class="button" ng-click="countdown()" ng-disabled="verificationCodeBtnDisabled" ng-class="{true: 'unselected', false: 'selected'}[verificationCodeBtnDisabled]"  style="width: 92%;border-radius: 3px;font-size: 17px;">
                                     <span ng-if="!countdownTxtShow">获取验证码</span><span  ng-if="countdownTxtShow">{{countdownTime}}s</span>
                                 </i>
                             </div>
@@ -382,9 +382,9 @@
                                         <span style="font-size: 17px;">优惠券</span>
                                         <span style="color:#a7a7ab">
                                                 <span class="item-note" style="margin-right: 3px;">
-                                                    <span style="color: #868383;font-size: 14px;" ng-if="noCouponTxt3">未使用</span>
-                                                    <span style="color: #868383;font-size: 14px;" ng-if="noCouponTxt">无可用优惠券</span>
-                                                    <span style="color: #868383;font-size: 14px;" ng-if="noCouponTxt2">{{coupon  | currency: '￥' }}</span>
+                                                    <span style="color: black;font-size: 17px;" ng-if="noCouponTxt3">未使用</span>
+                                                    <span style="color: black;font-size: 17px;" ng-if="noCouponTxt">无可用优惠券</span>
+                                                    <span style="color: black;font-size: 17px;" ng-if="noCouponTxt2">{{coupon  | currency: '￥' }}</span>
                                                     <i class="icon ion-chevron-right padding-left" style="padding-left: 3px;"></i>
                                                 </span>
                                         </span>
@@ -399,10 +399,10 @@
                                 <div class="col">
                                     <div>
                                         <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                            <span style="font-size: 17px;">商品总价</span>
+                                            <span style="font-size: 17px;margin-left: 6px;">商品总价</span>
                                             <span style="color:#a7a7ab">
                                                     <span class="item-note" > 
-                                                        <span style="color: black;font-size: 17px;">{{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket + ticketViewSumPrice  | currency: '￥' }}</span>
+                                                        <span style="color: black;font-size: 17px;margin-right: 7px;">{{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket + ticketViewSumPrice  | currency: '￥' }}</span>
                                                     </span>
                                             </span>
                                         </div>
@@ -415,10 +415,10 @@
                             <div class="col">
                                     <div>
                                         <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                            <span style="font-size: 17px;">优惠金额</span>
+                                            <span style="font-size: 17px;margin-left: 6px">优惠金额</span>
                                             <span style="color:#a7a7ab">
                                                     <span class="item-note"  > 
-                                                        <span style="color: black;font-size: 17px;">-{{coupon  | currency: '￥' }}</span>
+                                                        <span style="color: black;font-size: 17px;margin-right: 7px">-{{coupon  | currency: '￥' }}</span>
                                                     </span>
                                             </span>
                                         </div>
@@ -430,13 +430,13 @@
                                 <div class="col">
                                     <div>
                                         <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                            <span style="font-size: 17px;">订单实付</span>
+                                            <span style="font-size: 17px;margin-left: 6px;">订单实付</span>
                                             <span style="color:#a7a7ab">
                                                     <span class="item-note" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0"> 
-                                                        <span style="color: black;font-size: 17px;">{{  ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}</span>
+                                                        <span style="color: black;font-size: 17px;margin-right: 7px;">{{  ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}</span>
                                                     </span>
                                                     <span class="item-note" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon < 0"> 
-                                                        <span style="color: black;font-size: 17px;">{{  0 + ticketViewSumPrice  | currency: '￥' }}</span>
+                                                        <span style="color: black;font-size: 17px;margin-right: 7px;">{{  0 + ticketViewSumPrice  | currency: '￥' }}</span>
                                                     </span>
                                             </span>
                                         </div>
@@ -515,6 +515,7 @@
                     font-size: 22px;
                     text-align: center;
                     line-height: 50px;
+                    z-index: 999;
                     ">去付款</button>
 
         </div>

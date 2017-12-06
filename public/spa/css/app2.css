@@ -887,14 +887,20 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
     background: #E75E0F;
     display: inline-block;
     border-radius: 3px;
-    padding: 1px 5px;
+    padding: 1px 3px;
     color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
 }
 
 .station-mark-blue {
     background: #6722E8;
     display: inline-block;
     border-radius: 3px;
-    padding: 1px 5px;
+    padding: 1px 3px;
     color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1;
 }
