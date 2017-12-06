@@ -2399,9 +2399,13 @@ app
 
             // @车票检测
             if($scope.ticketInfo.plans != null) { // @有车票
+
+                console.log("1");
                 
                 // @有去程时 的情况
                 if($scope.ticketInfo.plans[0] != null) {
+
+                    console.log("2");
 
                     if($scope.ticketInfo_forwardTicket_haveChoosed == false) {
                         layer.open({
@@ -2416,6 +2420,8 @@ app
                 // @有返程时 的情况
                 if($scope.ticketInfo.plans[1] != null) {
 
+                    console.log("3");
+                
                     if($scope.ticketInfo_backwardTicket_haveChoosed == false) {
                         layer.open({
                             content: '客官，请选择行程出发时间日期 (╯-╰)',
@@ -2429,9 +2435,14 @@ app
                 
                 // @有去程，没有返程 的情况
                 if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] == null) {
+
+                    console.log("4");
+                
                     
                     if($scope.ticketInfo_forwardTicket_count == 0) {
 
+                        console.log("4-1");
+                        
                         layer.open({
                             content: '您购买的订单中不包含车票，是否继续？',
                             btn: ['继续', '取消'],
@@ -2454,7 +2465,12 @@ app
 
                 // @有去程，有返程 的情况
                 if($scope.ticketInfo.plans[0] != null && $scope.ticketInfo.plans[1] != null) {
+
+                    console.log("5");
+                
                     if($scope.ticketInfo_forwardTicket_count == 0 && $scope.ticketInfo_backwardTicket_count == 0) {
+
+                        console.log("5-1");
                         layer.open({
                             content: '您购买的订单中不包含车票，是否继续？',
                             btn: ['继续', '取消'],
