@@ -2592,9 +2592,8 @@ app
      */ 
     .controller('myplan', function($rootScope, $scope, $filter, $myHttpService, $state, $timeout, $ionicTabsDelegate, $ionicScrollDelegate) {
 
-        if($rootScope.jqztc_xdxcy_current_tab_index) {
-            console.log("A");
-            console.log($rootScope.jqztc_xdxcy_current_tab_index);
+        if($rootScope.jqztc_xdxcy_current_tab_index) { // @tab项控制跳转
+            
             if($rootScope.jqztc_xdxcy_current_tab_index == 0) {
                 
                 $timeout(function() {
@@ -2612,7 +2611,7 @@ app
                 $timeout(function() {
                     $ionicTabsDelegate.select(2);
                 }, 50);
-                
+
             }
         }
 
@@ -2642,14 +2641,6 @@ app
             
             // @当前的 tab index索引
             $rootScope.jqztc_xdxcy_current_tab_index = 0;
-
-        } else {
-
-            if($rootScope.jqztc_xdxcy_current_tab_index == -1) {
-                $rootScope.jqztc_xdxcy_current_tab_index = 0;
-            }
-            console.log("我的行程页：当前索引2");
-            console.log($rootScope.jqztc_xdxcy_current_tab_index);
 
         }
 
@@ -3648,6 +3639,9 @@ app
 
             var paramsData = JSON.parse($state.params.data);
 
+            console.log("车票评价页：接收参数");            
+            console.log(paramsData);
+
             var requestData = {
                 viewOrderid: paramsData.viewOrderid
             };
@@ -3657,8 +3651,8 @@ app
                 console.log("车票评价页：车票详情API返回的数据");
                 console.log(data);
                 $scope.ticketInfo = data.viewOrder;
-
-                $scope.productid = $scope.ticketInfo.productid;
+                $scope.productid = $scope.ticketInfo.productid; // @产品ID
+                $scope.orderid = $scope.ticketInfo.orderid; // @订单ID
 
             }, errorFn);
             
@@ -3685,13 +3679,16 @@ app
 
             // @提交数据
             $scope.submitComment = function() {
+
                 // @封装数据
                 var data = {
-                    productid: $scope.productid,
-                    userid: $rootScope.session.user.userInfo.userid,
+                    productid: $scope.productid, // @产品ID
+                    userid: $rootScope.session.user.userInfo.userid,// @用户ID
                     orderScore: $scope.ratingVal, // @订单评分
-                    orderhie: $scope.dataContainer.text // @订单评价
+                    orderhie: $scope.dataContainer.text, // @订单评价
+                    orderid: $scope.orderid // @订单ID
                 };
+
                 console.log("车票评价页：评论提交参数");                
                 console.log(data);
 
@@ -3700,7 +3697,6 @@ app
 
                     $scope.readonly = true; // @是否只读
                     $scope.isCommented = true;
-
                     $scope.isCommentedText = $scope.dataContainer.text;
                     $scope.isCommentedScore = $scope.ratingVal;
 
