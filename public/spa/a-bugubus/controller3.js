@@ -2958,6 +2958,11 @@ app
         // @点击 已使用 车票进入 车票评价界面，同时还需要判断是否已评价
         $scope.usedTicketToComment = function(item, i) {
 
+            layer.open({
+                type: 2,
+                content: '加载中'
+            });
+
             var isCommented = false;
             var isCommentedText = '';
             var isCommentedScore = 1;
@@ -2974,6 +2979,7 @@ app
                 isCommentedText: JSON.stringify(isCommentedText),
                 isCommentedScore: JSON.stringify(isCommentedScore)
             }, {reload: true});
+            layer.closeAll();
 
         }
 
