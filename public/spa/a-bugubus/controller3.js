@@ -2597,10 +2597,12 @@ app
                 $ionicTabsDelegate.select($rootScope.jqztc_xdxcy_current_tab_index); 
             }, 50);
         } else {
-            $timeout(function() {
-                $ionicTabsDelegate.select(0);
-            }, 50);
+            
         }
+
+        $timeout(function() {
+            $ionicTabsDelegate.select(2);
+        }, 2000);
 
         if(sessionStorage.getItem("myplanCount") == null) { // @流程控制变量
             var myplanCount = 1;
