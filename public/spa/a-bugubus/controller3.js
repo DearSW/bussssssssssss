@@ -2275,7 +2275,11 @@ app
 
                 data3_doorCount = 0;
                 for(var i = 0; i < $scope.ticketInfo_viewInfo_tempRequestParamArr.length; i++) {
-                    data3_doorCount += Number.parseInt($scope.ticketInfo_viewInfo_tempRequestParamArr[i][1]);
+
+                    if($scope.ticketInfo_viewInfo_tempRequestParamArr[i] != undefined) {
+                        data3_doorCount += Number.parseInt($scope.ticketInfo_viewInfo_tempRequestParamArr[i][1]);                    
+                    }
+
                 }
 
             }
