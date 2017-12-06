@@ -3626,10 +3626,11 @@ app
             $state.go('myplan', {}, {location: 'replace'});
         } else {
 
-            // 接受参数
-            $scope.isCommented = JSON.parse($state.params.isCommented);
-            $scope.isCommentedText = JSON.parse($state.params.isCommentedText);
-            $scope.isCommentedScore = JSON.parse($state.params.isCommentedScore);
+            // @接受参数
+            $scope.isCommented = JSON.parse($state.params.isCommented); // @是否已评论
+            $scope.isCommentedText = JSON.parse($state.params.isCommentedText); // @评论文字
+            $scope.isCommentedScore = JSON.parse($state.params.isCommentedScore); // @评论分数
+            
             var paramsData = JSON.parse($state.params.data);
 
             var requestData = {
@@ -3638,24 +3639,27 @@ app
 
             $myHttpService.post('api/product/queryUserProductTicketDetails', requestData, function(data){
 
+                console.log("车票评价页：车票详情API返回的数据");
                 console.log(data);
                 $scope.ticketInfo = data.viewOrder;
 
+                $scope.productid = $scope.ticketInfo.productid;
+
             }, errorFn);
             
-            // 由于ionic的原因，必须要是对象来接收数据
+            // @由于ionic的原因，必须要是对象来接收数据
             $scope.dataContainer = {
                 text: ""
             }
 
-            // 星星 调用了Star的指令，这里是相关的配置信息
-            $scope.max = 5; // 星星数量
-            $scope.ratingVal = 5; // 默认点亮数量
-            $scope.readonly = false; // 是否只读
+            // @星星 调用了Star的指令，这里是相关的配置信息
+            $scope.max = 5; // @星星数量
+            $scope.ratingVal = 5; // @默认点亮数量
+            $scope.readonly = false; // @是否只读
             $scope.onHover = function(val) {$scope.ratingVal = val;};
             $scope.onLeave = function() {};
 
-            // 评价提交按钮状态 监测函数
+            // @评价提交按钮状态 监测函数
             $scope.submitBtnCheck = function() {
                 if($scope.dataContainer.text) {
                     $scope.submitBtnIsDiasbled = false;
@@ -3664,37 +3668,33 @@ app
                 }
             };
 
-            // 提交数据
+            // @提交数据
             $scope.submitComment = function() {
-                // 封装数据
+                // @封装数据
                 var data = {
-                    viewOrderid: paramsData.viewOrderid, // 订单编号
-                    orderScore: $scope.ratingVal, // 订单评分
-                    orderhie: $scope.dataContainer.text // 订单评价
+                    productid: $scope.productid,
+                    userid: $rootScope.session.user.userInfo.userid,
+                    orderScore: $scope.ratingVal, // @订单评分
+                    orderhie: $scope.dataContainer.text // @订单评价
                 };
+                console.log("车票评价页：评论提交参数");                
                 console.log(data);
+
+                // @插入评论wechat/product/insertViewOrderHierarchy
                 $myHttpService.post('api/product/insertViewOrderHierarchy', data, function(data) {
                     layer.open({
                         content: '评价提交成功',
                         btn: '确定',
                         shadeClose: false,
                         yes: function(index){
-                            $state.go('myplan', {}, {location: 'replace'});
+                            $scope.readonly = true; // @是否只读
+                            $scope.isCommented = true;
                             layer.close(index);
                         }
                     });
                 }, errorFn);
             };
 
-            // 车辆位置函数
-            $scope.getBusPosition = function() {
-                var data = {
-                    carid: $scope.ticketInfo.carid,
-                    lineid: $scope.ticketInfo.lineid
-                };
-                console.log(data);
-                $state.go('ticket_detail.bus_position', {data: JSON.stringify(data)}, {reload: true});
-            }
         }
     })
 
