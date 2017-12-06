@@ -502,6 +502,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
     border-width: 0 1px 1px 1px;
     border-style: solid;
     border-color: #dad9d9;
+    opacity: 1;
 }
 
 .jqztc-order-check .rated .row {
