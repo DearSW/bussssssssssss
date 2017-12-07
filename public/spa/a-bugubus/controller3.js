@@ -1701,21 +1701,21 @@ app
         }
 
         // @日期展开选择
-        
-        if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
-            $scope.disabledWeeks = [0, 1, 2, 3, 4, 5, 6];
-            $scope.disabledWeeksTemp = $scope.ticketInfo.counts.map(function(item) {  return item - 1 });
-            for(var i = 0; i < $scope.disabledWeeks.length; i++ ) {
-                for(var j = 0; i < $scope.disabledWeeksTemp.length; j++) {
-                    if($scope.disabledWeeks[i] == $scope.disabledWeeksTemp[j]) {
-                        $scope.disabledWeeks.pop($scope.disabledWeeksTemp[j]);
-                    }
-                }
+
+        // if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
+        //     $scope.disabledWeeks = [0, 1, 2, 3, 4, 5, 6];
+        //     $scope.disabledWeeksTemp = $scope.ticketInfo.counts.map(function(item) {  return item - 1 });
+        //     for(var i = 0; i < $scope.disabledWeeks.length; i++ ) {
+        //         for(var j = 0; i < $scope.disabledWeeksTemp.length; j++) {
+        //             if($scope.disabledWeeks[i] == $scope.disabledWeeksTemp[j]) {
+        //                 $scope.disabledWeeks.pop($scope.disabledWeeksTemp[j]);
+        //             }
+        //         }
                 
-            }
-        } else {
-            $scope.disabledWeeks = [];
-        }
+        //     }
+        // } else {
+        //     $scope.disabledWeeks = [];
+        // }
 
         var compareTimeTemp1 = new Date();
         var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
