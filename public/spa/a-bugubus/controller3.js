@@ -57,7 +57,7 @@ var arrayMinus = function (arrA, arrB) {
     var result = [];
     var obj = {};
     for (var i = 0; i < arrB.length; i++) {
-        obj[arr[i]] = 1;
+        obj[arrB[i]] = 1;
     }
     for (var j = 0; j < arrA.length; j++) {
         if (!obj[arrA[j]])
