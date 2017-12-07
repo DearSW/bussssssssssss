@@ -3173,19 +3173,19 @@ app
                 $scope.positionArr = data.car;
                 $scope.busline = data.busline;
                 $scope.stations = data.stations;
-                // 当前车辆位置 和 地图中心点 经纬度
+                // @当前车辆位置 和 地图中心点 经纬度
                 var lineArr = [
                     $scope.positionArr.currlon, // 经度
                     $scope.positionArr.currlat // 纬度
                 ];
-                // 高德地图绘制
+                // @高德地图绘制
                 var map = new AMap.Map("J_map_canvas", {
                     resizeEnable: true,
                     center: [lineArr[0], lineArr[1]],
                     zoom: 11
                 });
 
-                // 所有站点的经纬度数组
+                // @所有站点的经纬度数组
                 var allLonLatArr = [];
 
                 // @所有停靠点的经纬度数组
@@ -3206,6 +3206,7 @@ app
                         stationType1.push(tempArr2);
                     }
                 }
+
                 // @起点站点 经纬度
                 var startPositionLonLat = [
                     $scope.busline.departlon,
@@ -3216,6 +3217,7 @@ app
                     $scope.busline.arrivelon,
                     $scope.busline.arrivelat
                 ];
+
                 // @中间站点、途径点
                 var allLonLatArr2 = allLonLatArr.slice(1, allLonLatArr.length-1); // @去掉首尾的经纬点
 
@@ -3422,6 +3424,10 @@ app
         $scope.timeShow = false;
         $scope.timeText = "距离发车时间还剩";
 
+        $scope.lunXunTimer = null; // @轮询定时器
+        
+        $scope.isCheckedTicket = false; // @未验票
+
         // @倒计时间处理函数
         var stopCountDown = null;
         function ShowCountDown(endTime) { 
@@ -3442,13 +3448,34 @@ app
 
         if(JSON.parse($state.params.data) == null) { // @进入页面没有参数时
 
-            var viewOrderid = sessionStorage.getItem('ticket_detail_viewOrderid');
+            var viewOrderid = sessionStorage.getItem('jqztc_cpxqy_viewOrderid'); // @订单ID
 
-            $myHttpService.post('api/product/queryUserProductTicketDetails', {
-                viewOrderid: viewOrderid
-            }, function(data) {
+            // @查询订单详情 wechat/product/queryUserProductTicketDetails            
+            $myHttpService.post('api/product/queryUserProductTicketDetails', {viewOrderid: viewOrderid}, function(data) {
                 
-                $scope.ticketInfo = data.viewOrder;
+                console.log("车票详情页：查询订单详情API返回的数据");
+                console.log(data);
+
+                $scope.ticketInfo = data.viewOrder; // @车票对象
+                $scope.viewOrderid = $scope.ticketInfo.viewOrderid; // @车票订单
+
+                // @是否轮询判断，只有当票为2状态时才会进行轮询
+                if($scope.ticketInfo.viewOrderStatus == 2) {
+
+                    lunXunTimer = $interval(function() { // @轮询函数
+
+                        // @查询车票状态 wechat/product/queryTicketStatus
+                        $myHttpService.post('api/product/queryTicketStatus', {viewOrderid: $scope.viewOrderid}, function(data) {
+
+                            if(data.viewOrderStatus == 3) {
+                                $scope.isCheckedTicket = true; // @已验票
+                            }
+
+                        });
+
+                    }, 15000);
+
+                }
 
                 // @退款参数封装
                 if(data.viewOrder.rechargeid != null) {
@@ -3493,10 +3520,10 @@ app
             console.log(paramsData);
 
             var requestData = {
-                viewOrderid: paramsData.viewOrderid
+                viewOrderid: paramsData.viewOrderid // @订单ID
             };
 
-            sessionStorage.setItem('ticket_detail_viewOrderid', paramsData.viewOrderid);
+            sessionStorage.setItem('jqztc_cpxqy_viewOrderid', paramsData.viewOrderid); // @存储数据，以便后用
 
             // @查询订单详情 wechat/product/queryUserProductTicketDetails
             $myHttpService.post('api/product/queryUserProductTicketDetails', requestData, function(data) {
@@ -3504,7 +3531,26 @@ app
                 console.log("车票详情页：查询订单详情API返回的数据");
                 console.log(data);
 
-                $scope.ticketInfo = data.viewOrder; // @车票
+                $scope.ticketInfo = data.viewOrder; // @车票对象
+                $scope.viewOrderid = $scope.ticketInfo.viewOrderid; // @车票订单ID
+
+                // @是否轮询判断，只有当票为2状态时才会进行轮询
+                if($scope.ticketInfo.viewOrderStatus == 2) {
+
+                    lunXunTimer = $interval(function() { // @轮询函数
+
+                        // @查询车票状态 wechat/product/queryTicketStatus
+                        $myHttpService.post('api/product/queryTicketStatus', {viewOrderid: $scope.viewOrderid}, function(data) {
+
+                            if(data.viewOrderStatus == 3) {
+                                $scope.isCheckedTicket = true; // @已验票
+                            }
+
+                        });
+
+                    }, 15000);
+
+                }
 
                 // @退款参数封装
                 if(data.viewOrder.rechargeid != null) {
@@ -3543,12 +3589,12 @@ app
 
         }
 
-        $scope.$on("$destroy", function() {
-            $interval.cancel(stopTime);
+        $scope.$on("$destroy", function() { 
+            $interval.cancel(stopTime); // @定时器销毁
+            $interval.cancel(lunXunTimer); // @定时器销毁
         });
 
-        $scope.refundBtnState = false; // @退款按钮控制状态
-        var flag = true;
+        $scope.refundBtnState = false; // @退款按钮控制状态，false为可用，true为不可用
 
         // @退款函数
         $scope.refund = function() {
@@ -3650,7 +3696,7 @@ app
 
             $scope.ticketInfo = paramsData; // @车票对象
             $scope.productid = $scope.ticketInfo.productid; // @产品ID
-            $scope.orderid = $scope.ticketInfo.orderid; // @订单ID
+            $scope.viewOrderid = $scope.ticketInfo.viewOrderid; // @订单ID
             
             // @由于ionic的原因，必须要是对象来接收数据
             $scope.dataContainer = {
@@ -3682,7 +3728,7 @@ app
                     userid: $rootScope.session.user.userInfo.userid,// @用户ID
                     orderScore: $scope.ratingVal, // @订单评分
                     orderhie: $scope.dataContainer.text, // @订单评价
-                    orderid: $scope.orderid // @订单ID
+                    orderid: $scope.viewOrderid // @订单ID
                 };
 
                 console.log("车票评价页：评论提交参数");                
@@ -3716,22 +3762,43 @@ app
      */
     .controller('admission_ticket_detail', function($rootScope, $scope, $filter, $interval, $myHttpService, $state, $myLocationService, $ionicScrollDelegate) {
 
-        var paramsData = JSON.parse($state.params.data);
+        $scope.refundBtnState = false; // @退款按钮的状态控制
+
+        $scope.isCheckedTicket = false; // @未验票
+        $scope.lunXunTimer = null; // @轮询定时器
+
+        var paramsData = JSON.parse($state.params.data); // @参数解析
 
         console.log("门票详情页：参数打印");
         console.log(paramsData);
 
-        var requestData = {
-            orderid: paramsData.orderid
-        };
-
         // @查询用户已购买景区门票详情 wechat/ticketorder/queryUserDoorTicketDetails
-        $myHttpService.post('api/ticketorder/queryUserDoorTicketDetails', requestData, function(data) {
+        $myHttpService.post('api/ticketorder/queryUserDoorTicketDetails', {orderid: paramsData.orderid}, function(data) {
             
             console.log("门票详情页：查询订单详情API返回的数据");
             console.log(data);
 
-            $scope.ticketViewInfo = data.ticketOrder; // @门票
+            $scope.ticketViewInfo = data.ticketOrder; // @门票对象
+
+            $scope.orderid = $scope.ticketViewInfo.orderid; // @门票订单ID
+
+                // @是否轮询判断，只有当票为2状态时才会进行轮询
+                if($scope.ticketViewInfo.viewOrderStatus == 2) {
+
+                    lunXunTimer = $interval(function() { // @轮询函数 15s
+
+                        // @查询门票状态 wechat/ticketorder/queryDoorTicketStatus
+                        $myHttpService.post('api/ticketorder/queryDoorTicketStatus', {orderid: $scope.orderid}, function(data) {
+
+                            if(data.ticketStatus == 3) {
+                                $scope.isCheckedTicket = true; // @已验票
+                            }
+
+                        });
+
+                    }, 15000);
+
+                }
 
             // @门票退款参数封装
             if(data.ticketOrder.rechargeid != null) {
@@ -3822,6 +3889,10 @@ app
                     }
                 });
         }
+
+        $scope.$on("$destroy", function() { 
+            $interval.cancel(lunXunTimer); // @定时器销毁
+        });
 
     })
 

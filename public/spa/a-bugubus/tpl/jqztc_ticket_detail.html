@@ -66,7 +66,7 @@
                                     
                                     <div class="row" >
                                         <div class="col" style="text-align: right;">
-                                            <button ng-disabled="refundBtnState" class="button" style="line-height: 2;margin-right: 20px;font-size: 17px;color: #e42112;border: 1px solid black;background: white;min-width:0;min-height: 0;height: 40px;width: 80px;border-radius: 3px;" ng-click="refund()">
+                                            <button ng-if="!isCheckedTicket" ng-disabled="refundBtnState" class="button" style="line-height: 2;margin-right: 20px;font-size: 17px;color: #e42112;border: 1px solid black;background: white;min-width:0;min-height: 0;height: 40px;width: 80px;border-radius: 3px;" ng-click="refund()">
                                                 退款
                                             </button>
                                         </div>
@@ -96,17 +96,19 @@
                             <div class="row">
                                 <div class="col">
                                     <i class="icon ion-checkmark-circled" style="color: #47bd4c;font-size: 22px;"></i>
-                                    <span class="btnfont11 ">已付款待乘车</span>
+                                    <span ng-if="!isCheckedTicket" class="btnfont11 ">已付款<span style="color:#e42112;">待乘车</span></span>
+                                    <span ng-if="isCheckedTicket" class="btnfont11" style="color:#e42112;">已验票</span>
+                                    
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" ng-if="!isCheckedTicket">
                                 <div class="col">
                                     <span class="btnfont11">上车请出示条形码!</span>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" ng-if="!isCheckedTicket">
                                 <div class="col">
                                     <canvas ng-model="ticketInfo.barcode" barcode></canvas>
                                 </div>
