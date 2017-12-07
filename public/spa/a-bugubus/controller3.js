@@ -1051,7 +1051,7 @@ app
         $scope.ticketViewSumPrice = 0; // @门票总价
         $scope.coupon = 0; // @优惠总价
 
-        $rootScope.customerPhone = "18302505304"; // @客服电话
+        $rootScope.customerPhone = "18302505303"; // @客服电话
 
         $scope.againObtainCheckCode = false; // @显示重新获取验证码的提示
 
