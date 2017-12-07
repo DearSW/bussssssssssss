@@ -454,13 +454,17 @@ app.directive('myTag', function() {
             scope.tag = function(t) {
                 switch(t) {
                     case '单程':
-                        return 'label green';
+                        return 'btnfontgreen';
+                    case '单程 + 门票':
+                        return 'btnfontgreen';
                     case '往返':
-                        return 'label orange';
+                        return 'btnfontorange';
+                    case '往返+门票':
+                        return 'btnfontorange';
                     case '门票':
-                        return 'label blue';
+                        return 'btnfontblue';
                     default: 
-                        return 'label';
+                        return 'btnfontred';
                 }
             }
         }

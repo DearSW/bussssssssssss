@@ -305,6 +305,23 @@
     padding: 0 2px;
     display: inline-block;
 }
+
+.btnfontgreen {
+    color: #4CAF50;
+}
+
+.btnfontorange {
+    color: #FF9800;
+}
+
+.btnfontblue {
+    color: #2196F3;
+}
+
+.btnfontred {
+    color: red;
+}
+
 .btnfont.green {
     color: #4CAF50;
 }
