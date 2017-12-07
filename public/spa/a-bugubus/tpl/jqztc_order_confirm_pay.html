@@ -123,7 +123,7 @@
                             </div>
                     
                             <div class="col" ng-click="selectDay()">
-                                <span>{{currentSelectedDateOrTime}}({{"周" + "日一二三四五六".charAt(new Date(currentSelectedDateOrTime).getDay())}})</span>
+                                <span>{{currentSelectedDateOrTime}}({{currentSelectedDateOrTime2}})</span>
                             </div>
                     
                             <div class="col" style="text-align: right;" ng-click="nextDay()">
