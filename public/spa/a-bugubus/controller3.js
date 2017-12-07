@@ -1735,7 +1735,7 @@ app
         }
 
         console.log("订单页：被禁用的星期数组");        
-        console.log(scope.disabledWeeks);
+        console.log($scope.disabledWeeks);
         
         var compareTimeTemp1 = new Date();
         var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
