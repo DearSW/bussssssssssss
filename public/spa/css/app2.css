@@ -298,28 +298,35 @@
     padding: 3px;
 }
 .btnfont {
-    color: #FF9800;
-    border: 1px solid;
-    border-radius: 3px;
-    margin-top: -1px;
-    padding: 0 2px;
     display: inline-block;
 }
 
 .btnfontgreen {
     color: #4CAF50;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 0 2px;
 }
 
 .btnfontorange {
     color: #FF9800;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 0 2px;
 }
 
 .btnfontblue {
     color: #2196F3;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 0 2px;
 }
 
 .btnfontred {
     color: red;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 0 2px;
 }
 
 .btnfont.green {
