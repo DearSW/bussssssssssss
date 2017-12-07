@@ -1038,6 +1038,7 @@ app
         if($scope.currentSelectedDateOrTime == null) {
             $scope.currentSelectedDateOrTime = $filter('date')(new Date(), 'yyyy-MM-dd');
         }
+        $scope.currentSelectedDateOrTime2 = "周" + "日一二三四五六".charAt(new Date($scope.currentSelectedDateOrTime).getDay()); // @周几
 
         var paramsData = JSON.parse($state.params.data); // @解析传递过来的参数
 
@@ -1533,6 +1534,8 @@ app
 
                 var temp = new Date(nextDayTime);
                 $scope.currentSelectedDateOrTime = $filter('date')(temp, 'yyyy-MM-dd');
+                $scope.currentSelectedDateOrTime2 = "周" + "日一二三四五六".charAt(new Date($scope.currentSelectedDateOrTime).getDay());
+        
 
                 // @验证码更新
                 // @清除掉验证码计时器
@@ -1623,7 +1626,7 @@ app
 
                 var temp = new Date(prevDayTime);
                 $scope.currentSelectedDateOrTime = $filter('date')(temp, 'yyyy-MM-dd');
-
+                $scope.currentSelectedDateOrTime2 = "周" + "日一二三四五六".charAt(new Date($scope.currentSelectedDateOrTime).getDay());                
                
                 // @验证码更新
                 // @清除掉验证码计时器
@@ -1708,6 +1711,7 @@ app
 
                     var val2 = new Date(val);
                     $scope.currentSelectedDateOrTime = $filter('date')(val2, 'yyyy-MM-dd');
+                    $scope.currentSelectedDateOrTime2 = "周" + "日一二三四五六".charAt(new Date($scope.currentSelectedDateOrTime).getDay());                
 
                     // @验证码更新
                     // @清除掉验证码计时器
