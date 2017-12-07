@@ -1723,15 +1723,56 @@ app
 
         // @日期展开选择
 
+        $scope.canPurchaseInfo = false;
+
         if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
+
+            $scope.canPurchaseInfo = true;
+            $scope.canPurchaseInfoTxt = '';
+
             $scope.disabledWeeks = [];            
             $scope.disabledWeeksTemp = [0, 1, 2, 3, 4, 5, 6];
             $scope.disabledWeeksTemp1 = $scope.ticketInfo.counts.map(function(item) {  return item - 1 }).sort();
             
             $scope.disabledWeeks = arrayMinus($scope.disabledWeeksTemp, $scope.disabledWeeksTemp1);
 
+            if($scope.disabledWeeksTemp1.toString() == $scope.disabledWeeksTemp.toString()) {
+                $scope.canPurchaseInfo = false;
+            }
+
+            for(var i = 0; i < $scope.disabledWeeksTemp1.length; i++) {
+                
+                switch($scope.disabledWeeksTemp1[i]) {
+                    
+                    case 1:
+                        $scope.canPurchaseInfoTxt += '周一';
+                        break;
+                    case 2:
+                        $scope.canPurchaseInfoTxt += '周二';
+                        break;
+                    case 3:
+                        $scope.canPurchaseInfoTxt += '周三';
+                        break;
+                    case 4:
+                        $scope.canPurchaseInfoTxt += '周四';
+                        break;
+                    case 5:
+                        $scope.canPurchaseInfoTxt += '周无';
+                        break;
+                    case 6:
+                        $scope.canPurchaseInfoTxt += '周六';
+                        break;
+                    case 0:
+                        $scope.canPurchaseInfoTxt += '周日';
+                        break;
+
+                }
+
+            }
+
         } else {
             $scope.disabledWeeks = [];
+            $scope.canPurchaseInfo = false;
         }
 
         console.log("订单页：被禁用的星期数组");        

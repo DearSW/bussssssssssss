@@ -107,7 +107,7 @@
                 color: #21b74c;
                 font-weight: bold;
             }
-            
+
             .ionic_datepicker_modal .pointer_events_none {
                 pointer-events: none;
                 color: #ddd !important;
@@ -147,10 +147,23 @@
                     
                     </div>
 
-                    <div>
-                        <div style="text-align: right;margin: 0px 10px 5px 10px;">
-                                <i class="icon ion-ios-information-outline" style="color: #f76601;font-size: 17px;margin-right: 3px;"></i><span style="color: #656572;" ng-click="yonghuxuzhi_Fn()">用户须知</span>
+                    <div class="row" style="padding: 0;">
+                    
+                        <div class="col col-50" style="padding: 0;">
+                        
+                            <span style="margin-left: 13px;color: #f76601;" ng-if="canPurchaseInfo">*仅限{{$scope.canPurchaseInfoTxt}}购票</span>
+                            <span style="margin-left: 13px;color: #f76601;" ng-if="!canPurchaseInfo"></span>
+                    
                         </div>
+                    
+                        <div class="col col-50" style="padding: 0;">
+                        
+                            <div style="text-align: right;margin: 0px 10px 5px 10px;">
+                                <i class="icon ion-ios-information-outline" style="color: #f76601;font-size: 17px;margin-right: 3px;"></i><span style="color: #656572;" ng-click="yonghuxuzhi_Fn()">用户须知</span>
+                            </div>
+
+                        </div>
+
                     </div>
 
                     <!-- 1  -->
