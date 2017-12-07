@@ -48,6 +48,27 @@ var formatParamObject = function(obj) {
     return obj;
 }
 
+/**
+ * @描述：数组差集 
+ * @参数：求差集的两个数组
+ * @返回：差集数组
+ */
+var arrayMinus = function (arrA, arrB) {
+    var result = [];
+    var obj = {};
+    for (var i = 0; i < arrB.length; i++) {
+        obj[arr[i]] = 1;
+    }
+    for (var j = 0; j < arrA.length; j++) {
+        if (!obj[arrA[j]])
+        {
+            obj[arrA[j]] = 1;
+            result.push(arrA[j]);
+        }
+    }
+    return result;
+};
+
 /* 
  *  @描述：浮点数运算对象，解决JS运算精度丢失的问题
  */
@@ -1702,21 +1723,20 @@ app
 
         // @日期展开选择
 
-        // if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
-        //     $scope.disabledWeeks = [0, 1, 2, 3, 4, 5, 6];
-        //     $scope.disabledWeeksTemp = $scope.ticketInfo.counts.map(function(item) {  return item - 1 });
-        //     for(var i = 0; i < $scope.disabledWeeks.length; i++ ) {
-        //         for(var j = 0; i < $scope.disabledWeeksTemp.length; j++) {
-        //             if($scope.disabledWeeks[i] == $scope.disabledWeeksTemp[j]) {
-        //                 $scope.disabledWeeks.pop($scope.disabledWeeksTemp[j]);
-        //             }
-        //         }
-                
-        //     }
-        // } else {
-        //     $scope.disabledWeeks = [];
-        // }
+        if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
+            $scope.disabledWeeks = [];            
+            $scope.disabledWeeksTemp = [0, 1, 2, 3, 4, 5, 6];
+            $scope.disabledWeeksTemp1 = $scope.ticketInfo.counts.map(function(item) {  return item - 1 }).sort();
+            
+            $scope.disabledWeeks = arrayMinus($scope.disabledWeeksTemp, $scope.disabledWeeksTemp1);
 
+        } else {
+            $scope.disabledWeeks = [];
+        }
+
+        console.log("订单页：被禁用的星期数组");        
+        console.log(scope.disabledWeeks);
+        
         var compareTimeTemp1 = new Date();
         var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
         var compareTime = new Date(compareTimeTemp2).getTime() + (60 * 86400000); // @60天时间
