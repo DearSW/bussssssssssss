@@ -692,10 +692,9 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
 }
 
 .showDefaultImg {
-    transition: all linear 2s;
+    transition: all linear 1s;
     position: absolute;
     background: linear-gradient(steelblue, #f8fafb);
-    /* background: #a9a9a9; */
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     text-align: center;
@@ -704,14 +703,14 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
 }
 
 .showDefaultImg.ng-enter {
-    transition: 2s linear all;
+    transition: 1s linear all;
     opacity: 0;
 }
 .showDefaultImg.ng-enter-active {
     opacity: 1;
 }
 .showDefaultImg.ng-leave { 
-    transition: 2s linear all;
+    transition: 1s linear all;
     -webkit-filter: blur(20px);
 	-moz-filter: blur(20px);
 	-ms-filter: blur(20px);
@@ -729,7 +728,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
 }
 
 .showDefaultImg2.ng-enter {
-    transition: 2s linear all;
+    transition: 1s linear all;
     opacity: 0;
     
 }
