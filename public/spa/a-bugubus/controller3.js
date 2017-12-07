@@ -1132,7 +1132,7 @@ app
                         } else {
 
                             layer.open({
-                                content: '客官，当前没有相关的班次信息，请重新选择日期 (╯-╰)',
+                                content: '客官，当前日期没有相关的车辆班次信息，请您重新选择日期 (╯-╰)',
                                 btn: '确定'
                             });
 
@@ -1309,7 +1309,7 @@ app
                         } else {
 
                             layer.open({
-                                content: '客官，当前没有相关的班次信息，请重新选择日期 (╯-╰)',
+                                content: '客官，当前日期没有相关的车辆班次信息，请您重新选择日期 (╯-╰)',
                                 btn: '确定'
                             });
 
@@ -1700,7 +1700,23 @@ app
             }
         }
 
-        // @日期
+        // @日期展开选择
+        
+        if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
+            $scope.disabledWeeks = [0, 1, 2, 3, 4, 5, 6];
+            $scope.disabledWeeksTemp = $scope.ticketInfo.counts.map(function(item) {  return item - 1 });
+            for(var i = 0; i < $scope.disabledWeeks.length; i++ ) {
+                for(var j = 0; i < $scope.disabledWeeksTemp.length; j++) {
+                    if($scope.disabledWeeks[i] == $scope.disabledWeeksTemp[j]) {
+                        $scope.disabledWeeks.pop($scope.disabledWeeksTemp[j]);
+                    }
+                }
+                
+            }
+        } else {
+            $scope.disabledWeeks = [];
+        }
+
         var compareTimeTemp1 = new Date();
         var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
         var compareTime = new Date(compareTimeTemp2).getTime() + (60 * 86400000); // @60天时间
@@ -1783,9 +1799,11 @@ app
                 dateFormat: 'yyyy-MM-dd', // @可选
                 closeOnSelect: true, // @可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
                 inputDate: new Date(),
-                templateType: 'modal'
-              };
-              ionicDatePicker.openDatePicker(ipObj1);
+                templateType: 'modal',
+                disableWeekdays: $scope.disabledWeeks
+            };
+            ionicDatePicker.openDatePicker(ipObj1);
+
         }
 
 
