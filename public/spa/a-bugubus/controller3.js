@@ -591,7 +591,8 @@ app
                 console.log("产品页：图片推荐类型流程，有参数，productid");
 
                 var requestData = {
-                    productid: paramsData.productid
+                    productid: paramsData.productid,
+                    departDate: $filter('date')(new Date(), 'yyyy-MM-dd')
                 };
 
                 // @图片推荐类型产品列表 /web/product/queryProduct
