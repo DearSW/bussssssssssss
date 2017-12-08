@@ -314,8 +314,8 @@
     color: #FF9800;
     border: 1px solid;
     border-radius: 3px;
-    padding: 0 2px;
-    vertical-align: middle;
+    padding: 1px 2px;
+    line-height: 1;
 }
 
 .btnfontblue {
@@ -937,6 +937,8 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
     padding: 0 2px;
     color: white;
     font-size: 15px;
+    line-height: 1;
+    vertical-align: text-top;
 }
 
 .station-mark-blue {
@@ -953,4 +955,6 @@ input[disabled], select[disabled], textarea[disabled], input[readonly]:not(.clon
     padding: 0 2px;
     color: white;
     font-size: 15px;
+    line-height: 1;
+    vertical-align: text-top;
 }
