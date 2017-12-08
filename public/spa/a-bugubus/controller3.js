@@ -939,16 +939,13 @@ app
         $scope.doRefreshComment = function() {
 
             console.log("产品页：doRefreshComment已执行");
-            // if($scope.ticketsInfo.length == 0) {
-            //     $scope.isNoComment = true;
-            //     $scope.$broadcast('scroll.refreshComplete');                
-            //     return;
-            // }
-            var productid = $scope.paramsProductId;
+            
+            // var productid = $scope.paramsProductId;
             $scope.pageCount = 1;
+
             // @产品评价wechat/product/queryProductHieList
             $myHttpService.postNoLoad('api/product/queryProductHieList', {
-                productid: productid,
+                // productid: productid,
                 offset: '0',
                 pagesize: '10'
             }, function(data) {
@@ -980,10 +977,10 @@ app
             //     $scope.isNoComment = true;
             //     return;
             // }
-            var productid = $scope.paramsProductId;
+            // var productid = $scope.paramsProductId;
             var offset = ($scope.pageCount - 1) * 10;
             var requestData = {
-                productid: productid,
+                // productid: productid,
                 offset: offset,
                 pagesize: '10'
             };
