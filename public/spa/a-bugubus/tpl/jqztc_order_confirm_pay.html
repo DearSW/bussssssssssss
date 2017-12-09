@@ -376,7 +376,7 @@
                             <div class="col">
                                 <div class="list list-inset" style="margin: 0 5px;">
                                     <label class="item item-input" style="border-radius: 3px;padding-left: 10px;">
-                                        <input style="font-size: 17px;padding-top: 8px;" type="tel" placeholder="请输入手机号" required ng-model="dataContainer.phone" ng-change="checkPhone()">
+                                        <input style="font-size: 17px;line-height: 1;padding: 5px 0;" type="tel" placeholder="请输入手机号" required ng-model="dataContainer.phone" ng-change="checkPhone()">
                                     </label>
                                 </div>
                             </div>
@@ -386,8 +386,8 @@
                             <div class="col col-60">
                                 <div class="list list-inset">
                                     <label class="item item-input" style="border-radius: 3px;padding-left: 10px;">
-                                        <input style="font-size: 17px;padding-top: 8px;" type="tel" ng-if="!againObtainCheckCode" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
-                                        <input style="font-size: 16px;padding-top: 8px;" type="tel" ng-if="againObtainCheckCode" placeholder="请重新获取验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                        <input style="font-size: 17px;line-height: 1;padding: 5px 0;" type="tel" ng-if="!againObtainCheckCode" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                        <input style="font-size: 16px;line-height: 1;padding: 5px 0;" type="tel" ng-if="againObtainCheckCode" placeholder="请重新获取验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
                                     </label>
                                 </div>
                             </div>
