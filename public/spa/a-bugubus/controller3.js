@@ -2679,19 +2679,19 @@ app
                 
                 $timeout(function() {
                     $ionicTabsDelegate.select(0); 
-                }, 50);
+                }, 10);
 
             } else if($rootScope.jqztc_xdxcy_current_tab_index == 1) {
 
                 $timeout(function() {
                     $ionicTabsDelegate.select(1); 
-                }, 50);
+                }, 10);
 
             } else if($rootScope.jqztc_xdxcy_current_tab_index == 2) {
 
                 $timeout(function() {
                     $ionicTabsDelegate.select(2);
-                }, 50);
+                }, 10);
 
             }
         }
@@ -2731,6 +2731,9 @@ app
         $scope.tab_all = function() { // @每次点击tab项时，就会执行一遍这个函数 15张
 
             console.log("我的行程页：tab_all执行");   
+
+            $rootScope.jqztc_xdxcy_ticketsInfo = []; // @tab_all 全部 车票集合数组
+            $rootScope.jqztc_xdxcy_ticketsViewInfo = []; // @tab_all 全部 门票集合数组
 
             $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引
 
@@ -2781,7 +2784,7 @@ app
 
         }
         
-        // @票据信息 下拉刷新函数 15张
+        // @tab_all 票据信息 下拉刷新函数 15张
         $scope.refresh_tab_all = function() {
 
             console.log("我的行程页：doRefreshTicket执行");           
@@ -2838,7 +2841,7 @@ app
             });
         };
 
-        // @比较函数，对票进行排序，从大到小
+        // @tab_all 比较函数，对票进行排序，从大到小
         var compare = function (prop) {
             return function (obj1, obj2) {
                 var val1 = obj1[prop];
@@ -2857,7 +2860,7 @@ app
             } 
         }
         
-        // @上拉加载更多票信息 15张
+        // @ tab_all 上拉加载更多票信息 15张
         $scope.load_more_tab_all = function() {
 
             console.log("我的行程页：load_more_tab_all执行");
