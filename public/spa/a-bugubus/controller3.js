@@ -2732,8 +2732,10 @@ app
 
             console.log("我的行程页：tab_all执行");   
 
-            $rootScope.jqztc_xdxcy_ticketsInfo = []; // @tab_all 全部 车票集合数组
-            $rootScope.jqztc_xdxcy_ticketsViewInfo = []; // @tab_all 全部 门票集合数组
+            if($rootScope.jqztc_xdxcy_current_tab_index != 0) {
+                $rootScope.jqztc_xdxcy_ticketsInfo = []; // @tab_all 全部 车票集合数组
+                $rootScope.jqztc_xdxcy_ticketsViewInfo = []; // @tab_all 全部 门票集合数组
+            }
 
             $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引
 
