@@ -2679,19 +2679,19 @@ app
                 
                 $timeout(function() {
                     $ionicTabsDelegate.select(0); 
-                }, 10);
+                }, 5);
 
             } else if($rootScope.jqztc_xdxcy_current_tab_index == 1) {
 
                 $timeout(function() {
                     $ionicTabsDelegate.select(1); 
-                }, 10);
+                }, 5);
 
             } else if($rootScope.jqztc_xdxcy_current_tab_index == 2) {
 
                 $timeout(function() {
                     $ionicTabsDelegate.select(2);
-                }, 10);
+                }, 5);
 
             }
         }
@@ -2731,6 +2731,9 @@ app
         $scope.tab_all = function() { // @每次点击tab项时，就会执行一遍这个函数 15张
 
             console.log("我的行程页：tab_all执行");   
+
+            $rootScope.jqztc_xdxcy_ticketsInfo = []; // @tab_all 全部 车票集合数组
+            $rootScope.jqztc_xdxcy_ticketsViewInfo = []; // @tab_all 全部 门票集合数组
 
             $rootScope.jqztc_xdxcy_current_tab_index = $ionicTabsDelegate.selectedIndex(); // @获取当前索引
 
