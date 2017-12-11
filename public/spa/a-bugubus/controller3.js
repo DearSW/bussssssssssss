@@ -2679,19 +2679,19 @@ app
                 
                 $timeout(function() {
                     $ionicTabsDelegate.select(0); 
-                }, 3);
+                }, 10);
 
             } else if($rootScope.jqztc_xdxcy_current_tab_index == 1) {
 
                 $timeout(function() {
                     $ionicTabsDelegate.select(1); 
-                }, 3);
+                }, 10);
 
             } else if($rootScope.jqztc_xdxcy_current_tab_index == 2) {
 
                 $timeout(function() {
                     $ionicTabsDelegate.select(2);
-                }, 3);
+                }, 10);
 
             }
         }
