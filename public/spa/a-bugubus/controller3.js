@@ -1924,13 +1924,13 @@ app
             getTodayToAfterTwoMonthRegionArray($scope.dateArrTemp);
 
             // @先格式化counts数组
-            $scope.ticketInfo.counts.forEach(function(item) {
-                item = $filter('date')(item, 'yyyy-MM-dd');
-            });
+            // $scope.ticketInfo.counts.forEach(function(item) {
+            //     item = $filter('date')(item, 'yyyy-MM-dd');
+            // });
 
-            // for(var i = 0; i < $scope.ticketInfo.counts.length; i++) {
-
-            // }
+            for(var i = 0; i < $scope.ticketInfo.counts.length; i++) {
+                $scope.ticketInfo.counts[i] = $filter('date')($scope.ticketInfo.counts[i], 'yyyy-MM-dd');
+            }
 
             // removeByValue($scope.dateArr, $filter('date')(new Date('2017-12-25'), 'yyyy-MM-dd'));
 
