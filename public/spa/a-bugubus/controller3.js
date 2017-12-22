@@ -1925,10 +1925,10 @@ app
 
             // @先格式化counts数组
             $scope.ticketInfo.counts.forEach(function(item) {
-                $filter('date')(item, 'yyyy-MM-dd');
+                item = $filter('date')(item, 'yyyy-MM-dd');
             });
 
-            // for(var i = 0;) {
+            // for(var i = 0; i < $scope.ticketInfo.counts.length; i++) {
 
             // }
 
@@ -1938,7 +1938,7 @@ app
             console.log($scope.ticketInfo.counts);
             console.log($scope.dateArrTemp);
 
-            $scope.dateArr = arrayMinus($scope.ticketInfo.counts, $scope.dateArrTemp);
+            $scope.dateArr = arrayMinus($scope.dateArrTemp, $scope.ticketInfo.counts);
             console.log($scope.dateArr);
             
         } else {
