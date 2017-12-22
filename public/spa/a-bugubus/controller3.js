@@ -1924,9 +1924,15 @@ app
             getTodayToAfterTwoMonthRegionArray($scope.dateArrTemp);
 
             // @先格式化counts数组
-            $scope.ticketInfo.counts.forEach(function(item, value) {
+            $scope.ticketInfo.counts.forEach(function(item) {
                 $filter('date')(item, 'yyyy-MM-dd');
             });
+
+            // for(var i = 0;) {
+
+            // }
+
+            // removeByValue($scope.dateArr, $filter('date')(new Date('2017-12-25'), 'yyyy-MM-dd'));
 
             console.log("测试");
             console.log($scope.ticketInfo.counts);
