@@ -1928,14 +1928,16 @@ app
                 $filter('date')(item, 'yyyy-MM-dd');
             });
 
+            console.log("测试");
+            console.log($scope.ticketInfo.counts);
+            console.log($scope.dateArrTemp);
+
             $scope.dateArr = arrayMinus($scope.ticketInfo.counts, $scope.dateArrTemp);
+            console.log($scope.dateArr);
             
         } else {
 
         }
-
-        console.log("订单页：被禁用的星期数组");        
-        console.log($scope.disabledWeeks);
         
         var compareTimeTemp1 = new Date();
         var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
