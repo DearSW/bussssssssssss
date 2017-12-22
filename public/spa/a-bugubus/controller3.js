@@ -1057,6 +1057,7 @@ app
         if($scope.currentSelectedDateOrTime == null) {
             $scope.currentSelectedDateOrTime = $filter('date')(new Date(), 'yyyy-MM-dd');
         }
+
         $scope.currentSelectedDateOrTime2 = "周" + "日一二三四五六".charAt(new Date($scope.currentSelectedDateOrTime).getDay()); // @周几
 
         var paramsData = JSON.parse($state.params.data); // @解析传递过来的参数
@@ -1723,54 +1724,214 @@ app
 
         $scope.canPurchaseInfo = false;
 
-        if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
+        /*
+            if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
 
-            $scope.canPurchaseInfo = true;
-            $scope.canPurchaseInfoTxt = '';
+                $scope.canPurchaseInfo = true;
+                $scope.canPurchaseInfoTxt = '';
 
-            $scope.disabledWeeks = [];            
-            $scope.disabledWeeksTemp = [0, 1, 2, 3, 4, 5, 6];
-            $scope.disabledWeeksTemp1 = $scope.ticketInfo.counts.map(function(item) {  return item - 1 }).sort();
-            
-            $scope.disabledWeeks = arrayMinus($scope.disabledWeeksTemp, $scope.disabledWeeksTemp1);
-
-            if($scope.disabledWeeksTemp1.toString() == $scope.disabledWeeksTemp.toString()) {
-                $scope.canPurchaseInfo = false;
-            }
-
-            for(var i = 0; i < $scope.disabledWeeksTemp1.length; i++) {
+                $scope.disabledWeeks = [];            
+                $scope.disabledWeeksTemp = [0, 1, 2, 3, 4, 5, 6];
+                $scope.disabledWeeksTemp1 = $scope.ticketInfo.counts.map(function(item) {  return item - 1 }).sort();
                 
-                switch($scope.disabledWeeksTemp1[i]) {
+                $scope.disabledWeeks = arrayMinus($scope.disabledWeeksTemp, $scope.disabledWeeksTemp1);
+
+                if($scope.disabledWeeksTemp1.toString() == $scope.disabledWeeksTemp.toString()) {
+                    $scope.canPurchaseInfo = false;
+                }
+
+                for(var i = 0; i < $scope.disabledWeeksTemp1.length; i++) {
                     
-                    case 1:
-                        $scope.canPurchaseInfoTxt += '周一';
-                        break;
-                    case 2:
-                        $scope.canPurchaseInfoTxt += '周二';
-                        break;
-                    case 3:
-                        $scope.canPurchaseInfoTxt += '周三';
-                        break;
-                    case 4:
-                        $scope.canPurchaseInfoTxt += '周四';
-                        break;
-                    case 5:
-                        $scope.canPurchaseInfoTxt += '周无';
-                        break;
-                    case 6:
-                        $scope.canPurchaseInfoTxt += '周六';
-                        break;
-                    case 0:
-                        $scope.canPurchaseInfoTxt += '周日';
-                        break;
+                    switch($scope.disabledWeeksTemp1[i]) {
+                        
+                        case 1:
+                            $scope.canPurchaseInfoTxt += '周一';
+                            break;
+                        case 2:
+                            $scope.canPurchaseInfoTxt += '周二';
+                            break;
+                        case 3:
+                            $scope.canPurchaseInfoTxt += '周三';
+                            break;
+                        case 4:
+                            $scope.canPurchaseInfoTxt += '周四';
+                            break;
+                        case 5:
+                            $scope.canPurchaseInfoTxt += '周无';
+                            break;
+                        case 6:
+                            $scope.canPurchaseInfoTxt += '周六';
+                            break;
+                        case 0:
+                            $scope.canPurchaseInfoTxt += '周日';
+                            break;
+
+                    }
 
                 }
 
+            } else {
+                $scope.disabledWeeks = [];
+                $scope.canPurchaseInfo = false;
             }
+        */
 
+        // @判断当前年份是否是闰年(闰年2月份有29天，平年2月份只有28天)
+        function isLeap(year) {
+            return year % 4 == 0 ? (year % 100 != 0 ? 1 : (year % 400 == 0 ? 1 : 0)) : 0;
+        }
+  
+        function _getDateRegionArray(y, m, dateArr, compareDate, flag) {
+    
+            if (m > 11) {
+                y += 1;
+                m = 0;
+            }
+    
+            var i, k,
+                firstday = new Date(y, m, 1), // @获取当月的第一天
+                dayOfWeek = firstday.getDay(), // @判断第一天是星期几(返回[0-6]中的一个，0代表星期天，1代表星期一，以此类推)
+                days_per_month = new Array(31, 28 + isLeap(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31), // @创建月份数组
+                str_nums = Math.ceil((dayOfWeek + days_per_month[m]) / 7); // @确定日期表格所需的行数
+    
+            for (i = 0; i < str_nums; i += 1) { // @二维数组创建日期表格
+    
+                for (k = 0; k < 7; k++) {
+                    var idx = 7 * i + k; // @为每个表格创建索引,从0开始
+                    var date = idx - dayOfWeek + 1; // @将当月的1号与星期进行匹配
+    
+                    var temp_date = idx - dayOfWeek + 1;
+    
+                    if (temp_date <= 0 || temp_date > days_per_month[m]) { // @无效的时间
+    
+                    } else { // @有效的时间
+    
+    
+                        if(flag == 0) { // @start日期
+    
+                            var temp_m = Number.parseInt(m) + 1;
+                            var temp_date_str = y + '-' + temp_m + '-' + temp_date;
+    
+                            if(new Date(temp_date_str) >= compareDate) {
+                                // $filter('date')(new Date(temp_date_str), 'yyyy-MM-dd')
+                                dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy-MM-dd'));
+                            }
+
+                        } else if(flag == 1) { // @截止日期
+    
+                            var temp_m = Number.parseInt(m) + 1;
+                            var temp_date_str = y + '-' + temp_m + '-' + temp_date;
+    
+                            if(new Date(temp_date_str) <= compareDate) {
+                                dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy-MM-dd'));
+                            }
+    
+                        } else { // @无限制
+    
+                            var temp_m = Number.parseInt(m) + 1;
+                            var temp_date_str = y + '-' + temp_m + '-' + temp_date;
+                            
+                            dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy-MM-dd'));
+    
+                        }
+    
+                    }
+    
+                }
+            }
+            console.log(dateArr);
+        }
+    
+        // @从今天往后推两个月时间
+        function getTodayToAfterTwoMonthRegionArray(dateArr) {
+    
+            // @初始化数据
+            var today = new Date(); // @获取当前日期
+            var y = today.getFullYear(); // @获取日期中的年份
+            var m = today.getMonth(); // @获取日期中的月份(需要注意的是：月份是从0开始计算，获取的值比正常月份的值少1)
+            var d = today.getDate(); // @获取日期中的日(方便在建立日期表格时高亮显示当天)
+            var temp_days_per_month = new Array(31, 28 + isLeap(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31); // @创建月份数组 
+    
+            var compareTime = new Date().getTime() + (60 * 86400000); // @60天时间的时间段，用来比较的
+    
+            if(dateArr.length == 0) {
+    
+                dateArr.push($filter('date')(today, 'yyyy-MM-dd'));
+    
+                _getDateRegionArray(y, m, dateArr, new Date(), 0);
+            }
+    
+            if(dateArr.length < temp_days_per_month[m]) {
+    
+                var y2 = y;
+                var m2 = m + 1;
+    
+                if(m2 > 11) {
+    
+                    y2 += 1;
+                    m2 = 0;
+    
+                }
+    
+                _getDateRegionArray(y2, m2, dateArr, new Date(), 3);
+    
+                if(dateArr.length < 60) {
+                    
+                    var y3 = y2;
+                    var m3 = m2 + 1;
+    
+                    if(m3 > 11) {
+                        
+                        y3 += 1;
+                        m3 = 0;
+    
+                    }
+    
+                    _getDateRegionArray(y3, m3, dateArr, new Date(compareTime), 1);
+    
+                }
+    
+                
+            } else if(dateArr.length == temp_days_per_month[m]) {
+    
+                var y2 = y;
+                var m2 = m + 1;
+    
+                if(m2 > 11) {
+    
+                    y2 += 1;
+                    m2 = 0;
+    
+                }
+    
+                _getDateRegionArray(y2, m2, dateArr, new Date(), 3);
+    
+            }
+    
+        }
+
+        // @从数组中删除某个元素
+        function removeByValue(arr, val) {
+            for(var i=0; i<arr.length; i++) { if(arr[i]==val) { arr.splice(i, 1); break; } }
+        }
+
+        $scope.dateArr = []; // @不可用的日期数组
+        
+        if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
+
+            $scope.dateArrTemp = [];
+
+            getTodayToAfterTwoMonthRegionArray($scope.dateArrTemp);
+
+            // @先格式化counts数组
+            $scope.ticketInfo.counts.forEach(function(item, value) {
+                $filter('date')(item, 'yyyy-MM-dd');
+            });
+
+            $scope.dateArr = arrayMinus($scope.ticketInfo.counts, $scope.dateArrTemp);
+            
         } else {
-            $scope.disabledWeeks = [];
-            $scope.canPurchaseInfo = false;
+
         }
 
         console.log("订单页：被禁用的星期数组");        
@@ -1855,11 +2016,12 @@ app
                 closeLabel: '返回',
                 from: new Date(),
                 to: new Date(compareTime), // @11对应十二月，差1
+                disabledDates: $scope.dateArr,
                 dateFormat: 'yyyy-MM-dd', // @可选
                 closeOnSelect: true, // @可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
                 inputDate: new Date(),
                 templateType: 'modal',
-                disableWeekdays: $scope.disabledWeeks
+                // disableWeekdays: $scope.disabledWeeks
             };
             ionicDatePicker.openDatePicker(ipObj1);
 

@@ -1,6 +1,6 @@
-angular
-.module('app', [
+angular.module('app', [
         'ionic',
+        'ngTouch',
         'ion-datetime-picker',
         'ngAnimate',
         'ionic-datepicker'
