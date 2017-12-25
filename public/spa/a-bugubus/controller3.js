@@ -1809,8 +1809,9 @@ app
     
                         if(flag == 0) { // @start日期
     
+                            // var temp_m = Number.parseInt(m);
                             var temp_m = Number.parseInt(m) + 1;
-                            var temp_date_str = y + '-' + temp_m + '-' + temp_date;
+                            var temp_date_str = y + '/' + temp_m + '/' + temp_date;
     
                             if(new Date(temp_date_str) >= compareDate) {
                                 // $filter('date')(new Date(temp_date_str), 'yyyy-MM-dd')
@@ -1819,8 +1820,9 @@ app
 
                         } else if(flag == 1) { // @截止日期
     
+                            // var temp_m = Number.parseInt(m);
                             var temp_m = Number.parseInt(m) + 1;
-                            var temp_date_str = y + '-' + temp_m + '-' + temp_date;
+                            var temp_date_str = y + '/' + temp_m + '/' + temp_date;
     
                             if(new Date(temp_date_str) <= compareDate) {
                                 dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy/MM/dd'));
@@ -1828,8 +1830,9 @@ app
     
                         } else { // @无限制
     
+                            // var temp_m = Number.parseInt(m);
                             var temp_m = Number.parseInt(m) + 1;
-                            var temp_date_str = y + '-' + temp_m + '-' + temp_date;
+                            var temp_date_str = y + '/' + temp_m + '/' + temp_date;
                             
                             dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy/MM/dd'));
     
@@ -1856,7 +1859,7 @@ app
     
             if(dateArr.length == 0) {
     
-                dateArr.push($filter('date')(today, 'yyyy-MM-dd'));
+                dateArr.push($filter('date')(today, 'yyyy/MM/dd'));
     
                 _getDateRegionArray(y, m, dateArr, new Date(), 0);
             }
