@@ -1944,6 +1944,10 @@ app
         } else {
 
         }
+
+        for(var i = 0; i < $scope.dateArr.length; i++) {
+            $scope.dateArr[i] = new Date($scope.dateArr[i]);
+        }
         
         var compareTimeTemp1 = new Date();
         var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
