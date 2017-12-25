@@ -1920,43 +1920,43 @@ app
 
         $scope.dateArr = []; // @不可用的日期数组
 
-        getTodayToAfterTwoMonthRegionArray($scope.dateArr);       
+        // getTodayToAfterTwoMonthRegionArray($scope.dateArr);       
         
         
-        removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/24'), 'yyyy/MM/dd'));
-        removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/26'), 'yyyy/MM/dd'));
-        removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/28'), 'yyyy/MM/dd'));
-        removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/29'), 'yyyy/MM/dd'));
-        removeByValue($scope.dateArr, $filter('date')(new Date('2018/01/01'), 'yyyy/MM/dd'));
-        removeByValue($scope.dateArr, $filter('date')(new Date('2018/01/02'), 'yyyy/MM/dd'));
+        // removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/24'), 'yyyy/MM/dd'));
+        // removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/26'), 'yyyy/MM/dd'));
+        // removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/28'), 'yyyy/MM/dd'));
+        // removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/29'), 'yyyy/MM/dd'));
+        // removeByValue($scope.dateArr, $filter('date')(new Date('2018/01/01'), 'yyyy/MM/dd'));
+        // removeByValue($scope.dateArr, $filter('date')(new Date('2018/01/02'), 'yyyy/MM/dd'));
         
-        // if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
+        if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
 
-        //     $scope.dateArrTemp = [];
+            $scope.dateArrTemp = [];
 
-        //     getTodayToAfterTwoMonthRegionArray($scope.dateArrTemp);
+            getTodayToAfterTwoMonthRegionArray($scope.dateArrTemp);
 
-        //     // @先格式化counts数组
-        //     // $scope.ticketInfo.counts.forEach(function(item) {
-        //     //     item = $filter('date')(item, 'yyyy-MM-dd');
-        //     // });
+            // @先格式化counts数组
+            // $scope.ticketInfo.counts.forEach(function(item) {
+            //     item = $filter('date')(item, 'yyyy-MM-dd');
+            // });
 
-        //     for(var i = 0; i < $scope.ticketInfo.counts.length; i++) {
-        //         $scope.ticketInfo.counts[i] = $filter('date')($scope.ticketInfo.counts[i], 'yyyy/MM/dd');
-        //     }
+            for(var i = 0; i < $scope.ticketInfo.counts.length; i++) {
+                $scope.ticketInfo.counts[i] = $filter('date')($scope.ticketInfo.counts[i], 'yyyy/MM/dd');
+            }
 
-        //     // removeByValue($scope.dateArr, $filter('date')(new Date('2017-12-25'), 'yyyy-MM-dd'));
+            // removeByValue($scope.dateArr, $filter('date')(new Date('2017-12-25'), 'yyyy-MM-dd'));
 
-        //     console.log("测试");
-        //     console.log($scope.ticketInfo.counts);
-        //     console.log($scope.dateArrTemp);
+            console.log("测试");
+            console.log($scope.ticketInfo.counts);
+            console.log($scope.dateArrTemp);
 
-        //     $scope.dateArr = arrayMinus($scope.dateArrTemp, $scope.ticketInfo.counts);
-        //     console.log($scope.dateArr);
+            $scope.dateArr = arrayMinus($scope.dateArrTemp, $scope.ticketInfo.counts);
+            console.log($scope.dateArr);
             
-        // } else {
+        } else {
 
-        // }
+        }
 
         for(var i = 0; i < $scope.dateArr.length; i++) {
             $scope.dateArr[i] = new Date($scope.dateArr[i]);
