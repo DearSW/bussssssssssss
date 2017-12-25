@@ -1814,7 +1814,7 @@ app
     
                             if(new Date(temp_date_str) >= compareDate) {
                                 // $filter('date')(new Date(temp_date_str), 'yyyy-MM-dd')
-                                dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy-MM-dd'));
+                                dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy/MM/dd'));
                             }
 
                         } else if(flag == 1) { // @截止日期
@@ -1823,7 +1823,7 @@ app
                             var temp_date_str = y + '-' + temp_m + '-' + temp_date;
     
                             if(new Date(temp_date_str) <= compareDate) {
-                                dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy-MM-dd'));
+                                dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy/MM/dd'));
                             }
     
                         } else { // @无限制
@@ -1831,7 +1831,7 @@ app
                             var temp_m = Number.parseInt(m) + 1;
                             var temp_date_str = y + '-' + temp_m + '-' + temp_date;
                             
-                            dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy-MM-dd'));
+                            dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy/MM/dd'));
     
                         }
     
@@ -1929,7 +1929,7 @@ app
             // });
 
             for(var i = 0; i < $scope.ticketInfo.counts.length; i++) {
-                $scope.ticketInfo.counts[i] = $filter('date')($scope.ticketInfo.counts[i], 'yyyy-MM-dd');
+                $scope.ticketInfo.counts[i] = $filter('date')($scope.ticketInfo.counts[i], 'yyyy/MM/dd');
             }
 
             // removeByValue($scope.dateArr, $filter('date')(new Date('2017-12-25'), 'yyyy-MM-dd'));
