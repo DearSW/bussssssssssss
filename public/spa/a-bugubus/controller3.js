@@ -1922,14 +1922,6 @@ app
 
         // getTodayToAfterTwoMonthRegionArray($scope.dateArr);       
         
-        
-        // removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/24'), 'yyyy/MM/dd'));
-        // removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/26'), 'yyyy/MM/dd'));
-        // removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/28'), 'yyyy/MM/dd'));
-        // removeByValue($scope.dateArr, $filter('date')(new Date('2017/12/29'), 'yyyy/MM/dd'));
-        // removeByValue($scope.dateArr, $filter('date')(new Date('2018/01/01'), 'yyyy/MM/dd'));
-        // removeByValue($scope.dateArr, $filter('date')(new Date('2018/01/02'), 'yyyy/MM/dd'));
-        
         if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
 
             $scope.dateArrTemp = [];
