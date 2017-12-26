@@ -125,101 +125,26 @@ angular.module('app', [
              * @选择地址 开始
              * 
              ************************/
+
             .state('select_location',{
                 url: '/select_location/{params}/{status}',
                 templateUrl:basePath+'tpl/select-location.html'
             })
+
             .state('select_address',{
                 url:'/select_address/{params}',
                 templateUrl:basePath+'tpl/select-address.html'
             })
+
+            /*城市选择*/
+            .state('select_city',{
+                url:'/select_city',
+                templateUrl:basePath+'tpl/select_city.html'
+            })
+            
             /************************ 
              * 
              * @选择地址 结束
-             * 
-             ************************/
-
-
-            /************************ 
-             * 
-             * @发起新线路 开始
-             * 
-             ************************/
-            //发起新线路
-            .state('create_route',{
-                url:'/create_route?openid&java',
-                templateUrl:basePath+'tpl/create-route.html'
-            })
-            //添加新线路成功
-            .state('create_route_success',{
-                url:'/create_route_success',
-                templateUrl:basePath+'tpl/create-route-success.html'
-            })
-            //带开通班次列表
-            .state('schedule_will_open',{
-                url:'/schedule_will_open',
-                templateUrl:basePath+'tpl/schedule-will-open.html'
-            })
-            //已开通班次列表
-            .state('schedule_opened',{
-                url:'/schedule_opened',
-                templateUrl:basePath+'tpl/schedule-opened.html'
-            })
-            
-            .state('ticket',{
-                //乘车界面主目录，展示用户购买的车票，此目录下需要对用户进行权限过滤
-                abstract: true,
-                url:'/ticket',
-                template: '<div ui-view class="fadeInUp animated"></div>'
-            })
-            .state('ticket.month',{
-                //跳转到月票界面
-                url:'/month',
-                templateUrl:basePath+'tpl/ticket_month.html'
-            })
-            .state('ticket.pay',{
-                //跳转到月票界面
-                url:'/pay?bsid&chargingtype&staddr&edaddr&addprice&addtime',
-                templateUrl:basePath+'tpl/schedule-ticket-pay.html'
-            })
-            .state('ticket.daypay',{
-                //跳转到次票界面
-                url:'/daypay?bsid&chargingtype',
-                templateUrl:basePath+'tpl/schedule-ticketday-pay.html'
-            })
-            .state('ticket.detail',{
-                //跳转到车票详情界面
-                url:'/detail?ticketid',
-                templateUrl:basePath+'tpl/ticket_detail.html'
-            })
-            .state('ticket.store',{
-                //跳转到月票界面
-                url:'/store',
-                templateUrl:basePath+'tpl/ticket_store.html'
-            })
-            //班次主目录
-            .state('schedule',{
-                abstract: true,
-                url:'/schedule',
-                template:'<div ui-view class="fadeInUp animated"></div>' // 向ui-view中插入简单的HTML内容
-            })
-            //班次详情
-
-            //url:'/detail?bsid&mode&chargingtype&staddr&edaddr&stoplist',
-            .state('schedule.detail',{
-                //我的用户主目录 ids 表示需要在地图上显示的多个班次ID, buyMode表示是否显示购买按钮,0表示显示，1表示不显示
-                url:'/detail?stopStationobj',
-                templateUrl:basePath+'tpl/schedule-detail.html',
-            })
-            //班次详情
-            .state('schedule.detail2', {
-                //我的用户主目录 ids 表示需要在地图上显示的多个班次ID, buyMode表示是否显示购买按钮,0表示显示，1表示不显示
-                url: '/detail2?bsid&mode&chargingtype',
-                templateUrl: basePath + 'tpl/schedule-detail2.html',
-            })
-            /************************ 
-             * 
-             * @发起新线路 结束
              * 
              ************************/
 
@@ -249,41 +174,9 @@ angular.module('app', [
              * 
              ************************/
 
-            .state('signup_success',{
-                //报名成功后跳转的页面
-                url:'/signup_success?goBsid&backBsid',
-                templateUrl:basePath+'tpl/signup-success.html',
-            })
-            //订单主目录
-            .state('order',{
-                abstract: true,
-                url:'/order',
-                template:'<div ui-view class="fadeInUp animated"></div>',
-            })
-            .state('order.list',{
-                //报名成功后跳转的页面
-                url:'/list',
-                templateUrl:basePath+'tpl/pay-order-list.html',
-            })
-            .state('ticket.recharge',{
-                //报名成功后跳转的页面
-                url:'/recharge',
-                templateUrl:basePath+'tpl/ticket_recharge.html',
-            })
-            .state('ticket.recharge2',{
-                //跳转到第二充值页面
-                url:'/recharge2',
-                templateUrl:basePath+'tpl/ticket_recharge_2.html',
-            })
-            .state('ticket.pay_success',{
-                //购票成功
-                url:'/pay_success?orderList',
-                templateUrl:basePath+'tpl/schedule-ticket-pay-success.html',
-            })
-
             /************************ 
              * 
-             ****** 包车服务   开始
+             * @包车服务   开始
              * 
              ************************/
             //包车服务
@@ -314,11 +207,7 @@ angular.module('app', [
                 url:'/bus_service_history',
                 templateUrl:basePath+'tpl/bus_service_history.html'
             })
-            //链接跳转的界面
-            //.state('bus_href_success',{
-            //    url:'/bus_href_success',
-            //    templateUrl:basePath+'tpl/bus_href_success.html'
-            //})
+
             //跳转支付界面
             .state('bus_service_pay',{
                 url:'/bus_service_pay?totalfee&charterid',
@@ -330,33 +219,6 @@ angular.module('app', [
              ****** 包车服务   结束
              * 
              ************************/
-
-            //景观主目录
-            .state('sight_recommend_list',{
-                url:'/sight_recommend_list',
-                templateUrl:basePath+'tpl/sight_recommend_list.html'
-            })
-
-            /*详情列表*/
-            .state('sight_details_list',{
-                url:'/sight_details_list',
-                templateUrl:basePath+'tpl/sight_details_list.html'
-            })
-            /*详情页*/
-            .state('sight_details_page',{
-                url:'/sight_details_page',
-                templateUrl:basePath+'tpl/sight_details_page.html'
-            })
-            /*景区直通车预定*/
-            .state('sight_pay',{
-                url:'/sight_pay',
-                templateUrl:basePath+'tpl/sight_pay.html'
-            })
-            /*城市选择*/
-            .state('select_city',{
-                url:'/select_city',
-                templateUrl:basePath+'tpl/select_city.html'
-            })
 
             /***********************************
              * 
