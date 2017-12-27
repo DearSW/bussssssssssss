@@ -491,94 +491,33 @@ app
      */
     .controller('Tabs', function($rootScope, $scope, $state, $timeout,  $myHttpService, $myLocationService, $filter, ionicDatePicker, $ionicModal) {
 
-        $scope.ticketsInfo1 = ''; // @图片推荐产品 数据
-        $scope.ticketsInfo2 = []; // @手动搜索产品 数据
-        $scope.commentsInfo = []; // @点评 数据
-        $scope.paramsProductId = ''; // @产品ID，查询评论用
-        $scope.sourceComeType = ''; // @类型来源判断，true：图片推荐接口来的；false：手动搜索接口来的
-        $rootScope.currentSelectedDate = null;
-
-        // @Mock数据 接口 api/product/queryProductList
-        /* $scope.ticketsInfoMock = [
-            {
-                "viewName": "黔灵山公园",
-                "productid": "1234567890",
-                "productType": 0,
-                "viewid": "4396",
-                "haveTicket": 1,
-                "departtime": "8:00",
-                "backDeparttime": "8:00",
-                "drivetime": 30,
-                "leftTickets": 30,
-                "totalTickets": 60,
-                "departaddr": "贵州饭店北京路66号",
-                "arriveaddr": "黔灵山东门客车站",
-                "departName": "贵州饭店",
-                "arriveName": "黔灵山公园",
-                "viewPrices": [
-                    {
-                        "viewPriceId": "43962",
-                        "viewCoupon": 8.8,
-                        "viewPrice": 5.0,
-                        "viewPriceType": "儿童票",
-                        "couponPrice": 4.4,
-                    },
-                    {
-                        "viewPriceId": "43963",
-                        "viewCoupon": 8.8,
-                        "viewPrice": 10.0,
-                        "viewPriceType": "成人票",
-                        "couponPrice": 8.8,
-                    }
-                ],
-                "gobdid": "4396",
-                "departdate": "2017-10-30",
-                "productPrice": 29.50,
-            },
-            {
-                "viewName": "黔灵山公园",
-                "productid": "1234567890",
-                "productType": 1,
-                "viewid": "4396",
-                "haveTicket": 1,
-                "departtime": "8:00",
-                "backDeparttime": "16:00",
-                "drivetime": 30,
-                "leftTickets": 30,
-                "totalTickets": 60,
-                "departaddr": "贵州饭店北京路66号",
-                "arriveaddr": "黔灵山东门客车站",
-                "departName": "贵州饭店",
-                "arriveName": "黔灵山公园",
-                "viewPrices": [
-                    {
-                        "viewPriceId": "43962",
-                        "viewCoupon": 8.8,
-                        "viewPrice": 5.0,
-                        "viewPriceType": "儿童票",
-                        "couponPrice": 4.4,
-                    },
-                    {
-                        "viewPriceId": "43963",
-                        "viewCoupon": 8.8,
-                        "viewPrice": 10.0,
-                        "viewPriceType": "成人票",
-                        "couponPrice": 8.8,
-                    }
-                ],
-                "gobdid": "4396",
-                "backbdid": "43961",
-                "departdate": "2017-10-30",
-                "productPrice": 29.50,
-            }
-        ]; */
-
-        // @接收 首页 传递过来的参数，并解析
+        
+        // @接收 首页 传递过来的参数，并解析，打印
         var paramsData = JSON.parse($state.params.data);
+        console.log("产品页：从首页传递过来的参数打印。");
+        console.log(paramsData);
 
         if(paramsData != null) { // @进入产品页 有参数时
 
+            $scope.ticketsInfo1 = []; // @图片推荐产品 数据
+            
+            $scope.ticketsInfo2 = []; // @手动搜索产品 数据
+    
+            $scope.commentsInfo = []; // @点评 数据
+    
+            $scope.paramsProductId = ''; // @产品ID，查询评论用
+            $scope.sourceComeType = ''; // @类型来源判断，true：图片推荐接口来的；false：手动搜索接口来的
+    
+            $rootScope.currentSelectedDate = null; // @当前的时间选择
+
+
+            console.log("产品页：有参数的流程。");
+
             if(paramsData.hasOwnProperty('productid')) { // @一、图片推荐类型的产品列表
+
+                console.log("产品页：图片推荐类型流程，有参数，productid");
+                
+                $rootScope.currentSelectedDate = $filter('date')(new Date(), 'yyyy-MM-dd'); // @当前的时间选择
 
                 $scope.sourceComeType = true; // @类型来源 判断
 
@@ -587,8 +526,7 @@ app
                 sessionStorage.setItem('jqztc_cpy_paramsProductId', paramsData.productid); // @给没有参数进入产品页时使用 存储数据，以便后用
 
                 $scope.paramsProductId = paramsData.productid;  // @产品ID，查询评论用
-
-                console.log("产品页：图片推荐类型流程，有参数，productid");
+                
 
                 var requestData = {
                     productid: paramsData.productid,
@@ -666,15 +604,16 @@ app
                 
             } else { // @二、手动搜索类型的产品列表
 
+                console.log("产品页：手动搜索类型流程，有参数，productid");                                
+
                 $scope.sourceComeType = false; // @数据来源 判断
+
+                $rootScope.currentSelectedDate = paramsData.date; // @当前选择的时间
 
                 sessionStorage.setItem('jqztc_cpy_requestUrlType', '1'); // @数据来源 判断 存储数据，以便后用
 
                 sessionStorage.setItem('tabsParamsDataInput', paramsData.input); // @存储数据，以便后用
                 sessionStorage.setItem('tabsParamsDataDate', paramsData.date); // @存储数据，以便后用
-                
-                $rootScope.currentSelectedDate = paramsData.date; // @参数接收 日期数据
-                $rootScope.currentSelectedRoadLine = paramsData.input; // @参数接收 线路选择数据
                 
                 var requestData = { // @请求参数封装
                     keyword: paramsData.input,
@@ -698,7 +637,7 @@ app
                     } else {
 
                         layer.open({
-                            content: '客官，没有找到相关产品信息，请重新搜索 (╯-╰)',
+                            content: '没有找到相关产品信息，请重新搜索 (╯-╰)',
                             btn: '确定',
                             yes: function(index){
                                 $timeout(function() {
@@ -716,6 +655,8 @@ app
             }
 
         } else { // @进入产品页 没有参数时
+
+            console.log("产品页：无参数的流程。");            
 
             if(sessionStorage.getItem('jqztc_cpy_requestUrlType') == '0') {  // @一、图片推荐类型的产品列表
  
@@ -1016,6 +957,268 @@ app
         $scope.readonly = true; // @是否可读，此处为可读
         $scope.onHover = function(val){};
         $scope.onLeave = function(){};
+
+        // @日期选择
+
+        // @下一天 
+        $scope.nextDay = function() {
+            
+            var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // @ms
+            var temp1 = new Date();
+            var temp2 = $filter('date')(temp1, 'yyyy-MM-dd');
+            var endTime = new Date(temp2).getTime() + (60 * 86400000);
+
+            if(nextDayTime <= endTime) {
+
+                var temp = new Date(nextDayTime);
+                $rootScope.currentSelectedDate = $filter('date')(temp, 'yyyy-MM-dd');
+                $rootScope.currentSelectedDate2 = "周" + "日一二三四五六".charAt(new Date($rootScope.currentSelectedDate).getDay());
+        
+            } else {
+                layer.open({
+                    content: '不在预售范围内，预售期仅为60天，请重新选择！',
+                    btn: '确定'
+                });
+            }
+        }
+            
+        // @上一天
+        $scope.prevDay = function() {
+
+
+            var prevDayTime = new Date($rootScope.currentSelectedDate).getTime() - (1 * 86400000); // ms
+
+            var temp3 = new Date();
+            var temp4 = $filter('date')(temp3, 'yyyy-MM-dd');
+
+            var startTime = new Date(temp4).getTime();
+
+            // var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // ms
+            // var endTime = new Date().getTime() + (60 * 86400000);
+
+            if(prevDayTime >= startTime) {
+
+                var temp = new Date(prevDayTime);
+                $rootScope.currentSelectedDate = $filter('date')(temp, 'yyyy-MM-dd');
+                $rootScope.currentSelectedDate2 = "周" + "日一二三四五六".charAt(new Date($rootScope.currentSelectedDate).getDay());                
+               
+
+            } else {
+                var temp = new Date();
+                var temp2 = $filter('date')(temp, 'yyyy-MM-dd');
+                layer.open({
+                    content: '选择日期仅当从' + temp2 + '往后' ,
+                    btn: '确定'
+                });
+            }
+        }
+
+        // @判断当前年份是否是闰年(闰年2月份有29天，平年2月份只有28天)
+        function isLeap(year) {
+            return year % 4 == 0 ? (year % 100 != 0 ? 1 : (year % 400 == 0 ? 1 : 0)) : 0;
+        }
+  
+        function _getDateRegionArray(y, m, dateArr, compareDate, flag) {
+    
+            if (m > 11) {
+                y += 1;
+                m = 0;
+            }
+    
+            var i, k,
+                firstday = new Date(y, m, 1), // @获取当月的第一天
+                dayOfWeek = firstday.getDay(), // @判断第一天是星期几(返回[0-6]中的一个，0代表星期天，1代表星期一，以此类推)
+                days_per_month = new Array(31, 28 + isLeap(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31), // @创建月份数组
+                str_nums = Math.ceil((dayOfWeek + days_per_month[m]) / 7); // @确定日期表格所需的行数
+    
+            for (i = 0; i < str_nums; i += 1) { // @二维数组创建日期表格
+    
+                for (k = 0; k < 7; k++) {
+                    var idx = 7 * i + k; // @为每个表格创建索引,从0开始
+                    var date = idx - dayOfWeek + 1; // @将当月的1号与星期进行匹配
+    
+                    var temp_date = idx - dayOfWeek + 1;
+    
+                    if (temp_date <= 0 || temp_date > days_per_month[m]) { // @无效的时间
+    
+                    } else { // @有效的时间
+    
+    
+                        if(flag == 0) { // @start日期
+    
+                            // var temp_m = Number.parseInt(m);
+                            var temp_m = Number.parseInt(m) + 1;
+                            var temp_date_str = y + '/' + temp_m + '/' + temp_date;
+    
+                            if(new Date(temp_date_str) >= compareDate) {
+                                // $filter('date')(new Date(temp_date_str), 'yyyy-MM-dd')
+                                dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy/MM/dd'));
+                            }
+
+                        } else if(flag == 1) { // @截止日期
+    
+                            // var temp_m = Number.parseInt(m);
+                            var temp_m = Number.parseInt(m) + 1;
+                            var temp_date_str = y + '/' + temp_m + '/' + temp_date;
+    
+                            if(new Date(temp_date_str) <= compareDate) {
+                                dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy/MM/dd'));
+                            }
+    
+                        } else { // @无限制
+    
+                            // var temp_m = Number.parseInt(m);
+                            var temp_m = Number.parseInt(m) + 1;
+                            var temp_date_str = y + '/' + temp_m + '/' + temp_date;
+                            
+                            dateArr.push($filter('date')(new Date(temp_date_str), 'yyyy/MM/dd'));
+    
+                        }
+    
+                    }
+    
+                }
+            }
+            console.log(dateArr);
+        }
+    
+        // @从今天往后推两个月时间
+        function getTodayToAfterTwoMonthRegionArray(dateArr) {
+    
+            // @初始化数据
+            var today = new Date(); // @获取当前日期
+            var y = today.getFullYear(); // @获取日期中的年份
+            var m = today.getMonth(); // @获取日期中的月份(需要注意的是：月份是从0开始计算，获取的值比正常月份的值少1)
+            var d = today.getDate(); // @获取日期中的日(方便在建立日期表格时高亮显示当天)
+            var temp_days_per_month = new Array(31, 28 + isLeap(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31); // @创建月份数组 
+    
+            var compareTime = new Date().getTime() + (60 * 86400000); // @60天时间的时间段，用来比较的
+    
+            if(dateArr.length == 0) {
+    
+                dateArr.push($filter('date')(today, 'yyyy/MM/dd'));
+    
+                _getDateRegionArray(y, m, dateArr, new Date(), 0);
+            }
+    
+            if(dateArr.length < temp_days_per_month[m]) {
+    
+                var y2 = y;
+                var m2 = m + 1;
+    
+                if(m2 > 11) {
+    
+                    y2 += 1;
+                    m2 = 0;
+    
+                }
+    
+                _getDateRegionArray(y2, m2, dateArr, new Date(), 3);
+    
+                if(dateArr.length < 60) {
+                    
+                    var y3 = y2;
+                    var m3 = m2 + 1;
+    
+                    if(m3 > 11) {
+                        
+                        y3 += 1;
+                        m3 = 0;
+    
+                    }
+    
+                    _getDateRegionArray(y3, m3, dateArr, new Date(compareTime), 1);
+    
+                }
+    
+                
+            } else if(dateArr.length == temp_days_per_month[m]) {
+    
+                var y2 = y;
+                var m2 = m + 1;
+    
+                if(m2 > 11) {
+    
+                    y2 += 1;
+                    m2 = 0;
+    
+                }
+    
+                _getDateRegionArray(y2, m2, dateArr, new Date(), 3);
+    
+            }
+    
+        }
+
+        // @从数组中删除某个元素
+        function removeByValue(arr, val) {
+            for(var i=0; i<arr.length; i++) { if(arr[i]==val) { arr.splice(i, 1); break; } }
+        }
+
+        $scope.dateArr = []; // @不可用的日期数组
+
+        // getTodayToAfterTwoMonthRegionArray($scope.dateArr);       
+        
+        if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
+
+            $scope.dateArrTemp = [];
+
+            getTodayToAfterTwoMonthRegionArray($scope.dateArrTemp);
+
+            // @先格式化counts数组
+            // $scope.ticketInfo.counts.forEach(function(item) {
+            //     item = $filter('date')(item, 'yyyy-MM-dd');
+            // });
+
+            for(var i = 0; i < $scope.ticketInfo.counts.length; i++) {
+                $scope.ticketInfo.counts[i] = $filter('date')($scope.ticketInfo.counts[i], 'yyyy/MM/dd');
+            }
+
+            // removeByValue($scope.dateArr, $filter('date')(new Date('2017-12-25'), 'yyyy-MM-dd'));
+
+            console.log("测试");
+            console.log($scope.ticketInfo.counts);
+            console.log($scope.dateArrTemp);
+
+            $scope.dateArr = arrayMinus($scope.dateArrTemp, $scope.ticketInfo.counts);
+            console.log($scope.dateArr);
+            
+        } else {
+
+        }
+
+        for(var i = 0; i < $scope.dateArr.length; i++) {
+            $scope.dateArr[i] = new Date($scope.dateArr[i]);
+        }
+        
+        var compareTimeTemp1 = new Date();
+        var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
+        var compareTime = new Date(compareTimeTemp2).getTime() + (60 * 86400000); // @60天时间
+        $scope.selectDay = function(val) {
+
+            var ipObj1 = {
+                callback: function (val) {  // @必选
+
+                    var val2 = new Date(val);
+                    $rootScope.currentSelectedDate = $filter('date')(val2, 'yyyy-MM-dd');
+                    $rootScope.currentSelectedDate2 = "周" + "日一二三四五六".charAt(new Date($rootScope.currentSelectedDate).getDay());
+
+                },
+                titleLabel: '选择日期',
+                closeLabel: '返回',
+                from: new Date(),
+                to: new Date(compareTime), // @11对应十二月，差1
+                disabledDates: $scope.dateArr,
+                dateFormat: 'yyyy-MM-dd', // @可选
+                closeOnSelect: true, // @可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
+                inputDate: new Date(),
+                templateType: 'modal',
+                // disableWeekdays: $scope.disabledWeeks
+            };
+            ionicDatePicker.openDatePicker(ipObj1);
+
+        }
+
 
     })
 
@@ -4256,5 +4459,10 @@ app
  *   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *                     佛祖保佑        永无BUG
  *                     佛祖保佑        永无BUG
+ * 
+ *                     操你妈的狗逼设计和策划
+ *                     操你妈的狗逼设计和策划
+ *                     操你妈的狗逼设计和策划
+ *                     操你妈的狗逼设计和策划
  */
     
