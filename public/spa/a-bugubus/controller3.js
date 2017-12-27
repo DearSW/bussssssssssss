@@ -499,6 +499,8 @@ app
 
         if(paramsData != null) { // @进入产品页 有参数时
 
+            $rootScope.jqztc_tab1_dateArr = []; // @不可用的日期数组 !!!
+
             $scope.ticketsInfo1 = []; // @图片推荐产品 数据
             
             $scope.ticketsInfo2 = []; // @手动搜索产品 数据
@@ -537,9 +539,35 @@ app
                 $myHttpService.post('api/product/queryProduct', requestData, function(data) {
 
                     console.log("产品页：图片推荐产品列表API返回的数据");
-                    console.log(data);
-
+                    console.log(data);   
+                            
                     $scope.ticketsInfo1 = data.product; // @产品对象
+
+                    if($scope.ticketInfo1.counts != null && $scope.ticketInfo1.counts.length != 0) {
+            
+                        $scope.dateArrTemp = [];
+            
+                        getTodayToAfterTwoMonthRegionArray($scope.dateArrTemp);
+            
+                        // @格式化
+                        for(var i = 0; i < $scope.ticketInfo.counts.length; i++) {
+                            $scope.ticketInfo.counts[i] = $filter('date')($scope.ticketInfo.counts[i], 'yyyy/MM/dd');
+                        }
+            
+                        // removeByValue($scope.dateArr, $filter('date')(new Date('2017-12-25'), 'yyyy-MM-dd'));
+            
+                        console.log("测试");
+                        console.log($scope.ticketInfo.counts);
+                        console.log($scope.dateArrTemp);
+            
+                        $rootScope.jqztc_tab1_dateArr = arrayMinus($scope.dateArrTemp, $scope.ticketInfo.counts);
+                        console.log($rootScope.jqztc_tab1_dateArr);
+                        
+                    }
+            
+                    for(var i = 0; i < $rootScope.jqztc_tab1_dateArr.length; i++) {
+                        $$rootScope.jqztc_tab1_dateArr[i] = new Date($rootScope.jqztc_tab1_dateArr[i]);
+                    }
                     
                     storageData('jqztc_cpy_ticketsInfo1', $scope.ticketsInfo1); // @存储数据，以便后用 
 
@@ -752,9 +780,35 @@ app
         // @购买按钮函数 传递参数
         $scope.purchase = function(item, i) {
 
-            console.log("产品页：点击购买按钮传递的参数");
-            console.log(item);
-            $state.go('order_confirm_pay', {data: JSON.stringify(item)});
+            // @首先判断当前的点击对象是不是单独的门票，不是单独的门票的话，再判断余票是不是为零，为零的话弹出对应时间的日期选择框，不为零，进入购买页面。
+
+            if(item.plans != null) { // @不是单独的门票
+
+                if(item.leftTickets == 0) {
+                    
+                                    
+                    
+                    
+                } else {
+                    console.log("产品页：点击购买按钮传递的参数");
+                    console.log(item);
+                    $state.go('order_confirm_pay', {data: JSON.stringify(item)});
+    
+                }
+
+
+            } else { // @是单独的门票
+
+                console.log("产品页：点击购买按钮传递的参数");
+                console.log(item);
+                $state.go('order_confirm_pay', {data: JSON.stringify(item)});
+
+            }
+
+
+            // console.log("产品页：点击购买按钮传递的参数");
+            // console.log(item);
+            // $state.go('order_confirm_pay', {data: JSON.stringify(item)});
 
         };
 
@@ -960,7 +1014,7 @@ app
 
         // @日期选择
 
-        // @下一天 
+        // @后一天 
         $scope.nextDay = function() {
             
             var nextDayTime = new Date($rootScope.currentSelectedDate).getTime() + (1 * 86400000); // @ms
@@ -982,7 +1036,7 @@ app
             }
         }
             
-        // @上一天
+        // @前一天
         $scope.prevDay = function() {
 
 
@@ -1155,41 +1209,7 @@ app
             for(var i=0; i<arr.length; i++) { if(arr[i]==val) { arr.splice(i, 1); break; } }
         }
 
-        $scope.dateArr = []; // @不可用的日期数组
-
-        // getTodayToAfterTwoMonthRegionArray($scope.dateArr);       
         
-        if($scope.ticketInfo.counts != null && $scope.ticketInfo.counts.length != 0) {
-
-            $scope.dateArrTemp = [];
-
-            getTodayToAfterTwoMonthRegionArray($scope.dateArrTemp);
-
-            // @先格式化counts数组
-            // $scope.ticketInfo.counts.forEach(function(item) {
-            //     item = $filter('date')(item, 'yyyy-MM-dd');
-            // });
-
-            for(var i = 0; i < $scope.ticketInfo.counts.length; i++) {
-                $scope.ticketInfo.counts[i] = $filter('date')($scope.ticketInfo.counts[i], 'yyyy/MM/dd');
-            }
-
-            // removeByValue($scope.dateArr, $filter('date')(new Date('2017-12-25'), 'yyyy-MM-dd'));
-
-            console.log("测试");
-            console.log($scope.ticketInfo.counts);
-            console.log($scope.dateArrTemp);
-
-            $scope.dateArr = arrayMinus($scope.dateArrTemp, $scope.ticketInfo.counts);
-            console.log($scope.dateArr);
-            
-        } else {
-
-        }
-
-        for(var i = 0; i < $scope.dateArr.length; i++) {
-            $scope.dateArr[i] = new Date($scope.dateArr[i]);
-        }
         
         var compareTimeTemp1 = new Date();
         var compareTimeTemp2 = $filter('date')(compareTimeTemp1, 'yyyy-MM-dd');
@@ -1208,7 +1228,7 @@ app
                 closeLabel: '返回',
                 from: new Date(),
                 to: new Date(compareTime), // @11对应十二月，差1
-                disabledDates: $scope.dateArr,
+                // disabledDates: $scope.dateArr,
                 dateFormat: 'yyyy-MM-dd', // @可选
                 closeOnSelect: true, // @可选,设置选择日期后是否要关掉界面。呵呵，原本是false。
                 inputDate: new Date(),
