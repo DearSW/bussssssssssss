@@ -1,14 +1,15 @@
 /******************************
  * 
- ****** 贵旅景区直通车  总控制器
+ ***** @贵旅景区直通车  总控制器
  * 
 ******************************/
 var app = angular.module('app');
 app
     /**
-     *  主控制器
+     *  @主控制器
      */
     .controller('AppController', function($rootScope, $scope, $state, $ionicViewSwitcher, $location) {
+
         $rootScope.routerInclude = function(url) {
             //ui-router自带的include有坑，在进行json对象序列化时，序列化出来的对象，name和url均为空
             //如下代码可以进行检测
@@ -32,16 +33,16 @@ app
             }
             return false;
         }
-        /**控制器切换*/
+
+        // @控制器切换
         $scope.changePage = function(route) {
-            /**
-             * 为了防止浏览器留下历史记录
-             */
+            // @为了防止浏览器留下历史记录
             $location.path(route).replace();
         }
+
     })
     /**
-     *  用户注册、登录控制器 %
+     *  @用户注册、登录控制器 
      */
     .controller('LoginController', function($rootScope, $scope, $state, $stateParams, $ionicViewSwitcher, $myHttpService, $location) {
 
@@ -89,14 +90,24 @@ app
         }
 
         $scope.next = function() {
+
+            var requestData = {
+                phone: $scope.user.mobile,
+                authcode: $scope.user.authcode,
+                openid: $rootScope.session.user.openId
+            };
+
+            console.log("注册页：请求参数");
+            console.log(requestData);
+
             $myHttpService.post("auth/login", {
                 phone: $scope.user.mobile,
                 authcode: $scope.user.authcode,
                 openid: $rootScope.session.user.openId
             }, function(data) {
-                //登录成功，更新session
+                // @登录成功，更新session
                 $rootScope.session.user.userInfo = data.user;
-                //登录后检查重定向路径，重定向到登陆前的路径
+                // @登录后检查重定向路径，重定向到登陆前的路径
                 if($stateParams.url) {
                     console.log($stateParams.url);
                     $location.url($stateParams.url).replace(); // 修改当前的url地址(#后面的内容)，且不存入历史记录
@@ -105,34 +116,35 @@ app
                 }
             });
         }
+
     })
     /**
      * 搜索位置界面控制器 （包车相关）%
      */
     .controller('SelectLocationController', function($rootScope, $scope, $state, $myLocationService, $ionicScrollDelegate) {
         
-        // 获取页面传递过来的参数
+        // @获取页面传递过来的参数
         var param = $state.params.params, map = null, status = $state.params.status;
         $scope.address = $rootScope[param];
         $scope.poilist = [];
         if($scope.address) {
-            //存在，可以直接进行地址解析
+            // @存在，可以直接进行地址解析
             $myLocationService.getPoisByKeyword( $scope.address.name, function(data) {
                 var tempArray = [];
-                //对数据进行过滤
+                // @对数据进行过滤
                 for(var i= 0,len=data.length;i<len;i++){
                     if(!(data[i].location==undefined||data[i].location=="")){
                         tempArray.push(data[i]);
                     }
                 }
-                //重新初始化滚动条
+                // @重新初始化滚动条
                 $ionicScrollDelegate.scrollTo(0,0,true);
-                //数据绑定到$scope
+                // @数据绑定到$scope
                 $scope.poilist = tempArray;
                 if($scope.poilist.length>0){
                     $scope.poilist[0].active = true;
                 }
-                //通知angular更新数据
+                // @通知angular更新数据
                 $scope.$apply();
             });
         }else{
@@ -201,7 +213,7 @@ app
             for(var i = 0,len= $scope.poilist.length;i<len;i++){
                 if(index==i){
                     $scope.poilist[i].active = true;
-                    //同时更新数据到address
+                    // @同时更新数据到address
                     $scope.address = {
                         name: item.name,
                         lngLat: item.location.getLng()+","+ item.location.getLat()
@@ -212,22 +224,23 @@ app
             }
             map.setCenter(item.location);
         }
-        /**
-         * 保存数据到根对象
-         */
+
+        // @保存数据到根对象
         $scope.save = function() {
             $rootScope[param] = $scope.address;
             window.history.back(-1);
         };
+
         $scope.openSelectAddress = function() {
             $state.go("select_address", {params:param});
         }
+
     })
     /**
-     * 选择兴趣点列表控制器 （包车相关）%
+     *  @选择兴趣点列表控制器 （包车相关）
      */
     .controller('SelectAddressController', function($rootScope, $scope, $state, $myLocationService, $ionicScrollDelegate) {
-        //先让文本框聚焦
+        // @先让文本框聚焦
         var param = $state.params.params;
         $scope.keyword = {
             text: ""
@@ -294,8 +307,4 @@ app
  *                     佛祖保佑        永无BUG
  *                     佛祖保佑        永无BUG
  * 
- *                     操你妈的狗逼设计和策划
- *                     操你妈的狗逼设计和策划
- *                     操你妈的狗逼设计和策划
- *                     操你妈的狗逼设计和策划
  */

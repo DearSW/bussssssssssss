@@ -39,16 +39,16 @@
 
             .btnfoot6 {
                 background-color: #E8E9EA;
-                border-radius: 0;
-                padding: 0;
+                border-radius: 2px;
                 border-width: 1px;
                 border-color: #D3D4D5;
                 margin-right: -3px;
                 min-width: 0;
                 min-height: 0;
                 line-height: 1;
-                height: 30px;
-                width: 33px;
+                height: 45px;
+                width: 45px;
+                margin-left: 5px;
             }
 
             .btnfont7 {
@@ -58,9 +58,9 @@
                 border-color: #D3D4D5;
                 border-width: 1px;
                 border-radius: 0;
-                margin: 0 -5px;
-                height: 30px;
-                width: 33px;
+                margin: 0 -3px;
+                height: 45px;
+                width: 45px;
                 min-width: 0;
                 min-height: 0;
                 line-height: 1;
@@ -68,7 +68,7 @@
 
             .btnfont8 {
                 background-color: #E8E9EA;
-                border-radius: 0;
+                border-radius: 2px;
                 padding: 0;
                 border-width: 1px;
                 border-color: #D3D4D5;
@@ -76,8 +76,8 @@
                 min-width: 0;
                 min-height: 0;
                 line-height: 1;
-                height: 30px;
-                width: 33px;
+                height: 45px;
+                width: 45px;
             }
             .station-go-address2 {
                 display: inline-block;
@@ -120,33 +120,7 @@
 
         <ion-content>
 
-                    <!-- <div style="
-                        display: block;
-                        height: 40px;
-                        text-align: center;
-                        color: #3D3E3F;
-                        margin: 0 5px;
-                        font-size: 16px;
-                    ">
-            
-                        <div class="row" style="margin-top: 5px;">
-
-                            <div class="col col-20" style="text-align: left;" ng-click="prevDay()">
-                                <span style="display: inline-block;">上一天</span>
-                            </div>
-                    
-                            <div class="col col-60" ng-click="selectDay()">
-                                <span>{{currentSelectedDateOrTime}}({{currentSelectedDateOrTime2}})</span>
-                            </div>
-                    
-                            <div class="col col-20" style="text-align: right;" ng-click="nextDay()">
-                                <span style="display: inline-block;">下一天</span>
-                            </div>
-
-                        </div>
-                    
-                    </div> -->
-
+                    <!-- 0 -->
                     <div class="row" style="padding: 0;">
                     
                         <div class="col col-50" style="padding: 0;">
@@ -158,7 +132,7 @@
                     
                         <div class="col col-50" style="padding: 0;">
                         
-                            <div style="text-align: right;margin: 0px 10px 5px 10px;">
+                            <div style="text-align: right;margin: 10px 10px 0px 10px;">
                                 <i class="icon ion-ios-information-outline" style="color: #f76601;font-size: 17px;margin-right: 3px;"></i><span style="color: #656572;" ng-click="yonghuxuzhi_Fn()">用户须知</span>
                             </div>
 
@@ -178,64 +152,29 @@
                                     <!-- 去程票 -->
                                     <div ng-if="ticketInfo.plans[0] != null">
 
-                                        <div style="border-bottom: 1px solid #D3D4D5;">
+                                        <div style="border-bottom: 1px solid rgba(211, 212, 213, 0.68);padding: 10px 0;">
+
+                                                <div class="row">
+                                                        
+                                                    <div class="col" style="white-space: normal;">
+                                                            <span>
+                                                                    <div class="btnfont btnfontgreen">去程</div>
+                                                            </span>
+                                                            
+                                                            <span style="font-size: 17px;" class="btnfont4">{{ ticketInfo.plans[0].departtime}}</span>
+    
+                                                            <span class="btnfont5"> 单程约{{ ticketInfo.plans[0].drivetime}}分钟 <span>•</span> 剩<span class="btnfont2">{{ ticketInfo.leftTickets}}</span>座/{{ ticketInfo.totalTickets}}座</span>
+                                                        
+                                                    </div>
+    
+                                                </div>
                                                     
                                                 <div class="row startposition">
                                                         <div class="col">
-                                                            <span class="station-mark-orange">车票</span>
                                                             <span class="station-go-address2">{{ticketInfo.plans[0].departName}}</span>
                                                             <span class="station-arrow22"></span>
                                                             <span class="station-arrive-address2">{{ticketInfo.plans[0].arriveName}}</span>
                                                         </div>
-                                                </div>
-                
-                                                <div class="row" style="background: white; margin-top: 3px;" ng-click="">
-
-                                                        <div class="col">
-
-                                                            <div ng-if="ticketInfo_forwardTicket_haveChoosed">
-                                                                <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item" ng-click="ticketInfo_forwardTicket_selectGoTime_Fn()">
-                                                                    <span style="font-size: 17px;">{{ticketInfo_forwardTicket_time}}</span>
-                                                                    <span style="color:#a7a7ab">
-                                                                            <span style="font-size: 14px;display: inline-block;"> · </span>
-                                                                            剩
-                                                                            <span class="btnfont2">{{ticketInfo_forwardTicket_leftTickets}}</span>座/{{ticketInfo_forwardTicket_totalTickets}}座
-                                                                            <span class="item-note"> 
-                                                                                <i class="icon ion-chevron-right padding-left"></i>
-                                                                            </span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div ng-if="!ticketInfo_forwardTicket_haveChoosed">
-                                                                <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item" ng-click="ticketInfo_forwardTicket_selectGoTime_Fn()">
-                                                                    <span style="font-size: 17px;">请选择出发时间</span>
-                                                                    <span style="color:#a7a7ab">
-                                                                            <span class="item-note"> 
-                                                                                <i class="icon ion-chevron-right padding-left"></i>
-                                                                            </span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                </div>
-                
-                                                <div class="row purchase" ng-if="ticketInfo_forwardTicket_haveChoosed">
-
-                                                    <div class="col col-60">
-                                                        <div style="font-size: 17px;white-space: normal;" >票价：{{ticketInfo_forwardTicket_price}}元</div>
-                                                    </div>
-
-                                                    <div class="col col-40" style="text-align: right;">
-                                                        <div>
-                                                                <button class="button  btnfoot6" ng-click="ticketInfo_forwardTicket_decr()">-</button>
-                                                                <button class="button  btnfont7">{{ticketInfo_forwardTicket_count}}</button>
-                                                                <button class="button  btnfont8" ng-click="ticketInfo_forwardTicket_incr()">+</button>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
         
                                         </div>
@@ -245,64 +184,29 @@
                                     <!-- 返程票 -->
                                     <div ng-if="ticketInfo.plans[1] != null">
 
-                                        <div style="border-bottom: 1px solid #D3D4D5;">
+                                        <div style="border-bottom: 1px solid rgba(211, 212, 213, 0.68);padding: 10px 0;">
+
+                                                <div class="row">
+                                                        
+                                                    <div class="col" style="white-space: normal;">
+                                                            <span>
+                                                                    <div class="btnfont btnfontorange">返程</div>
+                                                            </span>
+                                                            
+                                                            <span style="font-size: 17px;" class="btnfont4">{{ ticketInfo.plans[1].departtime}}</span>
+    
+                                                            <span class="btnfont5"> 单程约{{ ticketInfo.plans[1].drivetime}}分钟 <span>•</span> 剩<span class="btnfont2">{{ ticketInfo.leftTickets}}</span>座/{{ ticketInfo.totalTickets}}座</span>
+                                                            
+                                                    </div>
+    
+                                                </div>
                                                     
                                                 <div class="row startposition">
                                                         <div class="col">
-                                                            <span class="station-mark-orange">车票</span>
                                                             <span class="station-go-address2">{{ticketInfo.plans[1].departName}}</span>
                                                             <span class="station-arrow22"></span>
                                                             <span class="station-arrive-address2">{{ticketInfo.plans[1].arriveName}}</span>
                                                         </div>
-                                                </div>
-                
-                                                <div class="row" style="background: white; margin-top: 3px;" ng-click="">
-
-                                                        <div class="col">
-
-                                                            <div ng-if="ticketInfo_backwardTicket_haveChoosed">
-                                                                <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item" ng-click="ticketInfo_backwardTicket_selectGoTime_Fn()">
-                                                                    <span style="font-size: 17px;">{{ticketInfo_backwardTicket_time}}</span>
-                                                                    <span style="color:#a7a7ab">
-                                                                            <span style="font-size: 14px;display: inline-block;"> · </span>
-                                                                            剩
-                                                                            <span class="btnfont2">{{ticketInfo_backwardTicket_leftTickets}}</span>座/{{ticketInfo_backwardTicket_totalTickets}}座
-                                                                            <span class="item-note"> 
-                                                                                <i class="icon ion-chevron-right padding-left"></i>
-                                                                            </span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div ng-if="!ticketInfo_backwardTicket_haveChoosed">
-                                                                <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item" ng-click="ticketInfo_backwardTicket_selectGoTime_Fn()">
-                                                                    <span style="font-size: 17px;">请选择出发时间</span>
-                                                                    <span style="color:#a7a7ab">
-                                                                            <span class="item-note"> 
-                                                                                <i class="icon ion-chevron-right padding-left"></i>
-                                                                            </span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                </div>
-                
-                                                <div class="row purchase" ng-if="ticketInfo_backwardTicket_haveChoosed">
-
-                                                    <div class="col col-60">
-                                                        <div style="font-size: 17px;white-space: normal;" >票价：{{ticketInfo_backwardTicket_price}}元</div>
-                                                    </div>
-
-                                                    <div class="col col-40" style="text-align: right;">
-                                                        <div>
-                                                                <button class="button  btnfoot6" ng-click="ticketInfo_backwardTicket_decr()">-</button>
-                                                                <button class="button  btnfont7">{{ticketInfo_backwardTicket_count}}</button>
-                                                                <button class="button  btnfont8" ng-click="ticketInfo_backwardTicket_incr()">+</button>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
         
                                         </div>
@@ -314,51 +218,26 @@
                                 <!-- 有门票 -->
                                 <div ng-if="ticketInfo.viewInfo != null">
 
-                                    <div style="border-bottom: 1px solid #D3D4D5;">
+                                    <div style="border-bottom: 1px solid rgba(211, 212, 213, 0.68);padding: 10px 0;">
+
+                                        <div class="row">
+                                                
+                                            <div class="col" style="white-space: normal;">
+                                                    <span>
+                                                            <div class="btnfont btnfontblue">门票</div>
+                                                    </span>
+                                                    
+                                                    <span>有效时间：</span><span style="font-size: 17px;">{{currentSelectedDate}}</span>
+                                                    
+                                            </div>
+
+                                        </div>
                                             
                                         <div class="row startposition">
                                                 <div class="col">
-                                                    <span class="station-mark-blue">门票</span>
                                                     <span class="station-go-address2">{{ticketInfo.viewInfo.viewName}}</span>
                                                 </div>
                                         </div>
-        
-                                        <div class="row" style="background: white; margin-top: -10px;">
-                                                <div class="col">
-                                                    <div>
-                                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                                            <span style="font-size: 17px;">有效时间：{{currentSelectedDateOrTime}}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        </div>
-    
-                                        <div class="row" style="background: white; margin-top: -15px;">
-                                                <div class="col">
-                                                        <div>
-                                                            <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                                                <span style="font-size: 17px;">票价：{{ticketInfo_viewInfo_priceStr}}</span>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                        </div>
-        
-                                        <div class="row purchase" ng-repeat="item in ticketInfo.viewInfo.viewPrices track by $index">
-
-                                            <div class="col col-60 col-center">
-                                                <div style="font-size: 17px;white-space: normal;" >{{item.viewPriceType}}</div>
-                                            </div>
-
-                                            <div class="col col-40">
-                                                <div style="text-align: right;">
-                                                        <button class="button  btnfoot6" ng-click="ticket_viewInfo_decr($index)">-</button>
-                                                        <button class="button  btnfont7" my-ng-model="true" >{{$eval('ticketInfo_viewInfo_count' + $index)}}</button>
-                                                        <button class="button  btnfont8" ng-click="ticket_viewInfo_incr($index)">+</button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
 
                                     </div>
 
@@ -386,14 +265,13 @@
                             <div class="col col-60">
                                 <div class="list list-inset">
                                     <label class="item item-input" style="border-radius: 3px;padding-left: 10px;">
-                                        <input style="font-size: 17px;line-height: 1;padding: 5px 0;" type="tel" ng-if="!againObtainCheckCode" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
-                                        <input style="font-size: 16px;line-height: 1;padding: 5px 0;" type="tel" ng-if="againObtainCheckCode" placeholder="请重新获取验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
+                                        <input style="font-size: 17px;line-height: 1;padding: 5px 0;" type="tel" placeholder="请输入验证码" required ng-model="dataContainer.verificationCode" ng-change="payBtnCheck()">
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="col col-40" style="padding-left: 3px;">
-                                <i class="button" ng-click="countdown()" ng-disabled="verificationCodeBtnDisabled" ng-class="{true: 'unselected', false: 'selected'}[verificationCodeBtnDisabled]"  style="width: 92%;border-radius: 3px;font-size: 17px;">
+                            <div class="col col-40" style="padding-left: 1px;">
+                                <i class="button" ng-click="countdown()" ng-disabled="verificationCodeBtnDisabled" ng-class="{true: 'unselected', false: 'selected'}[verificationCodeBtnDisabled]"  style="width: 92%;border-radius: 3px;font-size: 17px;margin: 0;padding: 0;">
                                     <span ng-if="!countdownTxtShow">获取验证码</span><span  ng-if="countdownTxtShow">{{countdownTime}}s</span>
                                 </i>
                             </div>
@@ -419,89 +297,44 @@
                             </div>
                     </div>
 
-                    <!-- 4   -->
-                    <div>
-                        <div class="row" style="background: white; margin-top: 15px;padding: 0;">
-                                <div class="col">
-                                    <div>
-                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                            <span style="font-size: 17px;margin-left: 6px;">商品总价</span>
-                                            <span style="color:#a7a7ab">
-                                                    <span class="item-note" > 
-                                                        <span style="color: black;font-size: 17px;margin-right: 7px;">{{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket + ticketViewSumPrice  | currency: '￥' }}</span>
-                                                    </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-
-                        <!-- 需要判断有无使用优惠券 -->
-                        <div class="row" style="background: white;padding: 0;" ng-if="useCoupon">
-                            <div class="col">
-                                    <div>
-                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                            <span style="font-size: 17px;margin-left: 6px">优惠金额</span>
-                                            <span style="color:#a7a7ab">
-                                                    <span class="item-note"  > 
-                                                        <span style="color: black;font-size: 17px;margin-right: 7px">-{{coupon  | currency: '￥' }}</span>
-                                                    </span>
-                                            </span>
-                                        </div>
-                                    </div>
+                    <div class="row" style="padding-top: 10px;padding-bottom: 0;">
+                        <div class="col" style="padding-bottom: 0;">
+                            <div>
+                                <span style="color:#848383;margin-left: 5px;font-size: 16px;">全票 ￥{{ singlePrice }}</span>
                             </div>
                         </div>
+                    </div>
+                        
+                    <div class="row">
 
-                        <div class="row" style="background: white;padding: 0;padding-bottom: 20px;">
-                                <div class="col">
-                                    <div>
-                                        <div style="margin: 0;border-style: none none none none;padding: 5px 0;color: #020202;" class="item">
-                                            <span style="font-size: 17px;margin-left: 6px;">订单实付</span>
-                                            <span style="color:#a7a7ab">
-                                                    <span class="item-note" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0"> 
-                                                        <span style="color: black;font-size: 17px;margin-right: 7px;">{{  ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}</span>
-                                                    </span>
-                                                    <span class="item-note" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon < 0"> 
-                                                        <span style="color: black;font-size: 17px;margin-right: 7px;">{{  0 + ticketViewSumPrice  | currency: '￥' }}</span>
-                                                    </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col col-66">
+                            <button class="button  btnfoot6" ng-click="decr()">-</button>
+                            <button class="button  btnfont7">{{dataContainer.count}}</button>
+                            <button class="button  btnfont8" ng-click="incr()">+</button>
                         </div>
 
-                        <!-- 支付区域 -->
-                        <!-- <div class="row" style="padding:0;">
-                                <div class="col col-60" style="background: #E6E7E8;">
-                                    <div>
-                                        <div style="margin: 0;border-style: none none none none;padding: 0;padding-top: 19px;background: #E6E7E8;color: #FA972B;text-align: center;" class="item">
-                                            <span style="font-size: 17px;">实付款:</span>
-                                            <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0">
-                                                {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}
-                                            </span>
-                                            <span style="font-size: 26px;" ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon < 0">
-                                                {{ 0 + ticketViewSumPrice  | currency: '￥' }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="col col-40" style="background: #E35C1D;border: none;" ng-click="checkRecharge()" ng-disabled="payBtnDisabled" ng-class="{true: 'unselected2', false: 'selected2'}[payBtnDisabled]" >
+                        <div class="col col-33 col-bottom">
+
+                            <!-- 有门票时 -->
+                            <div>
+
                                     <div style="text-align: center;">
-                                        <span style="color: white;font-size: 22px;line-height: 2;">去付款</span>
+                                        <span class="btnfont9">{{ sumPrice | currency: '￥' }}</span>
                                     </div>
-                                </button>
-                        </div> -->
 
-                        <div class="row" style="background: white;padding: 0;padding-bottom: 20px;">
-                                <div class="col"></div>
+                            </div>
+
                         </div>
-                        <div class="row" style="background: white;padding: 0;padding-bottom: 20px;">
-                                <div class="col"></div>
-                        </div>
-                        <div class="row" style="background: white;padding: 0;padding-bottom: 20px;">
-                                <div class="col"></div>
+
+                    </div>
+
+                    <!-- 占位元素 -->
+                    <div class="row" style="padding-top: 50px;padding-bottom: 0;">
+                        <div class="col" style="padding-bottom: 0;">
                         </div>
                     </div>
+                    
+                </div>
 
         </ion-content>
 
@@ -518,16 +351,50 @@
                     font-weight: 400;
                     ">
                     <span style="font-size: 17px;">实付款：</span>
-                    <span ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon >= 0">
-                        {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}
+
+                    <span ng-if="ticketInfo.viewInfo != null">
+
+                        <span ng-if="useCoupon">
+
+                            <span ng-if="ticketSumPrice - coupon >= 0">
+                                {{ ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon + ticketViewSumPrice  | currency: '￥' }}
+                            </span>
+                            <span ng-if="ticketSumPrice - coupon < 0">
+                                {{ 0 + ticketViewSumPrice  | currency: '￥' }}
+                            </span>
+
+                        </span>
+
+                        <span ng-if="!useCoupon">
+                            {{ sumPrice | currency: '￥' }}
+                        </span>
+
                     </span>
-                    <span ng-if="ticketSumPrice_forwardTicket  + ticketSumPrice_backwardTicket - coupon < 0">
-                        {{ 0 + ticketViewSumPrice  | currency: '￥' }}
+
+                    <span ng-if="ticketInfo.viewInfo == null">
+
+                        <span ng-if="useCoupon">
+
+                            <span ng-if="ticketSumPrice - coupon >= 0">
+                                {{ ticketSumPrice - coupon  | currency: '￥' }}
+                            </span>
+                            <span ng-if="ticketSumPrice - coupon < 0">
+                                {{ 0 + ticketViewSumPrice  | currency: '￥' }}
+                            </span>
+
+                        </span>
+
+                        <span ng-if="!useCoupon">
+                            {{ sumPrice | currency: '￥' }}
+                        </span>
+
                     </span>
+
+                    
 
                 </div>
 
-                <button ng-click="checkRecharge()" ng-disabled="payBtnDisabled" ng-class="{true: 'unselected2', false: 'selected2'}[payBtnDisabled]" class="button" style="
+                <button ng-click="recharge()" ng-disabled="payBtnDisabled" ng-class="{true: 'unselected2', false: 'selected2'}[payBtnDisabled]" class="button" style="
                     right: 0;
                     width: 30%;
                     height: 100%;
