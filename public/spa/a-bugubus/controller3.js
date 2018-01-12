@@ -1952,7 +1952,7 @@ app
 
             if($scope.ticketInfo.plans != null && $scope.ticketInfo.viewInfo != null) { // @有车票、门票的情况
 
-                if( $scope.dataContainer.count <= $scope.ticketInfo.leftTickets ) {
+                if( $scope.dataContainer.count < $scope.ticketInfo.leftTickets - 1 ) {
 
                     $scope.dataContainer.count += 1;
 
