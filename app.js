@@ -71,7 +71,7 @@ const expressStaticOptions = {
 		res.setHeader("Cache-Control", "public, max-age=3600000");
 	}
 };
-app.use(express.static(path.join(__dirname, 'public')));
+app.use( express.static( path.join(__dirname, 'public'), expressStaticOptions) );
 
 // @过滤掉前缀是api的服务接口
 app.use('/spa/api', api); // @挂载至'/spa/api'的中间件，任何指向'/spa/api'的请求都会执行它，api是一个函数
